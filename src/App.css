@@ -1,38 +1,80 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 5px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  padding: 10px;
+  background-color: black;
+  width: calc(100% - 10px);
+  z-index: 1000;
+}
+
+.navLink {
   color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.navLink:hover {
+  background-color: #555;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dropbtn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content .navLink {
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content .navLink:hover {
+  background-color: #555;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #555;
+}
+
+.content {
+  padding-top: 60px;
+}
+
+.fa-home, .fa-bars {
+  font-size: 20px;
+  padding-right: 5px;
 }
