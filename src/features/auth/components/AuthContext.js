@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import {getCookie} from "../../../utils/CookieUtil";
 
 const AuthContext = createContext();
 
@@ -8,6 +9,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
+                const token = getCookie('accessToken');
+                console.log(token);
                 const response = await fetch('/api/v1/check-auth', {
                     method: 'GET',
                     headers: {
