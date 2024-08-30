@@ -1,11 +1,9 @@
 // Login.js
-import React, { useState } from 'react';
-import {useNavigate} from "react-router-dom";
+import React, {useState} from 'react';
 
 const Login = () => {
     const [memberName, setMemberName] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

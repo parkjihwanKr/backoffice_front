@@ -1,7 +1,9 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Navigate, Route, Routes, Link } from 'react-router-dom';
 import Signup from './features/auth/components/Signup';
 import Login from "./features/auth/components/Login";
+import Logout from "./features/auth/components/Logout";
 import PrivateRoute from "./routes/PrivateRoute";
 import Boards from './features/boards/components/Boards';
 import Notifications from './features/notifications/components/Notifications';
@@ -12,7 +14,7 @@ import './assets/styles/App.css';
 
 // Font Awesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import HomePage from "./pages/HomePage";
 
 function App() {
@@ -25,15 +27,8 @@ function App() {
                             <FontAwesomeIcon icon={faHome} />
                         </Link>
 
-                        <div className="dropdown">
-                            <button className="dropbtn">
-                                <FontAwesomeIcon icon={faBars} />
-                            </button>
-                            <DropDownMenu />
-                        </div>
+                        <DropDownMenu />
                     </nav>
-
-                    <h1>Welcome to the Main Page</h1>
 
                     <Routes>
                         {/* JWT 보호가 필요 없는 페이지 */}
@@ -41,6 +36,7 @@ function App() {
                         <Route path="/auth/login" element={<Login />} />
 
                         {/* JWT 보호가 필요한 페이지 */}
+                        <Route path="/auth/logout" element={<PrivateRoute component={Logout} />} />
                         <Route path="/" element={<PrivateRoute component={HomePage} />} />
                         <Route path="/boards" element={<PrivateRoute component={Boards} />} />
                         <Route path="/notifications" element={<PrivateRoute component={Notifications} />} />
