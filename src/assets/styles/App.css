@@ -4,24 +4,27 @@ body {
 }
 
 .navbar {
-  position: fixed;
-  top: 0;
-  right: 5px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: black;
-  width: calc(100% - 10px);
-  z-index: 1000;
+  background-color: #f8f9fa; /* 부트스트랩 기본 배경색 */
 }
 
 .navLink {
-  color: white;
+  margin-right: 20px;
+  color: #000;
   text-decoration: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  font-family: 'Arial', sans-serif;
+  font-size: 1.2em;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.main-content {
+  margin-top: 20px;
+  padding: 20px;
 }
 
 .navLink:hover {
@@ -36,11 +39,6 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
 }
 
 .dropdown-content {
