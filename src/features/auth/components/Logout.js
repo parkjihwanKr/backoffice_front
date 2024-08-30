@@ -45,7 +45,6 @@ const Logout = () => {
             // 로그아웃 후 로그인 페이지로 이동
             navigate('/auth/login');
 
-            // 페이지 리로드하여 상태 초기화 (선택 사항)
             window.location.reload();
         } catch (error) {
             console.error('An error occurred during logout:', error);
