@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../features/auth/components/AuthContext';
-import {Dropdown, Modal, Button } from 'react-bootstrap';
+import { Dropdown, Modal, Button } from 'react-bootstrap';
 
 const DropDownMenu = () => {
-    const { isAuthenticated, role } = useAuth();
+    const { isAuthenticated, userName, role } = useAuth();  // userName을 추가로 가져옴
     const [showModal, setShowModal] = useState(false);
 
     const handleLogout = async () => {
         try {
             const response = await fetch('/api/v1/logout', {
-                method : 'POST',
+                method: 'POST',
                 headers: {
-                    'Content-Type':'application/json',
+                    'Content-Type': 'application/json',
                 },
                 credentials: 'include',
             });
@@ -27,8 +27,8 @@ const DropDownMenu = () => {
             localStorage.removeItem('refreshToken');
 
             window.location.href = '/auth/login';
-        } catch (error){
-            console.error("Error : "+error);
+        } catch (error) {
+            console.error("Error: " + error);
         }
     };
 
@@ -38,7 +38,7 @@ const DropDownMenu = () => {
     return (
         <>
             <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle id="dropdown-basic">
                     Menu
                 </Dropdown.Toggle>
 
@@ -50,9 +50,12 @@ const DropDownMenu = () => {
                         </>
                     ) : (
                         <>
+                            {userName && (
+                                <Dropdown.Item className="text-muted">
+                                    안녕하세요? {userName}씨
+                                </Dropdown.Item>
+                            )}
                             {role === 'admin' && <Dropdown.Item as={Link} to="/notifications">Notifications</Dropdown.Item>}
-                            <Dropdown.Item as={Link} to="/auth/signup">Signup</Dropdown.Item>
-                            <Dropdown.Item as={Link} to="/auth/login">Login</Dropdown.Item>
                             <Dropdown.Item onClick={handleShowModal}>Logout</Dropdown.Item>
                             <Dropdown.Item as={Link} to="/boards">Boards</Dropdown.Item>
                             <Dropdown.Item as={Link} to="/events">Events</Dropdown.Item>

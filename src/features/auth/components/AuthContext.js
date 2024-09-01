@@ -1,33 +1,30 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import {getCookie} from "../../../utils/CookieUtil";
+import { getCookie } from "../../../utils/CookieUtil";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const [userName, setUserName] = useState(''); // userName 상태 추가
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const accessToken = getCookie('accessToken');
-                const refreshToken = getCookie('refreshToken');
-                console.log("accessToken : ",accessToken);
-                console.log("refreshToken : ", refreshToken);
-                if(accessToken !== null){
-                    const response = await fetch('/api/v1/check-auth', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${accessToken}`, // Authorization 헤더에 JWT 토큰 추가
-                            'refreshToken' : `${refreshToken}`,
-                        },
-                        credentials: 'include' // 쿠키를 포함하여 요청
-                    });
+                const response = await fetch('/api/v1/check-auth', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                    credentials: 'include'
+                });
 
-                    if (response.ok) {
-                        setIsAuthenticated(true);
-                    } else {
-                        setIsAuthenticated(false);
-                    }
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsAuthenticated(true);
+                    setUserName(data.userName); // 서버에서 반환된 userName 설정
+                } else {
+                    setIsAuthenticated(false);
                 }
             } catch (error) {
                 console.error('Failed to check authentication', error);
@@ -39,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated }}>
+        <AuthContext.Provider value={{ isAuthenticated, userName }}>
             {children}
         </AuthContext.Provider>
     );
