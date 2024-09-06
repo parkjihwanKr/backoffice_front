@@ -14,9 +14,6 @@ const SignupForm = () => {
         contact:''
     });
 
-    // do not initialize
-    const [error, setError] = useState({});
-
     // name : value에 해당하는 값에 대해서 업데이트 처리
     // ...fromData는 현재 폼에 저장되어져있는 값을 그대로 가져옴
     const handleChange = (e) => {

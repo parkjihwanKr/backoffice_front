@@ -10,6 +10,7 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
+  background-color: white;
   border-bottom: 2px solid #d3d3d3; /* 하단 경계선을 검정색으로 설정 */
   padding: 10px 20px; /* 패딩을 조정하여 레이아웃을 정돈 */
   display: flex;
