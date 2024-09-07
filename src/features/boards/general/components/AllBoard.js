@@ -2,136 +2,164 @@ import React, { useState, useEffect } from 'react';
 import { getCookie } from "../../../../utils/CookieUtil";
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS 적용
+import './AllBoard.css'; // CSS 파일 import
 
+// AllBoards 컴포넌트
 const AllBoards = () => {
-    const [boards, setBoards] = useState([]); // 게시글 목록을 저장할 상태
-    const [loading, setLoading] = useState(true); // 로딩 상태 관리
-    const [error, setError] = useState(null); // 에러 상태 관리
-    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 관리
+    // 상태 정의
+    const [boards, setBoards] = useState([]); // 게시글 목록 상태
+    const [loading, setLoading] = useState(true); // 로딩 상태
+    const [error, setError] = useState(null); // 에러 상태
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
     const itemsPerPage = 8; // 한 페이지에 보여줄 게시글 수
-    const accessToken = getCookie('accessToken');
-    const navigate = useNavigate(); // 페이지 이동을 위한 네비게이트 훅
+    const accessToken = getCookie('accessToken'); // 쿠키에서 토큰 가져오기
+    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
 
-    // S3 서버의 이미지 prefix
+    // S3 이미지 경로 및 기본 이미지 URL 배열
     const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
+    const defaultImageUrls = [
+        `${imagePrefix}/board/brainstorming.png`,
+        `${imagePrefix}/board/workshop.png`,
+        `${imagePrefix}/board/communication.png`
+    ];
 
-    // 카테고리에 따라 기본 이미지를 할당하는 함수
-    const getDefaultImage = (category) => {
-        if (category === "전체 알림") {
-            return `${imagePrefix}/board/brainstorming.png`;
-        } else if (category === "회의실") {
-            return `${imagePrefix}/board/workshop.png`;
-        } else if (category === "협업") {
-            return `${imagePrefix}/board/communication.png`;
-        } else {
-            // 카테고리가 지정되지 않았을 경우 기본 이미지 설정
-            return `${imagePrefix}/board/communication.png`;
+    // 기본 이미지를 순서대로 할당하는 함수
+    const getDefaultImage = (index) => {
+        return defaultImageUrls[index % defaultImageUrls.length];
+    };
+
+    // 게시판 데이터를 서버에서 가져오는 함수
+    const fetchBoards = async () => {
+        try {
+            const response = await fetch('/api/v1/boards', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch boards');
+            }
+
+            const data = await response.json();
+            console.log(data.content); // 데이터 확인을 위해 콘솔에 출력
+            setBoards(data.content); // 게시글 목록 설정
+            setLoading(false); // 로딩 완료
+        } catch (error) {
+            setError(error.message); // 에러 상태 업데이트
+            setLoading(false); // 로딩 완료
         }
     };
 
+    // 컴포넌트가 처음 렌더링될 때 서버에서 게시글 목록을 가져옴
     useEffect(() => {
-        const fetchBoards = async () => {
-            try {
-                const response = await fetch('/api/v1/boards', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`,
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch boards');
-                }
-
-                const data = await response.json();
-                setBoards(data.content); // Page 객체의 content 부분에 게시글 목록이 있음
-                setLoading(false); // 로딩 완료
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
-            }
-        };
-
         fetchBoards();
     }, [accessToken]);
-
-    if (loading) {
-        return <p>Loading...</p>; // 로딩 중일 때
-    }
-
-    if (error) {
-        return <p>Error: {error}</p>; // 에러 발생 시
-    }
-
-    // 현재 페이지에 맞는 게시글들 계산
-    const indexOfLastBoard = currentPage * itemsPerPage;
-    const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
-    const currentBoards = boards.slice(indexOfFirstBoard, indexOfLastBoard);
-
-    // 페이지 번호 계산
-    const totalPages = Math.ceil(boards.length / itemsPerPage);
 
     // 페이지 변경 핸들러
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    // 게시글 상세 페이지로 이동하는 함수
-    const goToBoardDetail = (boardId) => {
+    // 게시글 클릭 시 상세 페이지로 이동하는 함수
+    const handleCardClick = (boardId) => {
+        console.log(boardId); // 클릭된 게시글의 ID 확인
         if (boardId) {
-            navigate(`/all-boards/${boardId}`);
+            navigate(`/all-boards/${boardId}`); // 상세 페이지로 이동
         } else {
-            console.error("boardId is undefined");
+            console.error('boardId is undefined'); // boardId가 없으면 오류 출력
         }
     };
 
+    // 페이지네이션을 적용한 게시글 목록 계산
+    const indexOfLastBoard = currentPage * itemsPerPage;
+    const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
+    const currentBoards = boards.slice(indexOfFirstBoard, indexOfLastBoard);
+
+    // 총 페이지 수 계산
+    const totalPages = Math.ceil(boards.length / itemsPerPage);
+
+    // 로딩 중일 때 출력할 메시지
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    // 에러가 발생했을 때 출력할 메시지
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+
+    // UI 렌더링
     return (
-        <div className="container mt-5">
+        <div className="container">
             {/* 공지 사항 타이틀 중앙 정렬 */}
             <div className="d-flex justify-content-center mb-3">
                 <h2>공지 사항</h2>
             </div>
 
-            {/* 새 게시글 작성 버튼 - 오른쪽 정렬 */}
+            {/* 새 게시글 작성 버튼 */}
             <div className="d-flex justify-content-end mb-3">
                 <Link to="/create-board">
                     <button className="btn btn-primary">새 게시글 작성</button>
                 </Link>
             </div>
 
-            {/* 게시판 카드 */}
+            {/* 게시판 카드 목록 */}
             <div className="row">
                 {currentBoards.map((board, index) => (
                     <div
                         className="col-md-12 mb-3"
-                        key={board.id || index}
-                        style={{
-                            margin: '0 auto',
-                            cursor: 'pointer', // 클릭 가능한 느낌을 주기 위해 커서 스타일 추가
-                        }}
-                        onClick={() => goToBoardDetail(board.id)} // 게시글 상세 페이지로 이동
+                        key={board.boardId || index}
+                        onClick={() => handleCardClick(board.boardId)} // 클릭 시 상세 페이지로 이동
+                        style={{ cursor: 'pointer' }} // 커서 스타일 변경
                     >
-                        <div className="card" style={{ position: 'relative', flexDirection: 'column' }}>
-                            {/* 이미지 부분 */}
-                            <div className="col-12 p-0">
-                                <img
-                                    src={getDefaultImage(board.category)} // 카테고리별 이미지 부여
-                                    alt="Board Image"
-                                    className="card-img-top img-fluid"
-                                    style={{ width: '100%', objectFit: 'cover' }}
-                                />
-                            </div>
-                            {/* 텍스트 부분 */}
-                            <div className="col-12 d-flex flex-column justify-content-center text-center p-2">
-                                <div className="card-body">
-                                    <h3 className="card-title" style={{ marginTop: '5px' }}>{board.title}</h3>
-                                    <p className="card-text" style={{ marginTop: '2px' }}>{board.content}</p>
+                        <div className="card">
+                            <div className="row no-gutters d-flex">
+                                {/* 중요 게시물 아이콘 */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    left: '0px',
+                                    zIndex: '1'
+                                }}>
+                                    <img
+                                        src={board.isImportant ? `${imagePrefix}/shared/isImportant_true.png` : `${imagePrefix}/shared/isImportant_false.png`}
+                                        alt={board.isImportant ? "Important" : "Not Important"}
+                                        width="30"
+                                    />
                                 </div>
-                                <div className="d-flex justify-content-between" style={{ padding: '10px' }}>
-                                    <span>좋아요: {board.likeCount} </span>
-                                    <span>조회수: {board.viewCount} </span>
-                                    <span>댓글 수: {board.commentCount}</span>
+                                {/* 왼쪽: 게시물 이미지 */}
+                                <div className="col-md-6">
+                                    <img
+                                        src={getDefaultImage(index)}
+                                        alt="Board Image"
+                                        className="card-img-left"
+                                    />
+                                </div>
+                                {/* 오른쪽: 게시물 텍스트 */}
+                                <div className="col-md-6 d-flex flex-column justify-content-center text-center">
+                                    <div className="card-body">
+                                        <h3 className="card-title">{board.title}</h3>
+                                        <p className="card-text">{board.content}</p>
+                                    </div>
+
+                                    {/* 좋아요, 조회수, 댓글 수 */}
+                                    <div className="hover-info d-flex justify-content-between">
+                                        <span>
+                                            <img src={`${imagePrefix}/shared/likes.png`} alt="likes"
+                                                 style={{ width: '20px', height: '20px' }}/> {board.likeCount}
+                                        </span>
+                                        <span>
+                                            <img src={`${imagePrefix}/shared/viewCount.png`} alt="views"
+                                                 style={{ width: '20px', height: '20px' }}/> {board.viewCount}
+                                        </span>
+                                        <span>
+                                            <img src={`${imagePrefix}/shared/speech_balloon.png`} alt="comments"
+                                                 style={{ width: '25px', height: '20px' }}/> {board.commentCount}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

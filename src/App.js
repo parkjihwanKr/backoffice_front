@@ -10,17 +10,17 @@ import Notifications from './features/notifications/components/Notifications';
 import Events from './features/events/components/Events';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/general/components/CreateBoard";
-import { AuthProvider } from './features/auth/components/AuthContext';
 import DropDownMenu from "./components/ui/DropDownMenu";
+import AllBoards from "./features/boards/general/components/AllBoard";
+import BoardDetails from "./features/boards/general/components/BoardDetails";
+
 import './assets/styles/App.css';
 
 // Font Awesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AuthProvider } from './features/auth/components/AuthContext';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import HomePage from "./pages/HomePage";
-import AllBoards from "./features/boards/general/components/AllBoard";
-import Board from "./features/boards/general/components/BoardDetails";
-import BoardDetails from "./features/boards/general/components/BoardDetails";
 
 function App() {
     return (
