@@ -12,7 +12,7 @@ import DepartmentBoards from './features/boards/department/components/Department
 import CreateBoard from "./features/boards/general/components/CreateBoard";
 import DropDownMenu from "./components/ui/DropDownMenu";
 import AllBoards from "./features/boards/general/components/AllBoard";
-import BoardDetails from "./features/boards/general/components/BoardDetails";
+import BoardDetails from "./features/boards/general/components/boardDetails/BoardDetails";
 
 import './assets/styles/App.css';
 

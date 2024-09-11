@@ -23,6 +23,14 @@ const AllBoards = () => {
         `${imagePrefix}/board/communication.png`
     ];
 
+    // 페이지네이션을 적용한 게시글 목록 계산
+    const indexOfLastBoard = currentPage * itemsPerPage;
+    const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
+    const currentBoards = boards.slice(indexOfFirstBoard, indexOfLastBoard);
+
+    // 총 페이지 수 계산
+    const totalPages = Math.ceil(boards.length / itemsPerPage);
+
     // 기본 이미지를 순서대로 할당하는 함수
     const getDefaultImage = (index) => {
         return defaultImageUrls[index % defaultImageUrls.length];
@@ -72,14 +80,6 @@ const AllBoards = () => {
             console.error('boardId is undefined'); // boardId가 없으면 오류 출력
         }
     };
-
-    // 페이지네이션을 적용한 게시글 목록 계산
-    const indexOfLastBoard = currentPage * itemsPerPage;
-    const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
-    const currentBoards = boards.slice(indexOfFirstBoard, indexOfLastBoard);
-
-    // 총 페이지 수 계산
-    const totalPages = Math.ceil(boards.length / itemsPerPage);
 
     // 로딩 중일 때 출력할 메시지
     if (loading) {
