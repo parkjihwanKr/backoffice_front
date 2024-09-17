@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 // 상수 변수명 대문자?
 // Hooks 규칙 useState(), useEffect... 상단에 위치할 것
@@ -13,10 +14,7 @@ const SignupForm = () => {
         address:'',
         contact:''
     });
-
-    // do not initialize
-    const [error, setError] = useState({});
-
+    const navigate = useNavigate();
     // name : value에 해당하는 값에 대해서 업데이트 처리
     // ...fromData는 현재 폼에 저장되어져있는 값을 그대로 가져옴
     const handleChange = (e) => {
@@ -43,6 +41,7 @@ const SignupForm = () => {
             if (response.ok) {
                 const result = await response.text();
                 console.log(result); // "User registered successfully"
+                navigate('/auth/login');
             } else {
                 console.error("Failed to register user");
             }
