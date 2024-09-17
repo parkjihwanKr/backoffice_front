@@ -1,4 +1,4 @@
-// Events.js
+// Boards.js
 import React from 'react';
 
 const Events = () => {

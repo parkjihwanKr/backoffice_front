@@ -1,43 +1,33 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getCookie } from "../../../utils/CookieUtil";
+import {getCookie} from "../../../utils/CookieUtil";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
-    const [id, setId] = useState('');  // 사용자 ID
-    const [name, setName] = useState('');  // 사용자 이름
-    const [department, setDepartment] = useState('');  // 사용자 부서
-    const [role, setRole] = useState('');  // 사용자 역할
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const accessToken = getCookie('accessToken');
-                const response = await fetch('/api/v1/check-auth', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                    },
-                    credentials: 'include'
-                });
+                const refreshToken = getCookie('refreshToken');
+                console.log("accessToken : ",accessToken);
+                console.log("refreshToken : ", refreshToken);
+                if(accessToken !== null){
+                    const response = await fetch('/api/v1/check-auth', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`, // Authorization 헤더에 JWT 토큰 추가
+                            'refreshToken' : `${refreshToken}`,
+                        },
+                        credentials: 'include' // 쿠키를 포함하여 요청
+                    });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
-
-                    // 서버에서 받은 data의 구조에 맞게 처리
-                    if (data.data) {
+                    if (response.ok) {
                         setIsAuthenticated(true);
-                        setId(data.data.id);
-                        setName(data.data.name); // 사용자 이름 설정
-                        setDepartment(data.data.department); // 부서 설정
-                        setRole(data.data.position); // 역할 설정
                     } else {
-                        console.error("Unexpected data structure!");
+                        setIsAuthenticated(false);
                     }
-                } else {
-                    setIsAuthenticated(false);
                 }
             } catch (error) {
                 console.error('Failed to check authentication', error);
@@ -49,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, id, name, department, role }}>
+        <AuthContext.Provider value={{ isAuthenticated }}>
             {children}
         </AuthContext.Provider>
     );
