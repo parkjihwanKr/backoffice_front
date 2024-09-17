@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
+/*BoardDetailsFooter*/
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './BoardDetailsFooter.css';
+import {useAuth} from "../../../../auth/components/AuthContext";
 
-const BoardDetailsFooter = ({ boardId, reactionList, userName, accessToken, likeCount, commentCount, viewCount }) => {
+const BoardDetailsFooter = ({ boardId, reactionList, accessToken, likeCount, commentCount, viewCount }) => {
     const [liked, setLiked] = useState(false);
     const [reactionId, setReactionId] = useState(null);  // 초기 reactionId 설정
     const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);  // 좋아요 수 상태
+    const { id } = useAuth();  // userId를 AuthContext에서 가져옴
     const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
 
-    // 디버깅용 로그 추가
     useEffect(() => {
-
-        if (reactionList) {
+        console.log(reactionList);
+        console.log(id);
+        if (reactionList && reactionList.length > 0) {
             const userReaction = reactionList.find(
-                (reaction) => reaction.reactorName === userName // 로그인한 사용자의 리액션 찾기
+                (reaction) => reaction.reactorId === id,  // reactorId를 기반으로 로그인한 사용자의 리액션 찾기
             );
-
             if (userReaction) {
                 setLiked(true);  // 사용자가 좋아요를 눌렀으면 liked를 true로 설정
                 setReactionId(userReaction.reactionId);  // reactionId 설정
@@ -24,15 +26,11 @@ const BoardDetailsFooter = ({ boardId, reactionList, userName, accessToken, like
                 setReactionId(null);  // reactionId를 null로 설정
             }
         } else {
-            console.error("reactionList is null or undefined.");
+            console.log("reactionList is null or undefined.");
         }
 
         setCurrentLikeCount(likeCount);  // 만약 서버에서 좋아요 수가 변경된 경우, 그 값을 반영
-    }, [reactionList, userName, likeCount]);
-
-    useEffect(() => {
-        console.log("Liked status has been updated: ", liked);
-    }, [liked]);
+    }, [reactionList, id, likeCount]);
 
     const handleLikeClick = async () => {
         const likeUrl = `/api/v1/boards/${boardId}/reactions`;
@@ -82,7 +80,7 @@ const BoardDetailsFooter = ({ boardId, reactionList, userName, accessToken, like
 
             <span className="meta-item comment-count">
                 <img
-                    src={`${imagePrefix}/shared/speech_balloon.png`}
+                    src={`${imagePrefix}/shared/commentList.png`}
                     alt="comments"
                     className="meta-icon"
                 />

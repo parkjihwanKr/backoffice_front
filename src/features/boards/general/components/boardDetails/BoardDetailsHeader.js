@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './BoardDetailsHeader.css';
 
-const BoardDetailsHeader = ({ title, isImportant, imagePrefix, userName, board, setShowEditModal, setShowDeleteModal }) => {
+const BoardDetailsHeader = ({ title, isImportant, imagePrefix, name, board, setShowEditModal, setShowDeleteModal }) => {
     return (
         <div className="card-header">
             <div className="icon">
@@ -14,7 +14,7 @@ const BoardDetailsHeader = ({ title, isImportant, imagePrefix, userName, board, 
             <h2>{title}</h2>
 
             {/* 게시글 주인일 경우 항상 수정/삭제 아이콘 표시 */}
-            {userName === board.writer && (
+            {name === board.author && (
                 <div className="action-icons">
                     <img
                         src={`${imagePrefix}/shared/edit_document.png`}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getCookie } from "../../../../../utils/CookieUtil";
 import { useAuth } from "../../../../auth/components/AuthContext";
-import Comments from './Comments'; // 새로운 Comments 컴포넌트
+import Comments from './comments/Comments'; // 새로운 Comments 컴포넌트
 import BoardDetailsFooter from './BoardDetailsFooter'; // 새로운 LikeButton 컴포넌트
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
@@ -16,7 +16,7 @@ const BoardDetails = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const accessToken = getCookie('accessToken');
-    const { userName } = useAuth(); // 현재 로그인한 사용자의 이름
+    const { userId, name } = useAuth();
     const [comments, setComments] = useState([]);
     const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const [files, setFiles] = useState([]);
@@ -26,7 +26,7 @@ const BoardDetails = () => {
 
     const userReaction = board && board.reactionList
         ? board.reactionList.find(
-            (reaction) => reaction.reactorName === userName  // 로그인한 사용자의 리액션 찾기
+            (reaction) => reaction.reactorId === userId // userId 기반으로 리액션 찾기
         )
         : null;
 
@@ -47,6 +47,7 @@ const BoardDetails = () => {
     };
 
     useEffect(() => {
+        console.log("userReaction : "+userReaction);
         const fetchBoard = async () => {
             try {
                 const response = await fetch(`/api/v1/boards/${boardId}`, {
@@ -111,7 +112,13 @@ const BoardDetails = () => {
             setBoard(updatedBoard);
             setShowEditModal(false);
         } catch (error) {
-            console.error(error);
+            if (error.response && error.response.data) {
+                const errorCode = error.response.data.errorCode;
+                const errorMessage = error.response.data.message; // 도메인별 에러 메시지
+                alert(`${errorCode} : ${errorMessage}`);
+            }else{
+                console.error(error);
+            }
         }
     };
 
@@ -152,7 +159,7 @@ const BoardDetails = () => {
                     isImportant={board.isImportant}
                     imagePrefix={imagePrefix}
                     board={board}
-                    userName={userName}
+                    name={name}
                     setShowEditModal={setShowEditModal}
                     setShowDeleteModal={setShowDeleteModal}
                 />
@@ -165,7 +172,7 @@ const BoardDetails = () => {
                     boardId={boardId}
                     reactionId={reactionId}
                     reactionList={board.reactionList}
-                    userName={userName}
+                    name={name}
                     accessToken={accessToken}
                     likeCount={board.likeCount}
                     commentCount={board.commentCount}
@@ -178,7 +185,7 @@ const BoardDetails = () => {
             <div className="card-footer comment-section">
                 <Comments
                     comments={comments}
-                    userName={userName}
+                    name={name}
                     boardId={boardId}
                     accessToken={accessToken}
                     setComments={setComments}

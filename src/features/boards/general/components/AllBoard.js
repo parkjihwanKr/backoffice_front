@@ -156,7 +156,7 @@ const AllBoards = () => {
                                                  style={{ width: '20px', height: '20px' }}/> {board.viewCount}
                                         </span>
                                         <span>
-                                            <img src={`${imagePrefix}/shared/speech_balloon.png`} alt="comments"
+                                            <img src={`${imagePrefix}/shared/commentList.png`} alt="comments"
                                                  style={{ width: '25px', height: '20px' }}/> {board.commentCount}
                                         </span>
                                     </div>

@@ -1,13 +1,14 @@
 // Login.js
 import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [memberName, setMemberName] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await fetch('/api/v1/login', {
                 method: 'POST',
