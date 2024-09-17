@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AuthProvider } from './features/auth/components/AuthContext';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import HomePage from "./pages/HomePage";
+import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetail";
 
 function App() {
     return (
@@ -50,6 +51,8 @@ function App() {
                         <Route path="/all-boards" element={<PrivateRoute component={AllBoards} />} />
                         <Route path="/create-board" element={<PrivateRoute component={CreateBoard} />} />
                         <Route path="/all-boards/:boardId" element={<PrivateRoute component={BoardDetails} />} />
+                        <Route path="/departments/:departmentName/boards/:boardId"
+                               element={<PrivateRoute component = {DepartmentBoardDetail} />} />
                         {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
                         <Route path="*" element={<Navigate to="/auth/login" replace />} />
                     </Routes>
