@@ -25,7 +25,7 @@ const DepartmentBoards = () => {
     const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
     const currentBoards = departmentBoards.slice(indexOfFirstBoard, indexOfLastBoard);
     const totalPages = Math.ceil(departmentBoards.length / itemsPerPage);
-
+    const test = null;
     const getDefaultImage = (index) => {
         return defaultImageUrls[index % defaultImageUrls.length];
     };
