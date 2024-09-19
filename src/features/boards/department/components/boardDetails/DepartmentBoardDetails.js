@@ -10,7 +10,6 @@ import DepartmentBoardDetailsBody from "./DepartmentBoardDetailsBody";
 import DepartmentBoardDetailsFooter from "./DepartmentBoardDetailsFooter";
 import './DepartmentBoardDetails.css';
 
-// import Comments from './comments/Comments'; // 새로운 Comments 컴포넌트
 const DepartmentBoardDetails = () => {
     const { departmentName, boardId } = useParams();
     const navigate = useNavigate();
