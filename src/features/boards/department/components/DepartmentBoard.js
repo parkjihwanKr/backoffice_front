@@ -12,7 +12,7 @@ const DepartmentBoards = () => {
     const itemsPerPage = 8; // 한 페이지에 보여줄 게시글 수
     const accessToken = getCookie('accessToken'); // 쿠키에서 토큰 가져오기
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
-    const { department } = useParams(); // URL에서 department 받아오기 (수정됨)
+    const { department } = useParams(); // URL에서 department 받아오기
 
     const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const defaultImageUrls = [
@@ -25,7 +25,7 @@ const DepartmentBoards = () => {
     const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
     const currentBoards = departmentBoards.slice(indexOfFirstBoard, indexOfLastBoard);
     const totalPages = Math.ceil(departmentBoards.length / itemsPerPage);
-    const test = null;
+
     const getDefaultImage = (index) => {
         return defaultImageUrls[index % defaultImageUrls.length];
     };
@@ -85,7 +85,7 @@ const DepartmentBoards = () => {
             </div>
 
             <div className="d-flex justify-content-end mb-3">
-                <Link to="/create-board">
+                <Link to={`/create-department-board/${department}`}>
                     <button className="btn btn-primary">새 게시글 작성</button>
                 </Link>
             </div>
@@ -100,13 +100,21 @@ const DepartmentBoards = () => {
                     >
                         <div className="card">
                             <div className="row no-gutters d-flex">
-                                <div style={{ position: 'absolute', top: '10px', left: '0px', zIndex: '1' }}>
+                                <div style={{position: 'absolute', top: '10px', left: '33px', zIndex: '1'}}>
+                                    <img
+                                        src={board.isLocked ? `${imagePrefix}/shared/lock.png` : `${imagePrefix}/shared/unlock.png`}
+                                        alt={board.isLocked ? "Locked" : "Unlocked"}
+                                        width="30"
+                                    />
+                                </div>
+                                <div style={{position: 'absolute', top: '10px', left: '0px', zIndex: '1'}}>
                                     <img
                                         src={board.isImportant ? `${imagePrefix}/shared/isImportant_true.png` : `${imagePrefix}/shared/isImportant_false.png`}
                                         alt={board.isImportant ? "Important" : "Not Important"}
                                         width="30"
                                     />
                                 </div>
+
                                 <div className="col-md-6">
                                     <img
                                         src={getDefaultImage(index)}
@@ -122,13 +130,16 @@ const DepartmentBoards = () => {
 
                                     <div className="hover-info d-flex justify-content-between">
                                         <span>
-                                            <img src={`${imagePrefix}/shared/likes.png`} alt="likes" style={{ width: '20px', height: '20px' }} /> {board.likeCount}
+                                            <img src={`${imagePrefix}/shared/likes.png`} alt="likes"
+                                                 style={{width: '20px', height: '20px'}}/> {board.likeCount}
                                         </span>
                                         <span>
-                                            <img src={`${imagePrefix}/shared/viewCount.png`} alt="views" style={{ width: '20px', height: '20px' }} /> {board.viewCount}
+                                            <img src={`${imagePrefix}/shared/viewCount.png`} alt="views"
+                                                 style={{width: '20px', height: '20px'}}/> {board.viewCount}
                                         </span>
                                         <span>
-                                            <img src={`${imagePrefix}/shared/commentList.png`} alt="comments" style={{ width: '25px', height: '20px' }} /> {board.commentCount}
+                                            <img src={`${imagePrefix}/shared/commentList.png`} alt="comments"
+                                                 style={{width: '25px', height: '20px'}}/> {board.commentCount}
                                         </span>
                                     </div>
                                 </div>

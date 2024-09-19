@@ -1,6 +1,7 @@
+// App.js
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Navigate, Route, Routes, Link } from 'react-router-dom';
+import {BrowserRouter as Router, Link, Navigate, Route, Routes} from 'react-router-dom';
 import Signup from './features/auth/components/Signup';
 import Login from "./features/auth/components/Login";
 import Logout from "./features/auth/components/Logout";
@@ -17,11 +18,12 @@ import BoardDetails from "./features/boards/general/components/boardDetails/Boar
 import './assets/styles/App.css';
 
 // Font Awesome imports
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AuthProvider } from './features/auth/components/AuthContext';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {AuthProvider} from './features/auth/components/AuthContext';
+import {faHome} from '@fortawesome/free-solid-svg-icons';
 import HomePage from "./pages/HomePage";
-import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetail";
+import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetails";
+import CreateDepartmentBoard from "./features/boards/department/components/CreateDepartmentBoard";
 
 function App() {
     return (
@@ -47,12 +49,15 @@ function App() {
                         <Route path="/boards/*" element={<PrivateRoute component={Boards} />} />
                         <Route path="/notifications" element={<PrivateRoute component={Notifications} />} />
                         <Route path="/events" element={<PrivateRoute component={Events} />} />
-                        <Route path="/department-boards/:department" element={<PrivateRoute component={DepartmentBoards} />} />
                         <Route path="/all-boards" element={<PrivateRoute component={AllBoards} />} />
                         <Route path="/create-board" element={<PrivateRoute component={CreateBoard} />} />
                         <Route path="/all-boards/:boardId" element={<PrivateRoute component={BoardDetails} />} />
+                        <Route path="/department-boards/:department"
+                               element={<PrivateRoute component={DepartmentBoards} />} />
                         <Route path="/departments/:departmentName/boards/:boardId"
                                element={<PrivateRoute component = {DepartmentBoardDetail} />} />
+                        <Route path="/create-department-board/:department"
+                               element={<PrivateRoute component={CreateDepartmentBoard} />} />
                         {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
                         <Route path="*" element={<Navigate to="/auth/login" replace />} />
                     </Routes>

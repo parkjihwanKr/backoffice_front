@@ -1,3 +1,5 @@
+/*DepartmentBoardDetails.css*/
+
 /* 카드 헤더 */
 .board-details .card-header {
     background-color: #f8f9fa;
@@ -41,24 +43,8 @@
 /* 댓글 섹션에 음영과 배경색을 추가 */
 .comment-section {
     background-color: #f9f9f9;
-    width: 100%;
+    width:100%;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    max-width: 1200px; /* 원하는 최대 너비 설정 (예: 1200px) */
-    margin: 0 auto; /* 중앙 정렬을 위해 margin 설정 */
-    box-sizing: border-box; /* padding과 border를 너비에 포함 */
-}
-
-/* 공통 너비 스타일링 */
-.board-details,
-.comment-section {
-    width: 100%;
-    max-width: 1200px; /* 원하는 최대 너비 설정 */
-    margin: 0 auto; /* 중앙 정렬 */
-    box-sizing: border-box; /* 패딩과 border를 너비에 포함 */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
