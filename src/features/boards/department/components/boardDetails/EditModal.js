@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import {Button, Form, Modal} from 'react-bootstrap';
 
 const EditModal = ({ show, handleClose, editForm, setEditForm, handleEditSubmit, handleFileChange }) => {
     return (
@@ -57,14 +57,23 @@ const EditModal = ({ show, handleClose, editForm, setEditForm, handleEditSubmit,
                             onChange={(e) => setEditForm({ ...editForm, isImportant: e.target.checked })}
                         />
                     </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Check
+                            type="checkbox"
+                            label="잠금 여부"
+                            checked={editForm.isLocked}
+                            onChange={(e) => setEditForm({ ...editForm, isLocked: e.target.checked })}
+                        />
+                    </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    취소
-                </Button>
                 <Button variant="primary" onClick={handleEditSubmit}>
                     저장
+                </Button>
+
+                <Button variant="secondary" onClick={handleClose}>
+                    취소
                 </Button>
             </Modal.Footer>
         </Modal>
