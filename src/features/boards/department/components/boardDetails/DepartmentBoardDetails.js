@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
-import {getCookie} from "../../../../../utils/CookieUtil";
-import {useAuth} from "../../../../auth/components/AuthContext";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getCookie } from "../../../../../utils/CookieUtil";
+import { useAuth } from "../../../../auth/components/AuthContext";
 import Comments from "../../../shared/components/comments/Comments";
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
+import EditIsLockedModal from './EditIsLockedModal'; // 잠금 상태 변경 모달 추가
 import DepartmentBoardDetailsHeader from "./DepartmentBoardDetailsHeader";
 import DepartmentBoardDetailsBody from "./DepartmentBoardDetailsBody";
 import DepartmentBoardDetailsFooter from "./DepartmentBoardDetailsFooter";
+import EditIsImportantModal from "./EditIsImportantModal";
 import './DepartmentBoardDetails.css';
 
 const DepartmentBoardDetails = () => {
@@ -24,6 +26,8 @@ const DepartmentBoardDetails = () => {
 
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showIsLockedEditModal, setShowIsLockedEditModal] = useState(false);
+    const [showIsImportantEditModal, setShowIsImportantEditModal] = useState(false);
 
     const userReaction = board && board.reactionList
         ? board.reactionList.find(
@@ -36,7 +40,7 @@ const DepartmentBoardDetails = () => {
     const [editForm, setEditForm] = useState({
         title: '',
         content: '',
-        category: '',
+        category: '회의실',
         isImportant: false,
         department: '',
         isLocked: false
@@ -48,7 +52,6 @@ const DepartmentBoardDetails = () => {
     };
 
     useEffect(() => {
-        console.log("userReaction : "+userReaction);
         const fetchBoard = async () => {
             try {
                 const response = await fetch(`/api/v1/departments/${departmentName}/boards/${boardId}`, {
@@ -64,7 +67,6 @@ const DepartmentBoardDetails = () => {
 
                 const data = await response.json();
                 setBoard(data);
-                console.log(data);
                 setComments(data.commentList || []);
                 setLoading(false);
             } catch (error) {
@@ -74,7 +76,7 @@ const DepartmentBoardDetails = () => {
         };
 
         fetchBoard();
-    }, [boardId, accessToken]);
+    }, [boardId, accessToken, board?.isImportant, board?.isLocked]);
 
     // 게시글 수정 API 호출
     const handleEditSubmit = async () => {
@@ -87,7 +89,7 @@ const DepartmentBoardDetails = () => {
                 category: editForm.category,
                 isImportant: editForm.isImportant,
                 department: board.department,
-                isLocked: board.isLocked,
+                isLocked: editForm.isLocked,
             });
             formData.append('data', new Blob([json], { type: 'application/json' }));
 
@@ -97,7 +99,7 @@ const DepartmentBoardDetails = () => {
                 }
             }
 
-            const response = await fetch(`/api/v1/boards/${boardId}`, {
+            const response = await fetch(`/api/v1/departments/${departmentName}/boards/${boardId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -110,16 +112,15 @@ const DepartmentBoardDetails = () => {
             }
 
             const updatedBoard = await response.json();
-            setBoard(updatedBoard);
+            setBoard(prevBoard => ({
+                ...updatedBoard, // 서버로부터 받은 최신 게시글 데이터 반영
+                authorDepartment: updatedBoard.authorDepartment || prevBoard.authorDepartment, // 실시간 적용
+                authorPosition: updatedBoard.authorPosition || prevBoard.authorPosition, // 실시간 적용
+                commentCount : updatedBoard.commentCount || prevBoard.commentCount
+            }));
             setShowEditModal(false);
         } catch (error) {
-            if (error.response && error.response.data) {
-                const errorCode = error.response.data.errorCode;
-                const errorMessage = error.response.data.message; // 도메인별 에러 메시지
-                alert(`${errorCode} : ${errorMessage}`);
-            }else{
-                console.error(error);
-            }
+            console.error(error);
         }
     };
 
@@ -129,7 +130,6 @@ const DepartmentBoardDetails = () => {
             const response = await fetch(`/api/v1/boards/${boardId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`,
                 }
             });
@@ -138,7 +138,59 @@ const DepartmentBoardDetails = () => {
                 throw new Error('Failed to delete board');
             }
 
-            navigate('/');
+            navigate(`/department-boards/${departmentName}`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // 게시글 잠금 상태 수정 API 호출
+    const handleEditIsLockedSubmit = async () => {
+        try {
+            const response = await fetch(`/api/v1/boards/${boardId}/lock`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update lock status');
+            }
+
+            const updatedBoard = await response.json();
+            // isLocked만 업데이트, 기존의 board 데이터를 유지
+            setBoard(prevBoard => ({
+                ...prevBoard,
+                isLocked: updatedBoard.isLocked // 잠금 상태만 업데이트
+            }));
+            setShowIsLockedEditModal(false); // 잠금 상태 모달 닫기
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // 게시글 중요 상태 수정 API 호출
+    const handleEditIsImportantSubmit = async () => {
+        try {
+            const response = await fetch(`/api/v1/boards/${boardId}/important`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update lock status');
+            }
+
+            const updatedBoard = await response.json();
+            // isLocked만 업데이트, 기존의 board 데이터를 유지
+            setBoard(prevBoard => ({
+                ...prevBoard,
+                isImportant: updatedBoard.isImportant // 잠금 상태만 업데이트
+            }));
+            setShowIsImportantEditModal(false); // 잠금 상태 모달 닫기
         } catch (error) {
             console.error(error);
         }
@@ -158,9 +210,12 @@ const DepartmentBoardDetails = () => {
                 <DepartmentBoardDetailsHeader
                     title={board.title}
                     isImportant={board.isImportant}
+                    isLocked={board.isLocked}
                     imagePrefix={imagePrefix}
                     board={board}
                     name={name}
+                    setShowIsImportantEditModal={setShowIsImportantEditModal}
+                    setShowIsLockedEditModal={setShowIsLockedEditModal}
                     setShowEditModal={setShowEditModal}
                     setShowDeleteModal={setShowDeleteModal}
                 />
@@ -192,6 +247,7 @@ const DepartmentBoardDetails = () => {
                     setComments={setComments}
                 />
             </div>
+
             {/* 모달 컴포넌트들 */}
             <EditModal
                 show={showEditModal}
@@ -206,6 +262,18 @@ const DepartmentBoardDetails = () => {
                 show={showDeleteModal}
                 handleClose={() => setShowDeleteModal(false)}
                 handleDeleteSubmit={handleDeleteSubmit}
+            />
+
+            <EditIsLockedModal
+                show={showIsLockedEditModal}  // 잠금 모달 상태
+                handleClose={() => setShowIsLockedEditModal(false)}
+                handleEditIsLockedSubmit={handleEditIsLockedSubmit}
+            />
+
+            <EditIsImportantModal
+                show={showIsImportantEditModal}  // 중요 모달 상태
+                handleClose={() => setShowIsImportantEditModal(false)}
+                handleEditIsImportantSubmit={handleEditIsImportantSubmit}
             />
         </div>
     );

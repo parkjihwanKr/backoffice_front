@@ -39,7 +39,7 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
             }
         });
         setLikedComments(initialLikedComments);
-    }, [comments, id]);
+    }, [comments, id, comment?.likeCount]);
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
@@ -58,7 +58,9 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
             }
 
             const newComment = await response.json();
-            setComments(prevComments => [...prevComments, newComment]);
+            setComments(
+                prevComments =>
+                    [...prevComments, newComment]);
             setComment('');
         } catch (error) {
             console.error(error.message);
@@ -114,26 +116,31 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
 
         const likeUrl = `/api/v1/boards/${boardId}/comments/${commentId}/reactions`;
 
-        setLikedComments((prevLikedComments) => ({
-            ...prevLikedComments,
-            [commentId]: { liked: !commentLiked, reactionId: reactionId },
-        }));
         setComments((prevComments) =>
             prevComments.map((comment) =>
                 comment.commentId === commentId
-                    ? { ...comment, likeCount: commentLiked ? comment.likeCount - 1 : comment.likeCount + 1 }
+                    ? {
+                        ...comment,
+                        likeCount: commentLiked
+                            ? comment.likeCount - 1
+                            : comment.likeCount + 1,
+                    }
                     : comment
             )
         );
+
+        setLikedComments((prevLikedComments) => ({
+            ...prevLikedComments,
+            [commentId]: { liked: !commentLiked, reactionId },
+        }));
 
         try {
             if (commentLiked) {
                 // 좋아요 취소 (DELETE 요청)
                 if (reactionId) {
-                    const response = await axios.delete(`/api/v1/comments/${commentId}/reactions/${reactionId}`, {
+                    await axios.delete(`/api/v1/comments/${commentId}/reactions/${reactionId}`, {
                         headers: { 'Authorization': `Bearer ${accessToken}` },
                     });
-                    console.log("전달 받은 데이터 :" + response);
                 } else {
                     console.error("reactionId is null, cannot delete reaction");
                     throw new Error("reactionId가 설정되지 않았습니다.");
@@ -144,7 +151,6 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                     headers: { 'Authorization': `Bearer ${accessToken}` },
                 });
 
-                console.log("전달 받은 데이터 :" + response);
                 if (response.data && response.data.reactionId) {
                     const updatedReaction = response.data;
                     setLikedComments((prevLikedComments) => ({
@@ -158,6 +164,7 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
         } catch (error) {
             console.error(error.errorCode + ' : ', error.message);
 
+            // Revert optimistic update if the request fails
             setLikedComments((prevLikedComments) => ({
                 ...prevLikedComments,
                 [commentId]: { liked: commentLiked, reactionId },
@@ -165,7 +172,12 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
             setComments((prevComments) =>
                 prevComments.map((comment) =>
                     comment.commentId === commentId
-                        ? { ...comment, likeCount: commentLiked ? comment.likeCount + 1 : comment.likeCount - 1 }
+                        ? {
+                            ...comment,
+                            likeCount: commentLiked
+                                ? comment.likeCount + 1
+                                : comment.likeCount - 1,
+                        }
                         : comment
                 )
             );
