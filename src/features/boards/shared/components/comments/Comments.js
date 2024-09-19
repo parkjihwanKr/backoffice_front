@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './Comments.css';
 import EditCommentModal from "./EditCommentModal";
 import DeleteCommentModal from "./DeleteCommentModal";
 import ReplyCommentModal from './ReplyCommentModal';
 import Reply from './replys/Reply';
-import { useAuth } from "../../../../../auth/components/AuthContext";
+import {useAuth} from "../../../../auth/components/AuthContext";
 
 const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
     const [comment, setComment] = useState('');

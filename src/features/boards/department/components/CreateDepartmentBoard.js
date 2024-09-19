@@ -1,13 +1,16 @@
-/*CreateBoard.js*/
-import React, { useState } from 'react';
-import { getCookie } from "../../../../utils/CookieUtil";
-import { useNavigate } from 'react-router-dom';
-import './CreateBoard.css'; // 추가 스타일 적용
+/*CreateDepartmentBoard.js*/
+import React, {useState} from 'react';
+import {getCookie} from "../../../../utils/CookieUtil";
+import {useNavigate, useParams} from 'react-router-dom';
+import './CreateDepartmentBoard.css'; // 추가 스타일 적용
 
-const CreateBoard = () => {
+const CreateDepartmentBoard = () => {
+    // url(spring boot의 PathVariable 방식으로 department에 해당하는 값을 가져옴)
+    const { department } = useParams();
     const [title, setTitle] = useState(''); // 제목 상태 관리
     const [content, setContent] = useState(''); // 내용 상태 관리
     const [isImportant, setIsImportant] = useState(false); // 중요 여부 상태 관리
+    const [isLocked, setIsLocked] = useState(false);
     const [files, setFiles] = useState([]); // 파일 상태 관리
     const [category, setCategory] = useState(''); // 카테고리 상태 관리 (문자열로 저장됨)
     const [error, setError] = useState(null); // 에러 상태 관리
@@ -28,7 +31,7 @@ const CreateBoard = () => {
             const formData = new FormData();
 
             // JSON 데이터를 FormData에 추가 (category는 문자열로 전송됨)
-            const data = { title, content, isImportant, category };
+            const data = { title, content, isImportant, category, isLocked };
             formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 
             // 파일이 있을 경우에만 추가
@@ -38,7 +41,7 @@ const CreateBoard = () => {
                 }
             }
 
-            const response = await fetch('/api/v1/boards', {
+            const response = await fetch(`/api/v1/departments/${department}/boards`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
@@ -51,11 +54,13 @@ const CreateBoard = () => {
             }
             await response.json();
             // 게시글 생성 후 전체 게시판 페이지로 이동
-            navigate('/all-boards');
+            navigate(`/department-boards/${department}`);
         } catch (error) {
             setError(error.message);
         }
     };
+
+    // isLocked null, category null
 
     return (
         <div className="create-board-container">
@@ -94,6 +99,14 @@ const CreateBoard = () => {
                         />
                         중요 게시글로 표시
                     </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={isLocked}
+                            onChange={(e) => setIsLocked(e.target.checked)}
+                        />
+                        잠금 여부
+                    </label>
                 </div>
 
                 <div className="form-group">
@@ -129,4 +142,4 @@ const CreateBoard = () => {
     );
 };
 
-export default CreateBoard;
+export default CreateDepartmentBoard;

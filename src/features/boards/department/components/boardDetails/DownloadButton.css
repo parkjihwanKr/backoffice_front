@@ -1,0 +1,16 @@
+.download-button-container {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.download-button {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.download-button:hover {
+    background-color: #e6e6e6; /* hover 효과 */
+}

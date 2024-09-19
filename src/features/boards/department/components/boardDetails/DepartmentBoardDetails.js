@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getCookie } from "../../../../../utils/CookieUtil";
-import { useAuth } from "../../../../auth/components/AuthContext";
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {getCookie} from "../../../../../utils/CookieUtil";
+import {useAuth} from "../../../../auth/components/AuthContext";
 import Comments from "../../../shared/components/comments/Comments";
-import BoardDetailsFooter from './BoardDetailsFooter'; // 새로운 LikeButton 컴포넌트
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
-import BoardDetailsHeader from "./BoardDetailsHeader";
-import BoardDetailsBody from "./BoardDetailsBody";
+import DepartmentBoardDetailsHeader from "./DepartmentBoardDetailsHeader";
+import DepartmentBoardDetailsBody from "./DepartmentBoardDetailsBody";
+import DepartmentBoardDetailsFooter from "./DepartmentBoardDetailsFooter";
+import './DepartmentBoardDetails.css';
 
-const BoardDetails = () => {
-    const { boardId } = useParams();
+const DepartmentBoardDetails = () => {
+    const { departmentName, boardId } = useParams();
     const navigate = useNavigate();
     const [board, setBoard] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -50,7 +51,7 @@ const BoardDetails = () => {
         console.log("userReaction : "+userReaction);
         const fetchBoard = async () => {
             try {
-                const response = await fetch(`/api/v1/boards/${boardId}`, {
+                const response = await fetch(`/api/v1/departments/${departmentName}/boards/${boardId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -154,7 +155,7 @@ const BoardDetails = () => {
     return (
         <div className="container mt-5">
             <div className="card board-details">
-                <BoardDetailsHeader
+                <DepartmentBoardDetailsHeader
                     title={board.title}
                     isImportant={board.isImportant}
                     imagePrefix={imagePrefix}
@@ -163,12 +164,12 @@ const BoardDetails = () => {
                     setShowEditModal={setShowEditModal}
                     setShowDeleteModal={setShowDeleteModal}
                 />
-                <BoardDetailsBody
+                <DepartmentBoardDetailsBody
                     board={board}
                     imagePrefix={imagePrefix}
                 />
 
-                <BoardDetailsFooter
+                <DepartmentBoardDetailsFooter
                     boardId={boardId}
                     reactionId={reactionId}
                     reactionList={board.reactionList}
@@ -210,4 +211,4 @@ const BoardDetails = () => {
     );
 };
 
-export default BoardDetails;
+export default DepartmentBoardDetails;
