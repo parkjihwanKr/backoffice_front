@@ -157,7 +157,7 @@ const Reply = ({ reply, commentId, accessToken, setComments }) => {
                     <img
                         src={liked ? `${imagePrefix}/shared/likes_done.png` : `${imagePrefix}/shared/commentReplyLike.png`}
                         alt="commentLikeReply"
-                        className="action-icon"
+                        className="reply-action-icon"
                         onClick={handleReplyLike}
                     />
                     {reply.author === name && (
@@ -165,13 +165,13 @@ const Reply = ({ reply, commentId, accessToken, setComments }) => {
                             <img
                                 src={`${imagePrefix}/shared/edit_document.png`}
                                 alt="Edit"
-                                className="action-icon"
+                                className="reply-action-icon"
                                 onClick={() => handleEditReply(reply.replyId, reply.content)}
                             />
                             <img
                                 src={`${imagePrefix}/shared/delete.png`}
                                 alt="Delete"
-                                className="action-icon"
+                                className="reply-action-icon"
                                 onClick={() => handleDeleteReply(reply.replyId)}
                             />
                         </>

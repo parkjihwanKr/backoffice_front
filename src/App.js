@@ -8,7 +8,9 @@ import Logout from "./features/auth/components/Logout";
 import PrivateRoute from "./routes/PrivateRoute";
 import Boards from './features/boards/shared/components/Boards';
 import Notifications from './features/notifications/components/Notifications';
-import Events from './features/events/components/Events';
+import Events from './features/events/shared/Events';
+import CompanySchedule from './features/events/company/components/CompanySchedule';
+import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/general/components/CreateBoard";
 import DropDownMenu from "./components/ui/DropDownMenu";
@@ -24,6 +26,7 @@ import {faHome} from '@fortawesome/free-solid-svg-icons';
 import HomePage from "./pages/HomePage";
 import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetails";
 import CreateDepartmentBoard from "./features/boards/department/components/CreateDepartmentBoard";
+import NoSchedulePage from "./features/events/department/components/NoSchedule";
 
 function App() {
     return (
@@ -58,6 +61,12 @@ function App() {
                                element={<PrivateRoute component = {DepartmentBoardDetail} />} />
                         <Route path="/create-department-board/:department"
                                element={<PrivateRoute component={CreateDepartmentBoard} />} />
+                        <Route path="/company-schedule"
+                               element={<PrivateRoute component={CompanySchedule} />} />
+                        <Route path="/department-schedule/:department"
+                               element={<PrivateRoute component={DepartmentSchedule} />} />
+                        <Route path="/no-schedules"
+                               element={<PrivateRoute component={NoSchedulePage} />} />
                         {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
                         <Route path="*" element={<Navigate to="/auth/login" replace />} />
                     </Routes>
