@@ -1,35 +1,37 @@
+/* DeleteDepartmentScheduleModal.css */
 .delete-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1100;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .delete-modal {
     background-color: white;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     max-width: 400px;
     width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .modal-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 간의 간격 설정 */
+    margin-top: 20px;
 }
 
-button {
-    padding: 10px 20px;
+.btn {
+    padding: 8px 16px;
     border: none;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .btn-danger {
@@ -37,15 +39,11 @@ button {
     color: white;
 }
 
-.btn-danger:hover {
-    background-color: #c82333;
-}
-
 .btn-secondary {
     background-color: #6c757d;
     color: white;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
+.btn:hover {
+    opacity: 0.9;
 }
