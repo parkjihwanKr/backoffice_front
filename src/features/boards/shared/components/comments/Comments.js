@@ -286,13 +286,13 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                                         <img
                                             src={`${imagePrefix}/shared/reply.png`}
                                             alt="Reply"
-                                            className="action-icon"
+                                            className="comment-action-icon"
                                             onClick={() => handleReply(comment)}
                                         />
                                         <img
                                             src={likedComments[comment.commentId]?.liked ? `${imagePrefix}/shared/likes_done.png` : `${imagePrefix}/shared/commentListLike.png`}
                                             alt={likedComments[comment.commentId]?.liked ? 'liked' : 'likes'}
-                                            className="action-icon"
+                                            className="comment-action-icon"
                                             style={{ marginRight: '4px' }}
                                             onClick={() => handleCommentLike(comment.commentId)}
                                         />
@@ -301,13 +301,13 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                                                 <img
                                                     src={`${imagePrefix}/shared/edit_document.png`}
                                                     alt="Edit"
-                                                    className="action-icon"
+                                                    className="comment-action-icon"
                                                     onClick={() => handleEditComment(comment.commentId, comment.content)}
                                                 />
                                                 <img
                                                     src={`${imagePrefix}/shared/delete.png`}
                                                     alt="Delete"
-                                                    className="action-icon"
+                                                    className="comment-action-icon"
                                                     onClick={() => handleDeleteComment(comment.commentId)}
                                                 />
                                             </>

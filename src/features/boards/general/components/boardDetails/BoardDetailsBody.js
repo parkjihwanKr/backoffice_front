@@ -1,5 +1,5 @@
 import React from 'react';
-import DownloadButton from './DownloadButton'; // Assuming you have this component already
+import DownloadButton from '../../../../../components/ui/DownloadButton';
 
 const BoardDetailsBody = ({ board, imagePrefix }) => {
     return (

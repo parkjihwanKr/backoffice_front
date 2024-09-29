@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const DropDownMenu = () => {
-    const { isAuthenticated, name, role } = useAuth();
+    const { isAuthenticated, name, position } = useAuth();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
 
@@ -102,7 +102,7 @@ const DropDownMenu = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <p>{name ? `Logged in as ${name}` : 'Not logged in'}</p>
-                    <p>Role: {role}</p>
+                    <p>Role: {position}</p>
                     {/* 추가적인 사용자 정보를 여기서 보여줄 수 있습니다 */}
                 </Modal.Body>
                 <Modal.Footer>

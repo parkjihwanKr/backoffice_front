@@ -8,7 +8,8 @@ export const AuthProvider = ({ children }) => {
     const [id, setId] = useState('');  // 사용자 ID
     const [name, setName] = useState('');  // 사용자 이름
     const [department, setDepartment] = useState('');  // 사용자 부서
-    const [role, setRole] = useState('');  // 사용자 역할
+    const [position, setPosition] = useState('');  // 사용자 역할
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -26,15 +27,15 @@ export const AuthProvider = ({ children }) => {
                     const data = await response.json();
                     console.log(data);
 
-                    // 서버에서 받은 data의 구조에 맞게 처리
                     if (data.data) {
                         setIsAuthenticated(true);
                         setId(data.data.id);
                         setName(data.data.name); // 사용자 이름 설정
                         setDepartment(data.data.department); // 부서 설정
-                        setRole(data.data.position); // 역할 설정
+                        setPosition(data.data.position); // 역할 설정
                     } else {
                         console.error("Unexpected data structure!");
+                        setIsAuthenticated(false);
                     }
                 } else {
                     setIsAuthenticated(false);
@@ -42,14 +43,20 @@ export const AuthProvider = ({ children }) => {
             } catch (error) {
                 console.error('Failed to check authentication', error);
                 setIsAuthenticated(false);
+            } finally {
+                setLoading(false); // 로딩 완료
             }
         };
 
         checkAuth();
     }, []);
 
+    if (loading) {
+        return <div>Loading...</div>; // 로딩 상태를 표시할 수 있음
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, id, name, department, role }}>
+        <AuthContext.Provider value={{ isAuthenticated, id, name, department, position }}>
             {children}
         </AuthContext.Provider>
     );

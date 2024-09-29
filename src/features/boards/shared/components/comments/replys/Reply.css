@@ -33,7 +33,7 @@
     margin-bottom: 0; /* 필요에 따라 수정 */
 }
 
-.action-icon {
+.reply-action-icon {
     width: 24px;
     height: 24px;
     cursor: pointer;
