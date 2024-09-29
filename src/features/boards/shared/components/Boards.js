@@ -1,3 +1,4 @@
+/*Boards.js*/
 import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AllBoards from '../../general/components/AllBoard';
@@ -26,10 +27,8 @@ const Boards = () => {
 
     return (
         <div className="container my-4">
-            <h1 className="text-center mb-4">Boards Page</h1>
-            <p className="text-center mb-5">
-                Welcome to the Boards page. Here you can manage your boards and collaborate with your team.
-            </p>
+            <h1 className="text-center mb-4">백오피스 게시판</h1>
+
             <div className="row">
                 <div className="col-md-6">
                     <div className="card">
@@ -42,9 +41,10 @@ const Boards = () => {
                                 className="img-fluid"
                                 style={{
                                     width: '100%',
-                                    height: '450px',
+                                    height: '350px',
                                     objectFit: 'cover',
-                                    border: '0px solid #000'
+                                    border: '0px solid #000',
+                                    borderRadius : '5px'
                                 }}
                             />
                             <hr />
@@ -64,9 +64,10 @@ const Boards = () => {
                                 className="img-fluid"
                                 style={{
                                     width: '100%',
-                                    height: '450px',
+                                    height: '350px',
                                     objectFit: 'cover',
-                                    border: '0px solid #000'
+                                    border: '0px solid #000',
+                                    borderRadius : '5px'
                                 }}
                             />
                             <hr/>

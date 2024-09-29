@@ -1,0 +1,68 @@
+/* 모달 오버레이 - 화면 전체를 덮는 반투명 배경 */
+.personal-schedule-details-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 모달이 다른 요소보다 위에 표시되도록 */
+}
+
+/* 모달 컨텐츠 박스 */
+.personal-schedule-details-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out; /* 부드러운 애니메이션 */
+}
+
+/* 모달 헤더 */
+.personal-schedule-details-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* 모달 타이틀 */
+.personal-schedule-details-modal-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 닫기 버튼 */
+.personal-schedule-details-close-button {
+    background: #3F48CC;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 모달 바디 */
+.personal-schedule-details-modal-body {
+    margin-bottom: 20px;
+}
+
+/* 모달 푸터 */
+.personal-schedule-details-modal-footer {
+    text-align: right;
+}
+
+/* 모달 열리는 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
