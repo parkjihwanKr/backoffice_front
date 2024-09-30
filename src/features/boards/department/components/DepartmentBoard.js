@@ -79,7 +79,7 @@ const DepartmentBoards = () => {
     }
 
     return (
-        <div className="container">
+        <div className="department-boards-container">
             <div className="d-flex justify-content-center mb-3">
                 <h2>{department} 공지 사항</h2> {/* 부서 이름 출력 (수정됨) */}
             </div>

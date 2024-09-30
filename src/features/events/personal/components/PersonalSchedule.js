@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './PersonalSchedule.css'; // 스타일 파일 import
 import { useAuth } from "../../../auth/components/AuthContext";
 import { getPersonalSchedule } from '../services/PersonalScheduleService'; // API 함수 import
-import PersonalScheduleDetailsModal from './details/PersonalScheduleDetailsModal'; // 모달 컴포넌트 import
+import PersonalScheduleDetailsModal from './details/PersonalScheduleDetailsModal';
+import PersonalScheduleFooter from "./PersonalScheduleFooter"; // 모달 컴포넌트 import
 
 const PersonalSchedule = () => {
     const { id, name, department, position } = useAuth();
@@ -97,6 +98,7 @@ const PersonalSchedule = () => {
                     ))}
                     {renderCalendarDays()}
                 </div>
+                <PersonalScheduleFooter/>
             </div>
 
             {/* 모달 컴포넌트 호출 */}

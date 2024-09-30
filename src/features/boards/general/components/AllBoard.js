@@ -93,7 +93,7 @@ const AllBoards = () => {
 
     // UI 렌더링
     return (
-        <div className="container">
+        <div className="board-container">
             {/* 공지 사항 타이틀 중앙 정렬 */}
             <div className="d-flex justify-content-center mb-3">
                 <h2>공지 사항</h2>

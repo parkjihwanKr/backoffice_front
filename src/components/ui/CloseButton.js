@@ -1,9 +1,9 @@
 import React from 'react';
 import './CloseButton.css'; // 스타일을 import
 
-const CloseButton = ({ onClick }) => {
+const CloseButton = ({ handleClose }) => {
     return (
-        <button className="close-button" onClick={onClick}>
+        <button className="close-button" onClick={handleClose}>
             Close
         </button>
     );

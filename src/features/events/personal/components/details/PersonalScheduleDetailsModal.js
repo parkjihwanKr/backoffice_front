@@ -16,7 +16,7 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, events 
                     No event this day
                 </div>
                 <div className="personal-schedule-details-modal-footer">
-                    <CloseButton onClick={handleClose} /> {/* CloseButton 사용 */}
+                    <CloseButton handleClose={handleClose} />
                 </div>
             </div>
         </div>
