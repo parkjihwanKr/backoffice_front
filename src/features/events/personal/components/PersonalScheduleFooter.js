@@ -4,7 +4,7 @@ const PersonalScheduleFooter = () => {
 
     return(
         <div className="personal-schedule-footer">
-            <img src=/>
+
         </div>
     )
 }
