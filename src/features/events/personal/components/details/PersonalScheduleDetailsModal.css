@@ -32,8 +32,16 @@
 
 /* 모달 타이틀 */
 .personal-schedule-details-modal-title {
-    font-size: 18px;
+    font-size: 18px; /* 글씨 크기를 키움 */
     font-weight: bold;
+    text-align: center; /* 중앙 정렬 */
+    width: 100%; /* 전체 너비를 차지하게 설정 */
+    margin: 0 auto; /* 중앙 배치 */
+}
+
+.personal-schedule-details-close-icon {
+    width: 24px;
+    height: 24px;
 }
 
 /* 닫기 버튼 */
@@ -48,11 +56,24 @@
 /* 모달 바디 */
 .personal-schedule-details-modal-body {
     margin-bottom: 20px;
+    height: 150px;
 }
 
 /* 모달 푸터 */
 .personal-schedule-details-modal-footer {
     text-align: right;
+}
+
+.personal-schedule-action-icon{
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.personal-schedule-details-modal-footer img:hover {
+    transform: scale(1.1);
 }
 
 /* 모달 열리는 애니메이션 */

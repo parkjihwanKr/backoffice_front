@@ -11,6 +11,7 @@ import DepartmentBoardDetailsBody from "./DepartmentBoardDetailsBody";
 import DepartmentBoardDetailsFooter from "./DepartmentBoardDetailsFooter";
 import EditIsImportantModal from "./EditIsImportantModal";
 import './DepartmentBoardDetails.css';
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const DepartmentBoardDetails = () => {
     const { departmentName, boardId } = useParams();
@@ -21,7 +22,6 @@ const DepartmentBoardDetails = () => {
     const accessToken = getCookie('accessToken');
     const { userId, name } = useAuth();
     const [comments, setComments] = useState([]);
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const [files, setFiles] = useState([]);
 
     const [showEditModal, setShowEditModal] = useState(false);

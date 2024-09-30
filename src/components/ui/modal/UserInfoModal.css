@@ -1,0 +1,38 @@
+/*UserInfoModal.css*/
+.user-info-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+.user-info-modal-header {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info-modal-content {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    z-index: 1001;
+}
+
+.user-info-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-info-modal-body, .user-info-modal-footer {
+    margin-top: 10px;
+}

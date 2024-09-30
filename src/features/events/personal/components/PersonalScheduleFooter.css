@@ -1,4 +1,27 @@
 /*PersonalScheduleFooter.css*/
 .personal-schedule-footer {
+    position: absolute;
+    bottom: 10px; /* calendar div의 하단에서 10px 위로 */
+    right: 10px; /* calendar div의 오른쪽에서 10px 왼쪽으로 */
+    display: flex;
+    justify-content: right; /* 아이콘을 오른쪽 정렬 */
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    z-index: 1000;
+}
 
+.personal-schedule-footer img {
+    width: 36px; /* 아이콘 너비 */
+    height: 36px; /* 아이콘 높이 */
+    cursor: pointer;
+    margin-right: 10px; /* 이미지 아이콘 간 간격 */
+    transition: transform 0.3s ease;
+}
+
+.personal-schedule-footer img:hover {
+    transform: scale(1.1); /* 마우스 호버 시 아이콘 확대 */
 }

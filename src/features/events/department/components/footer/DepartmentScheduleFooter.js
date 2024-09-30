@@ -1,7 +1,6 @@
 import React from 'react';
 import './DepartmentScheduleFooter.css';
-
-const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const DepartmentScheduleFooter = ({ onPrevMonth, onNextMonth }) => {
     return (

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './DepartmentScheduleHeader.css';
 import { useAuth } from "../../../../auth/components/AuthContext";
 import { useParams } from "react-router-dom";
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const DepartmentScheduleHeader = ({ currentYear, currentMonth, onCreateModal }) => {
     const { isAuthenticated, name, department: userDepartment, position: userPosition } = useAuth();
@@ -9,8 +10,6 @@ const DepartmentScheduleHeader = ({ currentYear, currentMonth, onCreateModal }) 
 
     const departmentMember = isAuthenticated && userDepartment === department;
     const isAdmin = userPosition === 'CEO';
-
-    const imagePrefix = "https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice";
 
     useEffect(() => {
         console.log('user name:', name);

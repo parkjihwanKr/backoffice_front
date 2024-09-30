@@ -1,66 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import './PersonalSchedule.css'; // 스타일 파일 import
+import './PersonalSchedule.css';
 import { useAuth } from "../../../auth/components/AuthContext";
-import { getPersonalSchedule } from '../services/PersonalScheduleService'; // API 함수 import
+import { getPersonalMonthSchedule, getPersonalDaySchedule } from '../services/PersonalScheduleService';
 import PersonalScheduleDetailsModal from './details/PersonalScheduleDetailsModal';
-import PersonalScheduleFooter from "./PersonalScheduleFooter"; // 모달 컴포넌트 import
+import PersonalScheduleFooter from "./PersonalScheduleFooter";
 
 const PersonalSchedule = () => {
-    const { id, name, department, position } = useAuth();
+    const { id, name } = useAuth();
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([]); // 월별 일정을 저장
+    const [dayEvents, setDayEvents] = useState([]); // 특정 날짜의 일정을 저장
+    const [selectedDate, setSelectedDate] = useState(null); // 선택한 날짜
     const [showModal, setShowModal] = useState(false); // 모달 상태
-    const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜 상태
 
-    const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-    const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
 
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; // 요일
 
-    const getDaysInMonth = (month, year) => {
-        return new Date(year, month + 1, 0).getDate();
-    };
+    useEffect(() => {
+        fetchPersonalSchedule();
+    }, [currentMonth, currentYear]);
 
-    const onPrevMonth = () => {
-        if (currentMonth === 0) {
-            setCurrentMonth(11);
-            setCurrentYear(currentYear - 1);
-        } else {
-            setCurrentMonth(currentMonth - 1);
-        }
-    };
-
-    const onNextMonth = () => {
-        if (currentMonth === 11) {
-            setCurrentMonth(0);
-            setCurrentYear(currentYear + 1);
-        } else {
-            setCurrentMonth(currentMonth + 1);
+    const fetchPersonalSchedule = async () => {
+        try {
+            const schedule = await getPersonalMonthSchedule(id, currentYear, currentMonth);
+            setEvents(schedule); // 월별 일정을 상태로 저장
+        } catch (error) {
+            console.error('Error fetching personal schedule:', error);
         }
     };
 
     const selectDate = async (day) => {
         const selected = new Date(currentYear, currentMonth, day);
         setSelectedDate(selected);
-        setCurrentDate(selected);
-
-        // 해당 날짜에 대한 개인 일정을 가져옴
         try {
-            const schedule = await getPersonalSchedule(selected, id, currentYear, currentMonth);
-            setEvents(schedule);
-            setShowModal(true); // 모달 열기
+            const daySchedule = await getPersonalDaySchedule(id, currentYear, currentMonth, day);
+            setDayEvents(daySchedule);
+            setShowModal(true);
         } catch (error) {
-            console.error('Error fetching personal schedule:', error);
+            console.error('Error fetching personal day schedule:', error);
         }
     };
 
+    const getDayColor = (day) => {
+        const dayEvents = events.filter(event => {
+            const eventStartDate = new Date(event.startDate);
+            const eventEndDate = new Date(event.endDate);
+            return eventStartDate.getDate() <= day && eventEndDate.getDate() >= day;
+        });
+
+        const dayOfWeek = new Date(currentYear, currentMonth, day).getDay();
+
+        let additionalClass = "";
+        if (dayOfWeek === 0) {
+            additionalClass = "sunday"; // 일요일
+        } else if (dayOfWeek === 6) {
+            additionalClass = "saturday"; // 토요일
+        }
+
+        const hasEvent = dayEvents.length > 0 ? 'pastel-event' : '';
+
+        return `${hasEvent} ${additionalClass}`; // 클래스 이름 반환
+    };
+
     const handleClose = () => {
-        setShowModal(false); // 모달 닫기
+        setShowModal(false);
     };
 
     const renderCalendarDays = () => {
-        const daysInMonth = getDaysInMonth(currentMonth, currentYear);
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
         const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        const today = new Date();
         const days = [];
 
         for (let i = 0; i < firstDayOfMonth; i++) {
@@ -68,10 +79,16 @@ const PersonalSchedule = () => {
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
+            const dayColor = getDayColor(day);
+            const isToday =
+                today.getDate() === day &&
+                today.getMonth() === currentMonth &&
+                today.getFullYear() === currentYear;
+
             days.push(
                 <div
                     key={day}
-                    className={`calendar-day ${day === currentDate.getDate() ? 'selected' : ''}`}
+                    className={`calendar-day ${day === currentDate.getDate() ? 'selected' : ''} ${dayColor} ${isToday ? 'today' : ''}`}
                     onClick={() => selectDate(day)}
                 >
                     {day}
@@ -85,12 +102,11 @@ const PersonalSchedule = () => {
     return (
         <div className="personal-schedule-container">
             <h1>Personal Schedule for {name}</h1>
-
             <div className="calendar">
                 <div className="calendar-header">
-                    <button onClick={onPrevMonth}>&lt;&lt;</button>
+                    <button onClick={() => setCurrentDate(new Date(currentYear, currentMonth - 1))}>&lt;&lt;</button>
                     <span>{`${currentYear}년 ${currentMonth + 1}월`}</span>
-                    <button onClick={onNextMonth}>&gt;&gt;</button>
+                    <button onClick={() => setCurrentDate(new Date(currentYear, currentMonth + 1))}>&gt;&gt;</button>
                 </div>
                 <div className="calendar-days">
                     {daysOfWeek.map((day, index) => (
@@ -98,15 +114,13 @@ const PersonalSchedule = () => {
                     ))}
                     {renderCalendarDays()}
                 </div>
-                <PersonalScheduleFooter/>
             </div>
-
-            {/* 모달 컴포넌트 호출 */}
+            <PersonalScheduleFooter />
             <PersonalScheduleDetailsModal
                 show={showModal}
                 handleClose={handleClose}
                 selectedDate={selectedDate}
-                events={events}
+                events={dayEvents}
             />
         </div>
     );

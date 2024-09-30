@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Events.css'; // 스타일을 외부 CSS 파일로 분리
+import './Events.css';
+import { imagePrefix } from '../../../utils/Constant'
 import DepartmentSelectModal from './DepartmentSelectModal';
 
 const Events = () => {
     const navigate = useNavigate();
     const [is_modal_open, set_is_modal_open] = useState(false); // 모달 상태 관리
-
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
 
     const go_to_company_schedule = () => {
         navigate('/company-schedule'); // 회사 일정표 페이지로 이동

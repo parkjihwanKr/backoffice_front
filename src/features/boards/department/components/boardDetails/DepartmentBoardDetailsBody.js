@@ -1,5 +1,5 @@
 import React from 'react';
-import DownloadButton from '../../../../../components/ui/DownloadButton';
+import DownloadButton from '../../../../../components/ui/button/DownloadButton';
 const DepartmentBoardDetailsBody = ({ board, imagePrefix }) => {
     return (
         <div className="card-body">

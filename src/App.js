@@ -13,7 +13,7 @@ import CompanySchedule from './features/events/company/components/CompanySchedul
 import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/general/components/CreateBoard";
-import DropDownMenu from "./components/ui/DropDownMenu";
+import DropDownMenu from "./components/ui/modal/DropDownMenu";
 import AllBoards from "./features/boards/general/components/AllBoard";
 import BoardDetails from "./features/boards/general/components/boardDetails/BoardDetails";
 

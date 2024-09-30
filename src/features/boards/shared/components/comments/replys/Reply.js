@@ -5,6 +5,7 @@ import EditReplyModal from './EditReplyModal';
 import DeleteReplyModal from './DeleteReplyModal';
 import { useAuth } from "../../../../../auth/components/AuthContext";
 import axios from 'axios';
+import {imagePrefix} from '../../../../../../utils/Constant';
 
 const Reply = ({ reply, commentId, accessToken, setComments }) => {
     const [showEditModal, setShowEditModal] = useState(false);
@@ -13,7 +14,6 @@ const Reply = ({ reply, commentId, accessToken, setComments }) => {
     const [replyIdToEdit, setReplyIdToEdit] = useState(null);
     const [liked, setLiked] = useState(false);
     const [reactionId, setReactionId] = useState(null);
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const { id, name } = useAuth();
 
     useEffect(() => {

@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import './EventDetailModal.css';
 import UpdateDepartmentScheduleModal from './UpdateDepartmentScheduleModal';
 import DeleteDepartmentScheduleModal from './DeleteDepartmentScheduleModal';
-import DownloadButton from "../../../../../components/ui/DownloadButton";
+import DownloadButton from "../../../../../components/ui/button/DownloadButton";
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
 
     const handleUpdateClick = () => setIsUpdateModalOpen(true);
     const handleDeleteClick = () => setIsDeleteModalOpen(true);

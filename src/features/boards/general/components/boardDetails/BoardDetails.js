@@ -8,6 +8,7 @@ import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import BoardDetailsHeader from "./BoardDetailsHeader";
 import BoardDetailsBody from "./BoardDetailsBody";
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const BoardDetails = () => {
     const { boardId } = useParams();
@@ -18,7 +19,6 @@ const BoardDetails = () => {
     const accessToken = getCookie('accessToken');
     const { userId, name } = useAuth();
     const [comments, setComments] = useState([]);
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const [files, setFiles] = useState([]);
 
     const [showEditModal, setShowEditModal] = useState(false);
