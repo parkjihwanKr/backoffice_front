@@ -1,0 +1,11 @@
+.close-button{
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    margin-right: 10px; /* 이미지 아이콘 간 간격 */
+    transition: transform 0.3s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './PersonalScheduleDetailsModal.css';
 import CreateVacationModal from './CreateVacationModal';
 import { imagePrefix } from "../../../../../utils/Constant";
-import { getPersonalDaySchedule } from "../../services/PersonalScheduleService"; // API import
+import { getPersonalDaySchedule } from "../../services/PersonalScheduleService";
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton"; // API import
 
 const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberId }) => {
     const [isVacationModalOpen, setVacationModalOpen] = useState(false);
@@ -46,42 +47,57 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                     <span className="personal-schedule-details-modal-title">
                         Schedule Details for {selectedDate ? selectedDate.toLocaleDateString() : 'N/A'}
                     </span>
-                    <img
-                        src={`${imagePrefix}/shared/close.png`}
-                        onClick={handleClose}
-                        className="personal-schedule-details-close-icon"
-                    />
+                    <CloseImageButton handleClose={handleClose}/>
                 </div>
                 <div className="personal-schedule-details-modal-body">
-                    {/* 날짜에 대한 이벤트 표시 */}
-                    {dayEvents.length > 0 ? (
-                        <ul>
+                    {dayEvents && dayEvents.length > 0 ? (
+                        <div>
                             {dayEvents.map((event) => (
-                                <li key={event.eventId}>
-                                    <strong>{event.title}</strong>
-                                    <p>{event.description}</p>
-                                    <p>Start: {new Date(event.startDate).toLocaleString()}</p>
-                                    <p>End: {new Date(event.endDate).toLocaleString()}</p>
-                                    <p>Type: {event.eventType}</p>
-                                </li>
+                                <div key={event.eventId || event.vacationId} className="event-card">
+                                    <div className="event-card-title">
+                                        {event.title || 'No Title'}
+                                    </div>
+                                    <div className="event-card-content">
+                                        <strong>내용:</strong> {event.description || 'No description available'}
+                                    </div>
+                                    <div className="event-card-content">
+                                        <strong>시작일:</strong> {new Date(event.startDate).toLocaleString()}
+                                    </div>
+                                    <div className="event-card-content">
+                                        <strong>마감일:</strong> {new Date(event.endDate).toLocaleString()}
+                                    </div>
+                                    <div className="event-card-footer">
+                                        <strong>일정:</strong>
+                                        {event.eventType === 'VACATION'
+                                            ? ' 개인 휴가'
+                                            : event.eventType === 'DEPARTMENT'
+                                                ? ' 부서'
+                                                : event.eventType === 'COMPANY'
+                                                    ? ' 회사'
+                                                    : ' 알 수 없음'}
+                                    </div>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     ) : (
                         <p>No events on this day</p>
                     )}
                 </div>
-                <div className="personal-schedule-details-modal-footer">
+                <div className="personal-schedule-details-modal-footer" style={{marginTop: '10px'}}>
                     <img
+                        title="휴가 추가"
                         src={`${imagePrefix}/shared/create_vacation_schedule.png`}
-                        onClick={handleVacationModalOpen}
+                        onClick={() => handleVacationModalOpen(selectedDate)}
                         className="personal-schedule-action-icon"
                     />
                     <img
+                        title="휴가 수정"
                         src={`${imagePrefix}/shared/edit_vacation_schedule.png`}
                         onClick={handleVacationModalOpen}
                         className="personal-schedule-action-icon"
                     />
                     <img
+                        title="휴가 삭제"
                         src={`${imagePrefix}/shared/delete_schedule.png`}
                         onClick={handleVacationModalOpen}
                         className="personal-schedule-action-icon"
@@ -91,7 +107,10 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
 
             {/* CreateVacationModal 표시 */}
             {isVacationModalOpen && (
-                <CreateVacationModal handleClose={handleVacationModalClose} />
+                <CreateVacationModal
+                    handleClose={handleVacationModalClose}
+                    initialStartDate={selectedDate} // 시작일로 선택된 날짜 전달
+                />
             )}
         </div>
     );

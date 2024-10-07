@@ -8,7 +8,7 @@ import LogoutModal from './LogoutModal';
 import './DropDownMenu.css';
 
 const DropDownMenu = () => {
-    const { isAuthenticated, name, position } = useAuth();
+    const { isAuthenticated, name, department, position } = useAuth();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -85,6 +85,7 @@ const DropDownMenu = () => {
                 show={showUserModal}
                 handleClose={handleCloseUserModal}
                 name={name}
+                department={department}
                 position={position}
             />
 

@@ -9,23 +9,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1100;
+    z-index: 1200;
 }
 
 .user-info-modal-header {
+    position: relative;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.user-info-modal-header img{
+    position: absolute;
+    height: 36px;
+    width: 30px;
+    right : 7px;
+}
+
 .user-info-modal-content {
     text-align: center;
     background-color: white;
     padding: 20px;
-    width: 300px;
+    width: 500px;
     border-radius: 8px;
-    z-index: 1001;
+    z-index: 1200;
 }
 
 .user-info-modal-footer {

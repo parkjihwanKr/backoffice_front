@@ -48,7 +48,8 @@ export const getPersonalDaySchedule = async (memberId, year, month, date) => {
         const data = await response.json();
         console.log("Response data: ", data);
 
-        return response.data;
+        // 여기에서 response.data 대신 data 전체를 반환
+        return data;
     } catch (error) {
         console.error("Error fetching personal schedule:", error);
         throw error;
@@ -56,7 +57,7 @@ export const getPersonalDaySchedule = async (memberId, year, month, date) => {
 };
 
 // 개인 휴가 일정 생성 API 요청
-export const createPersonalSchedule = async () => {
+export const createVacationSchedule = async (vacationData) => {
     try {
         // API 호출
         const accessToken = getCookie('accessToken');
@@ -67,7 +68,8 @@ export const createPersonalSchedule = async () => {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
             },
-            credentials: 'include'
+            credentials: 'include',
+            body: JSON.stringify(vacationData)
         });
 
         // 응답 데이터를 JSON으로 파싱
