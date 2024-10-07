@@ -3,13 +3,13 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './BoardDetailsFooter.css';
 import {useAuth} from "../../../../auth/components/AuthContext";
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const BoardDetailsFooter = ({ boardId, reactionList, accessToken, likeCount, commentCount, viewCount }) => {
     const [liked, setLiked] = useState(false);
     const [reactionId, setReactionId] = useState(null);  // 초기 reactionId 설정
     const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);  // 좋아요 수 상태
     const { id } = useAuth();  // userId를 AuthContext에서 가져옴
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
 
     useEffect(() => {
         console.log(reactionList);

@@ -1,10 +1,9 @@
-/* Container for the card header */
+
 .card-header {
     position: relative;
     text-align: center;
 }
 
-/* Style for the important icon */
 .icon img.important-icon {
     position: absolute;
     cursor: pointer;
@@ -13,14 +12,12 @@
     left: 10px;
 }
 
-/* Action icons container for edit and delete buttons */
 .action-icons {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-/* Style for the edit and delete icons */
 .action-icons img {
     cursor: pointer;
     width: 24px;
@@ -31,5 +28,5 @@
 }
 
 .action-icons img:last-child {
-    margin-right: 0; /* Remove margin for the last icon */
+    margin-right: 0;
 }

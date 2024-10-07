@@ -19,6 +19,6 @@
     transition: transform 0.3s ease; /* 부드러운 호버 효과 */
 }
 
-img:hover {
+.schedule-footer img:hover {
     transform: scale(1.1); /* 마우스 호버 시 아이콘 확대 */
 }

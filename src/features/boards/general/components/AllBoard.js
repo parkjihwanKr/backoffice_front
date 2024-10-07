@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getCookie } from "../../../../utils/CookieUtil";
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS 적용
+import {imagePrefix} from '../../../../utils/Constant';
 import './AllBoard.css'; // CSS 파일 import
 
 // AllBoards 컴포넌트
@@ -16,7 +17,6 @@ const AllBoards = () => {
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
 
     // S3 이미지 경로 및 기본 이미지 URL 배열
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const defaultImageUrls = [
         `${imagePrefix}/board/brainstorming.png`,
         `${imagePrefix}/board/workshop.png`,
@@ -93,7 +93,7 @@ const AllBoards = () => {
 
     // UI 렌더링
     return (
-        <div className="container">
+        <div className="board-container">
             {/* 공지 사항 타이틀 중앙 정렬 */}
             <div className="d-flex justify-content-center mb-3">
                 <h2>공지 사항</h2>

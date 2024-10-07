@@ -1,4 +1,4 @@
-.event-modal-overlay {
+.event-details-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,14 +11,14 @@
     z-index: 1000;
 }
 
-.event-modal h3 {
+.event-details-modal h3 {
     margin: 0;  /* 제목의 기본 margin을 제거 */
     display: inline-block;  /* 제목을 inline-block으로 설정 */
     flex-grow: 1; /* 타이틀이 가능한 너비를 차지 */
     word-wrap: break-word; /* 긴 단어가 있으면 줄바꿈 */
 }
 
-.event-modal {
+.event-details-modal {
     text-align: center;
     background-color: white;
     padding: 20px;
@@ -29,7 +29,7 @@
     position: relative;
 }
 
-.modal-header {
+.event-details-modal-header {
     position: relative;  /* 아이콘을 절대 배치하기 위한 relative 설정 */
     display: flex;
     justify-content: center;  /* 제목을 가운데 정렬 */
@@ -39,7 +39,7 @@
     padding-bottom: 10px;
 }
 
-.modal-body {
+.event-details-modal-body {
     font-size: 1.0rem;
     margin-top: 15px;
     padding: 10px;
@@ -47,7 +47,7 @@
     background-color: #f9f9f9;
 }
 
-.small-text {
+.event-details-small-text {
     font-size: 0.9rem;  /* 글씨 크기를 더 작게 설정 */
     text-align: right;  /* 오른쪽 정렬 */
 }
@@ -59,7 +59,7 @@
     cursor: pointer;
 }
 
-.modal-footer {
+.event-details-modal-footer {
     font-size: 1rem;  /* 푸터의 글씨 크기 */
     display: flex;
     justify-content: flex-end;

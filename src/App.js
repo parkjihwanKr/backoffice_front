@@ -13,7 +13,7 @@ import CompanySchedule from './features/events/company/components/CompanySchedul
 import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/general/components/CreateBoard";
-import DropDownMenu from "./components/ui/DropDownMenu";
+import DropDownMenu from "./components/ui/modal/DropDownMenu";
 import AllBoards from "./features/boards/general/components/AllBoard";
 import BoardDetails from "./features/boards/general/components/boardDetails/BoardDetails";
 
@@ -27,6 +27,7 @@ import HomePage from "./pages/HomePage";
 import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetails";
 import CreateDepartmentBoard from "./features/boards/department/components/CreateDepartmentBoard";
 import NoSchedulePage from "./features/events/department/components/NoSchedule";
+import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
 
 function App() {
     return (
@@ -65,6 +66,8 @@ function App() {
                                element={<PrivateRoute component={CompanySchedule} />} />
                         <Route path="/department-schedule/:department"
                                element={<PrivateRoute component={DepartmentSchedule} />} />
+                        <Route path="/personal-schedule"
+                                element={<PrivateRoute component={PersonalSchedule} />}/>
                         <Route path="/no-schedules"
                                element={<PrivateRoute component={NoSchedulePage} />} />
                         {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}

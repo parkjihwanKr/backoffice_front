@@ -1,5 +1,5 @@
 /*UpdateDepartmentScheduleModal.css*/
-.modal {
+.department-schedule-modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +12,11 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
+.department-schedule-modal-title {
+    text-align: center;
+}
+
+.department-schedule-modal-content {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -25,7 +29,7 @@ label {
     margin-right: 10px; /* 간격 추가 */
 }
 
-.form-group {
+.department-schedule-form-group {
     display: flex; /* label과 input을 가로로 나란히 배치 */
     align-items: center; /* 세로로 중앙에 정렬 */
     margin-bottom: 10px;
@@ -38,7 +42,7 @@ input, textarea {
     border: 1px solid #ccc;
 }
 
-.modal-custom-footer {
+.department-schedule-modal-custom-footer {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
@@ -54,6 +58,3 @@ button {
     cursor: pointer;
 }
 
-button[type="button"] {
-    background-color: #6c757d;
-}

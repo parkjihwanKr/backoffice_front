@@ -6,6 +6,7 @@ import DeleteCommentModal from "./DeleteCommentModal";
 import ReplyCommentModal from './ReplyCommentModal';
 import Reply from './replys/Reply';
 import {useAuth} from "../../../../auth/components/AuthContext";
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
     const [comment, setComment] = useState('');
@@ -20,7 +21,6 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
     const [showReplies, setShowReplies] = useState({});
     const [hoveredCommentId, setHoveredCommentId] = useState(null); // 추가된 부분
     const { id } = useAuth();
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
 
     useEffect(() => {
         const initialLikedComments = {};

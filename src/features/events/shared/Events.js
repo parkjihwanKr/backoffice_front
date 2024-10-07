@@ -1,7 +1,7 @@
-/*Events.js*/
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Events.css';
+import { imagePrefix } from '../../../utils/Constant'
 import DepartmentSelectModal from './DepartmentSelectModal';
 
 const Events = () => {
@@ -10,6 +10,10 @@ const Events = () => {
 
     const go_to_company_schedule = () => {
         navigate('/company-schedule'); // 회사 일정표 페이지로 이동
+    };
+
+    const go_to_personal_schedule = () => {
+        navigate('/personal-schedule'); // 개인 일정표 페이지로 이동
     };
 
     const open_department_modal = () => {
@@ -26,15 +30,65 @@ const Events = () => {
     };
 
     return (
-        <div className="events-page">
-            <h1>일정 관리 페이지</h1>
-            <div className="schedule-buttons">
-                <button className="schedule-button" onClick={go_to_company_schedule}>
-                    회사 스케줄
-                </button>
-                <button className="schedule-button" onClick={open_department_modal}>
-                    부서 스케줄
-                </button>
+        <div className="events-page container">
+            <h1 className="event-title">일정 관리 페이지</h1>
+            <div className="row">
+                <div className="col">
+                    <div className="custom-card">
+                        <div className="card-header">
+                            <h4>회사 스케줄</h4>
+                        </div>
+                        <div className="card-img">
+                            <img
+                                src={`${imagePrefix}/shared/company_schedule.png`}
+                                alt="회사 스케줄 이미지"
+                            />
+                        </div>
+                        <div className="card-body">
+                            <button className="btn-primary" onClick={go_to_company_schedule}>
+                                회사 스케줄
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col">
+                    <div className="custom-card">
+                        <div className="card-header">
+                            <h4>부서 스케줄</h4>
+                        </div>
+                        <div className="card-img">
+                            <img
+                                src={`${imagePrefix}/shared/department_schedule.png`}
+                                alt="부서 스케줄 이미지"
+                            />
+                        </div>
+                        <div className="card-body">
+                            <button className="btn-primary" onClick={open_department_modal}>
+                                부서 스케줄
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col">
+                    <div className="custom-card">
+                        <div className="card-header">
+                            <h4>개인 스케줄</h4>
+                        </div>
+                        <div className="card-img">
+                            <img
+                                src={`${imagePrefix}/shared/personal_schedule.png`}
+                                alt="개인 스케줄 이미지"
+                            />
+                        </div>
+                        <div className="card-body">
+                            <button className="btn-primary" onClick={go_to_personal_schedule}>
+                                개인 스케줄
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* 모달 컴포넌트 호출 */}

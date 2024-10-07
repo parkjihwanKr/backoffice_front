@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import './EventDetailModal.css';
 import UpdateDepartmentScheduleModal from './UpdateDepartmentScheduleModal';
 import DeleteDepartmentScheduleModal from './DeleteDepartmentScheduleModal';
-import DownloadButton from "../../../../../components/ui/DownloadButton";
+import DownloadButton from "../../../../../components/ui/button/DownloadButton";
+import {imagePrefix} from '../../../../../utils/Constant';
 
 const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
 
     const handleUpdateClick = () => setIsUpdateModalOpen(true);
     const handleDeleteClick = () => setIsDeleteModalOpen(true);
@@ -31,27 +30,27 @@ const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
     if (!isOpen || !event) return null;
 
     return (
-        <div className="event-modal-overlay">
-            <div className="event-modal">
+        <div className="event-details-modal-overlay">
+            <div className="event-details-modal">
                 {/* Header */}
-                <div className="modal-header">
+                <div className="event-details-modal-header">
                     <h3>{event.title}</h3>
                 </div>
 
                 {/* Body */}
-                <div className="modal-body">
-                    <div className="content-box">
+                <div className="event-details-modal-body">
+                    <div className="event-details-content-box">
                         <p style={{ fontSize : '1.2rem'}}>{event.description}</p>
                     </div>
-                    <p className="small-text">시작일: {new Date(event.startDate).toLocaleString()}</p>
-                    <p className="small-text">종료일: {new Date(event.endDate).toLocaleString()}</p>
+                    <p className="event-details-small-text">시작일: {new Date(event.startDate).toLocaleString()}</p>
+                    <p className="event-details-small-text">종료일: {new Date(event.endDate).toLocaleString()}</p>
                     {event.fileUrlList && event.fileUrlList.length > 0 && (
                         <DownloadButton fileList={event.fileUrlList} imagePrefix={imagePrefix} />
                     )}
                 </div>
 
                 {/* Footer */}
-                <div className="modal-footer">
+                <div className="event-details-modal-footer">
                     <div className="event-details-action-icon">
                         <img className="edit-schedule"
                              src={`${imagePrefix}/shared/make_schedule.png`} alt="edit_schedule"

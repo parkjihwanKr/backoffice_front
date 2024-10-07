@@ -3,6 +3,7 @@ import { getCookie } from "../../../../utils/CookieUtil";
 import { Link, useNavigate, useParams } from 'react-router-dom'; // useParams 추가
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS 적용
 import './DepartmentBoard.css'; // CSS 파일 import
+import {imagePrefix} from '../../../../utils/Constant';
 
 const DepartmentBoards = () => {
     const [departmentBoards, setDepartmentBoards] = useState([]); // 게시글 목록 상태
@@ -14,7 +15,6 @@ const DepartmentBoards = () => {
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
     const { department } = useParams(); // URL에서 department 받아오기
 
-    const imagePrefix = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
     const defaultImageUrls = [
         `${imagePrefix}/board/brainstorming.png`,
         `${imagePrefix}/board/workshop.png`,
@@ -79,7 +79,7 @@ const DepartmentBoards = () => {
     }
 
     return (
-        <div className="container">
+        <div className="department-boards-container">
             <div className="d-flex justify-content-center mb-3">
                 <h2>{department} 공지 사항</h2> {/* 부서 이름 출력 (수정됨) */}
             </div>
