@@ -27,6 +27,11 @@
     margin-bottom: 20px;
 }
 
+.create-vacation-modal-header img{
+    height: 24px;
+    width: 24px;
+}
+
 .create-vacation-modal-header h3 {
     flex-grow: 1;
     text-align: center;

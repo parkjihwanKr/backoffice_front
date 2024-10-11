@@ -1,0 +1,177 @@
+.vacationList-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 기본값을 center로 설정 */
+    padding: 40px 0; /* 모달 상단과 하단에 여백 추가 */
+    z-index: 1000; /* 모달이 다른 요소보다 위에 표시되도록 */
+    overflow-y: auto; /* 모달이 화면을 넘어갈 때 브라우저에 스크롤 추가 */
+}
+
+/* 모달 컨텐츠 박스 */
+.vacationList-vacation-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px; /* 모달 크기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out; /* 부드러운 애니메이션 */
+}
+
+.vacationList-vacation-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.vacationList-vacation-modal-header img {
+    height: 24px;
+    width : 24px;
+}
+
+/* 모달 타이틀 */
+.vacationList-vacation-modal-header h3 {
+    font-size: 22px; /* 글씨 크기를 키움 */
+    font-weight: bold;
+    text-align: center; /* 중앙 정렬 */
+    width: 100%; /* 전체 너비를 차지하게 설정 */
+    margin: 0 auto; /* 중앙 배치 */
+}
+
+/* 닫기 버튼 */
+.modal-close-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.modal-close-icon:hover {
+    transform: rotate(90deg); /* 호버 시 90도 회전 */
+}
+
+/* 모달 바디 */
+.vacationList-vacation-modal-body {
+    margin-bottom: 20px;
+}
+
+/* 휴가 리스트 컨테이너 */
+.vacationList-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* 항목 간격 */
+}
+
+/* 휴가 항목 카드 */
+.vacationList-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* 수정/삭제 아이콘을 위한 상대적 위치 */
+}
+
+.vacationList-item:hover {
+    background-color: #f0f0f0;
+}
+
+.vacationList-title {
+    background-color: #91c9f7;
+    border-radius: 8px 8px 0px 0px;
+    width : 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* 수정/삭제 아이콘을 말풍선처럼 휴가 항목의 오른쪽 끝에 표시 */
+.vacation-action-menu {
+    position: absolute;
+    top: 50%;
+    right: -70px;
+    transform: translateY(-50%);
+    display: none; /* 기본적으로 숨김 */
+    gap: 5px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.vacationList-item:hover .vacation-action-menu {
+    display: flex; /* 휴가 항목에 호버 시 표시 */
+}
+
+.vacation-action-menu img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.vacation-action-menu img:hover {
+    transform: scale(1.1); /* 호버 시 확대 */
+}
+
+/* 모달 푸터 */
+.vacationList-vacation-modal-footer {
+    display: flex;
+    justify-content: flex-end; /* 푸터 내용 오른쪽 정렬 */
+}
+
+/* 아이콘 스타일 */
+.vacation-action-icon {
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.vacationList-info {
+    display: flex;
+    flex-direction: column; /* 수직으로 정렬 */
+    align-items: center; /* 자식 요소를 가운데 정렬 */
+    width: 100%; /* 부모 요소 너비 100% */
+}
+
+.vacationList-urgent-reason,
+.vacationList-date,
+.vacationList-info-isAccepted {
+    width: 100%; /* 각 요소가 부모 요소의 100% 차지 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin: 5px; /* 요소 간 간격 */
+}
+
+.vacationList-info-isAccepted{
+    font-weight: bold;
+}
+
+    /* 구분선 */
+.border {
+    color : black;
+    width: 100%; /* hr이 전체 너비 차지 */
+    margin: 10px 0; /* 상하 간격 */
+}
+
+/* 모달 열리는 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
