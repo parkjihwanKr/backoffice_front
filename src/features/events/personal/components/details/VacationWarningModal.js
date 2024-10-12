@@ -18,6 +18,7 @@ const VacationWarningModal = ({ show, handleClose }) => {
                 <div className="warning-modal-body">
                     <p>휴가 신청 기간에 맞춰서 연가를 사용해주세요!</p>
                     <p>휴가 신청 기간에 맞지 않은 날짜 입력 시, 사용이 안됩니다.</p>
+                    <p>휴가 시작일과 마지막일은 토요일/일요일이면 안됩니다. </p>
                     <p>1. 연가 사용 시 주의 사항</p>
                     <p className="warning-modal-body-important">
                         1-1. 연가 사용을 할 때, 긴급함 표시를 선택하시면 안됩니다.
