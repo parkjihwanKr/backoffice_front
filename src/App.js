@@ -9,7 +9,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Boards from './features/boards/shared/components/Boards';
 import Notifications from './features/notifications/components/Notifications';
 import Events from './features/events/shared/Events';
-import CompanySchedule from './features/events/company/components/CompanySchedule';
 import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/general/components/CreateBoard";
@@ -62,8 +61,6 @@ function App() {
                                element={<PrivateRoute component = {DepartmentBoardDetail} />} />
                         <Route path="/create-department-board/:department"
                                element={<PrivateRoute component={CreateDepartmentBoard} />} />
-                        <Route path="/company-schedule"
-                               element={<PrivateRoute component={CompanySchedule} />} />
                         <Route path="/department-schedule/:department"
                                element={<PrivateRoute component={DepartmentSchedule} />} />
                         <Route path="/personal-schedule"

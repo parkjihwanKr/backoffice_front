@@ -14,7 +14,7 @@
 .logout-modal-content {
     background-color: white;
     padding: 20px;
-    width: 300px;
+    width: 500px;
     border-radius: 8px;
     position: relative;
 }
@@ -22,4 +22,9 @@
 .logout-modal-footer {
     display: flex;
     justify-content: flex-end;
+}
+
+.logout-modal-footer img {
+    height: 36px;
+    width: 30px;
 }

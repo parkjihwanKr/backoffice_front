@@ -120,7 +120,7 @@ const PersonalSchedule = () => {
                 show={showModal}
                 handleClose={handleClose}
                 selectedDate={selectedDate}
-                events={dayEvents}
+                memberId={id}
             />
         </div>
     );

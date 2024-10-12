@@ -8,7 +8,7 @@ import LogoutModal from './LogoutModal';
 import './DropDownMenu.css';
 
 const DropDownMenu = () => {
-    const { isAuthenticated, name, position } = useAuth();
+    const { isAuthenticated, name, department, position } = useAuth();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -73,6 +73,11 @@ const DropDownMenu = () => {
                                     <li onClick={handleShowLogoutModal}>Logout</li>
                                     <li><Link to="/boards">Boards</Link></li>
                                     <li><Link to="/events">Events</Link></li>
+
+                                    {/* 관리자 권한이 있는 경우에만 Admin 페이지 링크 표시 */}
+                                    {(position === 'MANAGER' || position === 'CEO') && (
+                                        <li><Link to="/admin">Admin Page</Link></li>
+                                    )}
                                 </>
                             )}
                         </ul>
@@ -85,6 +90,7 @@ const DropDownMenu = () => {
                 show={showUserModal}
                 handleClose={handleCloseUserModal}
                 name={name}
+                department={department}
                 position={position}
             />
 

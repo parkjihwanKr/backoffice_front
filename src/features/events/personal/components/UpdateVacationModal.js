@@ -1,87 +1,88 @@
 import React, { useState, useEffect } from 'react';
-import './CreateVacationModal.css';
-import { createVacationSchedule } from '../../services/PersonalScheduleService';
-import SubmitImageButton from '../../../../../components/ui/image/SubmitImageButton'; // Import new SubmitButton component
-import VacationWarningModal from './VacationWarningModal';
-import { imagePrefix } from "../../../../../utils/Constant";
-import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import './UpdateVacationModal.css';
+import { updateVacationSchedule } from '../services/PersonalScheduleService'; // 수정 API
+import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
+import {imagePrefix} from "../../../../utils/Constant";
+import SubmitImageButton from "../../../../components/ui/image/SubmitImageButton";
+import VacationWarningModal from "./details/VacationWarningModal";
 
-const CreateVacationModal = ({ handleClose, initialStartDate }) => {
-    const [vacationTitle, setVacationTitle] = useState('');
+const UpdateVacationModal = ({ handleClose, selectedVacation }) => {
+    // selectedVacation이 없을 경우 오류 방지를 위해 기본 값을 설정
+    const [vacationTitle, setVacationTitle] = useState(selectedVacation.title || '');
     const [vacationType, setVacationType] = useState('');
     const [vacationStartDate, setVacationStartDate] = useState('');
     const [vacationEndDate, setVacationEndDate] = useState('');
-    const [vacationReason, setVacationReason] = useState('');
-    const [urgent, setUrgent] = useState(false); // urgent 필드 추가
+    const [urgent, setUrgent] = useState(false);
+    const [urgentReason, setUrgentReason] = useState('');
     const [showWarningModal, setShowWarningModal] = useState(false); // WarningModal 상태
 
-    // 전달된 initialStartDate를 이용해 시작일 설정
+    // selectedVacation 값이 변경될 때마다 상태를 설정
     useEffect(() => {
-        if (initialStartDate) {
-            // UTC 시간을 로컬 시간으로 변환해서 YYYY-MM-DD 형식으로 처리
-            const localDate = new Date(initialStartDate.getTime() - initialStartDate.getTimezoneOffset() * 60000);
-            const formattedStartDate = localDate.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
-            setVacationStartDate(formattedStartDate); // 휴가 시작일로 설정
+        if (selectedVacation) {
+            setVacationTitle(selectedVacation.title || '');
+            setVacationType('');
+            setVacationStartDate('');
+            setVacationEndDate('');
+            setUrgentReason(selectedVacation.urgentReason || '');
         }
-    }, [initialStartDate]);
+    }, [selectedVacation]);
 
-    const formatDateWithoutTimezone = (date) => {
-        const formattedDate = new Date(date).toISOString();
-        return formattedDate.slice(0, 19); // 타임존 제거 (YYYY-MM-DDTHH:mm:ss)
-    };
-
+    // 휴가 수정 요청을 처리하는 함수
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!vacationTitle || !vacationType || !vacationStartDate || !vacationEndDate) {
-            alert("Title, VacationType, startDate, endDate are required fields!");
-            return;
-        }
+        const formatDateWithoutTimezone = (date) => {
+            const formattedDate = new Date(date).toISOString();
+            return formattedDate.slice(0, 19); // 타임존 제거 (YYYY-MM-DDTHH:mm:ss)
+        };
 
         // 날짜 포맷을 서버에서 요구하는 형식으로 변환
         const formattedStartDate = formatDateWithoutTimezone(vacationStartDate);
         const formattedEndDate = formatDateWithoutTimezone(vacationEndDate);
 
-        const vacationData = {
+        const updatedVacationData = {
             title: vacationTitle,
             vacationType: vacationType,
-            startDate: formattedStartDate, // 변환된 시작일
-            endDate: formattedEndDate,     // 변환된 종료일
-            urgentReason: vacationReason,
-            urgent: urgent,
+            startDate: formattedStartDate,
+            endDate: formattedEndDate,
+            urgent : urgent,
+            urgentReason: urgentReason
         };
 
         try {
-            const response = await createVacationSchedule(vacationData);
-            console.log("Vacation created successfully:", response);
-            handleClose();
+            const response = await updateVacationSchedule(selectedVacation.vacationId, updatedVacationData);
+            console.log("Vacation updated successfully:", response);
+            handleClose(); // 수정 후 모달 닫기
         } catch (error) {
-            console.error("Error creating vacation:", error.data);
+            console.error("Error updating vacation:", error);
         }
-
     };
 
+    // selectedVacation이 없으면 모달 렌더링을 막고 로딩 표시
+    if (!selectedVacation) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <div className="create-vacation-modal-overlay">
-            <div className="create-vacation-modal-content">
-                <div className="create-vacation-modal-header">
-                    <h3>휴가 신청</h3>
+        <div className="update-vacation-modal-overlay">
+            <div className="update-vacation-modal-content">
+                <div className="update-vacation-modal-header">
+                    <h3>휴가 수정</h3>
                     <CloseImageButton handleClose={handleClose} className="modal-close-icon" />
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div className="create-vacation-modal-body">
-                        <label>
-                            휴가 제목:
-                            <input
-                                type="text"
-                                value={vacationTitle}
-                                onChange={(e) => setVacationTitle(e.target.value)}
-                                required
-                            />
-                        </label>
+                    <div className="update-vacation-modal-body">
+                        <label>휴가 제목</label>
+                        <input
+                            type="text"
+                            value={vacationTitle}
+                            onChange={(e) => setVacationTitle(e.target.value)}
+                            required
+                        />
+
                         <div className="row-label">
                             <div className="row-label-urgent">
-                                <img src={`${imagePrefix}/shared/urgent.png`} alt="urgent icon" />
+                                <img src={`${imagePrefix}/shared/urgent.png`} alt="urgent icon"/>
                                 <label className="row-label-text">긴급</label>
                                 <input
                                     type="checkbox"
@@ -122,27 +123,26 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
                                 />
                             </label>
                         </div>
-                        <label className="row-label-reason">
-                            사유('긴급' 체크 시, 사용):
+                        <label className="update-vacation-reason">
+                            <span>사유('긴급' 체크 시, 사용):</span>
                             <textarea
-                                value={vacationReason}
-                                onChange={(e) => setVacationReason(e.target.value)}
+                                value={urgentReason}
+                                onChange={(e) => setUrgentReason(e.target.value)}
                                 placeholder="Enter reason for vacation"
                             />
                         </label>
                     </div>
-                    <div className="create-vacation-modal-footer">
+                    <div className="update-vacation-modal-footer">
                         <img
-                            title = "휴가 사용시 주의사항"
+                            title="휴가 사용시 주의사항"
                             src={`${imagePrefix}/shared/caution_document.png`}
                             className="footer-icon"
                             onClick={() => setShowWarningModal(true)}
                             alt="Warning icon"
                         />
-                        <SubmitImageButton onSubmit={handleSubmit} />
+                        <SubmitImageButton onSubmit={handleSubmit}/>
                     </div>
                 </form>
-
                 <VacationWarningModal
                     show={showWarningModal}
                     handleClose={() => setShowWarningModal(false)}
@@ -152,4 +152,4 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
     );
 };
 
-export default CreateVacationModal;
+export default UpdateVacationModal;

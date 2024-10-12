@@ -8,8 +8,10 @@
     background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* 모달이 상단에서 시작되도록 설정 */
+    padding: 40px 0; /* 모달 상단과 하단에 여백 추가 */
     z-index: 1000; /* 모달이 다른 요소보다 위에 표시되도록 */
+    overflow-y: auto; /* 모달이 화면을 넘어갈 때 브라우저에 스크롤 추가 */
 }
 
 /* 모달 컨텐츠 박스 */
@@ -17,7 +19,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 400px;
+    width: 500px; /* 모달 크기 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease-in-out; /* 부드러운 애니메이션 */
 }
@@ -30,9 +32,14 @@
     margin-bottom: 10px;
 }
 
+.personal-schedule-details-modal-header img{
+    width: 24px;
+    height: 24px;
+}
+
 /* 모달 타이틀 */
 .personal-schedule-details-modal-title {
-    font-size: 18px; /* 글씨 크기를 키움 */
+    font-size: 22px; /* 글씨 크기를 키움 */
     font-weight: bold;
     text-align: center; /* 중앙 정렬 */
     width: 100%; /* 전체 너비를 차지하게 설정 */
@@ -56,15 +63,84 @@
 /* 모달 바디 */
 .personal-schedule-details-modal-body {
     margin-bottom: 20px;
-    height: 150px;
+    padding-bottom: 20px; /* 푸터와의 간격 조정 */
+}
+
+/* 이벤트 카드 */
+.event-card {
+    background-color: whitesmoke;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px lightgrey;
+    position: relative; /* 수정/삭제 아이콘의 위치를 조정하기 위해 상대적 위치 사용 */
+}
+
+/* 마우스 호버 시 수정/삭제 아이콘을 표시하기 위한 클래스 */
+.event-card.hovered .vacation-actions {
+    display: flex; /* 마우스 호버 시 아이콘을 표시 */
+}
+
+/* 수정/삭제 아이콘을 기본적으로 숨김 처리 */
+.vacation-actions {
+    position: absolute;
+    top: 50%;
+    right: -50px; /* 카드 오른쪽 바깥에 위치 */
+    transform: translateY(-50%);
+    display: none; /* 기본적으로 숨김 */
+    flex-direction: row;
+    background-color: white;
+    border-radius: 5px;
+    width: 20%;
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    padding: 10px; /* 아이콘 주변 여백 추가 */
+}
+
+.vacation-actions img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 아이콘 스타일 */
+.vacation-action-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.vacation-action-icon:hover {
+    transform: scale(1.1); /* 호버 시 아이콘 살짝 확대 */
+}
+
+/* 이벤트 카드 타이틀 */
+.event-card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* 이벤트 카드 내용 */
+.event-card-content {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 이벤트 카드 푸터 */
+.event-card-footer {
+    font-size: 14px;
+    color: #555;
 }
 
 /* 모달 푸터 */
 .personal-schedule-details-modal-footer {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* 푸터 내용 오른쪽 정렬 */
 }
 
-.personal-schedule-action-icon{
+/* 아이콘 스타일 */
+.personal-schedule-action-icon {
     height: 36px;
     width: 36px;
     cursor: pointer;
@@ -72,7 +148,8 @@
     transition: transform 0.3s ease;
 }
 
-.personal-schedule-details-modal-footer img:hover {
+/* 아이콘 호버 효과 */
+.personal-schedule-action-icon:hover {
     transform: scale(1.1);
 }
 

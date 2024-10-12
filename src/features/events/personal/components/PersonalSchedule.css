@@ -71,12 +71,12 @@
 }
 
 .calendar-day:hover {
-    background-color: #e0e0e0;
+    background-color: hotpink;
 }
 
 .selected {
     background-color: #3F48CC;
-    color: white;
+    color: black;
 }
 
 .empty-day {
