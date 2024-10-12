@@ -62,8 +62,6 @@ function App() {
                                element={<PrivateRoute component = {DepartmentBoardDetail} />} />
                         <Route path="/create-department-board/:department"
                                element={<PrivateRoute component={CreateDepartmentBoard} />} />
-                        <Route path="/company-schedule"
-                               element={<PrivateRoute component={CompanySchedule} />} />
                         <Route path="/department-schedule/:department"
                                element={<PrivateRoute component={DepartmentSchedule} />} />
                         <Route path="/personal-schedule"
