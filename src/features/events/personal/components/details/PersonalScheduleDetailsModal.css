@@ -16,6 +16,7 @@
 
 /* 모달 컨텐츠 박스 */
 .personal-schedule-details-modal-content {
+    position: relative;
     background-color: white;
     padding: 20px;
     border-radius: 8px;

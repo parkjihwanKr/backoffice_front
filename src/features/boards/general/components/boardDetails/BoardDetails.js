@@ -4,11 +4,12 @@ import { getCookie } from "../../../../../utils/CookieUtil";
 import { useAuth } from "../../../../auth/components/AuthContext";
 import Comments from "../../../shared/components/comments/Comments";
 import BoardDetailsFooter from './BoardDetailsFooter'; // 새로운 LikeButton 컴포넌트
-import EditModal from './EditModal';
+
 import DeleteModal from './DeleteModal';
 import BoardDetailsHeader from "./BoardDetailsHeader";
 import BoardDetailsBody from "./BoardDetailsBody";
 import {imagePrefix} from '../../../../../utils/Constant';
+import UpdateBoardDetailsModal from "./UpdateBoardDetailsModal";
 
 const BoardDetails = () => {
     const { boardId } = useParams();
@@ -192,7 +193,7 @@ const BoardDetails = () => {
                 />
             </div>
             {/* 모달 컴포넌트들 */}
-            <EditModal
+            <UpdateBoardDetailsModal
                 show={showEditModal}
                 handleClose={() => setShowEditModal(false)}
                 editForm={editForm}

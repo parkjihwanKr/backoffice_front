@@ -1,5 +1,5 @@
 import React from 'react';
-import './CloseButton.css'; // 스타일을 import
+import './ConfirmButton.css';
 
 const ConfirmButton = ({ onClick }) => {
     console.log(onClick);

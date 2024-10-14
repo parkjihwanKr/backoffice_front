@@ -15,6 +15,7 @@
 
 /* 모달 컨텐츠 박스 */
 .vacationList-vacation-modal-content {
+    position: relative;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -28,11 +29,6 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.vacationList-vacation-modal-header img {
-    height: 24px;
-    width : 24px;
 }
 
 /* 모달 타이틀 */

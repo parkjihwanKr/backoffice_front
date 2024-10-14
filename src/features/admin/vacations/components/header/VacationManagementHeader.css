@@ -1,0 +1,88 @@
+.vacation-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+.vacation-management-header h3 {
+    flex-grow: 1;
+    text-align: center; /* 제목을 가운데 정렬 */
+    margin: 0;
+    font-weight: bold;
+}
+
+.vacation-management-header img {
+    height: 24px;
+    width : 24px;
+    cursor: pointer;
+}
+
+.filter-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
+}
+
+.filters-modal {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.filters-modal-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filters-modal-header h4{
+    flex-grow: 1;
+    text-align: center; /* 제목을 가운데 정렬 */
+    margin: 0;
+}
+
+.filter-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px; /* 행 간 간격 */
+}
+
+.filter-item {
+    margin-bottom: 10px;
+}
+
+.filter-item select {
+    margin-top: 5px;
+}
+
+.apply-filters-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.apply-filters-button:hover {
+    background-color: #0056b3;
+}
