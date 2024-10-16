@@ -50,6 +50,9 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 테두리 주위에 그림자 효과 */
 }
 
+.vacation-details-urgent-reason {
+    margin: 10px;
+}
 .vacation-details-modal-body p {
     margin: 5px 0; /* 승인 여부와 hr 사이 간격 줄이기 */
 }

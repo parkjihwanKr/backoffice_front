@@ -54,9 +54,11 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], onU
     // 휴가 행을 렌더링하는 함수
     const renderVacationRows = () => {
         return calendarGrid.map((row, rowIndex) => (
-            <tr key={rowIndex + 1}> {/* 첫 행은 날짜이므로 +1 */}
+            <tr key={rowIndex + 1}>
                 {row.map((vacation, dayIndex) => {
-                    if (!vacation) return <td key={dayIndex}></td>; // 휴가가 없는 경우 빈 셀
+                    if (!vacation) {
+                        return <td key={dayIndex}>&nbsp;</td>; // 빈 셀을 공백으로 처리
+                    }
 
                     // 병합해야 할 날짜 범위 계산
                     const startDay = new Date(vacation.startDate).getDate() - 1;
@@ -70,9 +72,12 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], onU
                                 <div>
                                     <strong
                                         title={`${vacation.startDate} ~ ${vacation.endDate}`}
-                                        onClick={() => handleVacationClick(vacation)} // strong 태그에서 클릭 이벤트 발생
+                                        onClick={() => handleVacationClick(vacation)}
                                     >
                                         {vacation.onVacationMemberName}
+                                        <div>
+                                            {vacation.isAccepted ? "승인됨" : "미승인"}
+                                        </div>
                                     </strong>
                                 </div>
                             </td>
@@ -96,23 +101,18 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], onU
         <div className="vacation-schedule-container">
             <table className="vacation-calendar-table">
                 <thead>
-                <tr>
-                    {renderDayHeaders()}
-                </tr>
+                <tr>{renderDayHeaders()}</tr>
                 </thead>
-                <tbody>
-                {renderVacationRows()}
-                </tbody>
+                <tbody>{renderVacationRows()}</tbody>
             </table>
 
             <VacationDetailModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 vacation={selectedVacation}
-                onUpdate={onUpdateVacationIsAccepted}
-                onDelete={onDeleteVacation}
             />
         </div>
     );
 };
+
 export default VacationManagementBody;
