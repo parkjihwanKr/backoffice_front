@@ -1,0 +1,50 @@
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px; /* 페이지 상단에서 간격 확보 */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px lightgrey; /* 가벼운 그림자 효과 */
+    max-width: 400px; /* 너비 제한 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-container h3 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.admin-container a {
+    display: block; /* 링크를 블록 요소로 설정 */
+    text-decoration: none;
+    width: 100%;
+}
+
+.admin-container button {
+    display: flex; /* 버튼 내의 내용물도 flex로 설정 */
+    align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
+    justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
+    width: 95%;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: cornflowerblue;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-container button:hover {
+    background-color: #007bff; /* 호버 시 색상 변경 */
+}
+
+.admin-container button:focus {
+    outline: none;
+    box-shadow: 0 0 5px dimgray; /* 포커스 시 약간의 테두리 */
+}

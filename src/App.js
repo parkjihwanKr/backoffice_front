@@ -27,6 +27,12 @@ import DepartmentBoardDetail from "./features/boards/department/components/board
 import CreateDepartmentBoard from "./features/boards/department/components/CreateDepartmentBoard";
 import NoSchedulePage from "./features/events/department/components/NoSchedule";
 import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
+import Admin from "./features/admin/shared/components/Admin";
+import MemberManagement from "./features/admin/members/components/MemberManagement";
+import VacationManagement from "./features/admin/vacations/components/VacationManagement";
+import NotificationManagement from "./features/admin/notifications/components/NotificationManagement";
+import FinanceManagement from "./features/admin/finances/components/FinanceManagement";
+import AuditManagement from "./features/admin/audit/components/AuditManagement";
 
 function App() {
     return (
@@ -67,6 +73,18 @@ function App() {
                                 element={<PrivateRoute component={PersonalSchedule} />}/>
                         <Route path="/no-schedules"
                                element={<PrivateRoute component={NoSchedulePage} />} />
+                        <Route path="/admins"
+                               element={<PrivateRoute component={Admin} />} />
+                        <Route path="/admins/member-management"
+                               element={<PrivateRoute component={MemberManagement} />} />
+                        <Route path="/admins/vacation-management"
+                               element={<PrivateRoute component={VacationManagement} />} />
+                        <Route path="/admins/notification-management"
+                               element={<PrivateRoute component={NotificationManagement} />} />
+                        <Route path="/admins/audit-management"
+                               element={<PrivateRoute component={AuditManagement} />} />
+                        <Route path="/admins/finance-management"
+                               element={<PrivateRoute component={FinanceManagement} />} />
                         {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
                         <Route path="*" element={<Navigate to="/auth/login" replace />} />
                     </Routes>

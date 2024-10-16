@@ -76,7 +76,7 @@ const DropDownMenu = () => {
 
                                     {/* 관리자 권한이 있는 경우에만 Admin 페이지 링크 표시 */}
                                     {(position === 'MANAGER' || position === 'CEO') && (
-                                        <li><Link to="/admin">Admin Page</Link></li>
+                                        <li><Link to="/admins">Admin Page</Link></li>
                                     )}
                                 </>
                             )}

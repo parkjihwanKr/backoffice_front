@@ -1,0 +1,29 @@
+/*VacationManagement.css*/
+.vacation-schedule-container {
+    width: 100%;
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.vacation-calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.vacation-calendar-table th,
+.vacation-calendar-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    min-width: 55px;
+}
+
+.saturday-header {
+    color: blue;
+}
+
+.sunday-header {
+    color: red;
+}

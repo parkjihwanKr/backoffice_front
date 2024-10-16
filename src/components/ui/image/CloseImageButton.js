@@ -9,7 +9,7 @@ const CloseImageButton = ({handleClose}) => {
             alt="close"
             className="close-button"
             onClick={handleClose}
-            style={{ height : "24px", width : "24px"}}
+            style={{ height : "24px", width : "24px", position : "absolute", top : "20px", right : "10px"}}
         />
     );
 }

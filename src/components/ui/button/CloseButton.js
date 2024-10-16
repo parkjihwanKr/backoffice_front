@@ -1,6 +1,5 @@
 import React from 'react';
 import './CloseButton.css';
-import {imagePrefix} from "../../../utils/Constant"; // 스타일을 import
 
 const CloseButton = ({ handleClose }) => {
     return (
