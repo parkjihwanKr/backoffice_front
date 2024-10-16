@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import VacationDetailModal from "./VacationDetailModal";
-import { useState } from "react";
 
-const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], onUpdateVacationIsAccepted, onDeleteVacation }) => {
+const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loading, onUpdateVacationIsAccepted, onDeleteVacation }) => {
     const [selectedVacation, setSelectedVacation] = useState(null); // 선택된 휴가 저장
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
@@ -110,6 +110,8 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], onU
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 vacation={selectedVacation}
+                onUpdateVacationIsAccepted={onUpdateVacationIsAccepted} // 상태 업데이트 함수 전달
+                onDeleteVacation={onDeleteVacation} // 삭제 함수 전달
             />
         </div>
     );

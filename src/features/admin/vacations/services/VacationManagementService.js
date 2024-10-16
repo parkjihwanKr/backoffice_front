@@ -23,6 +23,15 @@ export const updateVacationIsAccepted = async (vacationId) => {
     }
 };
 
-export const deleteVacation = async (vacationId) => {
-
-}
+export const deleteVacation = async (vacationId, reason) => {
+    try {
+        // Body에 삭제 사유를 포함하여 DELETE 요청
+        const response = await axiosInstance.delete(`/admin/vacations/${vacationId}`, {
+            data: { reason }  // axios에서 body 데이터를 `data`로 전달
+        });
+        return response.data;
+    } catch (error) {
+        console.error('휴가 삭제 요청 중 오류 발생:', error);
+        throw error;
+    }
+};

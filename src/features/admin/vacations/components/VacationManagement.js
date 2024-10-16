@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {deleteVacation, fetchFilteredVacations, updateVacationIsAccepted} from '../services/VacationManagementService';
+import React, { useEffect, useState } from 'react';
+import { fetchFilteredVacations, updateVacationIsAccepted, deleteVacation } from '../services/VacationManagementService';
 import VacationManagementHeader from './header/VacationManagementHeader';
 import VacationManagementBody from './body/VacationManagementBody';
 import VacationManagementFooter from './footer/VacationManagementFooter';
@@ -14,49 +14,27 @@ const VacationManagement = () => {
         isUrgent: null,
         department: null
     });
+    const [loading, setLoading] = useState(false);
 
     const today = new Date();
     const [currentYear, setCurrentYear] = useState(today.getFullYear());
     const [currentMonth, setCurrentMonth] = useState(today.getMonth());
 
-    // 초기 휴가 필터 데이터 로드
-    const loadInitialVacations = async () => {
+    const loadVacations = async () => {
+        setLoading(true);
         try {
-            const response = await fetchFilteredVacations(
-                currentYear, currentMonth + 1, null, null, null
-            );
+            const response = await fetchFilteredVacations(currentYear, currentMonth + 1, filters);
             setVacations(response);
         } catch (error) {
-            console.error('초기 휴가 데이터를 가져오는 중 오류가 발생했습니다.', error);
-        }
-    };
-
-    // 필터된 휴가 데이터 로드
-    const loadFilteredVacations = async (filters) => {
-        try {
-            const { year, month, isAccepted, isUrgent, department } = filters;
-            const response = await fetchFilteredVacations(
-                year || currentYear,
-                month || currentMonth + 1,
-                isAccepted,
-                isUrgent,
-                department
-            );
-            setVacations(response);
-        } catch (error) {
-            console.error('필터된 휴가 데이터를 가져오는 중 오류가 발생했습니다.', error);
+            console.error('휴가 데이터를 가져오는 중 오류가 발생했습니다.', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        loadInitialVacations();
-    }, [currentYear, currentMonth]);
-
-    useEffect(() => {
-        if (filters.year || filters.month || filters.isAccepted !== null || filters.isUrgent !== null || filters.department !== null) {
-            loadFilteredVacations(filters);
-        }
-    }, [filters]);
+        loadVacations();
+    }, [filters, currentYear, currentMonth]);
 
     const handlePrevMonth = () => {
         if (currentMonth === 0) {
@@ -76,24 +54,25 @@ const VacationManagement = () => {
         }
     };
 
-    // 필터 적용 함수
     const handleApplyFilters = (newFilters) => {
         setFilters(newFilters);
     };
 
+    // 휴가 승인/미승인 상태 변경 후 다시 데이터를 로드
     const handleUpdateVacationIsAccepted = async (vacationId) => {
         try {
             await updateVacationIsAccepted(vacationId);
-            loadFilteredVacations(filters);
+            loadVacations(); // 상태 변경 후 데이터 다시 로드
         } catch (error) {
             console.error('휴가 승인/미승인 처리 중 오류 발생:', error);
         }
     };
 
+    // 휴가 삭제 후 다시 데이터를 로드
     const handleDeleteVacation = async (vacationId) => {
         try {
             await deleteVacation(vacationId);
-            loadFilteredVacations(filters);
+            loadVacations(); // 삭제 후 데이터 다시 로드
         } catch (error) {
             console.error('휴가 삭제 중 오류 발생:', error);
         }
@@ -110,6 +89,7 @@ const VacationManagement = () => {
                 currentYear={currentYear}
                 currentMonth={currentMonth}
                 vacations={vacations}
+                loading={loading}
                 onUpdateVacationIsAccepted={handleUpdateVacationIsAccepted}
                 onDeleteVacation={handleDeleteVacation}
             />
