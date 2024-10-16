@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './VacationManagementHeader.css';
+import './VacationManagementHeader.css'; // CSS 스타일 정의
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import { imagePrefix } from "../../../../../utils/Constant";
+import UpdateVacationPeriodModal from './UpdateVacationPeriodModal'; // UpdateVacationPeriodModal 임포트
 
 const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters }) => {
-    const [showFilters, setShowFilters] = useState(false);
+    const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 여부
+    const [showFilters, setShowFilters] = useState(false); // 필터 적용 창 상태
+    const [showUpdateVacationPeriodModal, setUpdateVacationPeriodModal] = useState(false); // 휴가 기간 설정 모달 상태
     const [filters, setFilters] = useState({
         year: currentYear,
         month: currentMonth + 1, // month는 0-based이므로 1-based로 설정
@@ -26,9 +29,21 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
     const years = Array.from({ length: 3 }, (_, i) => currentYear - 1 + i);
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
-    // 필터 창을 열 때 초기화
+    // settings 메뉴 열기/닫기
+    const handleOpenMenu = () => {
+        setShowMenu(!showMenu);
+    };
+
+    // 필터 창 열기
     const handleOpenFilters = () => {
         setShowFilters(true); // 필터 창 열기
+        setShowMenu(false); // 메뉴 닫기
+    };
+
+    // 휴가 요청 기간 설정 모달 열기
+    const handleOpenUpdateVacationPeriodModal = () => {
+        setUpdateVacationPeriodModal(true); // 휴가 요청 기간 설정 모달 열기
+        setShowMenu(false); // 메뉴 닫기
     };
 
     // 필터 적용 버튼을 눌렀을 때만 서버로 필터 값 전달
@@ -57,17 +72,26 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
         <div className="vacation-management-header">
             <h3>
                 {filters.year}년 {filters.month}월 휴가 관리 시스템
-                {/* 부서가 선택되었을 경우 부서명도 추가 출력 */}
                 {filters.department && filters.department !== 'all' && ` - ${filters.department} 부서`}
             </h3>
 
-            {/* 필터 버튼에 아이콘 추가 */}
+            {/* settings 아이콘 클릭 시 메뉴 표시 */}
             <img
-                src={`${imagePrefix}/shared/filter.png`}
-                onClick={handleOpenFilters}
-                alt="filter-icon"
+                src={`${imagePrefix}/shared/settings.png`}
+                onClick={handleOpenMenu}
+                alt="settings-icon"
+                className="settings-icon"
             />
 
+            {/* 드롭다운 메뉴 */}
+            {showMenu && (
+                <div className="vacation-management-dropdown-menu">
+                    <button onClick={handleOpenUpdateVacationPeriodModal}>휴가 기간 설정</button>
+                    <button onClick={handleOpenFilters}>필터 적용</button>
+                </div>
+            )}
+
+            {/* 필터 적용 창 */}
             {showFilters && (
                 <div className="filters-modal">
                     <div className="filters-modal-header">
@@ -75,7 +99,6 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                         <CloseImageButton handleClose={() => setShowFilters(false)} />
                     </div>
                     <hr />
-                    {/* 연도 및 월 선택 */}
                     <div className="filter-row">
                         <div className="filter-item">
                             <label htmlFor="year">연도</label>
@@ -110,7 +133,6 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                         </div>
                     </div>
 
-                    {/* 긴급 여부와 승인 여부를 한 줄에 배치 */}
                     <div className="filter-row">
                         <div className="filter-item">
                             <input
@@ -135,7 +157,6 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                         </div>
                     </div>
 
-                    {/* 부서 선택 */}
                     <div className="filter-item">
                         <label htmlFor="department">부서</label>
                         <select
@@ -157,6 +178,15 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                         필터 적용
                     </button>
                 </div>
+            )}
+
+            {/* 휴가 기간 설정 모달 */}
+            {showUpdateVacationPeriodModal && (
+                <UpdateVacationPeriodModal
+                    onClose={() => setUpdateVacationPeriodModal(false)} // 모달을 닫는 함수
+                    currentYear={currentYear}
+                    currentMonth={currentMonth} // 현재 월을 UpdateVacationPeriodModal로 전달
+                />
             )}
         </div>
     );

@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Link, Navigate, Route, Routes} from 'react-router-dom';
@@ -18,7 +17,6 @@ import BoardDetails from "./features/boards/general/components/boardDetails/Boar
 
 import './assets/styles/App.css';
 
-// Font Awesome imports
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {AuthProvider} from './features/auth/components/AuthContext';
 import {faHome} from '@fortawesome/free-solid-svg-icons';
@@ -70,21 +68,46 @@ function App() {
                         <Route path="/department-schedule/:department"
                                element={<PrivateRoute component={DepartmentSchedule} />} />
                         <Route path="/personal-schedule"
-                                element={<PrivateRoute component={PersonalSchedule} />}/>
+                               element={<PrivateRoute component={PersonalSchedule} />}/>
                         <Route path="/no-schedules"
                                element={<PrivateRoute component={NoSchedulePage} />} />
                         <Route path="/admins"
                                element={<PrivateRoute component={Admin} />} />
+
+                        {/* 인사 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
                         <Route path="/admins/member-management"
-                               element={<PrivateRoute component={MemberManagement} />} />
+                               element={<PrivateRoute component={MemberManagement}
+                                                      allowedDepartments={['HR']}
+                                                      allowedPositions={['MANAGER', 'CEO']}
+                               />} />
+
+                        {/* 휴가 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
                         <Route path="/admins/vacation-management"
-                               element={<PrivateRoute component={VacationManagement} />} />
+                               element={<PrivateRoute component={VacationManagement}
+                                                      allowedDepartments={['HR']}
+                                                      allowedPositions={['MANAGER', 'CEO']}
+                               />} />
+
+                        {/* 사내 알림 페이지: MANAGER 또는 CEO만 접근 가능 */}
                         <Route path="/admins/notification-management"
-                               element={<PrivateRoute component={NotificationManagement} />} />
-                        <Route path="/admins/audit-management"
-                               element={<PrivateRoute component={AuditManagement} />} />
+                               element={<PrivateRoute component={NotificationManagement}
+                                                      allowedPositions={['MANAGER', 'CEO']}
+                               />} />
+
+                        {/* 재정 관리 페이지: FINANCE/MANAGER 또는 CEO만 접근 가능 */}
                         <Route path="/admins/finance-management"
-                               element={<PrivateRoute component={FinanceManagement} />} />
+                               element={<PrivateRoute component={FinanceManagement}
+                                                      allowedDepartments={['FINANCE']}
+                                                      allowedPositions={['MANAGER', 'CEO']}
+                               />} />
+
+                        {/* 회계 감사 페이지: AUDIT/MANAGER 또는 CEO만 접근 가능 */}
+                        <Route path="/admins/audit-management"
+                               element={<PrivateRoute component={AuditManagement}
+                                                      allowedDepartments={['AUDIT']}
+                                                      allowedPositions={['MANAGER', 'CEO']}
+                               />} />
+
                         {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
                         <Route path="*" element={<Navigate to="/auth/login" replace />} />
                     </Routes>
