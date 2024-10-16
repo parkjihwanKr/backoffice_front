@@ -1,21 +1,19 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../features/auth/components/AuthContext';
+import {Navigate} from 'react-router-dom';
+import {useAuth} from '../features/auth/components/AuthContext';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { isAuthenticated } = useAuth();
+const PrivateRoute = ({ component: Component, allowedDepartments, allowedPositions, ...rest }) => {
+    const { department, position } = useAuth();
 
-    // 인증 여부 확인 중일 때 로딩 상태 표시
-    if (isAuthenticated === null) {
-        return <div>Loading...</div>;
-    }
+    // 사용자가 허용된 부서와 직급에 속해 있는지 확인
+    const hasAccess =
+        (!allowedDepartments || allowedDepartments.includes(department)) &&
+        (!allowedPositions || allowedPositions.includes(position));
 
-    // 인증 절차 성공 여부에 따른 결과값 반환
-    return isAuthenticated ? (
-        <Component {...rest} />
+    return hasAccess ? (
+        <Component />
     ) : (
-        <Navigate to="/auth/login" replace />
+        <Navigate to="/" replace />
     );
-}
+};
 
 export default PrivateRoute;
