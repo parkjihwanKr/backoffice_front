@@ -47,6 +47,10 @@
     border-radius: 4px;
 }
 
+.update-vacation-period-modal-body-message {
+    font-weight: bold;
+}
+
 .update-vacation-period-modal-footer {
     display: flex;
     justify-content: flex-end; /* 푸터 버튼을 오른쪽 정렬 */

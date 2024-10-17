@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import VacationDetailModal from "./VacationDetailModal";
+import { useModal } from '../../hooks/useModal';
 
 const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loading, onUpdateVacationIsAccepted, onDeleteVacation }) => {
-    const [selectedVacation, setSelectedVacation] = useState(null); // 선택된 휴가 저장
-    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+    const { isModalOpen, selectedVacation, openModal, closeModal } = useModal(); // Use the custom hook
 
     // 해당 월의 마지막 날짜 가져오기
     const getDaysInMonth = (year, month) => {
@@ -28,12 +28,6 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loa
             calendarGrid[index][day] = vacation;
         }
     });
-
-    // 모달을 닫는 함수
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedVacation(null);
-    };
 
     // 날짜 헤더 생성 함수
     const renderDayHeaders = () => {
@@ -72,7 +66,7 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loa
                                 <div>
                                     <strong
                                         title={`${vacation.startDate} ~ ${vacation.endDate}`}
-                                        onClick={() => handleVacationClick(vacation)}
+                                        onClick={() => openModal(vacation)}
                                     >
                                         {vacation.onVacationMemberName}
                                         <div>
@@ -89,12 +83,6 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loa
                 })}
             </tr>
         ));
-    };
-
-    // 모달을 열고 휴가 데이터를 설정하는 함수
-    const handleVacationClick = (vacation) => {
-        setSelectedVacation(vacation);
-        setIsModalOpen(true);
     };
 
     return (

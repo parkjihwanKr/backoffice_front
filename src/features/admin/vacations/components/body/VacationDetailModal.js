@@ -1,12 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './VacationDetailModal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import UpdateIsAcceptedModal from './UpdateIsAcceptedModal';
 import DeleteVacationForAdminModal from "./DeleteVacationForAdminModal";
+import { useModalVisibility } from '../../hooks/useModalVisibility';
 
 const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onDeleteVacation, onClose }) => {
-    const [showUpdateModal, setShowUpdateModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const {
+        isUpdateModalOpen,
+        isDeleteModalOpen,
+        openUpdateModal,
+        closeUpdateModal,
+        openDeleteModal,
+        closeDeleteModal,
+    } = useModalVisibility();
 
     if (!isOpen || !vacation) return null;
 
@@ -15,7 +22,7 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
     const handleUpdateIsAccepted = async () => {
         try {
             await onUpdateVacationIsAccepted(vacation.vacationId); // 부모 컴포넌트로 상태 업데이트 요청
-            setShowUpdateModal(false); // 모달 닫기
+            closeUpdateModal(); // 모달 닫기
             onClose(); // 모달을 닫으면서 새 데이터를 반영할 수 있도록 함
         } catch (error) {
             console.error('휴가 승인/미승인 처리 중 오류 발생:', error);
@@ -25,7 +32,7 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
     const handleDeleteVacation = async () => {
         try {
             await onDeleteVacation(vacation.vacationId); // 부모 컴포넌트로 삭제 요청
-            setShowDeleteModal(false); // 모달 닫기
+            closeDeleteModal(); // 모달 닫기
             onClose(); // 모달을 닫으면서 새 데이터를 반영할 수 있도록 함
         } catch (error) {
             console.error('휴가 삭제 처리 중 오류 발생:', error);
@@ -49,23 +56,23 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
                     <p><strong>승인 여부 :</strong> {vacation.isAccepted ? '승인됨' : '미승인'}</p>
                 </div>
                 <div className="vacation-details-modal-footer">
-                    <button onClick={() => setShowUpdateModal(true)}>{buttonText}</button>
-                    <button onClick={() => setShowDeleteModal(true)}>삭제</button>
+                    <button onClick={openUpdateModal}>{buttonText}</button>
+                    <button onClick={openDeleteModal}>삭제</button>
                 </div>
             </div>
 
             <UpdateIsAcceptedModal
-                isOpen={showUpdateModal}
+                isOpen={isUpdateModalOpen}
                 vacation={vacation}
                 onUpdate={handleUpdateIsAccepted}
-                onClose={() => setShowUpdateModal(false)}
+                onClose={closeUpdateModal}
             />
 
             <DeleteVacationForAdminModal
-                isOpen={showDeleteModal}
+                isOpen={isDeleteModalOpen}
                 vacation={vacation}
                 onDelete={handleDeleteVacation}
-                onClose={() => setShowDeleteModal(false)}
+                onClose={closeDeleteModal}
             />
         </div>
     );
