@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { fetchFilteredVacations, updateVacationIsAccepted, deleteVacation } from '../services/VacationManagementService';
+import React, { useState } from 'react';
+import { useFetchVacations } from '../hooks/useFetchVacations';
+import { useHandleUpdateVacationIsAccepted } from '../hooks/useHandleUpdateVacationIsAccepted';
+import { useHandleDeleteVacation } from '../hooks/useHandleDeleteVacation';
 import VacationManagementHeader from './header/VacationManagementHeader';
 import VacationManagementBody from './body/VacationManagementBody';
 import VacationManagementFooter from './footer/VacationManagementFooter';
 import './VacationManagement.css';
 
 const VacationManagement = () => {
-    const [vacations, setVacations] = useState([]);
+    const today = new Date();
+    const [currentYear, setCurrentYear] = useState(today.getFullYear());
+    const [currentMonth, setCurrentMonth] = useState(today.getMonth());
     const [filters, setFilters] = useState({
         year: null,
         month: null,
@@ -14,27 +18,11 @@ const VacationManagement = () => {
         isUrgent: null,
         department: null
     });
-    const [loading, setLoading] = useState(false);
 
-    const today = new Date();
-    const [currentYear, setCurrentYear] = useState(today.getFullYear());
-    const [currentMonth, setCurrentMonth] = useState(today.getMonth());
-
-    const loadVacations = async () => {
-        setLoading(true);
-        try {
-            const response = await fetchFilteredVacations(currentYear, currentMonth + 1, filters);
-            setVacations(response);
-        } catch (error) {
-            console.error('휴가 데이터를 가져오는 중 오류가 발생했습니다.', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        loadVacations();
-    }, [filters, currentYear, currentMonth]);
+    // Custom hooks 사용
+    const { vacations, loading, loadVacations } = useFetchVacations(currentYear, currentMonth, filters);
+    const { handleUpdateVacationIsAccepted } = useHandleUpdateVacationIsAccepted(loadVacations);
+    const { handleDeleteVacation } = useHandleDeleteVacation(loadVacations);
 
     const handlePrevMonth = () => {
         if (currentMonth === 0) {
@@ -56,26 +44,6 @@ const VacationManagement = () => {
 
     const handleApplyFilters = (newFilters) => {
         setFilters(newFilters);
-    };
-
-    // 휴가 승인/미승인 상태 변경 후 다시 데이터를 로드
-    const handleUpdateVacationIsAccepted = async (vacationId) => {
-        try {
-            await updateVacationIsAccepted(vacationId);
-            loadVacations(); // 상태 변경 후 데이터 다시 로드
-        } catch (error) {
-            console.error('휴가 승인/미승인 처리 중 오류 발생:', error);
-        }
-    };
-
-    // 휴가 삭제 후 다시 데이터를 로드
-    const handleDeleteVacation = async (vacationId) => {
-        try {
-            await deleteVacation(vacationId);
-            loadVacations(); // 삭제 후 데이터 다시 로드
-        } catch (error) {
-            console.error('휴가 삭제 중 오류 발생:', error);
-        }
     };
 
     return (

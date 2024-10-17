@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './VacationManagementHeader.css'; // CSS 스타일 정의
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import { imagePrefix } from "../../../../../utils/Constant";
 import UpdateVacationPeriodModal from './UpdateVacationPeriodModal'; // UpdateVacationPeriodModal 임포트
+import ResetFilterModal from './ResetFiltersModal'; // ResetFilterModal 임포트
+import { useVacationManagementFilters } from '../../hooks/useVacationManagementFilters'; // 훅 임포트
 
 const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters }) => {
-    const [showMenu, setShowMenu] = useState(false); // 메뉴 표시 여부
+    const [showMenu, setShowMenu] = useState(false); // 드롭다운 메뉴 표시 여부
     const [showFilters, setShowFilters] = useState(false); // 필터 적용 창 상태
     const [showUpdateVacationPeriodModal, setUpdateVacationPeriodModal] = useState(false); // 휴가 기간 설정 모달 상태
-    const [filters, setFilters] = useState({
-        year: currentYear,
-        month: currentMonth + 1, // month는 0-based이므로 1-based로 설정
-        isAccepted: null, // 초기에 null 값 설정
-        isUrgent: null, // 초기에 null 값 설정
-        department: null, // 초기에 null 값 설정
-    });
+    const [showResetModal, setShowResetModal] = useState(false); // 전체 보기(필터 초기화) 모달 상태
 
-    // 부모로부터 받은 currentYear, currentMonth가 변경될 때 필터의 상태를 업데이트
-    useEffect(() => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            year: currentYear,
-            month: currentMonth + 1, // month는 0-based이므로 1-based로 설정
-        }));
-    }, [currentYear, currentMonth]);
+    // 커스텀 훅 사용
+    const { filters, handleFilterChange, setFilters } = useVacationManagementFilters(currentYear, currentMonth);
 
     const departments = ['HR', 'FINANCE', 'AUDIT', 'SALES', 'IT', 'MARKETING'];
     const years = Array.from({ length: 3 }, (_, i) => currentYear - 1 + i);
@@ -37,13 +27,13 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
     // 필터 창 열기
     const handleOpenFilters = () => {
         setShowFilters(true); // 필터 창 열기
-        setShowMenu(false); // 메뉴 닫기
+        setShowMenu(false); // 드롭다운 메뉴 닫기
     };
 
     // 휴가 요청 기간 설정 모달 열기
     const handleOpenUpdateVacationPeriodModal = () => {
         setUpdateVacationPeriodModal(true); // 휴가 요청 기간 설정 모달 열기
-        setShowMenu(false); // 메뉴 닫기
+        setShowMenu(false); // 드롭다운 메뉴 닫기
     };
 
     // 필터 적용 버튼을 눌렀을 때만 서버로 필터 값 전달
@@ -59,13 +49,22 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
         onApplyFilters(appliedFilters); // 부모 컴포넌트에 필터 값 전달하여 서버로 요청
     };
 
-    // 필터 값이 변경될 때 필터 상태를 업데이트만 하고, 바로 서버로 전송하지 않음
-    const handleFilterChange = (e) => {
-        const { name, value, checked, type } = e.target;
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
+    // 전체 보기 모달 열기
+    const handleOpenResetModal = () => {
+        setShowResetModal(true); // 전체 보기 모달 열기
+    };
+
+    // 필터 초기화 처리
+    const handleResetFilters = () => {
+        setFilters({
+            year: currentYear,
+            month: currentMonth + 1,
+            isAccepted: null,
+            isUrgent: null,
+            department: null,
+        });
+        setShowResetModal(false); // 모달 닫기
+        onApplyFilters({ year: currentYear, month: currentMonth + 1, isAccepted: null, isUrgent: null, department: null }); // 필터 초기화 후 데이터 로드
     };
 
     return (
@@ -174,9 +173,16 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                         </select>
                     </div>
 
-                    <button className="apply-filters-button" onClick={handleApplyFilters}>
-                        필터 적용
-                    </button>
+                    <div className="button-row">
+                        <button className="apply-filters-button" onClick={handleApplyFilters}>
+                            필터 적용
+                        </button>
+
+                        {/* 전체 보기 버튼 추가 */}
+                        <button className="view-all-button" onClick={handleOpenResetModal}>
+                            전체 보기
+                        </button>
+                    </div>
                 </div>
             )}
 
@@ -186,6 +192,14 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                     onClose={() => setUpdateVacationPeriodModal(false)} // 모달을 닫는 함수
                     currentYear={currentYear}
                     currentMonth={currentMonth} // 현재 월을 UpdateVacationPeriodModal로 전달
+                />
+            )}
+
+            {/* 필터 초기화 모달 */}
+            {showResetModal && (
+                <ResetFilterModal
+                    onClose={() => setShowResetModal(false)} // 모달을 닫는 함수
+                    onConfirm={handleResetFilters} // 필터 초기화 처리
                 />
             )}
         </div>
