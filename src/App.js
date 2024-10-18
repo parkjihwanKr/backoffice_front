@@ -31,6 +31,7 @@ import VacationManagement from "./features/admin/vacations/components/VacationMa
 import NotificationManagement from "./features/admin/notifications/components/NotificationManagement";
 import FinanceManagement from "./features/admin/finances/components/FinanceManagement";
 import AuditManagement from "./features/admin/audit/components/AuditManagement";
+import MemberDetails from "./features/admin/members/components/body/MemberDetails";
 
 function App() {
     return (
@@ -80,6 +81,9 @@ function App() {
                                                       allowedDepartments={['HR']}
                                                       allowedPositions={['MANAGER', 'CEO']}
                                />} />
+
+                        <Route path="/members/:memberId" element={
+                            <PrivateRoute component={MemberDetails} />} />
 
                         {/* 휴가 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
                         <Route path="/admins/vacation-management"

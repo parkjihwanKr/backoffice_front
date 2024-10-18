@@ -177,7 +177,6 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
                         <button className="apply-filters-button" onClick={handleApplyFilters}>
                             필터 적용
                         </button>
-
                         {/* 전체 보기 버튼 추가 */}
                         <button className="view-all-button" onClick={handleOpenResetModal}>
                             전체 보기
