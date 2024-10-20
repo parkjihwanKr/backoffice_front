@@ -57,3 +57,9 @@
 .member-details-modal button:hover {
     background-color: #0056b3;
 }
+
+.member-management-body-no-member {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}

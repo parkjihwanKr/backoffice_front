@@ -1,4 +1,6 @@
 /* FinanceManagement.js*/
+import './FinanceManagement.css';
+
 const FinanceManagement = () => {
 
 }

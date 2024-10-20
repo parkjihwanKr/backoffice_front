@@ -2,34 +2,15 @@ import './MemberManagement.css';
 import MemberManagementBody from "./body/MemberManagementBody";
 import MemberManagementFooter from "./footer/MemberManagementFooter";
 import MemberManagementHeader from "./header/MemberManagementHeader";
-import { useState } from "react"; // 스타일 정의
+import useFilters from "../hooks/useFilters";
+import usePagination from "../hooks/usePagination";
 
 const MemberManagement = () => {
-    // 필터 상태
-    const [filters, setFilters] = useState({
-        position: null,
-        department: null
-    });
+    // 필터 상태 관리
+    const { filters, handleFilterChange } = useFilters();
 
-    // 페이지 관련 상태
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(1);
-
-    // 필터가 변경되면 호출되는 함수
-    const handleFilterChange = (newFilters) => {
-        setFilters(newFilters); // 필터 상태 업데이트
-        setCurrentPage(0); // 필터가 변경되면 페이지를 첫 페이지로 리셋
-    };
-
-    // 페이지 변경 시 호출되는 함수
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
-    };
-
-    // totalPages가 변경되면 업데이트
-    const updateTotalPages = (newTotalPages) => {
-        setTotalPages(newTotalPages);
-    };
+    // 페이지 상태 관리
+    const { currentPage, totalPages, handlePageChange, updateTotalPages } = usePagination();
 
     return (
         <div className="member-management">
