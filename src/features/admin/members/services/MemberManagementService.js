@@ -17,6 +17,36 @@ export const fetchMemberDetails = async (memberId) => {
     console.log("Response data : ", response.data);
     return response.data;
 }
+
+export const updateAttribute = async (formData, memberId) => {
+    try {
+        const response = await axiosInstance.patch(`/members/${memberId}/attribute`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // FormData 전송을 위한 헤더 설정
+            },
+        });
+        console.log('Success:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating attribute:', error);
+    }
+};
+
+export const updateRemainingVacationDays = async (memberId, changeRemainingVacationDays) => {
+    try {
+        const response
+            = await axiosInstance.patch(`/members/${memberId}/vacations`,
+            {
+                vacationDays : changeRemainingVacationDays
+            }
+        );
+        console.log('Success:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating members vacation:', error);
+    }
+};
+
 /*
 export const updateVacationIsAccepted = async (vacationId) => {
     try {
