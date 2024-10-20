@@ -1,0 +1,59 @@
+/*MemberManagementBody.css*/
+.member-management-member-details{
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+.member-management-body {
+    text-align: center;
+}
+
+.member-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.member-table th, .member-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.member-details-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.member-details-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.member-details-modal h3 {
+    margin-bottom: 20px;
+}
+
+.member-details-modal button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.member-details-modal button:hover {
+    background-color: #0056b3;
+}

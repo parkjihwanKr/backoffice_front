@@ -48,16 +48,3 @@
     display: flex;
     justify-content: flex-end;
 }
-
-.cancel-button {
-    background-color: gray;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.cancel-button:hover {
-    transform: scale(1.1);
-}
