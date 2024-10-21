@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { fetchFilteredMembers } from "../services/MemberManagementService"; // 서비스 파일 경로에 맞게 변경
+import { fetchFilteredMembers } from "../../members/services/MemberManagementService"; // 서비스 파일 경로에 맞게 변경
 
 const useFilteredMembers = (filters, currentPage, pageSize, updateTotalPages) => {
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // 필터링된 멤버 리스트를 가져오는 함수
     const loadFilteredMembers = async (page = 0) => {
         setLoading(true);
         setError(null);
@@ -22,12 +21,11 @@ const useFilteredMembers = (filters, currentPage, pageSize, updateTotalPages) =>
         }
     };
 
-    // 필터가 변경되거나 페이지가 변경될 때 필터링된 멤버 리스트를 가져옴
     useEffect(() => {
         loadFilteredMembers(currentPage);
     }, [filters, currentPage]);
 
-    return { members, loading, error, loadFilteredMembers };
+    return { members, loading, error, setMembers }; // setMembers도 반환
 };
 
 export default useFilteredMembers;

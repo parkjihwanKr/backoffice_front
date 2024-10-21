@@ -15,6 +15,8 @@ const Admin = () => {
     const isAuditManagerOrCEO
         = (department === 'AUDIT' && position === 'MANAGER') || position === 'CEO';
 
+    console.log('department:', department, 'position:', position);
+    console.log(isHrManagerOrCeo);
     return (
         <div className="admin-container">
             <h3> 관리자 페이지 </h3>

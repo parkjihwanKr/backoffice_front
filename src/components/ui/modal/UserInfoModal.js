@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseButton from "../button/CloseButton";
+import CloseButton from "../buttons/CloseButton";
 import './UserInfoModal.css'; // 스타일을 함께 불러옵니다.
 
 const UserInfoModal = ({ show, handleClose, name, department, position }) => {

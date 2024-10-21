@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import { imagePrefix } from "../../../../../utils/Constant";
-import { useAuth } from "../../../../auth/components/AuthContext";
-import UpdateAttributeModal from "./UpdateAttributeModal";
-import UpdateVacationDaysModal from "./UpdateVacationDaysModal";
-import useMemberDetails from "../../hooks/useMemberDetails"; // custom hook 사용
+import { imagePrefix } from "../../../utils/Constant";
+import { useAuth } from "../../auth/components/AuthContext";
+import UpdateAttributeModal from "../../admin/members/components/body/UpdateAttributeModal";
+import UpdateVacationDaysModal from "../../admin/members/components/body/UpdateVacationDaysModal";
+import useMemberDetails from "../../admin/shared/hooks/useMemberDetails"; // custom hook 사용
 import './MemberDetails.css';
 import {useState} from "react";
 

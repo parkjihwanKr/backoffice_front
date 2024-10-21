@@ -1,0 +1,46 @@
+.management-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.management-pagination-ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.management-page-item {
+    position: relative;
+    justify-items: right;
+    margin: 0 5px;
+}
+
+.management-page-item button {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.management-page-item button:hover {
+    background-color: #f1f1f1;
+    border-color: #007bff;
+}
+
+.management-page-item.active button {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.management-page-item.disabled button {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+}

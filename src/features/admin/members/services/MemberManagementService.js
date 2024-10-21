@@ -47,6 +47,19 @@ export const updateRemainingVacationDays = async (memberId, changeRemainingVacat
     }
 };
 
+export const updateSalary = async (memberId, memberName, changeSalary) => {
+    try{
+        const response = await axiosInstance.patch(`/members/${memberId}/attribute/salary`, {
+            memberName : memberName,
+            salary : changeSalary,
+        });
+        console.log("Response Data:", response.data);
+        return response.data;
+    }catch (error){
+        console.log(error);
+    }
+};
+
 /*
 export const updateVacationIsAccepted = async (vacationId) => {
     try {
@@ -55,6 +68,7 @@ export const updateVacationIsAccepted = async (vacationId) => {
     } catch (error) {
         console.error('휴가 승인/미승인 요청 중 오류 발생:', error);
         throw error;
+
     }
 };
 

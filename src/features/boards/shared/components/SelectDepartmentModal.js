@@ -1,8 +1,8 @@
 // src/components/ui/SelectDepartmentModal.js
 
 import React from 'react';
-import ConfirmButton from '../../../../components/ui/button/ConfirmButton';
-import CloseButton from '../../../../components/ui/button/CloseButton';
+import ConfirmButton from '../../../../components/ui/buttons/ConfirmButton';
+import CloseButton from '../../../../components/ui/buttons/CloseButton';
 import './SelectDepartmentModal.css'; // 모달 관련 CSS 가져오기
 
 const SelectDepartmentModal = ({

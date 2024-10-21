@@ -1,21 +1,19 @@
 .member-management-header {
-    position: relative; /* 필터 드롭다운 위치 제어 */
-}
-
-.member-management-header h4{
-    font-weight: bold;
+    position: relative;
+    margin-top: 20px;
     text-align: center;
+    font-weight: bold;
 }
 
-.filter-icon {
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
+.member-management-header h3 {
+    text-align: center; /* 제목을 가운데 정렬 */
+    margin: 10px;
+    font-weight: bold;
 }
 
 .filters-dropdown {
     position: absolute;
-    top: 40px; /* 필터 아이콘 아래에 드롭다운 배치 */
+    top: 50px; /* 필터 아이콘 아래에 드롭다운 배치 */
     right: 10px;
     background-color: white;
     border: 1px solid #ddd;
