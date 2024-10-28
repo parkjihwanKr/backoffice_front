@@ -31,7 +31,7 @@ import VacationManagement from "./features/admin/vacations/components/VacationMa
 import NotificationManagement from "./features/admin/notifications/components/NotificationManagement";
 import FinanceManagement from "./features/admin/finances/components/FinanceManagement";
 import AuditManagement from "./features/admin/audit/components/AuditManagement";
-import MemberDetails from "./features/admin/members/components/body/MemberDetails";
+import MemberDetails from "./features/members/components/MemberDetails";
 
 function App() {
     return (

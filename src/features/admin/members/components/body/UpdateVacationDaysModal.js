@@ -1,24 +1,12 @@
-/*UpdateVacationDaysModal.js*/
-import { useState } from "react";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import './UpdateVacationDaysModal.css';
-import {updateRemainingVacationDays} from "../../services/MemberManagementService";
+import useUpdateVacationDays from "../../hooks/useUpdateVacationDays"; // custom hook 임포트
 
 const UpdateVacationDaysModal = ({ member, onClose, onSave }) => {
-    const [newVacationDays, setNewVacationDays] = useState(member.remainingVacationDays);
-
-    // 변경 사항 저장
-    const handleSaveChanges = () => {
-        const response
-            = updateRemainingVacationDays(member.memberId, newVacationDays);
-
-        const updatedMember = {
-            ...member,
-            remainingVacationDays: newVacationDays,
-        };
-
-        onSave(updatedMember); // 부모 컴포넌트로 업데이트된 데이터를 전달
-    };
+    const {
+        newVacationDays, setNewVacationDays,
+        handleSaveChanges
+    } = useUpdateVacationDays(member, onSave, onClose);
 
     return (
         <div className="update-vacation-days-modal">

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './EventDetailModal.css';
 import UpdateDepartmentScheduleModal from './UpdateDepartmentScheduleModal';
 import DeleteDepartmentScheduleModal from './DeleteDepartmentScheduleModal';
-import DownloadButton from "../../../../../components/ui/button/DownloadButton";
+import DownloadButton from "../../../../../components/ui/buttons/DownloadButton";
 import {imagePrefix} from '../../../../../utils/Constant';
 
 const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {

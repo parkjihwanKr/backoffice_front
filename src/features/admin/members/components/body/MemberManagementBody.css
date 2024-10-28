@@ -1,5 +1,6 @@
 /*MemberManagementBody.css*/
 .member-management-member-details{
+    margin-top: 20px;
     cursor: pointer;
     height: 24px;
     width: 24px;
@@ -56,4 +57,10 @@
 
 .member-details-modal button:hover {
     background-color: #0056b3;
+}
+
+.member-management-body-no-member {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
 }

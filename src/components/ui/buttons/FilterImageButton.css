@@ -1,0 +1,8 @@
+.filter-image-button {
+    position: absolute;
+    right : 10px;
+    bottom: 10px;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}

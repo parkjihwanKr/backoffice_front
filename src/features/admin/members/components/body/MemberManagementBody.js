@@ -1,56 +1,53 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { imagePrefix } from "../../../../../utils/Constant";
-import { fetchFilteredMembers } from "../../services/MemberManagementService"; // fetchMemberDetails 제거
-import { useNavigate } from 'react-router-dom'; // useNavigate 사용
+import useFilteredMembers from "../../../shared/hooks/useFilteredMembers";
+import UpdateSalaryModal from './UpdateSalaryModal'; // 급여 변경 모달 임포트
 import './MemberManagementBody.css';
+import React, { useState } from 'react';
 
 const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
-    const [members, setMembers] = useState([]); // 멤버 리스트 상태
-    const [loading, setLoading] = useState(true); // 로딩 상태
-    const [error, setError] = useState(null); // 에러 상태
-    const navigate = useNavigate(); // React Router의 useNavigate 훅 사용
-
     const pageSize = 10; // 페이지당 표시할 멤버 수
+    const navigate = useNavigate();
+    const { members, setMembers, loading, error } = useFilteredMembers(filters, currentPage, pageSize, updateTotalPages); // setMembers 추가
 
-    // 필터링된 멤버 리스트를 가져오는 함수
-    const loadFilteredMembers = async (page = 0) => {
-        setLoading(true);
-        setError(null);
-        try {
-            const membersData = await fetchFilteredMembers(filters.position, filters.department, page, pageSize);
-            setMembers(membersData.content); // 가져온 멤버 데이터를 상태에 저장
-            updateTotalPages(membersData.totalPages); // 전체 페이지 수 설정
-        } catch (error) {
-            setError('멤버 데이터를 가져오는 중 오류가 발생했습니다.');
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const [selectedMember, setSelectedMember] = useState(null); // 선택된 멤버
+    const [showSalaryModal, setShowSalaryModal] = useState(false); // 급여 변경 모달 상태
 
-    // 상세 페이지로 이동하는 함수
     const goToMemberDetails = (memberId) => {
-        navigate(`/members/${memberId}`); // 멤버 ID를 기반으로 상세 페이지로 이동
+        navigate(`/members/${memberId}`);
     };
 
-    // 필터가 변경되거나 페이지가 변경될 때 필터링된 멤버 리스트를 가져옴
-    useEffect(() => {
-        loadFilteredMembers(currentPage); // 필터가 변경되거나 페이지가 변경될 때 데이터를 로드
-    }, [filters, currentPage]);
+    const openSalaryModal = (member) => {
+        setSelectedMember(member);
+        setShowSalaryModal(true);
+    };
 
-    // 로딩 중일 때의 화면
+    const handleSaveSalary = (newSalary) => {
+        // 전체 멤버 목록에서 해당 멤버의 급여 업데이트
+        setMembers((prevMembers) =>
+            prevMembers.map((m) =>
+                m.memberId === selectedMember.memberId ? { ...m, salary: newSalary } : m
+            )
+        );
+        setShowSalaryModal(false); // 모달 닫기
+    };
+
     if (loading) {
         return <div>로딩 중...</div>;
     }
 
-    // 에러가 발생했을 때의 화면
     if (error) {
         return <div>{error}</div>;
     }
 
+    if (members.length === 0) {
+        return <div className="member-management-body-no-member">
+            해당 조건의 사람이 없습니다.
+        </div>;
+    }
+
     return (
         <div className="member-management-body">
-            {/* 멤버 리스트 */}
             <table className="member-table">
                 <thead>
                 <tr>
@@ -59,29 +56,49 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
                     <th>부서</th>
                     <th>직위</th>
                     <th>입사일</th>
+                    <th>급여</th>
+                    <th>급여 변경</th>
                     <th>상세보기</th>
                 </tr>
                 </thead>
                 <tbody>
                 {members.map((member) => (
-                    <tr key={member.id}>
+                    <tr key={member.memberId}>
                         <td>{member.memberName}</td>
                         <td>{member.email}</td>
                         <td>{member.department}</td>
                         <td>{member.position}</td>
                         <td>{new Date(member.createdAt).toLocaleDateString()}</td>
+                        <td>{member.salary ? Number(member.salary).toLocaleString() : '정보 없음'} 원</td>
+                        <td>
+                            <img
+                                src={`${imagePrefix}/shared/change_salary.png`}
+                                className="finance-management-body-table-img"
+                                onClick={() => openSalaryModal(member)} // 모달 열기
+                                alt="급여 변경"
+                            />
+                        </td>
                         <td>
                             <img
                                 className="member-management-member-details"
                                 src={`${imagePrefix}/shared/find_member.png`}
                                 alt="상세보기"
-                                onClick={() => goToMemberDetails(member.memberId)} // 상세 페이지로 이동
+                                onClick={() => goToMemberDetails(member.memberId)}
                             />
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+
+            {/* 급여 변경 모달 */}
+            {showSalaryModal && (
+                <UpdateSalaryModal
+                    member={selectedMember}
+                    onClose={() => setShowSalaryModal(false)}
+                    onSave={handleSaveSalary} // 변경된 급여를 저장
+                />
+            )}
         </div>
     );
 };

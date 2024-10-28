@@ -1,9 +1,9 @@
+import './FinanceManagementHeader.css';
+import useFiltersDropdown from '../../../shared/hooks/useFiltersDropdown';
 import React from "react";
-import './MemberManagementHeader.css'; // CSS 파일 추가
-import useFiltersDropdown from "../../../shared/hooks/useFiltersDropdown";
-import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton"; // custom hook 임포트
+import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton"; // 필터 드롭다운을 위한 커스텀 훅 임포트
 
-const MemberManagementHeader = ({ onFilterChange }) => {
+const FinanceManagementHeader = ({ onFilterChange }) => {
     const {
         position,
         setPosition,
@@ -14,12 +14,13 @@ const MemberManagementHeader = ({ onFilterChange }) => {
         applyFilters
     } = useFiltersDropdown();
 
-    return (
-        <div className="member-management-header">
-            <h3>직원 관리 시스템</h3>
-            <FilterImageButton onClick={toggleFilterDropdown}/>
+    console.log(onFilterChange);
 
-            {/* 필터 선택 UI - 필터 아이콘을 누르면 보여줌 */}
+    return (
+        <div className="finance-management-header">
+            <h2>재정 관리 시스템</h2>
+            <FilterImageButton onClick={toggleFilterDropdown} />
+
             {showFilters && (
                 <div className="filters-dropdown">
                     <h4>필터 적용</h4>
@@ -54,8 +55,9 @@ const MemberManagementHeader = ({ onFilterChange }) => {
                     </button>
                 </div>
             )}
+
         </div>
     );
 };
 
-export default MemberManagementHeader;
+export default FinanceManagementHeader;
