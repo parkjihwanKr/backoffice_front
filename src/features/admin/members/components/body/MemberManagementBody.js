@@ -33,7 +33,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
     };
 
     if (loading) {
-        return <div>로딩 중...</div>;
+        return <div>Loading...</div>;
     }
 
     if (error) {
@@ -73,7 +73,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
                         <td>
                             <img
                                 src={`${imagePrefix}/shared/change_salary.png`}
-                                className="finance-management-body-table-img"
+                                className="member-management-body-table-img"
                                 onClick={() => openSalaryModal(member)} // 모달 열기
                                 alt="급여 변경"
                             />

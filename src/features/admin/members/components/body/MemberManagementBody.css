@@ -1,10 +1,17 @@
 /*MemberManagementBody.css*/
-.member-management-member-details{
+.member-management-member-details {
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+.member-management-body-table-img {
     margin-top: 20px;
     cursor: pointer;
     height: 24px;
     width: 24px;
 }
+
 .member-management-body {
     text-align: center;
 }

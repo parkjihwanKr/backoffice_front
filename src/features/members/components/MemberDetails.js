@@ -34,7 +34,7 @@ const MemberDetails = () => {
     };
 
     if (loading) {
-        return <div>로딩 중...</div>;
+        return <div>Loading...</div>;
     }
 
     if (error) {
