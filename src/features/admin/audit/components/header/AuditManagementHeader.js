@@ -1,67 +1,29 @@
 import './AuditManagementHeader.css';
-import React, { useState, useEffect } from 'react';
-import { fetchMemberList } from "../../../members/services/MemberManagementService";
+import '../../../shared/components/filter.css';
+import React from 'react';
+import useAuditFilterListForHeader from '../../hooks/useAuditFilterListForHeader'; // 새로 만든 훅 import
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import { AUDIT_LOG_LABELS } from '../../../../../utils/Constant';
 
 const AuditManagementHeader = ({ setFilters, applyFilters }) => {
-    const [memberList, setMemberList] = useState([]);
-    const [showFilters, setShowFilters] = useState(false);
-    const [localFilters, setLocalFilters] = useState({
-        memberName: null,
-        auditType: null,
-        startDate: null,
-        endDate: null,
-    });
-
-    useEffect(() => {
-        const loadMemberList = async () => {
-            try {
-                const members = await fetchMemberList();
-                setMemberList(members);
-            } catch (error) {
-                console.error("Error fetching member list:", error);
-            }
-        };
-
-        loadMemberList();
-    }, []);
-
-    const formatDateTime = (date) => {
-        return date ? date.toISOString().slice(0, 19) : null;  // "yyyy-MM-ddTHH:mm:ss" 형식으로 자름
-    };
-
-    const handleFilterSubmit = () => {
-        const formattedFilters = {
-            ...localFilters,
-            startDate: localFilters.startDate ? formatDateTime(new Date(localFilters.startDate)) : null,
-            endDate: localFilters.endDate ? formatDateTime(new Date(localFilters.endDate)) : null,
-        };
-
-        setFilters(formattedFilters);
-        if (applyFilters) {
-            applyFilters();
-        }
-    };
-
-    const resetFilters = () => {
-        const initialFilters = { memberName: null, auditType: null, startDate: null, endDate: null };
-        setLocalFilters(initialFilters);
-        setFilters(initialFilters);
-        if (applyFilters) {
-            applyFilters();
-        }
-    };
-
-    const toggleFilterDropdown = () => setShowFilters(!showFilters);
+    const {
+        memberList,
+        showFilters,
+        localFilters,
+        setLocalFilters,
+        handleFilterSubmit,
+        resetFilters,
+        toggleFilterDropdown,
+    } = useAuditFilterListForHeader(setFilters, applyFilters); // 커스텀 훅 사용
 
     return (
         <div className="audit-management-header">
-            <h2>회계 감사 시스템</h2>
+            <h2>감사 로그 관리 시스템</h2>
             <FilterImageButton onClick={toggleFilterDropdown} />
 
             {showFilters && (
                 <div className="filters-dropdown">
+                    <h3>필터 적용</h3>
                     <select
                         value={localFilters.memberName || ''}
                         onChange={(e) => setLocalFilters({ ...localFilters, memberName: e.target.value || null })}

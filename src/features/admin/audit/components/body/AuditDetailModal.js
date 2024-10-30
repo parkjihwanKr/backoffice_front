@@ -7,12 +7,12 @@ const AuditDetailModal = ({ isOpen, onRequestClose, audit }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="custom-modal-overlay" onClick={onRequestClose}>
-            <div className="custom-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="audit-details-modal-overlay" onClick={onRequestClose}>
+            <div className="audit-details-modal" onClick={(e) => e.stopPropagation()}>
                 <h2>감사 상세 정보</h2>
                 <CloseImageButton handleClose={onRequestClose} />
                 {audit ? (
-                    <div className="modal-content">
+                    <div className="audit-details-modal">
                         <p><strong>이름:</strong> {audit.memberName} ({audit.department}, {audit.position})</p>
                         <p><strong>타입:</strong> {audit.auditLogType}</p>
                         <div>

@@ -1,5 +1,6 @@
 import React from "react";
-import './MemberManagementHeader.css'; // CSS 파일 추가
+import './MemberManagementHeader.css';
+import '../../../shared/components/filter.css';
 import useFiltersDropdown from "../../../shared/hooks/useFiltersDropdown";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton"; // custom hook 임포트
 

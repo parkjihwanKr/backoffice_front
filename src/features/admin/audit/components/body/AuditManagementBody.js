@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { imagePrefix } from "../../../../../utils/Constant";
-import { useNavigate } from "react-router-dom";
 import "./AuditManagementBody.css";
 import AuditDetailModal from "./AuditDetailModal";
+import useAuditManagementModal from "../../hooks/useAuditManagentModal";
 
 const AuditManagementBody = ({ auditList, loading, error }) => {
-    const navigate = useNavigate();
-    const [selectedAudit, setSelectedAudit] = useState(null); // 선택한 감사 항목
-    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-
-    const openModal = (audit) => {
-        setSelectedAudit(audit);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setSelectedAudit(null);
-        setIsModalOpen(false);
-    };
+    const {
+        selectedAudit,
+        isModalOpen,
+        openModal,
+        closeModal,
+    } = useAuditManagementModal();
 
     return (
         <div className="audit-management-body">
