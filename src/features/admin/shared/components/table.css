@@ -1,0 +1,20 @@
+.table {
+    margin: 0 auto;
+    border-collapse: separate; /* separate로 설정해야 둥근 테두리가 적용됨 */
+    border-spacing: 0; /* 셀 간의 간격을 없앰 */
+    overflow: hidden; /* 둥근 테두리 바깥 영역이 잘리지 않도록 설정 */
+    border-radius: 12px; /* 원하는 만큼 둥글게 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 테두리 강조 효과 */
+}
+
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+/* 나머지 스타일 */
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}

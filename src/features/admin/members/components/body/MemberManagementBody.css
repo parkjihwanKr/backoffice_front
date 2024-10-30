@@ -6,13 +6,14 @@
 }
 
 .member-management-body-table-img {
-    margin-top: 20px;
     cursor: pointer;
     height: 24px;
     width: 24px;
 }
 
 .member-management-body {
+    margin-left: 10px;
+    margin-right: 10px;
     text-align: center;
 }
 
