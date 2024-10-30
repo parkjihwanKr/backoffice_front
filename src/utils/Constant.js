@@ -28,3 +28,37 @@ export const positionMapping = {
     "주임": "SENIOR_STAFF",
     "인턴": "INTERN"
 };
+
+// Constant.js
+
+export const AUDIT_LOG_TYPES = {
+    LOGIN: { label: "LOGIN" },
+    LOGOUT: { label: "LOGOUT" },
+    SIGNUP: { label: "SIGNUP" },
+    DELETE_MEMBER: { label: "DELETE_MEMBER" },
+    CHANGE_MEMBER_ATTRIBUTE: { label: "CHANGE_MEMBER_ATTRIBUTE" },
+    CHANGE_MEMBER_SALARY: { label: "CHANGE_MEMBER_SALARY" },
+    CHANGE_MEMBER_REMAINING_VACATION_DAY: { label: "CHANGE_REMAINING_VACATION_DAY" },
+    UPLOAD_MEMBER_FILE: { label: "CHANGE_MEMBER_FILE" },
+    MEMBER_ERROR: { label: "MEMBER_ERROR" },
+    FILE_ERROR: { label: "FILE_ERROR" },
+    CREATE_FILE: { label: "CREATE_FILE" },
+    UPDATE_FILE: { label: "UPDATE_FILE" },
+    DELETE_FILE: { label: "DELETE_FILE" },
+    CREATE_MEMBER_VACATION: { label: "CREATE_MEMBER_VACATION" },
+    UPDATE_MEMBER_VACATION: { label: "UPDATE_MEMBER_VACATION" },
+    CHANGE_BOARD_FILE: { label: "CHANGE_BOARD_FILE" },
+    CHANGE_EVENT: { label: "CHANGE_EVENT" },
+    CHANGE_SECURITY_SETTINGS: { label: "CHANGE_SECURITY_SETTINGS" },
+    CREATE_EXPENSE_REPORT: { label: "CREATE_EXPENSE_REPORT" },
+    UPDATE_EXPENSE_REPORT_STATUS: { label: "UPDATE_EXPENSE_REPORT_STATUS" },
+    UPDATE_EXPENSE_REPORT: { label: "UPDATE_EXPENSE_REPORT" },
+    DELETE_EXPENSE_REPORT: { label: "DELETE_EXPENSE_REPORT" },
+    READ_EXPENSE_REPORT: { label: "READ_EXPENSE_REPORT" },
+    EXPENSE_REPORT_ERROR: { label: "EXPENSE_REPORT_ERROR" },
+};
+
+// Exporting individual labels for easier reference if needed
+export const AUDIT_LOG_LABELS = Object.fromEntries(
+    Object.entries(AUDIT_LOG_TYPES).map(([key, value]) => [key, value.label])
+);

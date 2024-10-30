@@ -3,6 +3,7 @@ import { imagePrefix } from "../../../../../utils/Constant";
 import useFilteredMembers from "../../../shared/hooks/useFilteredMembers";
 import UpdateSalaryModal from './UpdateSalaryModal'; // 급여 변경 모달 임포트
 import './MemberManagementBody.css';
+import '../../../shared/components/table.css';
 import React, { useState } from 'react';
 
 const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
@@ -33,7 +34,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
     };
 
     if (loading) {
-        return <div>로딩 중...</div>;
+        return <div>Loading...</div>;
     }
 
     if (error) {
@@ -48,7 +49,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
 
     return (
         <div className="member-management-body">
-            <table className="member-table">
+            <table className="table">
                 <thead>
                 <tr>
                     <th>이름</th>
@@ -73,7 +74,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
                         <td>
                             <img
                                 src={`${imagePrefix}/shared/change_salary.png`}
-                                className="finance-management-body-table-img"
+                                className="member-management-body-table-img"
                                 onClick={() => openSalaryModal(member)} // 모달 열기
                                 alt="급여 변경"
                             />

@@ -2,4 +2,18 @@
     text-align: center;
     font-weight: bold;
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.audit-management-details-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.audit-management-header {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
 }
