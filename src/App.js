@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Link, Navigate, Route, Routes} from 'react-router-dom';
 import Signup from './features/auth/components/Signup';
 import Login from "./features/auth/components/Login";
@@ -11,15 +10,12 @@ import Events from './features/events/shared/Events';
 import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/general/components/CreateBoard";
-import DropDownMenu from "./components/ui/modal/DropDownMenu";
+import DropDownMenu from "./components/common/DropDownMenu";
 import AllBoards from "./features/boards/general/components/AllBoard";
 import BoardDetails from "./features/boards/general/components/boardDetails/BoardDetails";
 
 import './assets/styles/App.css';
-
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {AuthProvider} from './features/auth/components/AuthContext';
-import {faHome} from '@fortawesome/free-solid-svg-icons';
 import HomePage from "./pages/HomePage";
 import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetails";
 import CreateDepartmentBoard from "./features/boards/department/components/CreateDepartmentBoard";
@@ -32,6 +28,7 @@ import NotificationManagement from "./features/admin/notifications/components/No
 import FinanceManagement from "./features/admin/finances/components/FinanceManagement";
 import AuditManagement from "./features/admin/audit/components/AuditManagement";
 import MemberDetails from "./features/members/components/MemberDetails";
+import HomeImageButton from "./components/ui/image/HomeImageButton";
 
 function App() {
     return (
@@ -40,7 +37,7 @@ function App() {
                 <div>
                     <nav className="navbar">
                         <Link to="/" className="navLink">
-                            <FontAwesomeIcon icon={faHome} />
+                            <HomeImageButton/>
                         </Link>
 
                         <DropDownMenu />

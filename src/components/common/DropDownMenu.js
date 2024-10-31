@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../../features/auth/components/AuthContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import UserInfoModal from './UserInfoModal';
-import LogoutModal from './LogoutModal';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {useAuth} from '../../features/auth/components/AuthContext';
+import UserInfoModal from '../ui/modal/UserInfoModal';
+import LogoutModal from '../ui/modal/LogoutModal';
 import './DropDownMenu.css';
+import {imagePrefix} from "../../utils/Constant";
+import NotificationListModal from "../ui/modal/NotificationListModal";
 
 const DropDownMenu = () => {
     const { isAuthenticated, name, department, position } = useAuth();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
+    const [showNotificationListModal, setNotificationListModal] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleLogout = async () => {
@@ -47,15 +48,20 @@ const DropDownMenu = () => {
     const handleShowUserModal = () => setShowUserModal(true);
     const handleCloseUserModal = () => setShowUserModal(false);
 
+    const handleShowNotificationListModal = () => setNotificationListModal(true);
+    const handleCloseNotificationListModal = () => setNotificationListModal(false);
+
     return (
         <>
-            <div style={{ display: 'flex', alignItems: 'center', zIndex: 1100 }}>
-                {/* 사용자 아이콘 */}
-                <button onClick={handleShowUserModal} className="user-icon">
-                    <FontAwesomeIcon icon={faUser} size="lg" />
-                </button>
+            <div className="drop-down-right">
+                <img src={`${imagePrefix}/shared/is_notified_false.png`}
+                     alt="notification-list"
+                     className="notification-icon"
+                    onClick={handleShowNotificationListModal}/>
+                <img src={`${imagePrefix}/shared/user.png`}
+                    onClick={handleShowUserModal}
+                    className="user-info"/>
 
-                {/* Custom Dropdown 메뉴 */}
                 <div className="dropdown">
                     <button className="dropdown-toggle" onClick={toggleDropdown}>
                         Menu
@@ -99,6 +105,11 @@ const DropDownMenu = () => {
                 show={showLogoutModal}
                 handleClose={handleCloseLogoutModal}
                 handleLogout={handleLogout}
+            />
+            {/* 개인 알림 리스트 모달*/}
+            <NotificationListModal
+                show={showNotificationListModal}
+                handleClose={handleCloseNotificationListModal}
             />
         </>
     );

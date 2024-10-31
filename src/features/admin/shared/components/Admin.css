@@ -28,7 +28,8 @@
     display: flex; /* 버튼 내의 내용물도 flex로 설정 */
     align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
     justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
-    width: 95%;
+    margin: 10px;
+    width: 300px;
     padding: 12px 0;
     font-size: 16px;
     font-weight: bold;
