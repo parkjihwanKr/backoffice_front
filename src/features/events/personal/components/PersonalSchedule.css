@@ -104,7 +104,7 @@
     clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 120px;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .personal-schedule-footer img {

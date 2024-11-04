@@ -5,7 +5,7 @@ import UserInfoModal from '../ui/modal/UserInfoModal';
 import LogoutModal from '../ui/modal/LogoutModal';
 import './DropDownMenu.css';
 import {imagePrefix} from "../../utils/Constant";
-import NotificationListModal from "../ui/modal/NotificationListModal";
+import NotificationListModal from "../../features/notifications/components/modal/NotificationListModal";
 
 const DropDownMenu = () => {
     const { isAuthenticated, name, department, position } = useAuth();

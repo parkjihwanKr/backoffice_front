@@ -29,7 +29,23 @@ export const positionMapping = {
     "인턴": "INTERN"
 };
 
-// Constant.js
+export const NOTIFICATION_TYPE_LABELS = {
+    MEMBER: "회원",
+    BOARD: "게시판",
+    COMMENT: "댓글",
+    REPLY: "답글",
+    EVENT: "이벤트",
+    URGENT_VACATION: "긴급 휴가",
+    URGENT_SERVER_ERROR: "긴급 서버 오류",
+    EVALUATION: "평가",
+    UPDATE_EVALUATION: "평가 업데이트",
+    UPDATE_VACATION_PERIOD: "휴가 기간 업데이트",
+    IS_ACCEPTED_VACATION: "휴가 승인 여부",
+    DELETE_VACATION_FOR_ADMIN: "관리자 휴가 삭제",
+    CREATE_EXPENSE_REPORT: "비용 보고서 생성",
+    UPDATE_EXPENSE_REPORT_STATUS: "비용 보고서 상태 업데이트",
+    UPDATE_EXPENSE_REPORT: "비용 보고서 업데이트"
+};
 
 export const AUDIT_LOG_TYPES = {
     LOGIN: { label: "LOGIN" },

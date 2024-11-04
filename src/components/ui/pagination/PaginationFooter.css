@@ -1,0 +1,46 @@
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.custom-pagination-ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.custom-page-item {
+    position: relative;
+    justify-items: right;
+    margin: 0 5px;
+}
+
+.custom-page-item button {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-page-item button:hover {
+    background-color: #f1f1f1;
+    border-color: #007bff;
+}
+
+.custom-page-item.active button {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.custom-page-item.disabled button {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+}

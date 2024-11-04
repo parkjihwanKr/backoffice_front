@@ -1,0 +1,219 @@
+/* 기본 설정 */
+.notification-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    z-index: 1101;
+    overflow-y: auto;
+}
+
+.settings {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    right: 60px;
+    top: 16px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.settings:hover {
+    transform: scale(1.1);
+}
+
+.notification-dropdown-menu {
+    position: absolute;
+    top: 40px; /* 아이콘과의 간격 */
+    left: 500px; /* 아이콘의 왼쪽에 위치하도록 조정 */
+    transform: translateX(-100%); /* 아이콘의 왼쪽으로 이동 */
+    text-align: center;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 8px 0;
+    width: 160px;
+    z-index: 1000;
+}
+
+.notification-dropdown-menu div {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.notification-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 550px;
+    position: relative;
+}
+
+.notification-modal h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+/* hover 효과 통합 */
+.hover-effect {
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.hover-effect:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 공통 hover 효과 적용 */
+.option-one, .option-two, .option-three,
+.notification-dropdown-menu div {
+    margin: 5px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option-one:hover, .option-two:hover, .option-three:hover,
+.notification-dropdown-menu div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.notification-list {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
+
+/* 카드 아이템 스타일 */
+.notification-row {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.notification-row.read {
+    background-color: lightgray;
+}
+
+.notification-item-container {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+/* 체크박스 */
+.checkbox-container {
+    width: 20px;
+    display: inline-block;
+    visibility: hidden;
+    margin-right: 8px;
+}
+
+.checkbox-container.active {
+    visibility: visible;
+}
+
+.notification-options-dropdown {
+    position: absolute;
+    top: 0;
+    left: 100%; /* 아이콘 오른쪽에 위치 */
+    z-index: 10;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+/* 멤버 정보 */
+.notification-list-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-basis: 40%;
+    max-width: 40%;
+    justify-content: center;
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+    width: 70px;
+}
+
+.member-info img {
+    margin-bottom: 5px;
+}
+
+.arrow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-list-right {
+    flex-grow: 1;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.notification-item {
+    margin-top: 10px;
+}
+
+.default-image {
+    height: 35px;
+    width: 35px;
+}
+
+.arrow-image {
+    height: 25px;
+    width: 25px;
+}
+
+.is-read-status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.is-read-status .read-image,
+.is-read-status .settings-image {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
+.is-read-status .read-image {
+    position: absolute;
+    top: -7px;
+    right: 10px;
+}
+
+.is-read-status .settings-image {
+    cursor: pointer;
+    position: absolute;
+    top: -7px;
+    right: -10px;
+}
