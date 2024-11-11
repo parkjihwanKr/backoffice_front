@@ -96,13 +96,13 @@ const AllBoards = () => {
         <div className="board-container">
             {/* 공지 사항 타이틀 중앙 정렬 */}
             <div className="d-flex justify-content-center mb-3">
-                <h2>공지 사항</h2>
+                <h2>전체 공지 사항</h2>
             </div>
 
             {/* 새 게시글 작성 버튼 */}
             <div className="d-flex justify-content-end mb-3">
                 <Link to="/create-board">
-                    <button className="btn btn-primary">새 게시글 작성</button>
+                    <button className="create-board-button">새 게시글 작성</button>
                 </Link>
             </div>
 

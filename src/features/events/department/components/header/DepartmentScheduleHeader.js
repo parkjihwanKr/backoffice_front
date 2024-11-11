@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './DepartmentScheduleHeader.css';
-import { useAuth } from "../../../../auth/components/AuthContext";
+import { useAuth } from "../../../../auth/context/AuthContext";
 import { useParams } from "react-router-dom";
 import {imagePrefix} from '../../../../../utils/Constant';
 

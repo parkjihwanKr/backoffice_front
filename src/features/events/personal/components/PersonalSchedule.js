@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PersonalSchedule.css';
-import { useAuth } from "../../../auth/components/AuthContext";
+import { useAuth } from "../../../auth/context/AuthContext";
 import { getPersonalMonthSchedule, getPersonalDaySchedule } from '../services/PersonalScheduleService';
 import PersonalScheduleDetailsModal from './details/PersonalScheduleDetailsModal';
 import PersonalScheduleFooter from "./PersonalScheduleFooter";

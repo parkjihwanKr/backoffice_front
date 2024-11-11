@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from '../../../auth/components/AuthContext';
+import { useAuth } from '../../../auth/context/AuthContext';
 import './Admin.css'; // 새로운 스타일을 추가합니다.
 
 const Admin = () => {

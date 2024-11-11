@@ -86,7 +86,7 @@ const DepartmentBoards = () => {
 
             <div className="d-flex justify-content-end mb-3">
                 <Link to={`/create-department-board/${department}`}>
-                    <button className="btn btn-primary">새 게시글 작성</button>
+                    <button className="create-department-board-button">새 게시글 작성</button>
                 </Link>
             </div>
 

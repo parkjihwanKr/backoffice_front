@@ -5,7 +5,7 @@ import EditCommentModal from "./EditCommentModal";
 import DeleteCommentModal from "./DeleteCommentModal";
 import ReplyCommentModal from './ReplyCommentModal';
 import Reply from './replys/Reply';
-import {useAuth} from "../../../../auth/components/AuthContext";
+import {useAuth} from "../../../../auth/context/AuthContext";
 import {imagePrefix} from '../../../../../utils/Constant';
 
 const Comments = ({ comments, name, boardId, accessToken, setComments }) => {

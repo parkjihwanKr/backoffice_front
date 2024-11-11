@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './DepartmentBoardDetailsFooter.css';
-import {useAuth} from "../../../../auth/components/AuthContext";
+import {useAuth} from "../../../../auth/context/AuthContext";
 import {imagePrefix} from '../../../../../utils/Constant';
 
 const DepartmentBoardDetailsFooter = ({ boardId, reactionList, accessToken, likeCount, commentCount, viewCount }) => {

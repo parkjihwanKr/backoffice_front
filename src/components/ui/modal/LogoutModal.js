@@ -1,5 +1,4 @@
 import React from 'react';
-import CloseButton from "../buttons/CloseButton";
 import './LogoutModal.css';
 import CloseImageButton from "../image/CloseImageButton"; // 스타일을 함께 불러옵니다.
 

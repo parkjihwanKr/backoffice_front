@@ -1,6 +1,6 @@
 // hooks/useFetchNotifications.js
 import { useEffect, useState } from 'react';
-import { fetchMemberNotificationList } from "../../../features/notifications/services/NotificationService";
+import { fetchMemberNotificationList } from "../services/NotificationService";
 
 const useFetchNotifications = (memberId, currentPage) => {
     const [notifications, setNotifications] = useState([]);
