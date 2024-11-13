@@ -114,18 +114,6 @@
     margin-bottom: 8px;
 }
 
-/* 체크박스 */
-.checkbox-container {
-    width: 20px;
-    display: inline-block;
-    visibility: hidden;
-    margin-right: 8px;
-}
-
-.checkbox-container.active {
-    visibility: visible;
-}
-
 .notification-options-dropdown {
     position: absolute;
     top: 0;
@@ -137,6 +125,18 @@
     padding: 10px;
     text-align: center;
     width: 200px;
+}
+
+/* 체크박스 */
+.checkbox-container {
+    width: 20px;
+    display: inline-block;
+    visibility: hidden;
+    margin-right: 8px;
+}
+
+.checkbox-container.active {
+    visibility: visible;
 }
 
 /* 멤버 정보 */
