@@ -53,9 +53,13 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
             // 특정 인원 알림 발송 로직
             const filteredPayload = {
                 message,
-                excludedMemberIdList: excludedUsers.map(user => user.memberId), // 제외된 사용자 ID 리스트
-                excludedMemberDepartment: selectedDepts // 제외된 부서 리스트
+                excludedMemberIdList:
+                    excludedUsers.map(user => user.memberId), // 제외된 사용자 ID 리스트
+                excludedMemberDepartment:
+                    selectedDepts.map(dept => departmentMapping[dept]) // 제외된 부서 리스트
             };
+
+            console.log("Filtered Payload:", filteredPayload);
 
             sendWebSocketMessage("/app/admins/notifications/filtered", filteredPayload, accessToken)
                 .then(() => {
@@ -74,13 +78,21 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
         );
     };
 
-    const toggleUserSelection = (userName, userDepartment, userPosition) => {
+    const toggleUserSelection = (userName, userDepartment, userPosition, userId) => {
         setExcludedUsers((prevSelected) => {
-            const userExists = prevSelected.find(user => user.name === userName);
+            const userExists = prevSelected.find(user => user.memberId === userId); // memberId로 중복 체크
             if (userExists) {
-                return prevSelected.filter(user => user.name !== userName);
+                return prevSelected.filter(user => user.memberId !== userId); // memberId를 기준으로 제거
             } else {
-                return [...prevSelected, { name: userName, department: userDepartment, position: userPosition }];
+                return [
+                    ...prevSelected,
+                    {
+                        memberId: userId, // memberId 추가
+                        name: userName,
+                        department: userDepartment,
+                        position: userPosition,
+                    },
+                ];
             }
         });
     };
@@ -171,19 +183,19 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
                                         <div
                                             key={user.memberId}
                                             className={`checkbox-item ${
-                                                excludedUsers.some(selected => selected.name === user.memberName)
+                                                excludedUsers.some(selected => selected.memberId === user.memberId)
                                                     ? 'selected'
                                                     : ''
                                             }`}
                                             onClick={() =>
-                                                toggleUserSelection(user.memberName, user.department, user.position)
+                                                toggleUserSelection(user.memberName, user.department, user.position, user.memberId)
                                             }
                                         >
                                             <div className="user-name">{user.memberName}</div>
                                             <div className="user-details">
                                                 ({getMappedDepartment(user.department)}, {getMappedPosition(user.position)})
                                             </div>
-                                            {excludedUsers.some(selected => selected.name === user.memberName) && (
+                                            {excludedUsers.some(selected => selected.memberId === user.memberId) && (
                                                 <span className="checkmark">✔</span>
                                             )}
                                         </div>
