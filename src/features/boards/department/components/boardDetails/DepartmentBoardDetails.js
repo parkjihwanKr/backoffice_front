@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from "../../../../../utils/CookieUtil";
-import { useAuth } from "../../../../auth/components/AuthContext";
+import { useAuth } from "../../../../auth/context/AuthContext";
 import Comments from "../../../shared/components/comments/Comments";
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';

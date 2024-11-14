@@ -26,21 +26,21 @@ const Events = () => {
     };
 
     return (
-        <div className="events-page container">
+        <div className="event-page-container">
             <h1 className="event-title">일정 관리 페이지</h1>
-            <div className="row">
-                <div className="col">
+            <div className="event-row">
+                <div className="event-col">
                     <div className="custom-card">
-                        <div className="card-header">
-                            <h4>부서 스케줄</h4>
+                        <div className="event-card-header">
+                            <h3>부서 스케줄</h3>
                         </div>
-                        <div className="card-img">
+                        <div className="event-card-img">
                             <img
                                 src={`${imagePrefix}/shared/department_schedule.png`}
                                 alt="부서 스케줄 이미지"
                             />
                         </div>
-                        <div className="card-body">
+                        <div className="event-card-body">
                             <button className="btn-primary" onClick={open_department_modal}>
                                 부서 스케줄
                             </button>
@@ -48,18 +48,18 @@ const Events = () => {
                     </div>
                 </div>
 
-                <div className="col">
+                <div className="event-col">
                     <div className="custom-card">
-                        <div className="card-header">
-                            <h4>개인 스케줄</h4>
+                        <div className="event-card-header">
+                            <h3>개인 스케줄</h3>
                         </div>
-                        <div className="card-img">
+                        <div className="event-card-img">
                             <img
                                 src={`${imagePrefix}/shared/personal_schedule.png`}
                                 alt="개인 스케줄 이미지"
                             />
                         </div>
-                        <div className="card-body">
+                        <div className="event-card-body">
                             <button className="btn-primary" onClick={go_to_personal_schedule}>
                                 개인 스케줄
                             </button>

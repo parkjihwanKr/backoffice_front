@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './Reply.css';
 import EditReplyModal from './EditReplyModal';
 import DeleteReplyModal from './DeleteReplyModal';
-import { useAuth } from "../../../../../auth/components/AuthContext";
+import { useAuth } from "../../../../../auth/context/AuthContext";
 import axios from 'axios';
 import {imagePrefix} from '../../../../../../utils/Constant';
 

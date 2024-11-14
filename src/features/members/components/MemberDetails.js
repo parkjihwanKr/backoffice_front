@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { imagePrefix } from "../../../utils/Constant";
-import { useAuth } from "../../auth/components/AuthContext";
+import { useAuth } from "../../auth/context/AuthContext";
 import UpdateAttributeModal from "../../admin/members/components/body/UpdateAttributeModal";
 import UpdateVacationDaysModal from "../../admin/members/components/body/UpdateVacationDaysModal";
 import useMemberDetails from "../../admin/shared/hooks/useMemberDetails"; // custom hook 사용

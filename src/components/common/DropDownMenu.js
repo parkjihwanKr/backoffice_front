@@ -1,61 +1,64 @@
-import React, { useState } from 'react';
+// DropDownMenu.js
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../features/auth/components/AuthContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import UserInfoModal from './UserInfoModal';
-import LogoutModal from './LogoutModal';
+import { useAuth } from '../../features/auth/context/AuthContext';
+import { useNotification } from '../../features/notifications/context/NotificationContext';
+import UserInfoModal from '../ui/modal/UserInfoModal';
+import LogoutModal from '../ui/modal/LogoutModal';
 import './DropDownMenu.css';
+import { imagePrefix } from '../../utils/Constant';
+import NotificationListModal from '../../features/notifications/components/modal/NotificationListModal';
+import { logout } from "../../features/auth/services/AuthService";
 
 const DropDownMenu = () => {
     const { isAuthenticated, name, department, position } = useAuth();
+    const { isNotified, setIsNotified } = useNotification();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
+    const [showNotificationListModal, setNotificationListModal] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+    useEffect(() => {
+        console.log("Notification icon state updated:", isNotified);
+    }, [isNotified]);
+
     const handleLogout = async () => {
-        try {
-            const response = await fetch('/api/v1/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                console.log('Logout successful');
-            } else {
-                console.error('Logout failed');
-            }
-
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            window.location.href = '/auth/login';
-        } catch (error) {
-            console.error("Error: " + error);
-        }
+        logout();
     };
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
+    // 모달 핸들러 함수들
     const handleShowLogoutModal = () => setShowLogoutModal(true);
     const handleCloseLogoutModal = () => setShowLogoutModal(false);
 
     const handleShowUserModal = () => setShowUserModal(true);
     const handleCloseUserModal = () => setShowUserModal(false);
 
+    const handleShowNotificationListModal = () => setNotificationListModal(true);
+    const handleCloseNotificationListModal = () => setNotificationListModal(false);
+
+    const handleNotificationClick = () => {
+        handleShowNotificationListModal();
+        setIsNotified(false); // 알림 아이콘 상태 초기화
+    };
+
     return (
         <>
-            <div style={{ display: 'flex', alignItems: 'center', zIndex: 1100 }}>
-                {/* 사용자 아이콘 */}
-                <button onClick={handleShowUserModal} className="user-icon">
-                    <FontAwesomeIcon icon={faUser} size="lg" />
-                </button>
+            <div className="drop-down-right">
+                <img
+                    src={`${imagePrefix}/shared/${isNotified
+                        ? 'is_notified_true.png' : 'is_notified_false.png'}`}
+                    alt="notification-list"
+                    className="notification-icon"
+                    onClick={handleNotificationClick} // 알림 클릭 핸들러
+                />
+                <img src={`${imagePrefix}/shared/user.png`}
+                     onClick={handleShowUserModal}
+                     className="user-info"/>
 
-                {/* Custom Dropdown 메뉴 */}
                 <div className="dropdown">
                     <button className="dropdown-toggle" onClick={toggleDropdown}>
                         Menu
@@ -74,7 +77,6 @@ const DropDownMenu = () => {
                                     <li><Link to="/boards">Boards</Link></li>
                                     <li><Link to="/events">Events</Link></li>
 
-                                    {/* 관리자 권한이 있는 경우에만 Admin 페이지 링크 표시 */}
                                     {(position === 'MANAGER' || position === 'CEO') && (
                                         <li><Link to="/admins">Admin Page</Link></li>
                                     )}
@@ -85,7 +87,6 @@ const DropDownMenu = () => {
                 </div>
             </div>
 
-            {/* 사용자 정보 모달 */}
             <UserInfoModal
                 show={showUserModal}
                 handleClose={handleCloseUserModal}
@@ -94,11 +95,15 @@ const DropDownMenu = () => {
                 position={position}
             />
 
-            {/* 로그아웃 모달 */}
             <LogoutModal
                 show={showLogoutModal}
                 handleClose={handleCloseLogoutModal}
                 handleLogout={handleLogout}
+            />
+
+            <NotificationListModal
+                show={showNotificationListModal}
+                handleClose={handleCloseNotificationListModal}
             />
         </>
     );

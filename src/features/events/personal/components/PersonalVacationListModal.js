@@ -1,4 +1,4 @@
-import { useAuth } from "../../../auth/components/AuthContext";
+import { useAuth } from "../../../auth/context/AuthContext";
 import './PersonalVacationListModal.css';
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import React, { useEffect, useState } from "react";

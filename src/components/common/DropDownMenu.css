@@ -1,18 +1,22 @@
-/* 사용자 아이콘 */
-.user-icon {
-    background-color: black;
-    border-radius: 50%;
-    color: white;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
+/*DropDownMenu.css*/
+.drop-down-right {
     display: flex;
     align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
+    z-index: 1100;
 }
 
+.notification-icon {
+    cursor: pointer;
+    height: 45px;
+    width: 45px;
+    margin-right: 5px;
+}
+
+.user-info {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
 /* 드롭다운 스타일 */
 .dropdown {
     position: relative;

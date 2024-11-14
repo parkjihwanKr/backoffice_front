@@ -1,0 +1,84 @@
+/* NotificationDetailModal.css */
+.notification-detail-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.notification-detail-modal {
+    background: white;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.notification-detail-modal-header {
+    margin-bottom: 20px;
+}
+
+.notification-detail-modal-header h3 {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 상세보기 틀 스타일 추가 */
+.notification-detail-view-box {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.notification-detail-view-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.notification-detail-modal-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.notification-detail-modal-body-left,
+.notification-detail-modal-body-right {
+    display: flex;
+    flex: 1;
+    margin-bottom: 5px;
+}
+
+.notification-detail-modal-body-right img{
+    margin-left: 5px;
+    height: 24px;
+    width: 24px;
+}
+
+.notification-detail-message {
+    padding: 5px;
+}
+
+.notification-detail-message-header {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.notification-detail-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.delete-notification-detail {
+    border-radius: 5px;
+}

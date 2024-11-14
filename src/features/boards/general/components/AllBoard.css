@@ -1,13 +1,20 @@
 .board-container {
-    margin-top: 5rem;
+    margin-top: 30px;
 }
 
 .d-flex.justify-content-center.mb-3 h2 {
     text-align: center;
+    font-weight: bold;
 }
 
 .d-flex.justify-content-end.mb-3 .btn {
     float: right;
+}
+
+.create-board-button {
+    width: 150px;
+    border-radius: 5px;
+    margin-right: 20px;
 }
 
 .card {
