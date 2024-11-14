@@ -55,7 +55,7 @@ const DropDownMenu = () => {
                     className="notification-icon"
                     onClick={handleNotificationClick} // 알림 클릭 핸들러
                 />
-                <img src={`${imagePrefix}/shared/user.png`}
+                <img src={`${imagePrefix}/shared/user_info.png`}
                      onClick={handleShowUserModal}
                      className="user-info"/>
 
@@ -72,7 +72,6 @@ const DropDownMenu = () => {
                                 </>
                             ) : (
                                 <>
-                                    <li><Link to="/notifications">Notifications</Link></li>
                                     <li onClick={handleShowLogoutModal}>Logout</li>
                                     <li><Link to="/boards">Boards</Link></li>
                                     <li><Link to="/events">Events</Link></li>
