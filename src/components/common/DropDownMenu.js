@@ -67,17 +67,17 @@ const DropDownMenu = () => {
                         <ul className="dropdown-menu">
                             {!isAuthenticated ? (
                                 <>
-                                    <li><Link to="/auth/signup">Signup</Link></li>
-                                    <li><Link to="/auth/login">Login</Link></li>
+                                    <li><Link to="/auth/signup">회원 가입</Link></li>
+                                    <li><Link to="/auth/login">로그인</Link></li>
                                 </>
                             ) : (
                                 <>
-                                    <li onClick={handleShowLogoutModal}>Logout</li>
-                                    <li><Link to="/boards">Boards</Link></li>
-                                    <li><Link to="/events">Events</Link></li>
+                                    <li onClick={handleShowLogoutModal}>로그 아웃</li>
+                                    <li><Link to="/boards">게시판</Link></li>
+                                    <li><Link to="/events">일정</Link></li>
 
                                     {(position === 'MANAGER' || position === 'CEO') && (
-                                        <li><Link to="/admins">Admin Page</Link></li>
+                                        <li><Link to="/admins">관리자 페이지</Link></li>
                                     )}
                                 </>
                             )}

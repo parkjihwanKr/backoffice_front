@@ -27,7 +27,6 @@
 .dropdown-toggle {
     background-color: white;
     border: 1px solid lightgray;
-    padding: 10px 20px;
     cursor: pointer;
 }
 
@@ -36,11 +35,10 @@
     position: absolute;
     background-color: white;
     border: 1px solid lightgray;
+    text-align: center;
     list-style: none;
-    padding: 10px;
-    margin: 0;
     top: 100%;
-    left: -20px;
+    left: -45px;
     min-width: 150px;
     z-index: 1000;
 }
@@ -62,9 +60,9 @@
     content: '';
     position: absolute;
     top: 0;
-    left: -5px;
-    width: 100%;
-    height: 100%;
+    right : 4px;
+    width: 95%;
+    height: 95%;
     background-color: lightgray;
     border-radius: 5px;
     z-index: -1;

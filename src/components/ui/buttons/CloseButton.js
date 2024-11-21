@@ -4,7 +4,7 @@ import './Button.css';
 const CloseButton = ({ handleClose }) => {
     return (
         <button className="button" onClick={handleClose}>
-            Close
+            닫기
         </button>
     );
 };

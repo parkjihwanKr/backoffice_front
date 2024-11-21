@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Boards.css';
-import SelectDepartmentModal from './SelectDepartmentModal'; // 모달 컴포넌트 가져오기
+import SelectDepartmentModal from './SelectDepartmentModal';
+import {departmentMapping} from "../../../../utils/Constant"; // 모달 컴포넌트 가져오기
 
 const Boards = () => {
     const [showModal, setShowModal] = useState(false);
-    const [departments] = useState(['HR', 'FINANCE', 'IT', 'MARKETING', 'SALES', 'AUDIT']);
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const navigate = useNavigate();
 
@@ -14,8 +14,9 @@ const Boards = () => {
 
     const handleSubmit = () => {
         console.log("handelSubmit method call");
+        const mappedDepartment = departmentMapping[selectedDepartment];
         if (selectedDepartment) {
-            navigate(`/department-boards/${selectedDepartment}`); // 부서로 이동
+            navigate(`/department-boards/${mappedDepartment}`); // 부서로 이동
             handleCloseModal(); // 모달 닫기
         } else {
             alert('부서를 선택하세요.');
@@ -37,7 +38,7 @@ const Boards = () => {
                             className="img-fluid"
                         />
                         <hr />
-                        <button className="button" onClick={() => navigate('/all-boards')}>Go to All Boards</button>
+                        <button className="all-boards-button" onClick={() => navigate('/all-boards')}>이동</button>
                     </div>
                 </div>
 
@@ -51,7 +52,7 @@ const Boards = () => {
                             className="img-fluid"
                         />
                         <hr />
-                        <button className="button" onClick={handleShowModal}>Go to Department Boards</button>
+                        <button className="department-boards-button" onClick={handleShowModal}>이동</button>
                     </div>
                 </div>
             </div>
@@ -62,7 +63,6 @@ const Boards = () => {
                 handleClose={handleCloseModal}
                 selectedDepartment={selectedDepartment}
                 setSelectedDepartment={setSelectedDepartment}
-                departments={departments}
                 handleSubmit={handleSubmit}
             />
         </div>

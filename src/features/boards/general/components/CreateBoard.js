@@ -1,37 +1,40 @@
-/*CreateBoard.js*/
 import React, { useState } from 'react';
 import { getCookie } from "../../../../utils/CookieUtil";
 import { useNavigate } from 'react-router-dom';
-import './CreateBoard.css'; // 추가 스타일 적용
+import './CreateBoard.css';
+import { imagePrefix } from "../../../../utils/Constant";
 
 const CreateBoard = () => {
-    const [title, setTitle] = useState(''); // 제목 상태 관리
-    const [content, setContent] = useState(''); // 내용 상태 관리
-    const [isImportant, setIsImportant] = useState(false); // 중요 여부 상태 관리
-    const [files, setFiles] = useState([]); // 파일 상태 관리
-    const [category, setCategory] = useState(''); // 카테고리 상태 관리 (문자열로 저장됨)
-    const [error, setError] = useState(null); // 에러 상태 관리
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [isImportant, setIsImportant] = useState(false);
+    const [files, setFiles] = useState([]);
+    const [category, setCategory] = useState('');
+    const [error, setError] = useState(null);
+    const [isFileInputActive, setIsFileInputActive] = useState(false);
     const accessToken = getCookie('accessToken');
-    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
+    const navigate = useNavigate();
 
-    // 파일 변경 핸들러
-    const handleFileChange = (e) => {
-        setFiles(e.target.files); // 선택한 파일들을 상태에 저장
+    const toggleFileInput = () => {
+        setIsFileInputActive(true);
     };
 
-    // 게시글 생성 요청을 보내는 함수
+    const handleFileChange = (e) => {
+        setFiles(Array.from(e.target.files)); // 상태를 파일 배열로 설정
+    };
+
+    const toggleImportant = (e) => {
+        e.stopPropagation(); // 부모 요소 클릭 이벤트 방지
+        setIsImportant((prev) => !prev);
+    };
+
     const createBoard = async (e) => {
-        e.preventDefault(); // 폼 제출 시 페이지 리로딩 방지
-
+        e.preventDefault();
         try {
-            // FormData 객체 생성
             const formData = new FormData();
-
-            // JSON 데이터를 FormData에 추가 (category는 문자열로 전송됨)
             const data = { title, content, isImportant, category };
             formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 
-            // 파일이 있을 경우에만 추가
             if (files.length > 0) {
                 for (let i = 0; i < files.length; i++) {
                     formData.append('files', files[i]);
@@ -43,14 +46,13 @@ const CreateBoard = () => {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 },
-                body: formData // FormData를 body에 전달
+                body: formData
             });
 
             if (!response.ok) {
                 throw new Error('게시글 생성 실패');
             }
             await response.json();
-            // 게시글 생성 후 전체 게시판 페이지로 이동
             navigate('/all-boards');
         } catch (error) {
             setError(error.message);
@@ -58,73 +60,107 @@ const CreateBoard = () => {
     };
 
     return (
-        <div className="create-board-container">
-            <h2>게시글 작성</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={createBoard} className="create-board-form">
-                <div className="form-group">
-                    <label htmlFor="title">제목</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                        className="input-field"
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="content">내용</label>
-                    <textarea
-                        id="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        required
-                        className="textarea-field"
-                    ></textarea>
-                </div>
-
-                <div className="form-group">
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={isImportant}
-                            onChange={(e) => setIsImportant(e.target.checked)}
+        <div>
+            <h2 className="create-board-title">게시글 작성</h2>
+            {error && <p className="error-message">{error}</p>}
+            <div className="create-board-container">
+                {/* 왼쪽 영역 */}
+                <div className="create-board-container-left" onClick={toggleFileInput}>
+                    <div className="create-board-card-important" onClick={toggleImportant}>
+                        <img
+                            src={isImportant
+                                ? `${imagePrefix}/shared/isImportant_true.png`
+                                : `${imagePrefix}/shared/isImportant_false.png`}
+                            alt={isImportant ? "Important" : "Not Important"}
+                            width="30"
                         />
-                        중요 게시글로 표시
-                    </label>
+                        중요
+                    </div>
+
+                    {isFileInputActive ? (
+                        <div className="form-group file-input-group">
+                            <input
+                                type="file"
+                                id="files"
+                                multiple
+                                onChange={handleFileChange}
+                                className="input-field file-input"
+                            />
+                        </div>
+                    ) : (
+                        <img
+                            src={`${imagePrefix}/shared/attachments_files.png`}
+                            alt="File Placeholder"
+                            className="file-placeholder"
+                        />
+                    )}
+
+                    {/* 첨부 파일 리스트 */}
+                    {files.length > 0 && (
+                        <div className="attached-files">
+                            <strong>첨부 파일:</strong>
+                            <ul>
+                                {files.length === 1 ? (
+                                    <li>{files[0].name}</li>
+                                ) : (
+                                    <>
+                                        <li>{files[0].name}</li>
+                                        <li>...</li>
+                                    </>
+                                )}
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="category">카테고리</label>
-                    <select
-                        id="category"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        required
-                        className="input-field"
-                    >
-                        <option value="">카테고리를 선택하세요</option>
-                        <option value="전체 알림">전체 알림</option>
-                        <option value="협업">협업</option>
-                        <option value="회의실">회의실</option>
-                    </select>
-                </div>
+                {/* 오른쪽 영역 */}
+                <div className="create-board-container-right">
+                    <form onSubmit={createBoard} className="create-board-form">
+                        <div className="form-group">
+                            <label htmlFor="title">제목</label>
+                            <input
+                                type="text"
+                                id="title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                required
+                                className="input-field"
+                            />
+                        </div>
 
-                <div className="form-group">
-                    <label htmlFor="files">파일 첨부 (선택 사항)</label>
-                    <input
-                        type="file"
-                        id="files"
-                        multiple
-                        onChange={handleFileChange}
-                        className="input-field"
-                    />
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="category">카테고리</label>
+                            <select
+                                id="category"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                required
+                                className="input-field"
+                            >
+                                <option value="">카테고리를 선택하세요</option>
+                                <option value="전체 알림">전체 알림</option>
+                                <option value="협업">협업</option>
+                                <option value="회의실">회의실</option>
+                            </select>
+                        </div>
 
-                <button type="submit" className="submit-button">작성하기</button>
-            </form>
+                        <div className="form-group">
+                            <label htmlFor="content">내용</label>
+                            <textarea
+                                id="content"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                                required
+                                className="textarea-field"
+                            ></textarea>
+                        </div>
+
+                        <div className="board-submit-button-container">
+                            <button type="submit" className="board-submit-button">작성하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

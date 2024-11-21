@@ -1,11 +1,11 @@
 import React from 'react';
-import './ConfirmButton.css';
+import './Button.css';
 
 const ConfirmButton = ({ onClick }) => {
     console.log(onClick);
     return (
-        <button className="confirm-button" onClick={onClick}>
-            Confirm
+        <button className="button" onClick={onClick}>
+            확인
         </button>
     );
 };
