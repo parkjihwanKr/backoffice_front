@@ -1,62 +1,47 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import { getCookie } from "../../../../../utils/CookieUtil";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import './CreateNotificationModal.css';
+import { useFetchMemberList } from "../../hooks/useFetchMemberList";
+import { useModalAlignment } from "../../hooks/useModalAlignment";
+import "./CreateNotificationModal.css";
 import {
     departmentMapping,
     positionMapping,
     DEPARTMENTS,
-    imagePrefix
+    imagePrefix,
 } from "../../../../../utils/Constant";
 import { sendWebSocketBroadcastMessage, sendWebSocketMessage } from "../../../../../utils/WebSocketUtil";
-import { fetchMemberList } from "../../../members/services/MemberManagementService";
-import { adjustModalAlignment, addModalAlignmentListener } from "../../../../../utils/ModalUtils";
 
 const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments = DEPARTMENTS }) => {
     const [message, setMessage] = useState("");
     const [selectedDepts, setSelectedDepts] = useState([]);
     const [excludedUsers, setExcludedUsers] = useState([]);
-    const [memberList, setMemberList] = useState([]);
     const [deptDropdownVisible, setDeptDropdownVisible] = useState(false);
     const [userDropdownVisible, setUserDropdownVisible] = useState(false);
 
-    const accessToken = getCookie('accessToken');
+    const accessToken = getCookie("accessToken");
 
     const modalOverlayRef = useRef(null);
     const modalContentRef = useRef(null);
 
-    useEffect(() => {
-        if (isOpen) {
-            fetchMemberList()
-                .then(data => setMemberList(data))
-                .catch(error => console.error("Error fetching member list:", error));
-
-            const modalOverlay = document.querySelector('.create-notification-modal-overlay');
-            const modalContent = document.querySelector('.create-notification-modal-content');
-            adjustModalAlignment(modalOverlay, modalContent);
-            return addModalAlignmentListener(modalOverlay, modalContent);
-        }
-    }, [isOpen]);
+    const memberList = useFetchMemberList(isOpen);
+    useModalAlignment(isOpen, modalOverlayRef, modalContentRef);
 
     const handleSend = () => {
         const payload = { message };
 
         if (title === "전체 알림 발송") {
-            // 전체 알림 발송 로직
             sendWebSocketBroadcastMessage("/app/admins/notifications", payload, accessToken)
                 .then(() => {
                     onSubmit(message);
-                    setMessage(""); // 메시지 초기화
+                    setMessage("");
                 })
-                .catch((error) => console.error("Failed to send broadcast message:", error));
+                .catch(error => console.error("Failed to send broadcast message:", error));
         } else if (title === "특정 인원 알림 발송") {
-            // 특정 인원 알림 발송 로직
             const filteredPayload = {
                 message,
-                excludedMemberIdList:
-                    excludedUsers.map(user => user.memberId), // 제외된 사용자 ID 리스트
-                excludedMemberDepartment:
-                    selectedDepts.map(dept => departmentMapping[dept]) // 제외된 부서 리스트
+                excludedMemberIdList: excludedUsers.map(user => user.memberId),
+                excludedMemberDepartment: selectedDepts.map(dept => departmentMapping[dept]),
             };
 
             console.log("Filtered Payload:", filteredPayload);
@@ -64,35 +49,25 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
             sendWebSocketMessage("/app/admins/notifications/filtered", filteredPayload, accessToken)
                 .then(() => {
                     onSubmit(message, excludedUsers, selectedDepts);
-                    setMessage(""); // 메시지 초기화
+                    setMessage("");
                 })
-                .catch((error) => console.error("Failed to send filtered notifications:", error));
+                .catch(error => console.error("Failed to send filtered notifications:", error));
         }
     };
 
     const toggleDeptSelection = (dept) => {
-        setSelectedDepts((prevSelected) =>
-            prevSelected.includes(dept)
-                ? prevSelected.filter((item) => item !== dept)
-                : [...prevSelected, dept]
+        setSelectedDepts((prev) =>
+            prev.includes(dept) ? prev.filter(item => item !== dept) : [...prev, dept]
         );
     };
 
     const toggleUserSelection = (userName, userDepartment, userPosition, userId) => {
-        setExcludedUsers((prevSelected) => {
-            const userExists = prevSelected.find(user => user.memberId === userId); // memberId로 중복 체크
+        setExcludedUsers((prev) => {
+            const userExists = prev.find(user => user.memberId === userId);
             if (userExists) {
-                return prevSelected.filter(user => user.memberId !== userId); // memberId를 기준으로 제거
+                return prev.filter(user => user.memberId !== userId);
             } else {
-                return [
-                    ...prevSelected,
-                    {
-                        memberId: userId, // memberId 추가
-                        name: userName,
-                        department: userDepartment,
-                        position: userPosition,
-                    },
-                ];
+                return [...prev, { memberId: userId, name: userName, department: userDepartment, position: userPosition }];
             }
         });
     };
@@ -108,6 +83,7 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
         if (action === "selectAll") {
             const selectableUsers = memberList.filter(member => !selectedDepts.includes(member.department));
             setExcludedUsers(selectableUsers.map(user => ({
+                memberId: user.memberId,
                 name: user.memberName,
                 department: user.department,
                 position: user.position,
@@ -150,7 +126,7 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
                                 {departments.map((dept) => (
                                     <div
                                         key={dept}
-                                        className={`checkbox-item ${selectedDepts.includes(dept) ? 'selected' : ''}`}
+                                        className={`checkbox-item ${selectedDepts.includes(dept) ? "selected" : ""}`}
                                         onClick={() => toggleDeptSelection(dept)}
                                     >
                                         {getMappedDepartment(dept)}
@@ -182,11 +158,7 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
                                     .map((user) => (
                                         <div
                                             key={user.memberId}
-                                            className={`checkbox-item ${
-                                                excludedUsers.some(selected => selected.memberId === user.memberId)
-                                                    ? 'selected'
-                                                    : ''
-                                            }`}
+                                            className={`checkbox-item ${excludedUsers.some(selected => selected.memberId === user.memberId) ? "selected" : ""}`}
                                             onClick={() =>
                                                 toggleUserSelection(user.memberName, user.department, user.position, user.memberId)
                                             }
@@ -238,7 +210,8 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
                 <div className="create-notification-modal-buttons">
                     <button
                         onClick={handleSend}
-                        className="notification-submit-button">
+                        className="notification-submit-button"
+                    >
                         발송
                     </button>
                 </div>

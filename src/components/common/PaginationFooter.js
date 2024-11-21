@@ -1,7 +1,7 @@
 import React from "react";
-import "../../../../../components/ui/pagination/PaginationFooter.css"; // 필요한 경우 스타일 추가
+import "./PaginationFooter.css"; // 필요한 경우 스타일 추가
 
-const NotificationPaginationFooter = ({ currentPage, totalPages, onPageChange }) => {
+const PaginationFooter = ({ currentPage, totalPages, onPageChange }) => {
 
     // 현재 페이지를 기준으로 시작 페이지와 끝 페이지 설정
     const startPage = Math.max(0, currentPage - 2); // 최소 0 페이지
@@ -43,4 +43,4 @@ const NotificationPaginationFooter = ({ currentPage, totalPages, onPageChange })
     );
 };
 
-export default NotificationPaginationFooter;
+export default PaginationFooter;

@@ -21,7 +21,7 @@ import { fetchMemberNotificationList } from "../../services/NotificationService"
 
 const NotificationListModal = ({ show, handleClose }) => {
     const { id, name, department, position } = useAuth();
-    const { notificationList, setNotificationList, totalPages } = useNotification();
+    const { notificationList, setNotificationList } = useNotification();
 
     const modalOverlayRef = useRef(null);
     const modalContentRef = useRef(null);
@@ -30,6 +30,7 @@ const NotificationListModal = ({ show, handleClose }) => {
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
     const [activeDropdownId, setActiveDropdownId] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPage ] = useState(0);
 
     const { isSelectionMode, toggleSelectionMode, selectedNotifications, handleCheckboxChange, setIsSelectionMode } = useSelectionMode();
     const { isDropdownOpen, toggleDropdown } = useDropdownMenu();
@@ -37,7 +38,9 @@ const NotificationListModal = ({ show, handleClose }) => {
     const loadNotifications = async (page) => {
         try {
             const response = await fetchMemberNotificationList(id, page, 10);
+            console.log("loadNotifications : "+response.content);
             setNotificationList(response.content);
+            setTotalPage(response.totalPages);
         } catch (error) {
             console.error("알림 데이터를 가져오는 데 실패했습니다:", error);
         }

@@ -14,6 +14,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .button:hover {
     background-color: royalblue; /* 마우스를 올렸을 때 배경색을 변경 */
 }

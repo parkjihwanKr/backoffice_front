@@ -55,7 +55,7 @@ const DropDownMenu = () => {
                     className="notification-icon"
                     onClick={handleNotificationClick} // 알림 클릭 핸들러
                 />
-                <img src={`${imagePrefix}/shared/user.png`}
+                <img src={`${imagePrefix}/shared/user_info.png`}
                      onClick={handleShowUserModal}
                      className="user-info"/>
 
@@ -67,18 +67,17 @@ const DropDownMenu = () => {
                         <ul className="dropdown-menu">
                             {!isAuthenticated ? (
                                 <>
-                                    <li><Link to="/auth/signup">Signup</Link></li>
-                                    <li><Link to="/auth/login">Login</Link></li>
+                                    <li><Link to="/auth/signup">회원 가입</Link></li>
+                                    <li><Link to="/auth/login">로그인</Link></li>
                                 </>
                             ) : (
                                 <>
-                                    <li><Link to="/notifications">Notifications</Link></li>
-                                    <li onClick={handleShowLogoutModal}>Logout</li>
-                                    <li><Link to="/boards">Boards</Link></li>
-                                    <li><Link to="/events">Events</Link></li>
+                                    <li onClick={handleShowLogoutModal}>로그 아웃</li>
+                                    <li><Link to="/boards">게시판</Link></li>
+                                    <li><Link to="/events">일정</Link></li>
 
                                     {(position === 'MANAGER' || position === 'CEO') && (
-                                        <li><Link to="/admins">Admin Page</Link></li>
+                                        <li><Link to="/admins">관리자 페이지</Link></li>
                                     )}
                                 </>
                             )}
