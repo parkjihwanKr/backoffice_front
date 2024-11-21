@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getCookie } from "../../../../utils/CookieUtil";
 import { useNavigate } from 'react-router-dom';
 import './CreateBoard.css';
@@ -14,6 +14,13 @@ const CreateBoard = () => {
     const [isFileInputActive, setIsFileInputActive] = useState(false);
     const accessToken = getCookie('accessToken');
     const navigate = useNavigate();
+
+    // 에러 메시지가 변경될 때 alert로 표시
+    useEffect(() => {
+        if (error) {
+            alert(error);
+        }
+    }, [error]);
 
     const toggleFileInput = () => {
         setIsFileInputActive(true);
@@ -62,22 +69,29 @@ const CreateBoard = () => {
     return (
         <div>
             <h2 className="create-board-title">게시글 작성</h2>
-            {error && <p className="error-message">{error}</p>}
             <div className="create-board-container">
                 {/* 왼쪽 영역 */}
-                <div className="create-board-container-left" onClick={toggleFileInput}>
-                    <div className="create-board-card-important" onClick={toggleImportant}>
+                <div className="create-board-container-left">
+                    <div className="create-board-card-important">
                         <img
                             src={isImportant
                                 ? `${imagePrefix}/shared/isImportant_true.png`
                                 : `${imagePrefix}/shared/isImportant_false.png`}
                             alt={isImportant ? "Important" : "Not Important"}
                             width="30"
+                            onClick={toggleImportant}
                         />
-                        중요
                     </div>
 
-                    {isFileInputActive ? (
+                    <img
+                        src={`${imagePrefix}/shared/attachments_files.png`}
+                        alt="File Placeholder"
+                        className="file-placeholder"
+                        onClick={toggleFileInput}
+                    />
+
+                    {/* 파일 입력칸 */}
+                    {isFileInputActive && (
                         <div className="form-group file-input-group">
                             <input
                                 type="file"
@@ -87,12 +101,6 @@ const CreateBoard = () => {
                                 className="input-field file-input"
                             />
                         </div>
-                    ) : (
-                        <img
-                            src={`${imagePrefix}/shared/attachments_files.png`}
-                            alt="File Placeholder"
-                            className="file-placeholder"
-                        />
                     )}
 
                     {/* 첨부 파일 리스트 */}
@@ -100,8 +108,11 @@ const CreateBoard = () => {
                         <div className="attached-files">
                             <strong>첨부 파일:</strong>
                             <ul>
-                                {files.length === 1 ? (
-                                    <li>{files[0].name}</li>
+                                {files.length <= 3 ? (
+                                    // files 배열의 요소를 모두 출력
+                                    files.slice(0, files.length).map((file, index) => (
+                                        <li key={index}>{file.name}</li>
+                                    ))
                                 ) : (
                                     <>
                                         <li>{files[0].name}</li>

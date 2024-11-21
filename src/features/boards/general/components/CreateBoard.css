@@ -2,6 +2,7 @@
     text-align: center;
     margin-top: 30px;
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .create-board-container {
@@ -20,13 +21,10 @@
 .create-board-container-right {
     flex: 1;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #f5f5f5;
     border-radius: 8px;
     cursor: pointer;
-}
-
-.create-board-container-left:hover {
-    background-color: #f1f1f1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .create-board-card-important {
@@ -38,6 +36,7 @@
     font-weight: bold;
     font-size: 14px;
     cursor: pointer;
+    width: 100%;
 }
 
 .create-board-container-left .form-group {
@@ -71,6 +70,7 @@
     border-radius: 4px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    background-color: #f5f5f5;
     font-size: 16px;
 }
 
@@ -108,7 +108,7 @@
 .attached-files {
     margin-top: 10px;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
@@ -132,27 +132,33 @@
 
 .file-placeholder {
     width: 100px;
-    height: 100px;
-    margin: 10px auto;
-    display: block;
+    height: 30%;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    border-radius: 8px; /* 둥근 모서리 */
+    position: relative; /* 내부 요소 정렬을 위해 */
+    overflow: hidden; /* 이미지를 벗어나지 않도록 설정 */
 }
 
-.attached-files {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+.file-placeholder img {
+    width: 100px; /* 너비를 부모 크기에 맞춤 */
+    height: 70%; /* 높이를 부모 크기에 맞춤 */
+    display: block; /* 중앙 정렬을 위해 블록 요소로 변경 */
+    position: relative; /* 중앙 정렬 */
 }
 
-.attached-files ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin: 5px 0 0 0;
-}
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .create-board-container {
+        flex-direction: column; /* 수직 배치로 변경 */
+        gap: 10px; /* 간격을 줄임 */
+    }
 
-.attached-files li {
-    margin-bottom: 5px;
-    color: #333;
+    .create-board-container-left,
+    .create-board-container-right {
+        flex: none; /* 너비 조정을 수동으로 설정 */
+        width: 100%; /* 각 섹션이 화면 전체 너비를 차지 */
+    }
 }

@@ -1,5 +1,4 @@
 /* SelectDepartmentModal.css */
-
 .boards-modal-overlay {
     position: fixed;
     top: 0;
@@ -29,6 +28,7 @@
 }
 
 .modal-title {
+    font-weight: bold;
     font-size: 1.5rem;
 }
 
@@ -38,9 +38,11 @@
 
 .select-department {
     width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
 .boards-modal-footer {

@@ -25,13 +25,12 @@ const Boards = () => {
 
     return (
         <div className="boards-container">
-            <h1 className="text-center mb-4">백오피스 게시판</h1>
+            <h1 className="boards-title">백오피스 게시판</h1>
 
-            <div className="card-row">
-                <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-title">전체 게시판</h5>
-                        <p className="card-text">모든 직원 게시판</p>
+            <div className="boards-card-row">
+                <div className="boards-card">
+                    <div className="boards-card-body">
+                        <h3 className="boards-card-title">전체 게시판</h3>
                         <img
                             src="https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/companyBoard.png"
                             alt="전체 게시판 이미지"
@@ -42,10 +41,9 @@ const Boards = () => {
                     </div>
                 </div>
 
-                <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-title">부서 게시판</h5>
-                        <p className="card-text">부서별 게시판</p>
+                <div className="boards-card">
+                    <div className="boards-card-body">
+                        <h3 className="boards-card-title">부서 게시판</h3>
                         <img
                             src="https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/departmentBoard.png"
                             alt="부서 게시판 이미지"
