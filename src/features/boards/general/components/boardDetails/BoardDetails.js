@@ -3,13 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getCookie } from "../../../../../utils/CookieUtil";
 import { useAuth } from "../../../../auth/context/AuthContext";
 import Comments from "../../../shared/components/comments/Comments";
-import BoardDetailsFooter from './BoardDetailsFooter'; // 새로운 LikeButton 컴포넌트
+import BoardDetailsFooter from './BoardDetailsFooter';
 
 import DeleteModal from './DeleteModal';
 import BoardDetailsHeader from "./BoardDetailsHeader";
 import BoardDetailsBody from "./BoardDetailsBody";
 import {imagePrefix} from '../../../../../utils/Constant';
 import UpdateBoardDetailsModal from "./UpdateBoardDetailsModal";
+import {fetchBoardDetails} from "../../../shared/services/BoardsDetailsService";
 
 const BoardDetails = () => {
     const { boardId } = useParams();
@@ -48,29 +49,15 @@ const BoardDetails = () => {
     };
 
     useEffect(() => {
-        console.log("userReaction : "+userReaction);
         const fetchBoard = async () => {
             try {
-                const response = await fetch(`/api/v1/boards/${boardId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch board');
-                }
-
-                const data = await response.json();
-                setBoard(data);
-                console.log(data);
-                setComments(data.commentList || []);
-                setLoading(false);
+                const response = await fetchBoardDetails(boardId);
+                setBoard(response);
+                setComments(response.commentList || []);
             } catch (error) {
                 setError(error.message);
-                setLoading(false);
             }
+            setLoading(false);
         };
 
         fetchBoard();

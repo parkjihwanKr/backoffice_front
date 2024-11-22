@@ -74,10 +74,17 @@ export const AUDIT_LOG_TYPES = {
     EXPENSE_REPORT_ERROR: { label: "EXPENSE_REPORT_ERROR" },
 };
 
-// Exporting individual labels for easier reference if needed
+export const reverseDepartmentMapping = Object.fromEntries(
+    Object.entries(departmentMapping).map(([key, value]) => [value, key])
+);
+
 export const AUDIT_LOG_LABELS = Object.fromEntries(
     Object.entries(AUDIT_LOG_TYPES).map(([key, value]) => [key, value.label])
 );
+
+export const getDepartmentName = (code) => {
+    return reverseDepartmentMapping[code] || code;
+};
 
 export const API_BASE_URL = 'http://localhost:8080/api/v1';
 export const WS_BASE_URL = 'http://localhost:8080/ws-endpoint';

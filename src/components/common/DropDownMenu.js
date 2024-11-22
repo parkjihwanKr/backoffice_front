@@ -47,7 +47,7 @@ const DropDownMenu = () => {
 
     return (
         <>
-            <div className="drop-down-right">
+            <div className="custom-navbar-right">
                 <img
                     src={`${imagePrefix}/shared/${isNotified
                         ? 'is_notified_true.png' : 'is_notified_false.png'}`}
@@ -59,12 +59,12 @@ const DropDownMenu = () => {
                      onClick={handleShowUserModal}
                      className="user-info"/>
 
-                <div className="dropdown">
-                    <button className="dropdown-toggle" onClick={toggleDropdown}>
+                <div className="custom-dropdown">
+                    <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
                         Menu
                     </button>
                     {isDropdownOpen && (
-                        <ul className="dropdown-menu">
+                        <ul className="custom-dropdown-menu">
                             {!isAuthenticated ? (
                                 <>
                                     <li><Link to="/auth/signup">회원 가입</Link></li>

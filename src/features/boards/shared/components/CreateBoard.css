@@ -27,7 +27,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.create-board-card-important {
+.create-board-card-settings {
     position: relative;
     display: flex;
     align-items: center;
@@ -36,7 +36,11 @@
     font-weight: bold;
     font-size: 14px;
     cursor: pointer;
-    width: 100%;
+}
+
+.create-board-card-settings img {
+    height : 24px;
+    width : 24px;
 }
 
 .create-board-container-left .form-group {
@@ -132,21 +136,20 @@
 
 .file-placeholder {
     width: 100px;
-    height: 30%;
+    height: 100%;
     margin: 0 auto; /* 수평 중앙 정렬 */
     display: flex;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    border-radius: 8px; /* 둥근 모서리 */
     position: relative; /* 내부 요소 정렬을 위해 */
     overflow: hidden; /* 이미지를 벗어나지 않도록 설정 */
 }
 
 .file-placeholder img {
     width: 100px; /* 너비를 부모 크기에 맞춤 */
-    height: 70%; /* 높이를 부모 크기에 맞춤 */
+    height: 100px; /* 높이를 부모 크기에 맞춤 */
     display: block; /* 중앙 정렬을 위해 블록 요소로 변경 */
     position: relative; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
 }
 
 /* 반응형 디자인 */

@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { getCookie } from "../../../../utils/CookieUtil";
-import { Link, useNavigate, useParams } from 'react-router-dom'; // useParams 추가
+/*
+import React, {useEffect, useState} from 'react';
+import {getCookie} from "../../../../utils/CookieUtil";
+import {Link, useNavigate, useParams} from 'react-router-dom'; // useParams 추가
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS 적용
 import './DepartmentBoard.css'; // CSS 파일 import
 import {imagePrefix} from '../../../../utils/Constant';
+import PaginationFooter from "../../../../components/common/PaginationFooter";
+import {departmentReverseMapping} from "../../shared/services/BoardsService";
+import {getDefaultImage} from "../../../../utils/ImageUtils";
+import {fetchDepartmentBoard} from "../services/DepartmentBoardsService";
 
 const DepartmentBoards = () => {
     const [departmentBoards, setDepartmentBoards] = useState([]); // 게시글 목록 상태
@@ -11,42 +16,20 @@ const DepartmentBoards = () => {
     const [error, setError] = useState(null); // 에러 상태
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
     const itemsPerPage = 8; // 한 페이지에 보여줄 게시글 수
-    const accessToken = getCookie('accessToken'); // 쿠키에서 토큰 가져오기
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
     const { department } = useParams(); // URL에서 department 받아오기
-
-    const defaultImageUrls = [
-        `${imagePrefix}/board/brainstorming.png`,
-        `${imagePrefix}/board/workshop.png`,
-        `${imagePrefix}/board/communication.png`
-    ];
+    const mappedDepartment = department => departmentReverseMapping[department] || department;
 
     const indexOfLastBoard = currentPage * itemsPerPage;
     const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
     const currentBoards = departmentBoards.slice(indexOfFirstBoard, indexOfLastBoard);
     const totalPages = Math.ceil(departmentBoards.length / itemsPerPage);
 
-    const getDefaultImage = (index) => {
-        return defaultImageUrls[index % defaultImageUrls.length];
-    };
-
     // 부서 게시판 데이터를 서버에서 가져오는 함수
     const fetchBoards = async () => {
         try {
-            const response = await fetch(`/api/v1/departments/${department}/boards`, { // department를 경로에 포함 (수정됨)
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
-                }
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch boards');
-            }
-
-            const data = await response.json();
-            console.log(data.content); // 데이터 확인을 위해 콘솔에 출력
-            setDepartmentBoards(data.content); // 게시글 목록 설정
+            const response = await fetchDepartmentBoard(department);
+            setDepartmentBoards(response.content); // 게시글 목록 설정
             setLoading(false); // 로딩 완료
         } catch (error) {
             setError(error.message); // 에러 상태 업데이트
@@ -56,7 +39,7 @@ const DepartmentBoards = () => {
 
     useEffect(() => {
         fetchBoards(); // 컴포넌트가 렌더링될 때 데이터 가져오기
-    }, [department, accessToken]); // department가 변경될 때마다 API 호출 (수정됨)
+    }, [department]); // department가 변경될 때마다 API 호출 (수정됨)
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -80,14 +63,15 @@ const DepartmentBoards = () => {
 
     return (
         <div className="department-boards-container">
-            <div className="d-flex justify-content-center mb-3">
-                <h2>{department} 공지 사항</h2> {/* 부서 이름 출력 (수정됨) */}
-            </div>
-
-            <div className="d-flex justify-content-end mb-3">
-                <Link to={`/create-department-board/${department}`}>
-                    <button className="create-department-board-button">새 게시글 작성</button>
-                </Link>
+            <div className="board-container-header">
+                <div className="board-container-header-title">
+                    <h2>{mappedDepartment(department)} 공지 사항</h2>
+                </div>
+                <div className="board-container-header-end">
+                    <Link to={`/create-department-board/${department}`} className="no-underline-link">
+                        <button className="button">새 게시글 작성</button>
+                    </Link>
+                </div>
             </div>
 
             <div className="row">
@@ -96,10 +80,10 @@ const DepartmentBoards = () => {
                         className="col-md-12 mb-3"
                         key={board.boardId || index}
                         onClick={() => handleCardClick(board.boardId)} // 클릭 시 상세 페이지로 이동
-                        style={{ cursor: 'pointer' }}
+                        style={{cursor: 'pointer'}}
                     >
                         <div className="card">
-                            <div className="row no-gutters d-flex">
+                        <div className="row no-gutters d-flex">
                                 <div style={{position: 'absolute', top: '10px', left: '33px', zIndex: '1'}}>
                                     <img
                                         src={board.isLocked ? `${imagePrefix}/shared/lock.png` : `${imagePrefix}/shared/unlock.png`}
@@ -148,25 +132,23 @@ const DepartmentBoards = () => {
                     </div>
                 ))}
             </div>
-
-            <div className="d-flex justify-content-center mt-4">
-                <nav>
-                    <ul className="pagination">
-                        {[...Array(totalPages)].map((_, i) => (
-                            <li key={i} className={`page-item ${i + 1 === currentPage ? 'active' : ''}`}>
-                                <button
-                                    onClick={() => handlePageChange(i + 1)}
-                                    className="page-link"
-                                >
-                                    {i + 1}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-            </div>
+            <PaginationFooter
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
+};
+
+export default DepartmentBoards;
+*/
+
+import React from "react";
+import BoardList from "../../shared/components/BoardList";
+
+const DepartmentBoards = () => {
+    return <BoardList isDepartmentBoard />;
 };
 
 export default DepartmentBoards;

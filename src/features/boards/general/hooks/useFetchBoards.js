@@ -1,34 +1,38 @@
 import { useState, useEffect } from 'react';
-import { getCookie } from "../../../../utils/CookieUtil";
-import {fetchAllBoards} from "../services/AllBoardsService";
+import { fetchAllBoards, fetchDepartmentBoards } from "../../shared/services/BoardsService";
 
-const useFetchBoards = (itemsPerPage = 8) => {
+const useFetchBoards = (department) => {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
-    const accessToken = getCookie('accessToken');
+    const [totalPages, setTotalPages] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(0);
 
     const fetchBoards = async () => {
+        setLoading(true);
         try {
-            const data = await fetchAllBoards();
-            setBoards(data);
-            setLoading(false);
+            const data = Boolean(department)
+                ? await fetchDepartmentBoards(department)
+                : await fetchAllBoards();
+
+            setBoards(data.content);
+            setItemsPerPage(data.size); // pageable size = 8
+            setTotalPages(data.totalPages);
         } catch (error) {
             setError(error.message);
+        } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchBoards();
-    }, [accessToken]);
+    }, [department]);
 
     const indexOfLastBoard = (currentPage + 1) * itemsPerPage;
     const indexOfFirstBoard = indexOfLastBoard - itemsPerPage;
     const currentBoards = boards.slice(indexOfFirstBoard, indexOfLastBoard);
-
-    const totalPages = Math.ceil(boards.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);

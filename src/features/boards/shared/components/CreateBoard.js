@@ -1,66 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { getCookie } from "../../../../utils/CookieUtil";
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import './CreateBoard.css';
 import { imagePrefix } from "../../../../utils/Constant";
+import useBoardForm from "../../general/hooks/useBoardForm";
+import { createAllBoards, createDepartmentBoards } from "../services/BoardsService";
 
 const CreateBoard = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [isImportant, setIsImportant] = useState(false);
-    const [files, setFiles] = useState([]);
-    const [category, setCategory] = useState('');
-    const [error, setError] = useState(null);
-    const [isFileInputActive, setIsFileInputActive] = useState(false);
-    const accessToken = getCookie('accessToken');
     const navigate = useNavigate();
+    const { department } = useParams();
 
-    // 에러 메시지가 변경될 때 alert로 표시
-    useEffect(() => {
-        if (error) {
-            alert(error);
-        }
-    }, [error]);
-
-    const toggleFileInput = () => {
-        setIsFileInputActive(true);
-    };
-
-    const handleFileChange = (e) => {
-        setFiles(Array.from(e.target.files)); // 상태를 파일 배열로 설정
-    };
-
-    const toggleImportant = (e) => {
-        e.stopPropagation(); // 부모 요소 클릭 이벤트 방지
-        setIsImportant((prev) => !prev);
-    };
+    const {
+        title, setTitle,
+        content, setContent,
+        isImportant, toggleImportant,
+        isLocked, toggleIsLocked,
+        files, handleFileChange,
+        category, setCategory,
+        error, setError,
+        isFileInputActive, toggleFileInput,
+    } = useBoardForm();
 
     const createBoard = async (e) => {
         e.preventDefault();
         try {
-            const formData = new FormData();
-            const data = { title, content, isImportant, category };
-            formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
-
-            if (files.length > 0) {
-                for (let i = 0; i < files.length; i++) {
-                    formData.append('files', files[i]);
-                }
+            if (department) {
+                // 부서 게시판 요청에 isLocked 포함
+                const data = { title, content, isImportant, isLocked, category };
+                await createDepartmentBoards(department, data, files);
+            } else {
+                // 전체 게시판 요청에 isLocked 제외
+                const data = { title, content, isImportant, category };
+                await createAllBoards(data, files);
             }
 
-            const response = await fetch('/api/v1/boards', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                },
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('게시글 생성 실패');
+            // 작성 후 적절한 게시판으로 이동
+            if (department) {
+                navigate(`/department-boards/${department}`);
+            } else {
+                navigate('/all-boards');
             }
-            await response.json();
-            navigate('/all-boards');
         } catch (error) {
             setError(error.message);
         }
@@ -68,29 +46,41 @@ const CreateBoard = () => {
 
     return (
         <div>
-            <h2 className="create-board-title">게시글 작성</h2>
+            <h2 className="create-board-title">
+                {department ? `${department} 게시판 작성` : "전체 게시글 작성"}
+            </h2>
             <div className="create-board-container">
-                {/* 왼쪽 영역 */}
                 <div className="create-board-container-left">
-                    <div className="create-board-card-important">
+                    <div className="create-board-card-settings">
                         <img
                             src={isImportant
                                 ? `${imagePrefix}/shared/isImportant_true.png`
                                 : `${imagePrefix}/shared/isImportant_false.png`}
                             alt={isImportant ? "Important" : "Not Important"}
-                            width="30"
                             onClick={toggleImportant}
+                        />
+
+                        {/* isLocked는 부서 게시판에서만 활성화 */}
+                        {department && (
+                            <img
+                                src={isLocked
+                                    ? `${imagePrefix}/shared/lock.png`
+                                    : `${imagePrefix}/shared/unlock.png`}
+                                alt={isLocked ? "Locked" : "Unlocked"}
+                                onClick={toggleIsLocked}
+                            />
+                        )}
+                    </div>
+
+                    <div className="file-placeholder">
+                        <img
+                            src={`${imagePrefix}/shared/attachments_files.png`}
+                            alt="File Placeholder"
+                            onClick={toggleFileInput}
                         />
                     </div>
 
-                    <img
-                        src={`${imagePrefix}/shared/attachments_files.png`}
-                        alt="File Placeholder"
-                        className="file-placeholder"
-                        onClick={toggleFileInput}
-                    />
-
-                    {/* 파일 입력칸 */}
+                    {/* File Input */}
                     {isFileInputActive && (
                         <div className="form-group file-input-group">
                             <input
@@ -103,13 +93,12 @@ const CreateBoard = () => {
                         </div>
                     )}
 
-                    {/* 첨부 파일 리스트 */}
+                    {/* File List */}
                     {files.length > 0 && (
                         <div className="attached-files">
                             <strong>첨부 파일:</strong>
                             <ul>
                                 {files.length <= 3 ? (
-                                    // files 배열의 요소를 모두 출력
                                     files.slice(0, files.length).map((file, index) => (
                                         <li key={index}>{file.name}</li>
                                     ))
@@ -124,7 +113,7 @@ const CreateBoard = () => {
                     )}
                 </div>
 
-                {/* 오른쪽 영역 */}
+                {/* Right Section */}
                 <div className="create-board-container-right">
                     <form onSubmit={createBoard} className="create-board-form">
                         <div className="form-group">
@@ -137,6 +126,17 @@ const CreateBoard = () => {
                                 required
                                 className="input-field"
                             />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="content">내용</label>
+                            <textarea
+                                id="content"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                                required
+                                className="textarea-field"
+                            ></textarea>
                         </div>
 
                         <div className="form-group">
@@ -153,17 +153,6 @@ const CreateBoard = () => {
                                 <option value="협업">협업</option>
                                 <option value="회의실">회의실</option>
                             </select>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="content">내용</label>
-                            <textarea
-                                id="content"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                required
-                                className="textarea-field"
-                            ></textarea>
                         </div>
 
                         <div className="board-submit-button-container">

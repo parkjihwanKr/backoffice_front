@@ -1,7 +1,3 @@
-.board-container {
-    margin-top: 30px;
-}
-
 .board-container-header {
     display: flex;
     flex-direction: column; /* 행 방향 정렬 */
@@ -12,10 +8,6 @@
 .board-container-header-title {
     text-align: center;
     width: 100%;
-}
-
-.board-container-header-title h2 {
-    font-weight: bold;
 }
 
 .board-container-header-end {
@@ -62,17 +54,22 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.board-card-important {
+.board-card-settings {
+    width : 20px;
+    height : 20px;
     position: absolute;
     cursor: pointer;
     margin-bottom: 16px;
-    display: inline-block;
+    display: flex;
     left: 1%;
     top: 1%;
 }
 
-.board-card-important img {
+.board-card-settings img {
     display: block;
+    padding : 2px;
+    width : 24px;
+    height : 24px;
 }
 
 .board-card-image {
@@ -109,8 +106,8 @@
 }
 
 .board-card-title {
+    top: -8%;
     position: absolute;
-    top : 1%;
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 16px;
@@ -138,7 +135,7 @@
     right: 16px; /* 카드 오른쪽 끝으로 배치 */
     bottom: 16px; /* 카드 하단에서 약간 위로 */
     display: flex;
-    gap: 16px;
+    gap: 8px;
     opacity: 0; /* 기본 상태에서 보이지 않음 */
     transition: opacity 0.3s ease; /* 부드러운 표시 전환 */
 }
@@ -200,7 +197,7 @@
 
     .board-card-info {
         position: static;
-        justify-content: space-around;
+        justify-content: flex-end;
         margin-top: 8px; /* 정보 간격 추가 */
     }
 }

@@ -40,10 +40,10 @@
     flex-grow: 1; /* 이미지 크기와 텍스트 간 균형 유지 */
 }
 
-.boards-card-title {
+.boards-card-header {
     font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 24px;
+    text-align: center;
 }
 
 .boards-card-text {
@@ -52,10 +52,10 @@
     color: #666;
 }
 
-.img-fluid {
+.boards-card-img {
     width: 100%;
-    height: 200px; /* 이미지 높이를 일정하게 유지 */
-    object-fit: cover; /* 이미지가 컨테이너에 맞게 자르거나 늘어남 */
+    height: auto;
+    object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
 
@@ -86,13 +86,13 @@
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    .card-row {
+    .boards-card-row {
         flex-direction: column; /* 카드들을 수직으로 배치 */
         gap: 10px;
     }
 
-    .card {
-        width: 100%; /* 카드가 화면 너비에 맞게 확장 */
+    .boards-card {
+        width: auto; /* 카드가 화면 너비에 맞게 확장 */
     }
 
     .boards-container {
