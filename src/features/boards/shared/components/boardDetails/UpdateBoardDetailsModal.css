@@ -1,0 +1,129 @@
+/*UpdateBoardDetailsModal.css*/
+/* 모달 배경 (overlay) 스타일 */
+.edit-board-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 모달이 상단에서 시작되도록 설정 */
+    padding: 40px 0; /* 모달 상단과 하단에 여백 추가 */
+    z-index: 1100; /* 모달이 다른 요소보다 위에 표시되도록 */
+    overflow-y: auto; /* 모달이 화면을 넘어갈 때 브라우저에 스크롤 추가 */
+}
+
+/* 모달 본체 스타일 */
+.edit-board-modal {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px; /* 모달 크기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out; /* 부드러운 애니메이션 */
+}
+
+/* 모달 헤더 스타일 */
+.edit-board-modal-header {
+    position: relative;
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 좌우 요소 간격 유지 */
+}
+
+/* 왼쪽 아이콘 그룹 */
+.edit-board-modal-header-left {
+    position: absolute;
+    align-items: center;
+}
+
+.edit-board-modal-header-left img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+/* 가운데 제목 */
+.edit-board-modal-header-center {
+    flex-grow: 1; /* 남은 공간을 차지하여 가운데 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* 모달 바디 스타일 */
+.edit-board-modal-body {
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+/* 모달 푸터 스타일 */
+.edit-board-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+/* form-group 클래스 */
+.form-group {
+    margin: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin: 5px;
+}
+
+/* 기본 input 스타일 */
+.form-control {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* textarea 스타일 */
+textarea.form-control {
+    resize: vertical;
+}
+
+/* checkbox 스타일 */
+.checkbox-control {
+    margin-right: 10px;
+}
+
+.board-submit-button {
+    font-size : 16px;
+}
+/* 버튼 스타일 */
+.board-cancel-button {
+    display: flex; /* 버튼 내의 내용물도 flex로 설정 */
+    align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
+    justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
+    width: 70px;
+    padding: 12px 0;
+    font-size : 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #ccc;
+    color: #333;
+}
+
+.delete-board-modal-button.cancel:hover {
+    background-color: #bbb;
+}
+@media(max-width: 768px) {
+    .edit-board-modal {
+        width: 80%;
+    }
+}

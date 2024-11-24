@@ -1,277 +1,66 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import './Comments.css';
 import EditCommentModal from "./EditCommentModal";
 import DeleteCommentModal from "./DeleteCommentModal";
 import ReplyCommentModal from './ReplyCommentModal';
 import Reply from './replys/Reply';
-import {useAuth} from "../../../../auth/context/AuthContext";
 import {imagePrefix} from '../../../../../utils/Constant';
+import {useComments} from './hooks/useComments';
 
 const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
-    const [comment, setComment] = useState('');
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [editingCommentContent, setEditingCommentContent] = useState('');
-    const [commentIdToEdit, setCommentIdToEdit] = useState(null);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [commentIdToDelete, setCommentIdToDelete] = useState(null);
-    const [showReplyModal, setShowReplyModal] = useState(false);
-    const [commentToReply, setCommentToReply] = useState(null);
-    const [likedComments, setLikedComments] = useState({});
-    const [showReplies, setShowReplies] = useState({});
-    const [hoveredCommentId, setHoveredCommentId] = useState(null); // 추가된 부분
-    const { id } = useAuth();
-
-    useEffect(() => {
-        const initialLikedComments = {};
-        console.log("userId : " + id);
-        console.log(comments);
-        comments.forEach(comment => {
-            const userReaction = comment.reactionList?.find(
-                reaction => reaction.reactorId === id);
-            if (userReaction) {
-                initialLikedComments[comment.commentId] = {
-                    liked: true,
-                    reactionId: userReaction.reactionId
-                };
-            } else {
-                initialLikedComments[comment.commentId] = { liked: false, reactionId: null };
-            }
-        });
-        setLikedComments(initialLikedComments);
-    }, [comments, id, comment?.likeCount]);
-
-    const handleCommentSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch(`/api/v1/boards/${boardId}/comments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify({ content: comment })
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to submit comment');
-            }
-
-            const newComment = await response.json();
-            setComments(
-                prevComments =>
-                    [...prevComments, newComment]);
-            setComment('');
-        } catch (error) {
-            console.error(error.message);
-        }
-    };
-
-    const toggleShowReplies = (commentId) => {
-        setShowReplies(prev => ({
-            ...prev,
-            [commentId]: !prev[commentId]
-        }));
-    };
-
-    const handleReply = (comment) => {
-        setCommentToReply(comment);
-        setShowReplyModal(true);
-    };
-
-    const handleReplySubmit = async (replyContent) => {
-        try {
-            const response = await fetch(`/api/v1/boards/${boardId}/comments/${commentToReply.commentId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify({ content: replyContent })
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to submit reply');
-            }
-
-            const newReply = await response.json();
-
-            setComments(prevComments =>
-                prevComments.map((comment) =>
-                    comment.commentId === commentToReply.commentId
-                        ? { ...comment, replyList: [...(comment.replyList || []), newReply] }
-                        : comment
-                )
-            );
-
-            setShowReplyModal(false);
-        } catch (error) {
-            console.error('Error submitting reply:', error.message);
-        }
-    };
-
-    const handleCommentLike = async (commentId) => {
-        const commentLiked = likedComments[commentId]?.liked;
-        let reactionId = likedComments[commentId]?.reactionId;
-
-        const likeUrl = `/api/v1/boards/${boardId}/comments/${commentId}/reactions`;
-
-        setComments((prevComments) =>
-            prevComments.map((comment) =>
-                comment.commentId === commentId
-                    ? {
-                        ...comment,
-                        likeCount: commentLiked
-                            ? comment.likeCount - 1
-                            : comment.likeCount + 1,
-                    }
-                    : comment
-            )
-        );
-
-        setLikedComments((prevLikedComments) => ({
-            ...prevLikedComments,
-            [commentId]: { liked: !commentLiked, reactionId },
-        }));
-
-        try {
-            if (commentLiked) {
-                // 좋아요 취소 (DELETE 요청)
-                if (reactionId) {
-                    await axios.delete(`/api/v1/comments/${commentId}/reactions/${reactionId}`, {
-                        headers: { 'Authorization': `Bearer ${accessToken}` },
-                    });
-                } else {
-                    console.error("reactionId is null, cannot delete reaction");
-                    throw new Error("reactionId가 설정되지 않았습니다.");
-                }
-            } else {
-                // 좋아요 추가 (POST 요청)
-                const response = await axios.post(likeUrl, { emoji: "LIKE" }, {
-                    headers: { 'Authorization': `Bearer ${accessToken}` },
-                });
-
-                if (response.data && response.data.reactionId) {
-                    const updatedReaction = response.data;
-                    setLikedComments((prevLikedComments) => ({
-                        ...prevLikedComments,
-                        [commentId]: { liked: true, reactionId: updatedReaction.reactionId },
-                    }));
-                } else {
-                    throw new Error("서버 응답에 reactionId가 없습니다.");
-                }
-            }
-        } catch (error) {
-            console.error(error.errorCode + ' : ', error.message);
-
-            // Revert optimistic update if the request fails
-            setLikedComments((prevLikedComments) => ({
-                ...prevLikedComments,
-                [commentId]: { liked: commentLiked, reactionId },
-            }));
-            setComments((prevComments) =>
-                prevComments.map((comment) =>
-                    comment.commentId === commentId
-                        ? {
-                            ...comment,
-                            likeCount: commentLiked
-                                ? comment.likeCount + 1
-                                : comment.likeCount - 1,
-                        }
-                        : comment
-                )
-            );
-        }
-    };
-
-    const handleEditComment = (commentId, commentContent) => {
-        setCommentIdToEdit(commentId);
-        setEditingCommentContent(commentContent);
-        setShowEditModal(true);
-    };
-
-    const handleDeleteComment = (commentId) => {
-        setCommentIdToDelete(commentId);
-        setShowDeleteModal(true);
-    };
-
-    const handleEditSubmit = async (newContent) => {
-        try {
-            const response = await fetch(`/api/v1/boards/${boardId}/comments/${commentIdToEdit}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify({ content: newContent })
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to edit comment');
-            }
-
-            const updatedComment = await response.json();
-
-            setComments((prevComments) =>
-                prevComments.map((comment) =>
-                    comment.commentId === updatedComment.commentId
-                        ? { ...comment, content: updatedComment.content, modifiedAt: updatedComment.modifiedAt }
-                        : comment
-                )
-            );
-
-            setShowEditModal(false);
-        } catch (error) {
-            console.error('Error editing comment:', error.message);
-        }
-    };
-
-    const handleDeleteSubmit = async () => {
-        try {
-            const response = await fetch(`/api/v1/boards/${boardId}/comments/${commentIdToDelete}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to delete comment');
-            }
-
-            setComments(prevComments =>
-                prevComments.filter(comment => comment.commentId !== commentIdToDelete)
-            );
-            setShowDeleteModal(false);
-        } catch (error) {
-            console.error(error.message);
-        }
-    };
+    const {
+        comment,
+        setComment,
+        likedComments,
+        hoveredCommentId,
+        setHoveredCommentId,
+        showEditModal,
+        setShowEditModal,
+        editingCommentContent,
+        commentIdToEdit,
+        showDeleteModal,
+        setShowDeleteModal,
+        commentIdToDelete,
+        showReplyModal,
+        setShowReplyModal,
+        commentToReply,
+        setCommentToReply,
+        showReplies,
+        handleCommentSubmit,
+        handleReply,
+        handleReplySubmit,
+        handleCommentLike,
+        toggleShowReplies,
+        handleEditComment,
+        handleDeleteComment,
+        handleEditSubmit,
+        handleDeleteSubmit,
+    } = useComments(boardId, comments, setComments);
 
     return (
         <div className="comments-section">
-            <h5>댓글 작성</h5>
-            <form onSubmit={handleCommentSubmit} className="d-flex flex-column">
+            <div className="create-comment-section">
+                <h3 className="create-comment-section-header">댓글 작성</h3>
+                <form onSubmit={handleCommentSubmit}>
                 <textarea
-                    className="form-control mb-2"
+                    className="create-comment-section-body"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     rows="1"
                     placeholder="댓글을 입력하세요"
                     required
                 />
-                <div className="text-end">
-                    <button type="submit" className="btn btn-primary btn-sm">
-                        댓글 작성
-                    </button>
-                </div>
-            </form>
-
-            <hr />
+                    <div className="create-comment-section-footer">
+                        <button type="submit" className="button">
+                            댓글 작성
+                        </button>
+                    </div>
+                </form>
+            </div>
 
             {comments.length > 0 && (
                 <div className="comments-list">
-                    <h5>댓글 리스트</h5>
+                    <h4>댓글 리스트</h4>
                     {comments.map((comment) => (
                         <div key={comment.commentId} className="comment-card-wrapper">
                             <div className="comment-card"
@@ -337,7 +126,6 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                                     </div>
                                 )}
 
-                                {/* 말풍선 모양의 like-info */}
                                 {hoveredCommentId === comment.commentId && (
                                     <div className="like-info">
                                         <img

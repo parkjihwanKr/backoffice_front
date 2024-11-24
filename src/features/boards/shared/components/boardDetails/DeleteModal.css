@@ -1,0 +1,110 @@
+/* 모달 배경 (overlay) */
+.delete-board-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 모달 본체 */
+.delete-board-modal {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out; /* 애니메이션 효과 */
+}
+
+/* 모달 헤더 */
+.delete-board-modal-header {
+    display: flex;
+    justify-content: center; /* 가로로 중앙 정렬 */
+    align-items: center; /* 세로로 중앙 정렬 */
+    margin-bottom: 20px;
+}
+
+.delete-board-modal-header h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.delete-board-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+
+.delete-board-modal-close:hover {
+    color: #333;
+}
+
+/* 모달 바디 */
+.delete-board-modal-body {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* 모달 푸터 */
+.delete-board-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.delete-board-modal-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-board-modal-button.delete {
+    display: flex; /* 버튼 내의 내용물도 flex로 설정 */
+    align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
+    justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
+    width: 70px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: cornflowerblue;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-board-modal-button.delete:hover {
+    background-color: royalblue; /* 마우스를 올렸을 때 배경색을 변경 */
+}
+
+.delete-board-modal-button.cancel {
+    display: flex; /* 버튼 내의 내용물도 flex로 설정 */
+    align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
+    justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
+    width: 70px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #ccc;
+    color: #333;
+}
+
+.delete-board-modal-button.cancel:hover {
+    background-color: #bbb;
+}

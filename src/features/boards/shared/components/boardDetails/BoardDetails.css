@@ -1,0 +1,40 @@
+.board-details-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #f9f9f9; /* 배경색 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    max-width: 900px;
+    margin: 20px auto; /* 화면 중앙 배치 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+}
+
+.board-details-container.modal-open {
+    overflow: hidden;
+}
+
+.board-details {
+    position: relative; /* ::before와 ::after를 기준으로 배치 */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 기존 선 */
+    margin-bottom: 20px;
+    padding: 0 10px; /* 내용물과 선의 간격 조정 */
+}
+
+.board-details::before,
+.board-details::after {
+    content: ''; /* 가상 요소 생성 */
+    position: absolute;
+    bottom: -1px; /* 기존 선과 높이를 정확히 맞춤 */
+    width: 50px; /* 양쪽으로 추가될 선의 길이 */
+    height: 1px; /* 선의 두께를 기존 border-bottom과 동일하게 설정 */
+    background-color: rgba(0, 0, 0, 0.1); /* 선의 색상 */
+}
+
+.board-details::before {
+    left: -50px; /* 왼쪽으로 확장 */
+}
+
+.board-details::after {
+    right: -50px; /* 오른쪽으로 확장 */
+}

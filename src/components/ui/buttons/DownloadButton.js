@@ -1,10 +1,11 @@
-import React from 'react';
-import './DownloadButton.css'; // CSS 파일을 import
+import React, { useState } from 'react';
+import './DownloadButton.css';
 
 const DownloadButton = ({ fileList, imagePrefix }) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
     // 파일 다운로드 함수
     const downloadFile = (fileUrl) => {
-        console.log("fileUrl : "+fileUrl);
         const actualUrl = typeof fileUrl === 'string' ? fileUrl : fileUrl.url; // URL 추출
 
         fetch(actualUrl)
@@ -27,22 +28,38 @@ const DownloadButton = ({ fileList, imagePrefix }) => {
             .catch(() => alert('파일 다운로드에 실패했습니다.'));
     };
 
+    // 드롭다운 토글 핸들러
+    const toggleDropdown = () => {
+        setIsDropdownOpen((prev) => !prev);
+    };
+
     return (
         <div className="download-button-container">
-            {fileList.map((fileUrl, index) => (
-                <button
-                    key={index}
-                    onClick={() => downloadFile(fileUrl)}
-                    className="download-button"
-                    style={{ color: 'black' }}
-                >
-                    <img
-                        src={`${imagePrefix}/shared/attachments.png`}
-                        style={{ height: '24px', width: '24px', marginRight: '5px' }}
-                    />
-                    파일 다운로드 {index + 1}
-                </button>
-            ))}
+            <button
+                className="download-button"
+                onClick={toggleDropdown}
+            >
+                <img
+                    src={`${imagePrefix}/shared/attachments.png`}
+                    alt="Attachments"
+                />
+                파일 다운로드 ({fileList.length})
+            </button>
+
+            {/* 드롭다운 메뉴 */}
+            {isDropdownOpen && (
+                <ul className="dropdown-menu">
+                    {fileList.map((fileUrl, index) => (
+                        <li
+                            key={index}
+                            onClick={() => downloadFile(fileUrl)}
+                            className="dropdown-item"
+                        >
+                            파일 {index + 1}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };

@@ -1,23 +1,73 @@
 /* 댓글 섹션 스타일 */
 .comments-section {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
     background-color: #f9f9f9;
-    margin-bottom: 20px;
-    width: 80%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* 댓글 입력란 스타일 */
-textarea {
-    height: 180px;
-    resize: none;
-    font-size: 0.9rem;
+.create-comment-section {
+    position: relative; /* 부모 요소를 기준으로 위치 설정 */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 부드러운 구분선 */
+    margin-bottom: 10px;
+}
+
+/* 양옆에 선을 연장하는 스타일 */
+.create-comment-section::before,
+.create-comment-section::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    height: 1px; /* 선 두께 */
+    background-color: rgba(0, 0, 0, 0.1); /* 동일한 색상 */
+    z-index: 1;
+}
+
+.create-comment-section::before {
+    left: -50px; /* 왼쪽으로 선을 확장 */
+    width: 50px; /* 확장된 길이 */
+}
+
+.create-comment-section::after {
+    right: -50px; /* 오른쪽으로 선을 확장 */
+    width: 50px; /* 확장된 길이 */
+}
+
+/* 댓글 섹션 헤더 스타일 */
+.create-comment-section-header{
+    font-size: 1.2rem; /* 헤더 크기 */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333; /* 텍스트 색상 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.create-comment-section-body {
+    display: block;
     width: 100%;
-    max-width: 100%;
-    margin-bottom: 4px;
+    min-height: 180px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+.comments-section-body:focus {
+    outline: none;
+    background-color: #fff;
+}
+
+/* 댓글 섹션 푸터 */
+.create-comment-section-footer {
+    display: flex;
+    justify-content: flex-end;
+    text-align: right; /* 버튼 오른쪽 정렬 */
+    margin-top: 10px;
 }
 
 /* 댓글 카드 및 답글 카드 스타일 */

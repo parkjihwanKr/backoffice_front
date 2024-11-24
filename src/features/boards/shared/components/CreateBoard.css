@@ -136,7 +136,7 @@
 
 .file-placeholder {
     width: 100px;
-    height: 100%;
+    height: auto;
     margin: 0 auto; /* 수평 중앙 정렬 */
     display: flex;
     position: relative; /* 내부 요소 정렬을 위해 */

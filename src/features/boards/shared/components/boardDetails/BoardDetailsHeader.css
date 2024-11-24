@@ -1,0 +1,77 @@
+/* 전체 헤더 컨테이너 */
+.board-details-card-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between; /* 좌우 아이콘 및 제목 간격 조정 */
+    align-items: center; /* 수직 중앙 정렬 */
+    padding: 0;
+    background-color: #f9f9f9; /* 연한 배경색 */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 부드러운 구분선 */
+    margin-bottom: 10px;
+    border-radius: 8px 8px 0 0;
+}
+
+/* 제목 스타일 */
+.board-details-card-header h2 {
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* 좌우에 확장된 구분선 추가 */
+.board-details-card-header::before,
+.board-details-card-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; /* 기존 선과 동일한 높이 */
+    height: 1px; /* 선의 두께 */
+    width: 50px; /* 확장된 길이 */
+    background-color: rgba(0, 0, 0, 0.1); /* 동일한 색상 */
+}
+
+.board-details-card-header::before {
+    left: -50px; /* 왼쪽으로 확장 */
+}
+
+.board-details-card-header::after {
+    right: -50px; /* 오른쪽으로 확장 */
+}
+
+/* 아이콘 공통 스타일 */
+.board-details-card-header img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.left-action-icons,
+.right-action-icons {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 기존 10px에서 2px 증가 */
+}
+
+.board-details-card-header img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* @media - 작은 화면에 대한 스타일 조정 */
+@media screen and (max-width: 768px) {
+    .board-details-card-header h2 {
+        font-size: 20px !important; /* 강제 적용 */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .board-details-card-header h2 {
+        font-size: 18px !important; /* 더 작은 화면에서 강제 적용 */
+    }
+    .board-details-card-header img {
+        width: 15px;
+        height: 15px;
+    }
+}

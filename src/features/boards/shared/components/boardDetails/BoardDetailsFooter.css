@@ -1,22 +1,16 @@
-.post-meta {
+.board-details-footer{
     display: flex;
     justify-content: flex-end;
-    gap: 20px; /* 각 메타 정보 사이 간격 */
+    gap: 7px;
     align-items: center;
     padding: 10px 0;
-    margin-right: 20px;
+    margin-right: 3px;
 }
 
-.meta-item {
+.board-details-footer img{
     display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.meta-item img.meta-icon {
     width: 24px;
     height: 24px;
-    margin-right: 5px; /* 아이콘과 텍스트 간격 */
 }
 
 .meta-item.like-button:hover img,

@@ -11,7 +11,7 @@ import DepartmentSchedule from './features/events/department/components/Departme
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
 import CreateBoard from "./features/boards/shared/components/CreateBoard";
 import DropDownMenu from "./components/common/DropDownMenu";
-import BoardDetails from "./features/boards/general/components/boardDetails/BoardDetails";
+import BoardDetails from "./features/boards/shared/components/boardDetails/BoardDetails";
 
 import './assets/styles/App.css';
 import {AuthProvider} from './features/auth/context/AuthContext';
@@ -35,7 +35,7 @@ function App() {
         <AuthProvider>
             <NotificationProvider>
                 <Router>
-                    <div>
+                    <div className="body">
                         <nav className="custom-navbar">
                             <Link to="/" className="custom-navLink">
                                 <HomeImageButton/>
