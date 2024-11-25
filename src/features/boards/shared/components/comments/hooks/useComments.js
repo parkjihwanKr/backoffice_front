@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useAuth} from "../../../../../auth/context/AuthContext";
 import {
     createBoardComment,
-    createBoardReply, createCommentReaction, createCommentReply,
+    createCommentReaction,
+    createCommentReply,
     deleteComment,
     deleteCommentReaction,
-    editComment
+    updateComment
 } from "../service/CommentsService";
 
 export const useComments = (boardId, comments, setComments) => {
@@ -21,6 +22,8 @@ export const useComments = (boardId, comments, setComments) => {
     const [showReplyModal, setShowReplyModal] = useState(false);
     const [commentToReply, setCommentToReply] = useState(null);
     const [showReplies, setShowReplies] = useState({});
+
+    const requestInProgress = useRef(false);
 
     useEffect(() => {
         const initialLikedComments = {};
@@ -60,6 +63,9 @@ export const useComments = (boardId, comments, setComments) => {
     const handleCommentLike = async (commentId) => {
         const commentLiked = likedComments[commentId]?.liked;
         const reactionId = likedComments[commentId]?.reactionId;
+
+        if (requestInProgress.current) return;
+        requestInProgress.current = true;
 
         // 낙관적 UI
         // 사용 이유 : 게시글의 댓글의 '좋아요'를 가지고 오는 것이라,
@@ -116,12 +122,16 @@ export const useComments = (boardId, comments, setComments) => {
                         : comment
                 )
             );
+            console.log(error.response.data);
+            alert(error.response.data.data + " : " + error.response.data.message);
+        } finally {
+            requestInProgress.current = false;
         }
     };
 
     // 댓글 수정 로직
     const handleEditSubmit = async (newContent) => {
-        const updatedComment = await editComment(boardId, commentIdToEdit, { content: newContent });
+        const updatedComment = await updateComment(boardId, commentIdToEdit, { content: newContent });
         setComments((prevComments) =>
             prevComments.map((comment) =>
                 comment.commentId === updatedComment.commentId
@@ -175,14 +185,11 @@ export const useComments = (boardId, comments, setComments) => {
         showEditModal,
         setShowEditModal,
         editingCommentContent,
-        commentIdToEdit,
         showDeleteModal,
         setShowDeleteModal,
-        commentIdToDelete,
         showReplyModal,
         setShowReplyModal,
         commentToReply,
-        setCommentToReply,
         showReplies,
         handleCommentSubmit,
         handleReply,
