@@ -7,7 +7,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     max-width: 900px;
     margin: 20px auto; /* 화면 중앙 배치 */
-    overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+    overflow: auto;
+    z-index: 1;
 }
 
 .board-details-container.modal-open {
@@ -26,15 +27,8 @@
     content: ''; /* 가상 요소 생성 */
     position: absolute;
     bottom: -1px; /* 기존 선과 높이를 정확히 맞춤 */
-    width: 50px; /* 양쪽으로 추가될 선의 길이 */
+    width: auto; /* 양쪽으로 추가될 선의 길이 */
     height: 1px; /* 선의 두께를 기존 border-bottom과 동일하게 설정 */
     background-color: rgba(0, 0, 0, 0.1); /* 선의 색상 */
-}
-
-.board-details::before {
-    left: -50px; /* 왼쪽으로 확장 */
-}
-
-.board-details::after {
-    right: -50px; /* 오른쪽으로 확장 */
+    z-index : 2000
 }

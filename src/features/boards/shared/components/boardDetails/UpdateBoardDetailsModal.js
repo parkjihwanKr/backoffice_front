@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import './UpdateBoardDetailsModal.css';
 import { addModalAlignmentListener, adjustModalAlignment } from "../../../../../utils/ModalUtils";
 import { imagePrefix } from "../../../../../utils/Constant";
+import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
+import CloseButton from "../../../../../components/ui/buttons/CloseButton";
 
 const UpdateBoardDetailsModal = ({
                                      show,
@@ -151,12 +153,8 @@ const UpdateBoardDetailsModal = ({
                     </form>
                 </div>
                 <div className="edit-board-modal-footer">
-                    <button onClick={handleSubmit} className="board-submit-button">
-                        저장
-                    </button>
-                    <button onClick={handleClose} className="board-cancel-button">
-                        취소
-                    </button>
+                    <SubmitButton onSubmit={handleSubmit} text = "수정"/>
+                    <CloseButton handleClose={handleClose} />
                 </div>
             </div>
         </div>

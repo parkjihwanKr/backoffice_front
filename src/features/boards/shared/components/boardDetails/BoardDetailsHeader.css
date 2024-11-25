@@ -26,8 +26,9 @@
     position: absolute;
     bottom: -1px; /* 기존 선과 동일한 높이 */
     height: 1px; /* 선의 두께 */
-    width: 50px; /* 확장된 길이 */
+    width: auto;
     background-color: rgba(0, 0, 0, 0.1); /* 동일한 색상 */
+    z-index : 2000;
 }
 
 .board-details-card-header::before {
@@ -46,8 +47,7 @@
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.left-action-icons,
-.right-action-icons {
+.left-action-icons {
     position: absolute;
     display: flex;
     align-items: center;

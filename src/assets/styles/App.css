@@ -92,3 +92,7 @@ body {
   border: none;
   outline: none;
 }
+
+.textarea {
+  font-family: 'Arial', sans-serif;
+}

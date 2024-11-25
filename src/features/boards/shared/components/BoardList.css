@@ -68,8 +68,8 @@
 .board-card-settings img {
     display: block;
     padding : 2px;
-    width : 24px;
-    height : 24px;
+    width : 36px;
+    height : 36px;
 }
 
 .board-card-image {
@@ -106,7 +106,7 @@
 }
 
 .board-card-title {
-    top: -8%;
+    top: -30px;
     position: absolute;
     font-size: 1.5rem;
     font-weight: bold;
@@ -185,7 +185,7 @@
 
     .board-card-title {
         position: relative;
-        top: 0;
+        top: -40px;
         font-size: 1.25rem;
     }
 

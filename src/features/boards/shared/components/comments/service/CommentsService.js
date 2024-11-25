@@ -7,7 +7,7 @@ export const createBoardComment = async (boardId, commentContent) => {
     console.log(response.data);
     return response.data;
 }
-export const createBoardReply = async (boardId, commentId, replyData) => {
+export const createCommentReply = async (boardId, commentId, replyData) => {
     const response = await axiosInstance.post(
         `/boards/${boardId}/comments/${commentId}/replies`,
         replyData
@@ -24,7 +24,7 @@ export const createCommentReaction = async (boardId, commentId, reactionData) =>
 };
 
 export const deleteCommentReaction = async (boardId, commentId, reactionId) => {
-    await axiosInstance.delete(`/boards/${boardId}/comments/${commentId}/reactions/${reactionId}`);
+    await axiosInstance.delete(`/comments/${commentId}/reactions/${reactionId}`);
 };
 
 export const editComment = async (boardId, commentId, commentData) => {

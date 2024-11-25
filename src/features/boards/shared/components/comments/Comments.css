@@ -10,6 +10,7 @@
     position: relative; /* 부모 요소를 기준으로 위치 설정 */
     border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 부드러운 구분선 */
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 /* 양옆에 선을 연장하는 스타일 */
@@ -21,16 +22,6 @@
     height: 1px; /* 선 두께 */
     background-color: rgba(0, 0, 0, 0.1); /* 동일한 색상 */
     z-index: 1;
-}
-
-.create-comment-section::before {
-    left: -50px; /* 왼쪽으로 선을 확장 */
-    width: 50px; /* 확장된 길이 */
-}
-
-.create-comment-section::after {
-    right: -50px; /* 오른쪽으로 선을 확장 */
-    width: 50px; /* 확장된 길이 */
 }
 
 /* 댓글 섹션 헤더 스타일 */
@@ -70,19 +61,35 @@
     margin-top: 10px;
 }
 
+.comments-list-section h4{
+    font-size : 15px;
+}
+
+.comments-list-section {
+    z-index : 1000;
+}
+
 /* 댓글 카드 및 답글 카드 스타일 */
 .comment-card-wrapper {
     width: 100%;
-    margin-bottom: 10px;
+    min-height: 100px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    overflow: hidden; /* 자식 요소가 삐져나오지 않도록 */
+    box-sizing: border-box; /* 전체 크기에 padding 포함 */
+    background-color: #f2f2f0;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .comment-card {
+    box-sizing: border-box; /* padding 포함 */
     position: relative;
     background-color: #f2f2f0;
     padding: 10px;
-    margin-bottom: 0;
     width: 100%;
 }
 
@@ -90,7 +97,7 @@
 .comment-meta {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .comment-author {
@@ -98,7 +105,7 @@
 }
 
 .comment-content {
-    margin: 0;
+    margin-bottom: 10px;
     font-size: 1rem;
 }
 
@@ -171,50 +178,54 @@
     height: 24px;
 }
 
-/* like-info 스타일 */
-.like-info {
+.comment-like-info {
     position: absolute;
-    top: 0%;
-    right: -70px; /* 오른쪽 여백을 줄여서 댓글과 더 가깝게 위치시킴 */
+    top: 10px; /* 댓글 요소 아래에 위치 */
+    left: 50%; /* 댓글 중앙에 정렬 */
+    transform: translateX(-50%); /* 중앙 정렬 보정 */
     background-color: #f1f1f1;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 5px;
-    z-index: 10;
+    z-index: 4000;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    visibility: visible;
-    transition: opacity 0.3s ease-in-out;
     white-space: nowrap;
 }
 
-/* 꼬리 모양 */
-.like-info::before {
+.comment-like-info img {
+    height: 24px;
+    width: 24px;
+    vertical-align : middle;
+    z-index: 4000;
+}
+
+.comment-like-info::before {
     content: '';
     position: absolute;
-    top: 50%;
-    right: 60px; /* 말풍선의 왼쪽에 꼬리 추가 */
-    transform: translateY(-50%);
+    bottom: 95%; /* 요소의 바로 위 */
+    left: 50%; /* 가운데 정렬 */
+    transform: translateX(-50%); /* 가운데 정렬 보정 */
     width: 0;
     height: 0;
-    border-right: 10px solid #f1f1f1; /* 말풍선 내부 색상 */
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    z-index: 9;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f1f1f1; /* 말풍선 내부 색상 */
+    z-index: 1101;
 }
 
 /* 꼬리 모양의 테두리 */
-.like-info::after {
+.comment-like-info::after {
     content: '';
     position: absolute;
-    top: 50%;
-    right: 59px; /* 말풍선의 왼쪽에 테두리 추가 */
-    transform: translateY(-50%);
+    bottom: 100%; /* 요소의 바로 위 */
+    left: 50%; /* 가운데 정렬 */
+    transform: translateX(-50%); /* 가운데 정렬 보정 */
     width: 0;
     height: 0;
-    border-right: 12px solid #f1f1f1; /* 테두리 색상 */
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    z-index: 8;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #ddd; /* 테두리 색상 */
+    z-index: 1100;
 }
 
 .comment-card-wrapper:hover .like-info {

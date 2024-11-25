@@ -1,0 +1,78 @@
+/* 모달 오버레이 스타일 */
+.update-comment-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+/* 모달 본체 스타일 */
+.update-comment-modal {
+    position: relative;
+    background-color: white;
+    width: 500px;
+    max-width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 모달 헤더 스타일 */
+.update-comment-modal-header {
+    padding: 15px;
+    text-align: center;
+}
+
+.update-comment-modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 모달 바디 스타일 */
+.update-comment-modal-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.update-comment-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 10px;
+    resize: none;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+.update-comment-textarea:focus {
+    outline: none;
+}
+
+/* 모달 푸터 스타일 */
+.update-comment-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

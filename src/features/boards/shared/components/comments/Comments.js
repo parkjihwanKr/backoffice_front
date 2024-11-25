@@ -1,11 +1,12 @@
 import React from 'react';
 import './Comments.css';
-import EditCommentModal from "./EditCommentModal";
+import EditCommentModal from "./UpdateCommentModal";
 import DeleteCommentModal from "./DeleteCommentModal";
-import ReplyCommentModal from './ReplyCommentModal';
+import CreateReplyCommentModal from './CreateReplyCommentModal';
 import Reply from './replys/Reply';
 import {imagePrefix} from '../../../../../utils/Constant';
 import {useComments} from './hooks/useComments';
+import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
 
 const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
     const {
@@ -51,16 +52,14 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                     required
                 />
                     <div className="create-comment-section-footer">
-                        <button type="submit" className="button">
-                            댓글 작성
-                        </button>
+                        <SubmitButton onSubmit={handleCommentSubmit} text="댓글 작성"/>
                     </div>
                 </form>
             </div>
 
             {comments.length > 0 && (
-                <div className="comments-list">
-                    <h4>댓글 리스트</h4>
+                <div className="comments-list-section">
+                <h3>댓글 리스트</h3>
                     {comments.map((comment) => (
                         <div key={comment.commentId} className="comment-card-wrapper">
                             <div className="comment-card"
@@ -82,7 +81,6 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                                             src={likedComments[comment.commentId]?.liked ? `${imagePrefix}/shared/likes_done.png` : `${imagePrefix}/shared/commentListLike.png`}
                                             alt={likedComments[comment.commentId]?.liked ? 'liked' : 'likes'}
                                             className="comment-action-icon"
-                                            style={{ marginRight: '4px' }}
                                             onClick={() => handleCommentLike(comment.commentId)}
                                         />
                                         {comment.author === name && (
@@ -104,6 +102,14 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                                     </div>
                                 </div>
 
+                                {hoveredCommentId === comment.commentId && (
+                                    <div className="comment-like-info">
+                                        <img
+                                            src={`${imagePrefix}/shared/likes.png`}/>
+                                        <span className="comment-like-count"> : {comment.likeCount}</span>
+                                    </div>
+                                )}
+
                                 <p className="comment-content">{comment.content}</p>
 
                                 {showReplies[comment.commentId] && (
@@ -123,16 +129,6 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                                                 />
                                             </div>
                                         ))}
-                                    </div>
-                                )}
-
-                                {hoveredCommentId === comment.commentId && (
-                                    <div className="like-info">
-                                        <img
-                                            src={`${imagePrefix}/shared/likes.png`}
-                                            style={{ height: '24px', width: '24px', verticalAlign: 'middle' }}
-                                        />
-                                        <span style={{ marginLeft: '5px' }}> : {comment.likeCount}</span>
                                     </div>
                                 )}
 
@@ -163,7 +159,7 @@ const Comments = ({ comments, name, boardId, accessToken, setComments }) => {
                 handleDeleteSubmit={handleDeleteSubmit}
             />
 
-            <ReplyCommentModal
+            <CreateReplyCommentModal
                 show={showReplyModal}
                 handleClose={() => setShowReplyModal(false)}
                 handleReplySubmit={handleReplySubmit}

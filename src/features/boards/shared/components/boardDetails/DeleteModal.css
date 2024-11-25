@@ -14,6 +14,7 @@
 
 /* 모달 본체 */
 .delete-board-modal {
+    position: relative;
     background-color: white;
     border-radius: 8px;
     padding: 20px;

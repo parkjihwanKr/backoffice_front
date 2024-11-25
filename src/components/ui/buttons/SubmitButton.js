@@ -1,10 +1,12 @@
 /*SubmitButton.js*/
 import React from 'react';
-import "./SubmitButton.css";
-const SubmitButton= ({ onSubmit }) => {
+import "./Button.css";
+
+const SubmitButton= ({ onSubmit, text }) => {
     return (
-        <button className="close-button" onClick={onSubmit}>
-            Close
+        <button className="button" onClick={onSubmit}
+        style={{ width : "100px"}}>
+            {text}
         </button>
     );
 };

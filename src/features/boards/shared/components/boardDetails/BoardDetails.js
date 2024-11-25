@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getCookie } from "../../../../../utils/CookieUtil";
-import { useAuth } from "../../../../auth/context/AuthContext";
+import React, {useState} from "react";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useAuth} from "../../../../auth/context/AuthContext";
 import Comments from "../comments/Comments";
 import BoardDetailsFooter from "./BoardDetailsFooter";
 import "./BoardDetails.css";
@@ -13,7 +12,12 @@ import UpdateBoardDetailsModal from "./UpdateBoardDetailsModal";
 
 import useBoardDetails from "../../hooks/useBoardDetails";
 import useModalScroll from "../../hooks/useModalScroll";
-import { updateBoardDetails, deleteBoardDetails } from "../../services/BoardsService";
+import {
+    deleteBoardDetails,
+    patchMarkAsImportant,
+    patchMarkAsLocked,
+    updateBoardDetails
+} from "../../services/BoardsService";
 import {useError, useLoading} from "../../../../utils/LoadingUtils";
 
 const BoardDetails = () => {
@@ -34,6 +38,39 @@ const BoardDetails = () => {
     // 모달이 열렸을 때 스크롤 비활성화
     useModalScroll(showEditModal || showDeleteModal);
 
+    const location = useLocation(); // 현재 URL 경로 가져오기
+
+    // isDepartmentBoard 값을 URL에 따라 설정
+    const isDepartmentBoard = location.pathname.includes("department-board");
+
+    // 중요도 변경
+    const toggleImportant = async () => {
+        try {
+            await patchMarkAsImportant(board.boardId);
+            setBoard((prevBoard) => ({
+                ...prevBoard,
+                isImportant: !prevBoard.isImportant,
+            }));
+        } catch (error) {
+            console.error("Error toggling important status:", error);
+            alert("중요도 변경에 실패했습니다.");
+        }
+    };
+
+    // 잠금 상태 변경
+    const toggleLocked = async () => {
+        try {
+            await patchMarkAsLocked(board.boardId);
+            setBoard((prevBoard) => ({
+                ...prevBoard,
+                isLocked: !prevBoard.isLocked,
+            }));
+        } catch (error) {
+            console.error("Error toggling locked status:", error);
+            alert("잠금 상태 변경에 실패했습니다.");
+        }
+    };
+
     // 게시글 수정 API 호출
     const handleEditSubmit = async (editForm, isDepartmentBoard) => {
         try {
@@ -51,7 +88,11 @@ const BoardDetails = () => {
         try {
             await deleteBoardDetails(boardId);
             setShowDeleteModal(false);
-            navigate(`/all-boards`);
+            if(!isDepartmentBoard){
+                navigate(`/all-boards`);
+            }else {
+                navigate(`/department-boards`);
+            }
         } catch (error) {
             console.error("Error deleting board:", error);
         }
@@ -80,14 +121,15 @@ const BoardDetails = () => {
                     name={name}
                     setShowEditModal={setShowEditModal}
                     setShowDeleteModal={setShowDeleteModal}
+                    isDepartmentBoard={isDepartmentBoard}
+                    toggleImportant={toggleImportant} // 전달
+                    toggleLocked={toggleLocked} // 전달
                 />
+
                 <BoardDetailsBody board={board} />
                 <BoardDetailsFooter
                     boardId={boardId}
-                    reactionId={board.reactionList?.find((reaction) => reaction.reactorId === userId)?.reactionId}
                     reactionList={board.reactionList}
-                    name={name}
-                    accessToken={getCookie("accessToken")}
                     likeCount={board.likeCount}
                     commentCount={board.commentCount}
                     viewCount={board.viewCount}
@@ -97,7 +139,6 @@ const BoardDetails = () => {
                 comments={comments}
                 name={name}
                 boardId={boardId}
-                accessToken={getCookie("accessToken")}
                 setComments={setComments}
             />
             <UpdateBoardDetailsModal

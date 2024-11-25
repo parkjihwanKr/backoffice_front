@@ -181,3 +181,17 @@ export const deleteBoardLike = async (boardId, likeId) => {
     console.log(response.data);
     return response.data;
 }
+
+// 중요도 변경 API
+export const patchMarkAsImportant = async (boardId) => {
+    const response = await axiosInstance.patch(`/boards/${boardId}/important`);
+    console.log(response.data);
+    return response.data;
+};
+
+// 잠금 상태 변경 API
+export const patchMarkAsLocked = async (boardId) => {
+    const response = await axiosInstance.patch(`/boards/${boardId}/lock`);
+    console.log(response.data);
+    return response.data;
+};

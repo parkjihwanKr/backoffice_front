@@ -39,7 +39,9 @@ const useLike = (boardId, reactionList, likeCount, userId) => {
                 setCurrentLikeCount((prev) => prev + 1);
             }
         } catch (error) {
-            throw error; // Error는 상위 컴포넌트에서 처리
+            console.log(error.response.data);
+            alert(error.response.data.data +" : "+error.response.data.message);
+            // throw error;
         }
     };
 

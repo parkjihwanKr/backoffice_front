@@ -2,7 +2,7 @@
 .reply {
     position: relative;
     padding: 10px; /* Reply 전체에 패딩을 추가 */
-    width: 100%;
+    width: 85%;
     border: 1px solid #ddd;
     border-radius: 5px;
 }

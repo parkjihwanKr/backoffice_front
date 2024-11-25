@@ -1,0 +1,20 @@
+.delete-button {
+    display: flex; /* 버튼 내의 내용물도 flex로 설정 */
+    align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
+    justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
+    margin: 10px;
+    width: 100px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: red;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #f44336; /* 마우스를 올렸을 때 배경색을 변경 */
+}
