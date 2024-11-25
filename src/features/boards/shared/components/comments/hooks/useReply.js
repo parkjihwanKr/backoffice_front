@@ -6,7 +6,7 @@ export const useReply = ({ reply, commentId, setComments, userId }) => {
     const [reactionId, setReactionId] = useState(null);
     const [likeCount, setLikeCount] = useState(reply.likeCount);
 
-    // Like와 같은 반응 API는 일정 간격으로 제한
+    // Like와 같은 반응 API는 일정 간격으로 제한 : 요청 디바바운스
     const requestInProgress = useRef(false);
 
     useEffect(() => {

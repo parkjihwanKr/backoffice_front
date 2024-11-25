@@ -40,7 +40,7 @@
 }
 
 /* like-info 스타일 */
-.like-info {
+.reply-like-info {
     position: absolute;
     top: 0%;
     right: -70px; /* 오른쪽 여백을 줄여서 댓글과 더 가깝게 위치시킴 */
@@ -50,13 +50,20 @@
     padding: 5px;
     z-index: 10;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    visibility: visible;
-    transition: opacity 0.3s ease-in-out;
+    visibility: visible; /* 항상 보이도록 변경 */
+    opacity: 1; /* 항상 보이도록 설정 */
+    transition: none; /* 애니메이션 제거 */
     white-space: nowrap;
 }
 
+.reply-like-info img {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle
+}
+
 /* 꼬리 모양 */
-.like-info::before {
+.reply-like-info::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -71,7 +78,7 @@
 }
 
 /* 꼬리 모양의 테두리 */
-.like-info::after {
+.reply-like-info::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -83,4 +90,8 @@
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     z-index: 8;
+}
+
+.reply-like-info-span {
+    margin-left: 5px;
 }
