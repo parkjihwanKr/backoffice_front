@@ -29,3 +29,39 @@
 .download-button:hover {
     background-color: #e6e6e6; /* hover 효과 */
 }
+
+/* 드롭다운 메뉴 스타일 */
+.file-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 1px); /* 버튼 아래에 위치 */
+    left: -180px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 250px;
+    z-index: 2000;
+}
+
+/* 드롭다운 메뉴 항목 스타일 */
+.file-dropdown-item {
+    padding: 10px;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    min-width: 200px;
+}
+
+.file-dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* 드롭다운 메뉴에서 마지막 항목 구분선 제거 */
+.file-dropdown-item:last-child {
+    border-bottom: none;
+}

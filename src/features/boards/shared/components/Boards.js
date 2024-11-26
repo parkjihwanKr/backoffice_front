@@ -15,8 +15,8 @@ const Boards = () => {
         console.log("handelSubmit method call");
         const mappedDepartment = getMappedDepartment(selectedDepartment);
         if (selectedDepartment) {
-            navigate(`/department-boards/${mappedDepartment}`); // Navigate to department boards
-            closeModal(); // Close the modal
+            navigate(`/department-boards/${mappedDepartment}`);
+            closeModal();
         } else {
             alert('부서를 선택하세요.');
         }
@@ -35,9 +35,7 @@ const Boards = () => {
                         <img
                             src={`${imagePrefix}/shared/companyBoard.png`}
                             alt="전체 게시판 이미지"
-                            className="boards-card-img"
-                        />
-                        <hr/>
+                            className="boards-card-img"/>
                         <button className="all-boards-button" onClick={() => navigate('/all-boards')}>이동</button>
                     </div>
                 </div>
@@ -50,9 +48,7 @@ const Boards = () => {
                         <img
                             src={`${imagePrefix}/shared/departmentBoard.png`}
                             alt="부서 게시판 이미지"
-                            className="boards-card-img"
-                        />
-                        <hr/>
+                            className="boards-card-img"/>
                         <button className="department-boards-button" onClick={openModal}>이동</button>
                     </div>
                 </div>

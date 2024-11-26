@@ -98,6 +98,13 @@ export const fetchBoardDetails = async (boardId) => {
     }
 };
 
+// 부서 게시글 상세보기 조회 API
+export const fetchDepartmentBoardDetails = async (boardId, department) => {
+    console.log("fetchDepartmentBoarDetails method starts...");
+    const response = await axiosInstance.get(`/departments/${department}/boards/${boardId}`)
+    console.log(response.data);
+    return response.data;
+}
 // 게시글 상세보기 수정 API
 export const updateBoardDetails = async (boardId, editForm, files, isDepartmentBoard, department) => {
     const formData = new FormData();
@@ -110,7 +117,7 @@ export const updateBoardDetails = async (boardId, editForm, files, isDepartmentB
             category: editForm.category,
             isImportant: editForm.isImportant,
             department: department,
-            isLocked: null,
+            isLocked: editForm.isLocked,
         });
         formData.append('data', new Blob(
             [json], { type: 'application/json' }));

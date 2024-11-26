@@ -21,12 +21,19 @@ import {
 import {useError, useLoading} from "../../../../utils/LoadingUtils";
 
 const BoardDetails = () => {
+    const location = useLocation(); // 현재 URL 경로 가져오기
+    // isDepartmentBoard 값을 URL에 따라 설정
+    const isDepartmentBoard = location.pathname.includes("departments");
+
     const { boardId } = useParams();
     const navigate = useNavigate();
-    const { userId, name, department } = useAuth();
+    const { name, department } = useAuth();
 
     // API 데이터를 관리하는 커스텀 훅
-    const { board, setBoard, comments, setComments, loading, error } = useBoardDetails(boardId);
+    const {
+        board, setBoard, comments,
+        setComments, loading, error }
+        = useBoardDetails(boardId, department, isDepartmentBoard);
 
     // 파일 업로드 상태
     const [files, setFiles] = useState([]);
@@ -37,11 +44,6 @@ const BoardDetails = () => {
 
     // 모달이 열렸을 때 스크롤 비활성화
     useModalScroll(showEditModal || showDeleteModal);
-
-    const location = useLocation(); // 현재 URL 경로 가져오기
-
-    // isDepartmentBoard 값을 URL에 따라 설정
-    const isDepartmentBoard = location.pathname.includes("department-board");
 
     // 중요도 변경
     const toggleImportant = async () => {
@@ -91,7 +93,7 @@ const BoardDetails = () => {
             if(!isDepartmentBoard){
                 navigate(`/all-boards`);
             }else {
-                navigate(`/department-boards`);
+                navigate(`/department-boards/${department}`);
             }
         } catch (error) {
             console.error("Error deleting board:", error);

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './DownloadButton.css';
+import {ec2serverPrefix, MAX_FILENAME_LENGTH} from "../../../utils/Constant";
+import {extractFileName} from "../../../utils/ImageUtils";
+import {truncateFileName} from "../../../utils/FileUtils";
 
 const DownloadButton = ({ fileList, imagePrefix }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -48,16 +51,21 @@ const DownloadButton = ({ fileList, imagePrefix }) => {
 
             {/* 드롭다운 메뉴 */}
             {isDropdownOpen && (
-                <ul className="dropdown-menu">
-                    {fileList.map((fileUrl, index) => (
-                        <li
-                            key={index}
-                            onClick={() => downloadFile(fileUrl)}
-                            className="dropdown-item"
-                        >
-                            파일 {index + 1}
-                        </li>
-                    ))}
+                <ul className="file-dropdown-menu">
+                    {fileList.map((fileUrl, index) => {
+                        const fileName = extractFileName(fileUrl, ec2serverPrefix);
+                        const truncatedFileName = truncateFileName(fileName, MAX_FILENAME_LENGTH);
+
+                        return (
+                            <li
+                                key={index}
+                                onClick={() => downloadFile(fileUrl)}
+                                className="file-dropdown-item"
+                            >
+                                파일 {index + 1}: {truncatedFileName}
+                            </li>
+                        );
+                    })}
                 </ul>
             )}
         </div>

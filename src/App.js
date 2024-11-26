@@ -16,7 +16,6 @@ import BoardDetails from "./features/boards/shared/components/boardDetails/Board
 import './assets/styles/App.css';
 import {AuthProvider} from './features/auth/context/AuthContext';
 import HomePage from "./pages/HomePage";
-import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetails";
 import NoSchedulePage from "./features/events/department/components/NoSchedule";
 import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
 import Admin from "./features/admin/shared/components/Admin";
@@ -71,7 +70,7 @@ function App() {
                             <Route path="/department-boards/:department"
                                    element={<PrivateRoute component={DepartmentBoards} />} />
                             <Route path="/departments/:departmentName/boards/:boardId"
-                                   element={<PrivateRoute component = {DepartmentBoardDetail} />} />
+                                   element={<PrivateRoute component = {BoardDetails} />} />
                             <Route path="/department-schedule/:department"
                                    element={<PrivateRoute component={DepartmentSchedule} />} />
                             <Route path="/personal-schedule"

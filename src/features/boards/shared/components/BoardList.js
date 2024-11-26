@@ -7,7 +7,9 @@ import {getDefaultImage} from "../../../../utils/ImageUtils";
 import useFetchBoards from "../../general/hooks/useFetchBoards";
 import PaginationFooter from "../../../../components/common/PaginationFooter";
 
-const BoardList = ({ isDepartmentBoard = false }) => {
+const BoardList = ({ isDepartmentBoard }) => {
+    console.log("isDepartmentBoard : "+isDepartmentBoard);
+
     const navigate = useNavigate();
     const { department } = useParams(); // department 값을 URL에서 가져옴
     const boardTitle = isDepartmentBoard
