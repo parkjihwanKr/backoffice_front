@@ -9,16 +9,13 @@ import Notifications from './features/notifications/components/Notifications';
 import Events from './features/events/shared/Events';
 import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
 import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
-import CreateBoard from "./features/boards/general/components/CreateBoard";
+import CreateBoard from "./features/boards/shared/components/CreateBoard";
 import DropDownMenu from "./components/common/DropDownMenu";
-import AllBoards from "./features/boards/general/components/AllBoard";
-import BoardDetails from "./features/boards/general/components/boardDetails/BoardDetails";
+import BoardDetails from "./features/boards/shared/components/boardDetails/BoardDetails";
 
 import './assets/styles/App.css';
 import {AuthProvider} from './features/auth/context/AuthContext';
 import HomePage from "./pages/HomePage";
-import DepartmentBoardDetail from "./features/boards/department/components/boardDetails/DepartmentBoardDetails";
-import CreateDepartmentBoard from "./features/boards/department/components/CreateDepartmentBoard";
 import NoSchedulePage from "./features/events/department/components/NoSchedule";
 import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
 import Admin from "./features/admin/shared/components/Admin";
@@ -30,15 +27,16 @@ import AuditManagement from "./features/admin/audit/components/AuditManagement";
 import MemberDetails from "./features/members/components/MemberDetails";
 import HomeImageButton from "./components/ui/image/HomeImageButton";
 import {NotificationProvider} from "./features/notifications/context/NotificationContext";
+import BoardList from "./features/boards/shared/components/BoardList";
 
 function App() {
     return (
         <AuthProvider>
             <NotificationProvider>
                 <Router>
-                    <div>
-                        <nav className="navbar">
-                            <Link to="/" className="navLink">
+                    <div className="body">
+                        <nav className="custom-navbar">
+                            <Link to="/" className="custom-navLink">
                                 <HomeImageButton/>
                             </Link>
 
@@ -51,20 +49,28 @@ function App() {
                             <Route path="/auth/login" element={<Login />} />
 
                             {/* JWT 보호가 필요한 페이지 */}
-                            <Route path="/auth/logout" element={<PrivateRoute component={Logout} />} />
-                            <Route path="/" element={<PrivateRoute component={HomePage} />} />
-                            <Route path="/boards/*" element={<PrivateRoute component={Boards} />} />
-                            <Route path="/notifications" element={<PrivateRoute component={Notifications} />} />
-                            <Route path="/events" element={<PrivateRoute component={Events} />} />
-                            <Route path="/all-boards" element={<PrivateRoute component={AllBoards} />} />
-                            <Route path="/create-board" element={<PrivateRoute component={CreateBoard} />} />
-                            <Route path="/all-boards/:boardId" element={<PrivateRoute component={BoardDetails} />} />
+                            <Route path="/auth/logout"
+                                   element={<PrivateRoute component={Logout} />} />
+                            <Route path="/"
+                                   element={<PrivateRoute component={HomePage} />} />
+                            <Route path="/boards/*"
+                                   element={<PrivateRoute component={Boards} />} />
+                            <Route path="/notifications"
+                                   element={<PrivateRoute component={Notifications} />} />
+                            <Route path="/events"
+                                   element={<PrivateRoute component={Events} />} />
+                            <Route path="/all-boards"
+                                   element={<PrivateRoute component={BoardList} />} />
+                            <Route path="/create-board"
+                                   element={<PrivateRoute component={CreateBoard} />} />
+                            <Route path="/create-department-board/:department"
+                                   element={<PrivateRoute component={CreateBoard} />} />
+                            <Route path="/all-boards/:boardId"
+                                   element={<PrivateRoute component={BoardDetails} />} />
                             <Route path="/department-boards/:department"
                                    element={<PrivateRoute component={DepartmentBoards} />} />
                             <Route path="/departments/:departmentName/boards/:boardId"
-                                   element={<PrivateRoute component = {DepartmentBoardDetail} />} />
-                            <Route path="/create-department-board/:department"
-                                   element={<PrivateRoute component={CreateDepartmentBoard} />} />
+                                   element={<PrivateRoute component = {BoardDetails} />} />
                             <Route path="/department-schedule/:department"
                                    element={<PrivateRoute component={DepartmentSchedule} />} />
                             <Route path="/personal-schedule"

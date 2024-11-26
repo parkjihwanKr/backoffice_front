@@ -1,27 +1,27 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  padding-top: 60px; /* 상단 고정 요소의 높이만큼 여백을 줌 */
+  padding-top: 5px; /* 상단 고정 요소의 높이만큼 여백을 줌 */
   scroll-behavior: smooth; /* 부드러운 스크롤을 위해 추가 */
 }
 
-.navbar {
-  position: fixed;
+.custom-navbar {
+  position: relative;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  max-height: 100px;
+  z-index: 1;
   background-color: white;
   border-bottom: 2px solid #d3d3d3; /* 하단 경계선을 검정색으로 설정 */
-  padding: 10px 20px; /* 패딩을 조정하여 레이아웃을 정돈 */
   display: flex;
   justify-content: space-between; /* 메뉴와 홈 아이콘 사이의 간격을 유지 */
   align-items: center; /* 수직 정렬 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navLink {
+.custom-navLink {
   display: inline-block;
-  padding: 8px;
+  padding: 2px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
   color: black;
@@ -40,16 +40,6 @@ body {
 .navLink:hover {
   background-color: #f0f0f0;
   color: black;
-}
-
-.dropbtn {
-  background-color: black;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
 .dropdown-content {
@@ -101,4 +91,8 @@ body {
   background-color: #f0f0f0;
   border: none;
   outline: none;
+}
+
+.textarea {
+  font-family: 'Arial', sans-serif;
 }

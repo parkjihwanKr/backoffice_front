@@ -1,6 +1,11 @@
 /*Constant.js*/
+export const ec2serverPrefix
+    = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/';
 export const imagePrefix
-    = 'https://pjhawss3bucket.s3.ap-northeast-2.amazonaws.com/backoffice';
+    = ec2serverPrefix+'backoffice';
+
+export const MAX_FILENAME_LENGTH = 20;
+
 export const DEPARTMENTS = ["인사부", "세일즈부", "마케팅부", "아이티부", "회계부", "재정부"];
 export const ROLES = ["직원", "관리자", "메인 관리자"];
 export const POSITIONS = ["사장", "부장", "차장", "과장", "주임", "인턴"];
@@ -74,10 +79,17 @@ export const AUDIT_LOG_TYPES = {
     EXPENSE_REPORT_ERROR: { label: "EXPENSE_REPORT_ERROR" },
 };
 
-// Exporting individual labels for easier reference if needed
+export const reverseDepartmentMapping = Object.fromEntries(
+    Object.entries(departmentMapping).map(([key, value]) => [value, key])
+);
+
 export const AUDIT_LOG_LABELS = Object.fromEntries(
     Object.entries(AUDIT_LOG_TYPES).map(([key, value]) => [key, value.label])
 );
+
+export const getDepartmentName = (code) => {
+    return reverseDepartmentMapping[code] || code;
+};
 
 export const API_BASE_URL = 'http://localhost:8080/api/v1';
 export const WS_BASE_URL = 'http://localhost:8080/ws-endpoint';

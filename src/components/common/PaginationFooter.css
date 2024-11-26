@@ -13,7 +13,6 @@
 .custom-page-item {
     position: relative;
     justify-items: right;
-    margin: 0 5px;
 }
 
 .custom-page-item button {
@@ -29,7 +28,7 @@
 
 .custom-page-item button:hover {
     background-color: #f1f1f1;
-    border-color: royalblue;
+    border-color: #6c757d;
 }
 
 .custom-page-item.active button {

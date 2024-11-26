@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './PersonalScheduleDetailsModal.css';
 import CreateVacationModal from './CreateVacationModal';
 import { imagePrefix } from "../../../../../utils/Constant";
@@ -11,6 +11,9 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
     const [editingVacation, setEditingVacation] = useState(null); // 수정 중인 휴가 상태 추가
     const [dayEvents, setDayEvents] = useState([]); // 특정 날짜의 이벤트 상태 추가
     const [hoveredEventId, setHoveredEventId] = useState(null); // 마우스 호버 상태 추가
+
+    const modalOverlayRef = useRef(null);
+    const modalContentRef = useRef(null);
 
     useEffect(() => {
         const fetchDaySchedule = async () => {
@@ -34,8 +37,8 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
     // 모달 정렬 로직 추가
     useEffect(() => {
         if (show) {
-            const modalOverlay = document.querySelector('.personal-schedule-details-modal-overlay');
-            const modalContent = document.querySelector('.personal-schedule-details-modal-content');
+            const modalOverlay = modalOverlayRef.current;
+            const modalContent = modalContentRef.current;
 
             // 모달 정렬 조정
             adjustModalAlignment(modalOverlay, modalContent);
@@ -64,8 +67,8 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
     if (!show) return null;
 
     return (
-        <div className="personal-schedule-details-modal-overlay">
-            <div className="personal-schedule-details-modal-content">
+        <div className="personal-schedule-details-modal-overlay" ref={modalOverlayRef}>
+            <div className="personal-schedule-details-modal-content" ref={modalContentRef}>
                 <div className="personal-schedule-details-modal-header">
                     <span className="personal-schedule-details-modal-title">
                         Schedule Details for {selectedDate ? selectedDate.toLocaleDateString() : 'N/A'}

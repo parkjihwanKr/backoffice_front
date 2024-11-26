@@ -1,0 +1,11 @@
+/* 작성자 정보 스타일 */
+.board-details-user-info {
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    font-size: 15px; /* 폰트 크기 */
+    margin-bottom: 10px; /* 하단 여백 */
+    margin-top: 20px;
+}
+
+.board-details-card-body {
+    min-height: 300px;
+}

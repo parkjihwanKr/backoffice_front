@@ -1,87 +1,69 @@
+.boards-title {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 .boards-container {
     margin: 0 auto;
     padding: 20px;
     max-width: 1200px;
 }
 
-.card-row {
+.boards-card-row {
     display: flex;
+    flex-wrap: wrap; /* 화면 크기 변경 시 자동 줄바꿈 */
     justify-content: space-between;
     gap: 20px;
 }
 
-.card {
-    width: 48%;
+.boards-card {
+    width: 48%; /* 두 개의 카드가 한 줄에 배치되도록 설정 */
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* 카드 안의 요소를 세로로 정렬 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-body {
+.boards-card:hover {
+    transform: translateY(-3px); /* 위로 살짝 이동 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 더 강한 그림자 */
+}
+
+.boards-card-body {
     padding: 20px;
+    text-align: center;
+    flex-grow: 1; /* 이미지 크기와 텍스트 간 균형 유지 */
+}
+
+.boards-card-header {
+    font-weight: bold;
+    font-size: 24px;
     text-align: center;
 }
 
-.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.card-text {
+.boards-card-text {
     font-size: 1rem;
     margin-bottom: 15px;
+    color: #666;
 }
 
-.img-fluid {
+.boards-card-img {
     width: 100%;
-    height: 350px;
+    height: auto;
     object-fit: cover;
-    border-radius: 5px;
-}
-
-.boards-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.boards-modal-content {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 400px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.modal-title {
-    text-align: center;
-    font-size: 1.5rem;
-}
-
-.select-department {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.boards-modal-footer {
-    display: flex;
-    justify-content: flex-end;
+    border-bottom: 1px solid #ddd;
 }
 
 .all-boards-button,
 .department-boards-button {
-    display: flex; /* 버튼 내의 내용물도 flex로 설정 */
-    align-items: center; /* 버튼 내부의 텍스트/아이콘을 가로로 중앙 정렬 */
-    justify-content: center; /* 버튼 내부의 텍스트/아이콘을 세로로 중앙 정렬 */
+    display: flex; /* 버튼 내부 요소 정렬 */
+    align-items: center; /* 세로 정렬 */
+    justify-content: center; /* 가로 정렬 */
     margin: 10px;
     width: 95%;
     padding: 12px 0;
@@ -92,10 +74,28 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .all-boards-button:hover,
 .department-boards-button:hover {
-    background-color: royalblue; /* 마우스를 올렸을 때 배경색을 변경 */
+    background-color: royalblue; /* 호버 시 배경색 변경 */
+    transform: translateY(-1px); /* 위로 살짝 이동 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 더 강한 그림자 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .boards-card-row {
+        flex-direction: column; /* 카드들을 수직으로 배치 */
+        gap: 10px;
+    }
+
+    .boards-card {
+        width: auto; /* 카드가 화면 너비에 맞게 확장 */
+    }
+
+    .boards-container {
+        padding: 10px;
+    }
 }

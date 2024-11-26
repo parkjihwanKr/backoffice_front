@@ -1,8 +1,10 @@
 /*DropDownMenu.css*/
-.drop-down-right {
+.custom-navbar-right {
     display: flex;
     align-items: center;
-    z-index: 1100;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-left: auto; /* 왼쪽 여백을 자동으로 설정 */
+    padding: 10px;
 }
 
 .notification-icon {
@@ -17,53 +19,55 @@
     height: 40px;
     width: 40px;
 }
-/* 드롭다운 스타일 */
-.dropdown {
+
+.custom-dropdown {
     position: relative;
     display: inline-block;
-    z-index : 1000;
+    z-index: 1000; /* 드롭다운 메뉴가 위에 표시되도록 설정 */
 }
 
-.dropdown-toggle {
+.custom-dropdown-toggle {
     background-color: white;
-    border: 1px solid lightgray;
+    color: black;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size : 16px;
+    padding: 10px 15px;
 }
 
-.dropdown-menu {
-    display: block;
+.custom-dropdown-toggle:hover {
+    background-color: whitesmoke;
+    border-radius: 6px;
+}
+
+.custom-dropdown-menu {
     position: absolute;
     background-color: white;
     border: 1px solid lightgray;
-    text-align: center;
     list-style: none;
-    top: 100%;
-    left: -45px;
+    padding: 10px 1px;
+    margin: 0;
+    top: 110%; /* 버튼 바로 아래에 위치 */
+    left: -70px;
     min-width: 150px;
     z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 살짝 떠있는 효과 */
+    border-radius: 6px;
+    text-align: center;
 }
 
-.dropdown-menu li {
-    padding: 5px 0;
+.custom-dropdown-menu li {
+    padding: 5px 15px;
 }
 
-.dropdown-menu li {
-    position: relative;
-}
-
-.dropdown-menu li a {
+.custom-dropdown-menu li a {
     color: black;
     text-decoration: none;
 }
 
-.dropdown-menu li:hover::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right : 4px;
-    width: 95%;
-    height: 95%;
-    background-color: lightgray;
-    border-radius: 5px;
-    z-index: -1;
+.custom-dropdown-menu li:hover {
+    background-color: #f1f1f1; /* Hover 시 색상 변경 */
+    border-radius: 4px;
 }
