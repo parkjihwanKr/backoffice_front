@@ -49,6 +49,7 @@ const DailyAttendanceManagement = () => {
             memberAttendances,
             currentPage,
             totalPages,
+            filters,
         });
 
         try {
@@ -60,7 +61,7 @@ const DailyAttendanceManagement = () => {
             setMemberAttendances(response.content);
             setTotalPages(response.totalPages);
         } catch (error) {
-
+            setFilters(backupState.filters);
             setMemberAttendances(backupState.memberAttendances);
             setCurrentPage(backupState.currentPage);
             setTotalPages(backupState.totalPages);

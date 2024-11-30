@@ -1,11 +1,11 @@
 import axiosInstance from "../../../../utils/AxiosUtils";
 
-export const fetchMemberAttendance
-    = async ({department, memberName, year, month, page, size}) => {
+export const fetchMemberAttendanceList
+    = async (department, year, month, page, size) => {
     try {
         // 요청 파라미터 구성
         const params = {
-            department, memberName, year, month, page, size};
+            department, year, month, page, size};
 
         // API 요청
         const response
@@ -16,7 +16,7 @@ export const fetchMemberAttendance
         // 반환 데이터
         return response.data;
     } catch (error) {
-        console.error("Error fetching attendance data:", error);
+        console.log(error);
         throw error;
     }
 };

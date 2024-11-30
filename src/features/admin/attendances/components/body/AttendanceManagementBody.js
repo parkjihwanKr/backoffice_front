@@ -1,41 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate 추가
-import { fetchMemberAttendance } from "../../services/AttendanceManagementService";
-import { getMemberTotalCount } from "../../../members/services/MemberManagementService";
-import { useLoading } from "../../../../utils/LoadingUtils";
-import {imagePrefix} from "../../../../../utils/Constant";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { imagePrefix } from "../../../../../utils/Constant";
+import {useLoading} from "../../../../utils/LoadingUtils";
 
-const AttendanceManagementBody = ({ selectedDate, currentPage, onTotalPagesUpdate }) => {
-    const [attendances, setAttendances] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // useNavigate 훅 초기화
-
-    useEffect(() => {
-        const fetchAttendanceData = async () => {
-            try {
-                const memberTotalCount = await getMemberTotalCount();
-                const year = selectedDate.getFullYear();
-                const month = selectedDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
-
-                const response = await fetchMemberAttendance({
-                    department: null,
-                    memberName: null,
-                    year,
-                    month,
-                    page: currentPage,
-                    size: memberTotalCount * 7,
-                });
-                setAttendances(response.content);
-                onTotalPagesUpdate(response.totalPages); // 전체 페이지 수 업데이트
-            } catch (error) {
-                console.error("Error fetching attendance data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchAttendanceData();
-    }, [selectedDate, currentPage, onTotalPagesUpdate]);
+const AttendanceManagementBody = ({ attendanceList, loading }) => {
+    const navigate = useNavigate();
 
     const getDateStyle = (dateString) => {
         const date = new Date(dateString);
@@ -50,12 +19,18 @@ const AttendanceManagementBody = ({ selectedDate, currentPage, onTotalPagesUpdat
     };
 
     const handleDetailsClick = (attendanceDate) => {
-        // 상세보기 클릭 시 라우팅 (날짜 데이터를 포함하여 이동)
-        navigate("/admins/daily-attendance-management", { state: { date: attendanceDate } });
+        navigate("/admins/daily-attendance-management", {
+            state: {
+                date: attendanceDate }
+        });
     };
 
     const loadingJSX = useLoading(loading);
     if (loadingJSX) return loadingJSX;
+
+    if (!attendanceList || attendanceList.length === 0){
+        return <div>해당 데이터가 존재하지 않습니다.</div>;
+    }
 
     return (
         <div className="attendance-management-body">
@@ -73,7 +48,7 @@ const AttendanceManagementBody = ({ selectedDate, currentPage, onTotalPagesUpdat
                 </tr>
                 </thead>
                 <tbody>
-                {attendances.map((attendance) => (
+                {attendanceList.map((attendance) => (
                     <tr key={attendance.createdAt}>
                         <td style={getDateStyle(attendance.createdAt)}>
                             {new Date(attendance.createdAt).toLocaleDateString()}
@@ -85,9 +60,12 @@ const AttendanceManagementBody = ({ selectedDate, currentPage, onTotalPagesUpdat
                         <td>{attendance.lateCount}</td>
                         <td>{attendance.absentCount}</td>
                         <td>
-                            <img src = {`${imagePrefix}/shared/find_schedule.png`}
-                            onClick={() => handleDetailsClick(attendance.createdAt)}
-                            className="schedule-details-img"/>
+                            <img
+                                src={`${imagePrefix}/shared/find_schedule.png`}
+                                alt="Details"
+                                onClick={() => handleDetailsClick(attendance.createdAt)}
+                                className="schedule-details-img"
+                            />
                         </td>
                     </tr>
                 ))}

@@ -4,39 +4,37 @@ import "./AttendanceManagementHeader.css";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../components/common/FilterDropDown";
 
-const AttendanceManagementHeader = ({ onMonthChange, onFilterChange, filters, selectedDate }) => {
+const AttendanceManagementHeader = ({ filters, onFilterChange }) => {
     const [showFilter, setShowFilter] = useState(false);
 
+    // 이전달 이동
     const handlePreviousMonth = () => {
-        const newDate = new Date(selectedDate);
-        newDate.setMonth(newDate.getMonth() - 1);
-        onMonthChange(newDate); // 콜백 호출
+        const newDate = new Date(filters.year, filters.month - 1 - 1); // month는 0부터 시작
+        onFilterChange({
+            ...filters,
+            year: newDate.getFullYear(),
+            month: newDate.getMonth() + 1, // getMonth()는 0부터 시작하므로 +1
+        });
     };
 
+    // 다음달 이동
     const handleNextMonth = () => {
-        const newDate = new Date(selectedDate);
-        console.log("test new Date : "+newDate);
-        newDate.setMonth(newDate.getMonth() + 1);
-        onMonthChange(newDate); // 콜백 호출
-    };
-
-    const handleFilterSubmit = () => {
-        if (!filters.year || !filters.month) {
-            alert("년도와 월을 입력해주세요.");
-            return;
-        }
-        onFilterChange(filters); // 필터 상태 부모로 전달
-        setShowFilter(false); // 드롭다운 닫기
+        const newDate = new Date(filters.year, filters.month - 1 + 1); // month는 0부터 시작
+        onFilterChange({
+            ...filters,
+            year: newDate.getFullYear(),
+            month: newDate.getMonth() + 1,
+        });
     };
 
     const resetFilters = () => {
         const defaultFilters = {
-            department: "",
+            department: null,
             year: DateUtils.getToday().getFullYear(),
             month: DateUtils.getToday().getMonth() + 1,
         };
-        onFilterChange(defaultFilters); // 기본 필터값 전달
-        setShowFilter(false); // 드롭다운 닫기
+        onFilterChange(defaultFilters);
+        setShowFilter(false);
     };
 
     const filterOptions = [
@@ -69,29 +67,37 @@ const AttendanceManagementHeader = ({ onMonthChange, onFilterChange, filters, se
         },
     ];
 
+    const getTitle = () => {
+        const year = filters.year || DateUtils.getToday().getFullYear();
+        const month = filters.month || DateUtils.getToday().getMonth() + 1;
+        return `${year}년 ${month}월 근태 관리`;
+    };
+
     return (
         <div className="attendance-management-header">
             <div className="attendance-management-header-title-container">
                 <button className="month-nav-button" onClick={handlePreviousMonth}>
                     &lt;&lt;
                 </button>
-                <h2 className="header-title">
-                    {selectedDate.getFullYear()}년 {selectedDate.getMonth() + 1}월 근태 관리
-                </h2>
+                <h2 className="header-title">{getTitle()}</h2>
                 <button className="month-nav-button" onClick={handleNextMonth}>
                     &gt;&gt;
                 </button>
                 <FilterImageButton onClick={() => setShowFilter(!showFilter)} />
             </div>
-            <FilterDropDown
-                showFilters={showFilter}
-                filters={filters}
-                setFilters={(newFilters) => onFilterChange({ ...filters, ...newFilters })}
-                filterOptions={filterOptions}
-                onSubmit={handleFilterSubmit}
-                onReset={resetFilters}
-                toggleDropdown={() => setShowFilter(!showFilter)}
-            />
+            {showFilter && (
+                <FilterDropDown
+                    showFilters={showFilter}
+                    filters={filters}
+                    setFilters={(newFilters) => onFilterChange({ ...filters, ...newFilters })}
+                    filterOptions={filterOptions}
+                    onReset={() => {
+                        resetFilters();
+                        setShowFilter(false);
+                    }}
+                    toggleDropdown={() => setShowFilter(!showFilter)}
+                />
+            )}
         </div>
     );
 };
