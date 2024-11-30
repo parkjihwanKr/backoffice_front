@@ -1,0 +1,83 @@
+.custom-filters-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    width: 250px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+.custom-filters-dropdown h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+.custom-filter-item {
+    margin-bottom: 5px;
+}
+
+.custom-filter-item label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.custom-filter-item select,
+.custom-filter-item input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box ;
+}
+
+.custom-filter-item input{
+    margin-bottom: 10px;
+}
+
+.custom-filter-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.custom-filter-actions button {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    margin-top: 5px;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-filter-actions button:hover {
+    background-color: royalblue;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .custom-filters-dropdown {
+        width: 250px;
+    }
+
+    .custom-filter-actions button {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+}

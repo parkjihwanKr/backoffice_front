@@ -34,6 +34,16 @@ export const positionMapping = {
     "인턴": "INTERN"
 };
 
+export const attendanceMapping = {
+    "정시 출근": "HR",
+    "조퇴": "MARKETING",
+    "지각": "IT",
+    "결근": "FINANCE",
+    "외근": "SALES",
+    "휴가": "AUDIT",
+    "휴일": "HOLIDAY",
+};
+
 export const NOTIFICATION_TYPE_LABELS = {
     MEMBER: "회원",
     BOARD: "게시판",
@@ -50,6 +60,33 @@ export const NOTIFICATION_TYPE_LABELS = {
     CREATE_EXPENSE_REPORT: "비용 보고서 생성",
     UPDATE_EXPENSE_REPORT_STATUS: "비용 보고서 상태 업데이트",
     UPDATE_EXPENSE_REPORT: "비용 보고서 업데이트"
+};
+
+export const AUDIT_LOG_TYPE_LABELS = {
+    LOGIN: "로그인",
+    LOGOUT: "로그아웃",
+    SIGNUP: "회원가입",
+    DELETE_MEMBER: "회원 삭제",
+    CHANGE_MEMBER_ATTRIBUTE: "회원 속성 변경",
+    CHANGE_MEMBER_SALARY: "급여 변경",
+    CHANGE_MEMBER_REMAINING_VACATION_DAY: "남은 휴가 일수 변경",
+    UPLOAD_MEMBER_FILE: "회원 파일 업로드",
+    MEMBER_ERROR: "회원 오류",
+    FILE_ERROR: "파일 오류",
+    CREATE_FILE: "파일 생성",
+    UPDATE_FILE: "파일 업데이트",
+    DELETE_FILE: "파일 삭제",
+    CREATE_MEMBER_VACATION: "휴가 생성",
+    UPDATE_MEMBER_VACATION: "휴가 업데이트",
+    CHANGE_BOARD_FILE: "게시판 파일 변경",
+    CHANGE_EVENT: "이벤트 변경",
+    CHANGE_SECURITY_SETTINGS: "보안 설정 변경",
+    CREATE_EXPENSE_REPORT: "비용 보고서 생성",
+    UPDATE_EXPENSE_REPORT_STATUS: "비용 보고서 상태 업데이트",
+    UPDATE_EXPENSE_REPORT: "비용 보고서 업데이트",
+    DELETE_EXPENSE_REPORT: "비용 보고서 삭제",
+    READ_EXPENSE_REPORT: "비용 보고서 조회",
+    EXPENSE_REPORT_ERROR: "비용 보고서 오류",
 };
 
 export const AUDIT_LOG_TYPES = {
@@ -83,13 +120,34 @@ export const reverseDepartmentMapping = Object.fromEntries(
     Object.entries(departmentMapping).map(([key, value]) => [value, key])
 );
 
-export const AUDIT_LOG_LABELS = Object.fromEntries(
-    Object.entries(AUDIT_LOG_TYPES).map(([key, value]) => [key, value.label])
+export const reversePositionMapping = Object.fromEntries(
+    Object.entries(positionMapping).map(([key, value]) => [value, key])
 );
+
+export const reverseAttendanceMapping = Object.fromEntries(
+    Object.entries(attendanceMapping).map(([key, value]) => [value, key])
+);
+
+export const getAuditLogTypeName = (type) => {
+    return AUDIT_LOG_TYPE_LABELS[type] || type; // 매핑된 값 반환, 없으면 그대로 반환
+};
+
 
 export const getDepartmentName = (code) => {
     return reverseDepartmentMapping[code] || code;
 };
+
+export const getPositionName = (code) => {
+    return reversePositionMapping[code] || code;
+};
+
+export const getAttendanceStatus = (name) => {
+    return reverseAttendanceMapping[name] || name;
+}
+
+export const AUDIT_LOG_LABELS = Object.fromEntries(
+    Object.entries(AUDIT_LOG_TYPES).map(([key, value]) => [key, value.label])
+);
 
 export const API_BASE_URL = 'http://localhost:8080/api/v1';
 export const WS_BASE_URL = 'http://localhost:8080/ws-endpoint';

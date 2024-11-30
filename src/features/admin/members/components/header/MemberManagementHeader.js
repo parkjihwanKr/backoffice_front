@@ -17,7 +17,7 @@ const MemberManagementHeader = ({ onFilterChange }) => {
 
     return (
         <div className="member-management-header">
-            <h3>직원 관리 시스템</h3>
+            <h2>직원 관리 시스템</h2>
             <FilterImageButton onClick={toggleFilterDropdown}/>
 
             {/* 필터 선택 UI - 필터 아이콘을 누르면 보여줌 */}

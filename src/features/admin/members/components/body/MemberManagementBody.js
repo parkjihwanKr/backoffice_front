@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { imagePrefix } from "../../../../../utils/Constant";
+import {getDepartmentName, getPositionName, imagePrefix} from "../../../../../utils/Constant";
 import useFilteredMembers from "../../../shared/hooks/useFilteredMembers";
 import UpdateSalaryModal from './UpdateSalaryModal'; // 급여 변경 모달 임포트
 import './MemberManagementBody.css';
 import '../../../shared/components/table.css';
 import React, { useState } from 'react';
+import {useError, useLoading} from "../../../../utils/LoadingUtils";
 
 const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
     const pageSize = 10; // 페이지당 표시할 멤버 수
@@ -33,13 +34,11 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
         setShowSalaryModal(false); // 모달 닫기
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    const loadingJSX = useLoading(loading);
+    const errorJSX = useError(error);
 
-    if (error) {
-        return <div>{error}</div>;
-    }
+    if (loadingJSX) return loadingJSX;
+    if (errorJSX) return errorJSX;
 
     if (members.length === 0) {
         return <div className="member-management-body-no-member">
@@ -49,7 +48,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
 
     return (
         <div className="member-management-body">
-            <table className="table">
+            <table className="custom-table">
                 <thead>
                 <tr>
                     <th>이름</th>
@@ -67,8 +66,8 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
                     <tr key={member.memberId}>
                         <td>{member.memberName}</td>
                         <td>{member.email}</td>
-                        <td>{member.department}</td>
-                        <td>{member.position}</td>
+                        <td>{getDepartmentName(member.department)}</td>
+                        <td>{getPositionName(member.position)}</td>
                         <td>{new Date(member.createdAt).toLocaleDateString()}</td>
                         <td>{member.salary ? Number(member.salary).toLocaleString() : '정보 없음'} 원</td>
                         <td>

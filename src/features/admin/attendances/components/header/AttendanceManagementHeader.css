@@ -1,0 +1,31 @@
+.attendance-management-header {
+    position: relative; /* 컨테이너에 상대적 위치를 설정 */
+    text-align: center;
+    margin-top: 10px;
+}
+
+.attendance-management-header h2 {
+    text-align: center;
+}
+
+.attendance-management-header-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.month-nav-button {
+    background: none;
+    border: none;
+    color : black;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0;
+}
