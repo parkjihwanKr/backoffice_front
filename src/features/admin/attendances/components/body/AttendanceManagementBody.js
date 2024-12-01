@@ -44,6 +44,7 @@ const AttendanceManagementBody = ({ attendanceList, loading }) => {
                     <th>외근</th>
                     <th>지각</th>
                     <th>결근</th>
+                    <th>휴일</th>
                     <th>상세보기</th>
                 </tr>
                 </thead>
@@ -59,6 +60,7 @@ const AttendanceManagementBody = ({ attendanceList, loading }) => {
                         <td>{attendance.outOfOfficeCount}</td>
                         <td>{attendance.lateCount}</td>
                         <td>{attendance.absentCount}</td>
+                        <td>{attendance.holidayCount}</td>
                         <td>
                             <img
                                 src={`${imagePrefix}/shared/find_schedule.png`}

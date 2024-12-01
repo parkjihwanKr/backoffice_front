@@ -14,7 +14,8 @@ const MemberManagement = () => {
 
     return (
         <div className="member-management">
-            <MemberManagementHeader onFilterChange={handleFilterChange} />
+            <MemberManagementHeader
+                onFilterChange={handleFilterChange} />
             <MemberManagementBody
                 filters={filters}
                 currentPage={currentPage}
