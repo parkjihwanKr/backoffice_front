@@ -37,6 +37,15 @@
     margin: 10px 0;
 }
 
+.custom-modal-body-index {
+    margin-bottom: 10px;
+}
+
+.custom-modal-body-index textarea {
+    width: 100%;
+    min-height: 150px;
+}
+
 .add-id-list {
     font-weight: 600;
     margin-bottom: 10px;

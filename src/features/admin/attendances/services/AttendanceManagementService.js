@@ -59,7 +59,19 @@ export const deleteAttendanceManually = async (attendanceIdList) => {
     }
 };
 
-// 근태 기록 수동 생성
+// 근태 당일 기록 생성
+export const createAttendance = async (data) => {
+    try {
+        const response
+            = await axiosInstance.post(`/attendances`, data);
+        return response.data;
+    } catch (error) {
+        console.error("Error creating attendance manually:", error);
+        throw error;
+    }
+};
+
+// 특정 상황 근태 기록 생성
 export const createAttendanceManually = async (data) => {
     try {
         const response

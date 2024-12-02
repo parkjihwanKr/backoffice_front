@@ -3,15 +3,29 @@ import "../../../../../components/ui/modal/Modal.css";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
 import { fetchMemberList } from "../../../members/services/MemberManagementService";
-import { createAttendanceManually } from "../../services/AttendanceManagementService";
+import { createAttendance } from "../../services/AttendanceManagementService";
+import DateUtils from "../../../../../utils/DateUtils";
 
 const CreateAttendanceModal = ({ onClose, onSubmit }) => {
     const [memberList, setMemberList] = useState([]);
     const [memberName, setMemberName] = useState("");
     const [attendanceStatus, setAttendanceStatus] = useState("");
-    const [checkIn, setCheckIn] = useState(""); // 출근 시간
-    const [checkOut, setCheckOut] = useState(""); // 퇴근 시간
+    const [customStartDate, setCustomStartDate] = useState(""); // 출근 시간
+    const [customEndDate, setCustomEndDate] = useState(""); // 퇴근 시간
     const [description, setDescription] = useState("");
+
+    // 오늘 날짜를 기반으로 기본값 생성
+    useEffect(() => {
+        const todayISOString = DateUtils.getTodayAsISOString(); // ISO 8601 형식으로 오늘 날짜 가져오기
+        setCustomStartDate(`${todayISOString.substring(0, 11)}09:00`); // 기본값: 오전 9시
+        setCustomEndDate(`${todayISOString.substring(0, 11)}18:00`); // 기본값: 오후 6시
+    }, []); // 빈 배열로 설정
+
+    // 상태 변경 후 로그 출력
+    useEffect(() => {
+        console.log("Updated customStartDate:", customStartDate);
+        console.log("Updated customEndDate:", customEndDate);
+    }, [customStartDate, customEndDate]);
 
     // 멤버 목록 로드
     useEffect(() => {
@@ -26,42 +40,32 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
         loadMemberList();
     }, []);
 
-    // 폼 제출 핸들러
-    const handleCreateAttendanceManually = async () => {
-        if (!memberName || !attendanceStatus || !checkIn || !checkOut) {
+    const handleCreateAttendance = async () => {
+        if (!memberName || !attendanceStatus || !customStartDate || !customEndDate) {
             alert("모든 필수 필드를 입력해주세요.");
             return;
         }
 
+        console.log("customStartDate (to be sent):", customStartDate); // 확인용 로그
+        console.log("customEndDate (to be sent):", customEndDate); // 확인용 로그
+
         const data = {
             memberName,
             attendanceStatus,
-            checkInTime: checkInWithSeconds,
-            checkOutTime: checkOutWithSeconds,
+            startDate: customStartDate,
+            endDate: customEndDate,
             description,
         };
 
         try {
-            const response = await createAttendanceManually(data);
-            alert("근태 기록이 성공적으로 생성되었습니다.");
-            onSubmit(response); // UI 업데이트를 위해 부모 컴포넌트에 전달
+            await createAttendance(data);
+            alert("근태 기록이 성공적으로 생성되었습니다. 해당 근태 기록은 해당 날짜에 기록될 예정입니다.");
             onClose(); // 모달 닫기
         } catch (error) {
             console.error("근태 기록 생성 실패:", error);
             alert(`근태 기록 생성 실패: ${error.response?.data?.message || error.message}`);
         }
     };
-
-    const withSeconds = (time) => {
-        if (time.includes(":") && !time.includes("T")) {
-            return `${time}:00`; // 초가 없는 경우 기본값으로 ":00" 추가
-        }
-        return time;
-    };
-
-    // 사용 예시
-    const checkInWithSeconds = withSeconds(checkIn);
-    const checkOutWithSeconds = withSeconds(checkOut);
 
     return (
         <div className="custom-modal-overlay">
@@ -100,35 +104,35 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         </select>
                     </div>
                     <div className="custom-modal-body-index">
-                        <label>출근 시간:</label>
+                        <label>적용 시작 기간:</label>
                         <input
                             type="datetime-local"
                             placeholder="YYYY-MM-DD HH:mm 형식으로 입력"
-                            value={checkIn}
-                            onChange={(e) => setCheckIn(e.target.value)}
+                            value={customStartDate}
+                            onChange={(e) => setCustomStartDate(e.target.value)} // 상태 업데이트
                         />
                     </div>
                     <div className="custom-modal-body-index">
-                        <label>퇴근 시간:</label>
+                        <label>적용 마지막 기간:</label>
                         <input
                             type="datetime-local"
                             placeholder="YYYY-MM-DD HH:mm 형식으로 입력"
-                            value={checkOut}
-                            onChange={(e) => setCheckOut(e.target.value)}
+                            value={customEndDate}
+                            onChange={(e) => setCustomEndDate(e.target.value)} // 상태 업데이트
                         />
                     </div>
-
                     <div className="custom-modal-body-index">
                         <label>설명:</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="설명 입력 (선택 사항)"
+                            placeholder="정시 출근이 아니라면 꼭 적어주세요!!
+                            조퇴는 무조건 09시 출근~ 13시 퇴근으로 고정되어 적용됩니다."
                         />
                     </div>
                 </div>
                 <div className="custom-modal-footer">
-                    <SubmitButton onSubmit={handleCreateAttendanceManually} text="생성" />
+                    <SubmitButton onSubmit={handleCreateAttendance} text="생성" />
                 </div>
             </div>
         </div>
