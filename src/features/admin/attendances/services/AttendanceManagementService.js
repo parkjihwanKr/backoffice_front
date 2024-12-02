@@ -1,5 +1,6 @@
 import axiosInstance from "../../../../utils/AxiosUtils";
 
+// 월별 근태 기록 조회 (필터링 가능)
 export const fetchMemberAttendanceList
     = async (department, year, month, page, size) => {
     try {
@@ -21,6 +22,7 @@ export const fetchMemberAttendanceList
     }
 };
 
+// 해당 일의 근태 기록 조회
 export const fetchDailyMemberAttendance
     = async ({department, memberName, year, month, day, page, size}) => {
     try {
@@ -42,3 +44,36 @@ export const fetchDailyMemberAttendance
         throw error;
     }
 };
+
+// 근태 기록 수동 삭제
+export const deleteAttendanceManually = async (attendanceIdList) => {
+    console.log("deleteAttendanceManually method param:", attendanceIdList);
+    try {
+        const response = await axiosInstance.delete(`/attendances`, {
+            data: attendanceIdList, // JSON 배열 형태로 보냄
+        });
+        return response.data;
+    } catch (error) {
+        console.error("API 요청 실패:", error);
+        throw error;
+    }
+};
+
+// 근태 기록 수동 생성
+export const createAttendanceManually = async (data) => {
+    try {
+        const response
+            = await axiosInstance.post(`/attendances/manual-create`, data);
+        return response.data;
+    } catch (error) {
+        console.error("Error creating attendance manually:", error);
+        throw error;
+    }
+};
+
+// 멤버의 출근 근태 상태 변경
+export const updateCheckInTime = async () => {
+    const response = await axiosInstance.patch(`/`);
+}
+
+// 멤버의 퇴근 근태 상태 변경

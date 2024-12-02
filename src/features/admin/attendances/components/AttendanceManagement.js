@@ -4,7 +4,7 @@ import AttendanceManagementBody from "./body/AttendanceManagementBody";
 import PaginationFooter from "../../../../components/common/PaginationFooter";
 import DateUtils from "../../../../utils/DateUtils";
 import { fetchMemberAttendanceList } from "../services/AttendanceManagementService";
-import { getMemberTotalCount } from "../../members/services/MemberManagementService"; // API 호출 로직
+import { getMemberTotalCount } from "../../members/services/MemberManagementService";
 
 const AttendanceManagement = () => {
     const today = DateUtils.getToday();
@@ -18,13 +18,6 @@ const AttendanceManagement = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [loading, setLoading] = useState(false);
 
-    // 이전 상태를 저장하는 변수 (에러 발생 시 복구용)
-    const [backupState, setBackupState] = useState({
-        filters,
-        currentPage,
-    });
-
-    // 필터와 페이지 변경 시 데이터를 가져오는 useEffect
     useEffect(() => {
         const fetchFilteredAttendanceList = async () => {
             setLoading(true);
@@ -37,18 +30,10 @@ const AttendanceManagement = () => {
                     currentPage,
                     totalMemberCount * 7
                 );
-                // 요청이 성공하면 백업 상태 업데이트
-                setBackupState({
-                    filters,
-                    currentPage,
-                });
                 setAttendanceList(response.content);
                 setTotalPages(response.totalPages);
             } catch (error) {
                 alert(`에러 발생: ${error.message || error}`);
-                // 에러 발생 시 백업 상태로 복원
-                setFilters(backupState.filters);
-                setCurrentPage(backupState.currentPage);
             } finally {
                 setLoading(false);
             }
@@ -57,10 +42,32 @@ const AttendanceManagement = () => {
         fetchFilteredAttendanceList();
     }, [filters, currentPage]);
 
-    // 필터 변경 시 페이지 초기화
     const handleSetFilters = (newFilters) => {
         setFilters(newFilters);
         setCurrentPage(0); // 필터 변경 시 페이지를 0으로 초기화
+    };
+
+    const handleDeleteSuccess = async (deletedIds) => {
+        console.log("Deleted IDs:", deletedIds);
+
+        setLoading(true); // 로딩 시작
+        try {
+            const totalMemberCount = await getMemberTotalCount();
+            const response = await fetchMemberAttendanceList(
+                filters.department,
+                filters.year,
+                filters.month,
+                currentPage,
+                totalMemberCount * 7
+            );
+
+            setAttendanceList(response.content); // 최신 데이터로 업데이트
+            setTotalPages(response.totalPages);
+        } catch (error) {
+            console.error("Error fetching updated list after deletion:", error);
+        } finally {
+            setLoading(false); // 로딩 종료
+        }
     };
 
     return (
@@ -68,6 +75,7 @@ const AttendanceManagement = () => {
             <AttendanceManagementHeader
                 filters={filters}
                 onFilterChange={handleSetFilters}
+                onDeleteSuccess={handleDeleteSuccess}
             />
             <AttendanceManagementBody
                 attendanceList={attendanceList}

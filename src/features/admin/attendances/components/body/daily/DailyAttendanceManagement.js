@@ -18,6 +18,7 @@ const DailyAttendanceManagement = () => {
     const [memberAttendances, setMemberAttendances] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
+    const [showAdminDropdown, setShowAdminDropdown] = useState(false);
 
     const [filters, setFilters] = useState({
         department: null,
@@ -102,6 +103,10 @@ const DailyAttendanceManagement = () => {
         }
     };
 
+    const handleAdminDropdownMenu = () => {
+        setShowAdminDropdown((prev) => !prev);
+    }
+
     const filterOptions = [
         {
             name: "department",
@@ -180,6 +185,22 @@ const DailyAttendanceManagement = () => {
     return (
         <div className="attendance-management-container">
             <div className="attendance-management-header">
+                <img
+                    src={`${imagePrefix}/shared/settings.png`}
+                    alt="settings-icon"
+                    className="settings-icon"
+                    onClick={handleAdminDropdownMenu}
+                />
+                {showAdminDropdown && (
+                    <div className="admin-dropdown-menu">
+                        <ul>
+                            <li>출근 시간 변경</li>
+                            <li>퇴근 시간 변경</li>
+                            <li>근태 기록 수동 생성</li>
+                            <li>근태 기록 수동 삭제</li>
+                        </ul>
+                    </div>
+                )}
                 <div className="header-title-container">
                     <h2>{getTitle()}</h2>
                 </div>

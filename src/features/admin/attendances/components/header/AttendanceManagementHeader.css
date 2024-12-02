@@ -8,6 +8,48 @@
     text-align: center;
 }
 
+.attendance-management-header img {
+    height: 24px;
+    width: 24px;
+}
+
+.attendance-management-header-title-container img {
+    height: 24px;
+    width: 24px;
+}
+
+.settings-icon {
+    position : absolute;
+    left : 1%;
+    cursor: pointer;
+}
+
+.admin-dropdown-menu {
+    position: absolute;
+    top: 30px; /* 아이콘 아래로 배치 */
+    left: 30px; /* 오른쪽 정렬 */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.admin-dropdown-menu ul {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.admin-dropdown-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.admin-dropdown-menu li:hover {
+    background-color: #f0f0f0;
+}
+
 .attendance-management-header-title-container {
     display: flex;
     justify-content: center;
@@ -28,4 +70,10 @@
     font-size: 1.5rem;
     cursor: pointer;
     margin: 0;
+}
+
+@media {
+    .admin-dropdown-menu {
+        left: 20px; /* 오른쪽 정렬 */
+    }
 }

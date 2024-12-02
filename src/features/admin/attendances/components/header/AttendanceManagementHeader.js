@@ -3,38 +3,32 @@ import DateUtils from "../../../../../utils/DateUtils";
 import "./AttendanceManagementHeader.css";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../components/common/FilterDropDown";
+import { imagePrefix } from "../../../../../utils/Constant";
+import DeleteAttendanceModal from "./DeleteAttendanceModal";
+import CreateAttendanceModal from "./CreateAttendanceModal";
 
-const AttendanceManagementHeader = ({ filters, onFilterChange }) => {
+const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess }) => {
     const [showFilter, setShowFilter] = useState(false);
+    const [showAdminDropdown, setShowAdminDropdown] = useState(false);
+    const [modalType, setModalType] = useState(null);
 
-    // 이전달 이동
-    const handlePreviousMonth = () => {
-        const newDate = new Date(filters.year, filters.month - 1 - 1); // month는 0부터 시작
-        onFilterChange({
-            ...filters,
-            year: newDate.getFullYear(),
-            month: newDate.getMonth() + 1, // getMonth()는 0부터 시작하므로 +1
-        });
+    const [localFilters, setLocalFilters] = useState(filters);
+
+    const handleDeleteSuccess = (deletedIds) => {
+        if (!Array.isArray(deletedIds)) {
+            console.error("onDeleteSuccess expected an array but received:", deletedIds);
+            return;
+        }
+        onDeleteSuccess(deletedIds); // 부모 컴포넌트로 삭제된 ID 전달
     };
 
-    // 다음달 이동
-    const handleNextMonth = () => {
-        const newDate = new Date(filters.year, filters.month - 1 + 1); // month는 0부터 시작
+    const handlePreviousMonth = () => {
+        const newDate = new Date(filters.year, filters.month - 1 - 1);
         onFilterChange({
             ...filters,
             year: newDate.getFullYear(),
             month: newDate.getMonth() + 1,
         });
-    };
-
-    const resetFilters = () => {
-        const defaultFilters = {
-            department: null,
-            year: DateUtils.getToday().getFullYear(),
-            month: DateUtils.getToday().getMonth() + 1,
-        };
-        onFilterChange(defaultFilters);
-        setShowFilter(false);
     };
 
     const filterOptions = [
@@ -67,15 +61,71 @@ const AttendanceManagementHeader = ({ filters, onFilterChange }) => {
         },
     ];
 
+    const handleNextMonth = () => {
+        const newDate = new Date(filters.year, filters.month - 1 + 1);
+        onFilterChange({
+            ...filters,
+            year: newDate.getFullYear(),
+            month: newDate.getMonth() + 1,
+        });
+    };
+
+    const handleAdminDropdownMenu = () => {
+        setShowAdminDropdown((prev) => !prev);
+    };
+
+    const resetFilters = () => {
+        const defaultFilters = {
+            department: null,
+            year: DateUtils.getToday().getFullYear(),
+            month: DateUtils.getToday().getMonth() + 1,
+        };
+        setLocalFilters(defaultFilters);
+        onFilterChange(defaultFilters);
+        setShowFilter(false);
+    };
+
+    const handleValidatedFilterSubmit = () => {
+        onFilterChange(localFilters);
+        setShowFilter(false);
+    };
+
     const getTitle = () => {
         const year = filters.year || DateUtils.getToday().getFullYear();
         const month = filters.month || DateUtils.getToday().getMonth() + 1;
         return `${year}년 ${month}월 근태 관리`;
     };
 
+    const handleCloseModal = () => {
+        setModalType(null);
+    }
+
     return (
         <div className="attendance-management-header">
             <div className="attendance-management-header-title-container">
+                <img
+                    src={`${imagePrefix}/shared/settings.png`}
+                    alt="settings-icon"
+                    className="settings-icon"
+                    onClick={handleAdminDropdownMenu}
+                />
+                {showAdminDropdown && (
+                    <div className="admin-dropdown-menu">
+                        <ul>
+                            <li onClick={() => setModalType("create")}>근태 기록 수동 생성</li>
+                            <li onClick={() => setModalType("delete")}>근태 기록 수동 삭제</li>
+                        </ul>
+                    </div>
+                )}
+                {modalType === "create" && (
+                    <CreateAttendanceModal onClose={handleCloseModal} />
+                )}
+                {modalType === "delete" && (
+                    <DeleteAttendanceModal
+                        onClose={handleCloseModal}
+                        onDeleteSuccess={handleDeleteSuccess} // 삭제 성공 시 실행
+                    />
+                )}
                 <button className="month-nav-button" onClick={handlePreviousMonth}>
                     &lt;&lt;
                 </button>
@@ -88,13 +138,11 @@ const AttendanceManagementHeader = ({ filters, onFilterChange }) => {
             {showFilter && (
                 <FilterDropDown
                     showFilters={showFilter}
-                    filters={filters}
-                    setFilters={(newFilters) => onFilterChange({ ...filters, ...newFilters })}
+                    filters={localFilters}
+                    setFilters={setLocalFilters}
                     filterOptions={filterOptions}
-                    onReset={() => {
-                        resetFilters();
-                        setShowFilter(false);
-                    }}
+                    onSubmit={handleValidatedFilterSubmit}
+                    onReset={resetFilters}
                     toggleDropdown={() => setShowFilter(!showFilter)}
                 />
             )}

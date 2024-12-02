@@ -1,9 +1,6 @@
-import React from 'react';
-import "./DeleteButton.css";
-
-const DeleteButton= ({ onSubmit }) => {
+const DeleteButton = ({ onSubmit }) => {
     return (
-        <button className="delete-button" onClick={onSubmit}>
+        <button className="button" onClick={onSubmit}>
             삭제
         </button>
     );
