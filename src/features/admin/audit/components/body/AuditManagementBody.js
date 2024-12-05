@@ -1,5 +1,5 @@
 import React from "react";
-import { imagePrefix } from "../../../../../utils/Constant";
+import {getAuditLogTypeName, getDepartmentName, getPositionName, imagePrefix} from "../../../../../utils/Constant";
 import "./AuditManagementBody.css";
 import AuditDetailModal from "./AuditDetailModal";
 import useAuditManagementModal from "../../hooks/useAuditManagentModal";
@@ -14,15 +14,13 @@ const AuditManagementBody = ({ auditList, loading, error }) => {
 
     return (
         <div className="audit-management-body">
-            <table className="audit-table">
+            <table className="custom-table">
                 {!(loading || error || auditList.length === 0) && (
                     <thead>
                     <tr>
-                        <th>부서</th>
-                        <th>직책</th>
+                        <th>직위</th>
                         <th>이름</th>
                         <th>타입</th>
-                        <th>메세지</th>
                         <th>발생일</th>
                         <th>상세보기</th>
                     </tr>
@@ -44,11 +42,9 @@ const AuditManagementBody = ({ auditList, loading, error }) => {
                 ) : (
                     auditList.map((audit) => (
                         <tr key={audit.auditLogId}>
-                            <td>{audit.department}</td>
-                            <td>{audit.position}</td>
+                            <td>{getDepartmentName(audit.department)}, {getPositionName(audit.position)}</td>
                             <td>{audit.memberName}</td>
-                            <td>{audit.auditLogType}</td>
-                            <td>{audit.details}</td>
+                            <td>{getAuditLogTypeName(audit.auditLogType)}</td>
                             <td>{new Date(audit.createdAt).toLocaleDateString()}</td>
                             <td>
                                 <img
@@ -67,7 +63,7 @@ const AuditManagementBody = ({ auditList, loading, error }) => {
             {/* 상세 정보 모달 */}
             <AuditDetailModal
                 isOpen={isModalOpen}
-                onRequestClose={closeModal}
+                handleClose={closeModal}
                 audit={selectedAudit}
             />
         </div>

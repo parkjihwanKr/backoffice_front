@@ -1,4 +1,5 @@
 import axiosInstance from "../../../../utils/AxiosUtils";
+import CacheManager from "../../../../utils/CacheManager";
 
 export const fetchFilteredMembers = async (position, department) => {
     const response = await axiosInstance.get(`/admin/members/filtered`, {
@@ -60,17 +61,26 @@ export const updateSalary = async (memberId, memberName, changeSalary) => {
     }
 };
 
-let cachedMemberList = null;  // 캐시된 멤버 리스트
+// 멤버 이름 리스트 -> 캐싱 데이터화
+const fetchMemberListFromAPI = async () => {
+    const response = await axiosInstance.get('/members/nameList');
+    return response.data;
+};
+
+const memberCacheManager = new CacheManager(fetchMemberListFromAPI);
 
 export const fetchMemberList = async () => {
-    if (cachedMemberList) return cachedMemberList; // 캐시된 리스트가 있다면 반환
-    console.log(cachedMemberList);
-    try {
-        const response = await axiosInstance.get('/members/nameList');
-        cachedMemberList = response.data; // 캐시에 저장
-        return cachedMemberList;
-    } catch (error) {
-        console.error("Error fetching member list:", error);
-        throw error;
+    if (memberCacheManager.getCache() == null) {
+        console.log("is null");
     }
+    return memberCacheManager.getCache(); // 캐시에서 데이터 가져오기
+};
+
+export const getMemberTotalCount = async () => {
+    const members = await memberCacheManager.getCache();
+    return members.length; // 멤버 수 반환
+};
+
+export const clearMemberCache = () => {
+    memberCacheManager.clearCache(); // 캐시 초기화
 };

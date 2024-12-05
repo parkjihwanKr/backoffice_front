@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import AuditManagementHeader from './header/AuditManagementHeader';
 import AuditManagementBody from './body/AuditManagementBody';
-import AuditManagementFooter from "./footer/AuditManagementFooter";
 import { useAuditFilterList } from '../hooks/useAuditFilterList';
+import PaginationFooter from "../../../../components/common/PaginationFooter";
 
 const AuditManagement = () => {
     const { auditList, loading, error, totalPages, fetchFilteredAuditList } = useAuditFilterList();
@@ -30,7 +30,7 @@ const AuditManagement = () => {
                 loading={loading}
                 error={error}
             />
-            <AuditManagementFooter
+            <PaginationFooter
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}

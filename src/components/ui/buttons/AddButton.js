@@ -1,14 +1,13 @@
 import React from 'react';
 import './Button.css';
 
-const ConfirmButton = ({ onClick, text }) => {
-    console.log(onClick);
+const AddButton = ({ onClick, text }) => {
     return (
         <button className="button" onClick={onClick}
-        style={{ width : '100px'}}>
+                style={{ maxWidth : '148px', height : '70%'}}>
             {text}
         </button>
     );
 };
 
-export default ConfirmButton;
+export default AddButton;

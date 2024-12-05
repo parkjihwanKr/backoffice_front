@@ -8,7 +8,7 @@
     position: relative; /* 드롭다운 메뉴 위치 제어를 위한 부모 요소 */
 }
 
-.vacation-management-header h3 {
+.vacation-management-header h2 {
     flex-grow: 1;
     text-align: center; /* 제목을 가운데 정렬 */
     margin: 0;

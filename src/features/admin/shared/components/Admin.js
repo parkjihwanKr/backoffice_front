@@ -28,6 +28,12 @@ const Admin = () => {
                     </Link>
                 )}
 
+                {isHrManagerOrCeo && (
+                    <Link to="/admins/attendance-management">
+                        <button>근태 관리 페이지</button>
+                    </Link>
+                )}
+                
                 {/* 휴가 관리 페이지: HR, MANAGER, CEO만 접근 가능 */}
                 {isHrManagerOrCeo && (
                     <Link to="/admins/vacation-management">

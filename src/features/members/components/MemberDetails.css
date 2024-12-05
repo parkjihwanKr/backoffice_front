@@ -46,9 +46,10 @@
 
 .details-button {
     padding: 10px;
+    font-size: 15px;
     background-color: white;
     color: black;
-    width: 150px; /* 고정된 너비 설정 */
+    width: 100%;
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;

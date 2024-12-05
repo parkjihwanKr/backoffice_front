@@ -1,4 +1,4 @@
-// NotifcationManagement.js
+// NotificationManagement.js
 import React, { useState, useEffect } from 'react';
 import CreateNotificationModal from './CreateNotificationModal';
 import { DEPARTMENTS } from '../../../../../utils/Constant';

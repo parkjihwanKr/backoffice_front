@@ -69,10 +69,10 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
 
     return (
         <div className="vacation-management-header">
-            <h3>
+            <h2>
                 {filters.year}년 {filters.month}월 휴가 관리 시스템
                 {filters.department && filters.department !== 'all' && ` - ${filters.department} 부서`}
-            </h3>
+            </h2>
 
             {/* settings 아이콘 클릭 시 메뉴 표시 */}
             <img

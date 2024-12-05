@@ -28,6 +28,8 @@ import MemberDetails from "./features/members/components/MemberDetails";
 import HomeImageButton from "./components/ui/image/HomeImageButton";
 import {NotificationProvider} from "./features/notifications/context/NotificationContext";
 import BoardList from "./features/boards/shared/components/BoardList";
+import AttendanceManagement from "./features/admin/attendances/components/AttendanceManagement";
+import DailyAttendanceManagement from "./features/admin/attendances/components/body/daily/DailyAttendanceManagement";
 
 function App() {
     return (
@@ -40,85 +42,96 @@ function App() {
                                 <HomeImageButton/>
                             </Link>
 
-                            <DropDownMenu />
+                            <DropDownMenu/>
                         </nav>
 
                         <Routes>
                             {/* JWT 보호가 필요 없는 페이지 */}
-                            <Route path="/auth/signup" element={<Signup />} />
-                            <Route path="/auth/login" element={<Login />} />
+                            <Route path="/auth/signup" element={<Signup/>}/>
+                            <Route path="/auth/login" element={<Login/>}/>
 
                             {/* JWT 보호가 필요한 페이지 */}
                             <Route path="/auth/logout"
-                                   element={<PrivateRoute component={Logout} />} />
+                                   element={<PrivateRoute component={Logout}/>}/>
                             <Route path="/"
-                                   element={<PrivateRoute component={HomePage} />} />
+                                   element={<PrivateRoute component={HomePage}/>}/>
                             <Route path="/boards/*"
-                                   element={<PrivateRoute component={Boards} />} />
+                                   element={<PrivateRoute component={Boards}/>}/>
                             <Route path="/notifications"
-                                   element={<PrivateRoute component={Notifications} />} />
+                                   element={<PrivateRoute component={Notifications}/>}/>
                             <Route path="/events"
-                                   element={<PrivateRoute component={Events} />} />
+                                   element={<PrivateRoute component={Events}/>}/>
                             <Route path="/all-boards"
-                                   element={<PrivateRoute component={BoardList} />} />
+                                   element={<PrivateRoute component={BoardList}/>}/>
                             <Route path="/create-board"
-                                   element={<PrivateRoute component={CreateBoard} />} />
+                                   element={<PrivateRoute component={CreateBoard}/>}/>
                             <Route path="/create-department-board/:department"
-                                   element={<PrivateRoute component={CreateBoard} />} />
+                                   element={<PrivateRoute component={CreateBoard}/>}/>
                             <Route path="/all-boards/:boardId"
-                                   element={<PrivateRoute component={BoardDetails} />} />
+                                   element={<PrivateRoute component={BoardDetails}/>}/>
                             <Route path="/department-boards/:department"
-                                   element={<PrivateRoute component={DepartmentBoards} />} />
+                                   element={<PrivateRoute component={DepartmentBoards}/>}/>
                             <Route path="/departments/:departmentName/boards/:boardId"
-                                   element={<PrivateRoute component = {BoardDetails} />} />
+                                   element={<PrivateRoute component={BoardDetails}/>}/>
                             <Route path="/department-schedule/:department"
-                                   element={<PrivateRoute component={DepartmentSchedule} />} />
+                                   element={<PrivateRoute component={DepartmentSchedule}/>}/>
                             <Route path="/personal-schedule"
-                                   element={<PrivateRoute component={PersonalSchedule} />}/>
+                                   element={<PrivateRoute component={PersonalSchedule}/>}/>
                             <Route path="/no-schedules"
-                                   element={<PrivateRoute component={NoSchedulePage} />} />
+                                   element={<PrivateRoute component={NoSchedulePage}/>}/>
                             <Route path="/admins"
-                                   element={<PrivateRoute component={Admin} />} />
+                                   element={<PrivateRoute component={Admin}/>}/>
 
                             {/* 인사 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
                             <Route path="/admins/member-management"
                                    element={<PrivateRoute component={MemberManagement}
                                                           allowedDepartments={['HR']}
                                                           allowedPositions={['MANAGER', 'CEO']}
-                                   />} />
+                                   />}/>
 
                             <Route path="/members/:memberId" element={
-                                <PrivateRoute component={MemberDetails} />} />
+                                <PrivateRoute component={MemberDetails}/>}/>
 
+                            {/* 근태 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
+                            <Route path="/admins/attendance-management"
+                                   element={<PrivateRoute component={AttendanceManagement}
+                                                          allowedDepartments={['HR']}
+                                                          allowedPositions={['MANAGER', 'CEO']}
+                                   />}/>
+                            <Route path="/admins/daily-attendance-management"
+                                   element={<PrivateRoute component={DailyAttendanceManagement}
+                                                          allowedDepartments={['HR']}
+                                                          allowedPositions={['MANAGER', 'CEO']}
+                                   />}/>
                             {/* 휴가 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
                             <Route path="/admins/vacation-management"
                                    element={<PrivateRoute component={VacationManagement}
                                                           allowedDepartments={['HR']}
                                                           allowedPositions={['MANAGER', 'CEO']}
-                                   />} />
+                                   />}/>
 
                             {/* 사내 알림 페이지: MANAGER 또는 CEO만 접근 가능 */}
                             <Route path="/admins/notification-management"
                                    element={<PrivateRoute component={NotificationManagement}
                                                           allowedPositions={['MANAGER', 'CEO']}
-                                   />} />
+                                   />}/>
 
                             {/* 재정 관리 페이지: FINANCE/MANAGER 또는 CEO만 접근 가능 */}
                             <Route path="/admins/finance-management"
                                    element={<PrivateRoute component={FinanceManagement}
                                                           allowedDepartments={['FINANCE']}
                                                           allowedPositions={['MANAGER', 'CEO']}
-                                   />} />
+                                   />}/>
 
                             {/* 회계 감사 페이지: AUDIT/MANAGER 또는 CEO만 접근 가능 */}
                             <Route path="/admins/audit-management"
                                    element={<PrivateRoute component={AuditManagement}
                                                           allowedDepartments={['AUDIT']}
                                                           allowedPositions={['MANAGER', 'CEO']}
-                                   />} />
+                                   />}/>
 
                             {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
-                            <Route path="*" element={<Navigate to="/auth/login" replace />} />
+                            <Route path="*" element={<Navigate to="/auth/login" replace/>}/>
                         </Routes>
                     </div>
                 </Router>

@@ -1,0 +1,20 @@
+/*DailyAttendanceManagement.css*/
+.schedule-details-img {
+    height : 24px;
+    width : 24px;
+}
+
+.header-title-container {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.change-attendance-status{
+    height : 30px;
+    width:36px;
+}
+
+.cursor-td {
+    cursor: pointer;
+}

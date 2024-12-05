@@ -18,12 +18,15 @@
     background: white;
     width: 400px;
     max-width: 90%;
-    padding: 20px;
     border-radius: 8px;
     position: relative;
     text-align: center; /* 텍스트 중앙 정렬 */
 }
 
-.audit-details-modal p {
+.audit-details-modal-header{
+    height: 50px;
+}
+
+.audit-details-modal-body {
     margin: 10px 0;
 }

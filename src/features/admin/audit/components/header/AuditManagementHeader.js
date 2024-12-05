@@ -1,7 +1,7 @@
 import './AuditManagementHeader.css';
-import '../../../shared/components/filter.css';
 import React from 'react';
-import useAuditFilterListForHeader from '../../hooks/useAuditFilterListForHeader'; // 새로 만든 훅 import
+import FilterDropDown from '../../../../../components/common/FilterDropDown'; // 공통 컴포넌트 사용
+import useAuditFilterListForHeader from '../../hooks/useAuditFilterListForHeader';
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import { AUDIT_LOG_LABELS } from '../../../../../utils/Constant';
 
@@ -14,56 +14,56 @@ const AuditManagementHeader = ({ setFilters, applyFilters }) => {
         handleFilterSubmit,
         resetFilters,
         toggleFilterDropdown,
-    } = useAuditFilterListForHeader(setFilters, applyFilters); // 커스텀 훅 사용
+    } = useAuditFilterListForHeader(setFilters, applyFilters);
+
+    const filterOptions = [
+        {
+            name: 'memberName',
+            label: '멤버 이름',
+            type: 'select',
+            options: memberList.map((member) => ({
+                value: member.memberName,
+                label: member.memberName,
+            })),
+        },
+        {
+            name: 'auditType',
+            label: '감사 유형',
+            type: 'select',
+            options: Object.entries(AUDIT_LOG_LABELS).map(([key, label]) => ({
+                value: key,
+                label: label,
+            })),
+        },
+        {
+            name: 'startDate',
+            label: '시작 날짜',
+            type: 'input',
+            inputType: 'datetime-local',
+            placeholder: '시작 날짜 입력',
+        },
+        {
+            name: 'endDate',
+            label: '종료 날짜',
+            type: 'input',
+            inputType: 'datetime-local',
+            placeholder: '종료 날짜 입력',
+        },
+    ];
 
     return (
         <div className="audit-management-header">
             <h2>감사 로그 관리 시스템</h2>
             <FilterImageButton onClick={toggleFilterDropdown} />
-
-            {showFilters && (
-                <div className="filters-dropdown">
-                    <h3>필터 적용</h3>
-                    <select
-                        value={localFilters.memberName || ''}
-                        onChange={(e) => setLocalFilters({ ...localFilters, memberName: e.target.value || null })}
-                    >
-                        <option value="">전체 멤버</option>
-                        {memberList.map((member) => (
-                            <option key={member.memberId} value={member.memberName}>
-                                {member.memberName}
-                            </option>
-                        ))}
-                    </select>
-
-                    <select
-                        value={localFilters.auditType || ''}
-                        onChange={(e) => setLocalFilters({ ...localFilters, auditType: e.target.value || null })}
-                    >
-                        <option value="">전체 감사 유형</option>
-                        {Object.entries(AUDIT_LOG_LABELS).map(([key, label]) => (
-                            <option key={key} value={key}>
-                                {label}
-                            </option>
-                        ))}
-                    </select>
-
-                    <input
-                        type="datetime-local"
-                        placeholder="시작 날짜"
-                        value={localFilters.startDate || ''}
-                        onChange={(e) => setLocalFilters({ ...localFilters, startDate: e.target.value || null })}
-                    />
-                    <input
-                        type="datetime-local"
-                        placeholder="종료 날짜"
-                        value={localFilters.endDate || ''}
-                        onChange={(e) => setLocalFilters({ ...localFilters, endDate: e.target.value || null })}
-                    />
-                    <button onClick={handleFilterSubmit}>조회</button>
-                    <button onClick={resetFilters}>전체 보기</button>
-                </div>
-            )}
+            <FilterDropDown
+                showFilters={showFilters}
+                filters={localFilters}
+                setFilters={setLocalFilters}
+                filterOptions={filterOptions}
+                onSubmit={handleFilterSubmit}
+                onReset={resetFilters}
+                toggleDropdown={toggleFilterDropdown}
+            />
         </div>
     );
 };
