@@ -96,3 +96,8 @@ body {
 .textarea {
   font-family: 'Arial', sans-serif;
 }
+
+.not-exist-data {
+  margin-top: 20px;
+  text-align: center;
+}

@@ -58,12 +58,12 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
         };
 
         try {
-            await createAttendance(data);
-            alert("근태 기록이 성공적으로 생성되었습니다. 해당 근태 기록은 해당 날짜에 기록될 예정입니다.");
+            const response = await createAttendance(data);
+            alert("근태 기록이 성공적으로 생성되었습니다.");
+            onSubmit(response); // 생성된 데이터 부모로 전달
             onClose(); // 모달 닫기
         } catch (error) {
-            console.error("근태 기록 생성 실패:", error);
-            alert(`근태 기록 생성 실패: ${error.response?.data?.message || error.message}`);
+            alert(`${error.response.data.data} : ${error.response.data.message}`);
         }
     };
 
@@ -101,6 +101,7 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                             <option value="ABSENT">결근</option>
                             <option value="VACATION">휴가</option>
                             <option value="OUT_OF_OFFICE">외근</option>
+                            <option value="HOLIDAY">휴일</option>
                         </select>
                     </div>
                     <div className="custom-modal-body-index">
@@ -126,8 +127,11 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="정시 출근이 아니라면 꼭 적어주세요!!
-                            조퇴는 무조건 09시 출근~ 13시 퇴근으로 고정되어 적용됩니다."
+                            placeholder="밑의 상황이 아니라면 꼭 적어주세요!!
+                            지각은 무조건 10시 출근 ~ 18시 퇴근으로 고정되어 있습니다.
+                            조퇴는 무조건 09시 출근 ~ 13시 퇴근으로 고정되어 적용됩니다.
+                            오늘 기록을 생성하셨다면 새로 고침 하셔야합니다.
+                            오늘 이전의 근태 기록은 IT 부장에게 문의 하셔야 합니다."
                         />
                     </div>
                 </div>

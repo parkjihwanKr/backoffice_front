@@ -7,6 +7,7 @@ import { getAttendanceStatus, imagePrefix } from "../../../../../../utils/Consta
 import FilterImageButton from "../../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../../components/common/FilterDropDown";
 import useDailyAttendanceFilterListForHeader from "../../../hooks/useDailyAttendanceFilterListForHeader";
+import UpdateMemberAttendanceStatusModal from "./UpdateMemberAttendanceStatusModal";
 
 const DailyAttendanceManagement = () => {
     const location = useLocation();
@@ -18,7 +19,10 @@ const DailyAttendanceManagement = () => {
     const [memberAttendances, setMemberAttendances] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
-    const [showAdminDropdown, setShowAdminDropdown] = useState(false);
+
+    // 모달 상태 관리
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedAttendance, setSelectedAttendance] = useState(null);
 
     const [filters, setFilters] = useState({
         department: null,
@@ -45,7 +49,6 @@ const DailyAttendanceManagement = () => {
     } = useDailyAttendanceFilterListForHeader(setFilters, () => fetchAttendanceData(0));
 
     const fetchAttendanceData = async (page) => {
-        // 백업 상태 저장
         setBackupState({
             memberAttendances,
             currentPage,
@@ -66,6 +69,7 @@ const DailyAttendanceManagement = () => {
             setMemberAttendances(backupState.memberAttendances);
             setCurrentPage(backupState.currentPage);
             setTotalPages(backupState.totalPages);
+            alert(`에러 발생: ${error.message || error}`);
         }
     };
 
@@ -81,8 +85,32 @@ const DailyAttendanceManagement = () => {
         navigate(`/members/${memberId}`);
     };
 
+    const handleMemberAttendanceClick = (attendance) => {
+        setSelectedAttendance(attendance);
+        setIsModalOpen(true); // 모달 열기
+    };
+
     const getDaysInMonth = (year, month) => {
         return new Date(year, month, 0).getDate();
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false); // 모달 닫기
+        setSelectedAttendance(null);
+    };
+
+    const handleModalSubmit = (updatedAttendance) => {
+        // 모달 닫기 및 목록 갱신
+        setIsModalOpen(false);
+        setSelectedAttendance(null);
+
+        setMemberAttendances((prev) =>
+            prev.map((attendance) =>
+                attendance.attendanceId === updatedAttendance.attendanceId
+                    ? updatedAttendance
+                    : attendance
+            )
+        );
     };
 
     const handleFilterValidation = () => {
@@ -102,10 +130,6 @@ const DailyAttendanceManagement = () => {
             setCurrentPage(0);
         }
     };
-
-    const handleAdminDropdownMenu = () => {
-        setShowAdminDropdown((prev) => !prev);
-    }
 
     const filterOptions = [
         {
@@ -185,22 +209,6 @@ const DailyAttendanceManagement = () => {
     return (
         <div className="attendance-management-container">
             <div className="attendance-management-header">
-                <img
-                    src={`${imagePrefix}/shared/settings.png`}
-                    alt="settings-icon"
-                    className="settings-icon"
-                    onClick={handleAdminDropdownMenu}
-                />
-                {showAdminDropdown && (
-                    <div className="admin-dropdown-menu">
-                        <ul>
-                            <li>출근 시간 변경</li>
-                            <li>퇴근 시간 변경</li>
-                            <li>근태 기록 수동 생성</li>
-                            <li>근태 기록 수동 삭제</li>
-                        </ul>
-                    </div>
-                )}
                 <div className="header-title-container">
                     <h2>{getTitle()}</h2>
                 </div>
@@ -228,6 +236,7 @@ const DailyAttendanceManagement = () => {
                             <th>근태 상태</th>
                             <th>설명</th>
                             <th>멤버 조회</th>
+                            <th>근태 상태 변경</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -239,12 +248,20 @@ const DailyAttendanceManagement = () => {
                                 <td>{attendance.checkOutTime || "-"}</td>
                                 <td>{getAttendanceStatus(attendance.attendanceStatus)}</td>
                                 <td>{attendance.description || "-"}</td>
-                                <td>
+                                <td className="cursor-td"
+                                    onClick={() => handleMemberDetailsClick(attendance.memberId)}>
                                     <img
                                         className="member-management-member-details"
                                         src={`${imagePrefix}/shared/find_member.png`}
                                         alt="상세보기"
-                                        onClick={() => handleMemberDetailsClick(attendance.memberId)}
+                                    />
+                                </td>
+                                <td className="cursor-td"
+                                    onClick={() => handleMemberAttendanceClick(attendance)}>
+                                    <img
+                                        className="change-attendance-status"
+                                        src={`${imagePrefix}/shared/attendances.png`}
+                                        alt="상태 변경"
                                     />
                                 </td>
                             </tr>
@@ -260,6 +277,13 @@ const DailyAttendanceManagement = () => {
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
             />
+            {isModalOpen && (
+                <UpdateMemberAttendanceStatusModal
+                    attendance={selectedAttendance}
+                    onClose={handleModalClose}
+                    onSubmit={handleModalSubmit}
+                />
+            )}
         </div>
     );
 };

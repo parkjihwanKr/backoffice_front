@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import DateUtils from "../../../../../utils/DateUtils";
 import "./AttendanceManagementHeader.css";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../components/common/FilterDropDown";
-import { imagePrefix } from "../../../../../utils/Constant";
+import {imagePrefix} from "../../../../../utils/Constant";
 import DeleteAttendanceModal from "./DeleteAttendanceModal";
 import CreateAttendanceModal from "./CreateAttendanceModal";
 
-const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess }) => {
+const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, onAttendanceCreated }) => {
     const [showFilter, setShowFilter] = useState(false);
     const [showAdminDropdown, setShowAdminDropdown] = useState(false);
     const [modalType, setModalType] = useState(null);
-
     const [localFilters, setLocalFilters] = useState(filters);
 
     const handleDeleteSuccess = (deletedIds) => {
@@ -20,6 +19,11 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess }
             return;
         }
         onDeleteSuccess(deletedIds); // 부모 컴포넌트로 삭제된 ID 전달
+    };
+
+    const handleAttendanceCreated = (newAttendance) => {
+        onAttendanceCreated(newAttendance); // 새로운 근태 기록 데이터를 부모로 전달
+        setModalType(null); // 모달 닫기
     };
 
     const handlePreviousMonth = () => {
@@ -98,7 +102,7 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess }
 
     const handleCloseModal = () => {
         setModalType(null);
-    }
+    };
 
     return (
         <div className="attendance-management-header">
@@ -118,12 +122,15 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess }
                     </div>
                 )}
                 {modalType === "create" && (
-                    <CreateAttendanceModal onClose={handleCloseModal} />
+                    <CreateAttendanceModal
+                        onClose={handleCloseModal}
+                        onSubmit={handleAttendanceCreated} // 생성 완료 시 호출
+                    />
                 )}
                 {modalType === "delete" && (
                     <DeleteAttendanceModal
                         onClose={handleCloseModal}
-                        onDeleteSuccess={handleDeleteSuccess} // 삭제 성공 시 실행
+                        onDeleteSuccess={handleDeleteSuccess}
                     />
                 )}
                 <button className="month-nav-button" onClick={handlePreviousMonth}>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../../../../../components/ui/modal/Modal.css';
+import '../../../../../components/ui/modal/Modal.css';
 
 const UpdateCheckOutTimeModal = ({ onClose, onSubmit }) => {
     const [newCheckOutTime, setNewCheckOutTime] = useState("");

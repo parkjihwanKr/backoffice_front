@@ -71,21 +71,15 @@ export const createAttendance = async (data) => {
     }
 };
 
-// 특정 상황 근태 기록 생성
-export const createAttendanceManually = async (data) => {
-    try {
-        const response
-            = await axiosInstance.post(`/attendances/manual-create`, data);
-        return response.data;
-    } catch (error) {
-        console.error("Error creating attendance manually:", error);
-        throw error;
-    }
-};
-
-// 멤버의 출근 근태 상태 변경
-export const updateCheckInTime = async () => {
-    const response = await axiosInstance.patch(`/`);
+// 관리자가 특정 멤버의 근태 상태 변경
+export const updateAttendanceStatusForAdmin = async ( memberId, attendanceId, attendanceStatus, description ) => {
+    const response = await axiosInstance.patch(
+        `/members/${memberId}/attendances/${attendanceId}/status`, {
+            attendanceStatus: attendanceStatus,
+            description: description,
+        }
+    );
+    console.log(response.data);
+    return response.data;
 }
 
-// 멤버의 퇴근 근태 상태 변경

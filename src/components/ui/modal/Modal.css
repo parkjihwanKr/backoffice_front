@@ -44,6 +44,74 @@
 .custom-modal-body-index textarea {
     width: 100%;
     min-height: 150px;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 20px; /* 버튼 간의 간격 */
+}
+
+.custom-modal-body-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.custom-modal-body-column {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    text-align: center;
+}
+
+.custom-modal-body-arrow {
+    display: flex;
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.custom-modal-body-column img,
+.custom-modal-body-arrow img{
+    height : 36px;
+    width : 36px;
+}
+
+.custom-modal-divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.custom-modal-body-caution-container img{
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+}
+
+.custom-modal-body-content {
+    display: flex;
+    flex-direction: column; /* 요소를 세로 방향으로 정렬 */
+    align-items: center; /* 왼쪽 정렬 */
+    gap: 8px; /* 요소 간 간격 */
+}
+
+.custom-modal-body-content-label {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    text-align: center;
+    height: 100%; /* 필요 시 높이를 명시적으로 지정 */
+    margin-bottom: 8px; /* 다른 요소와의 간격 조정 */
+}
+
+.custom-modal-body-select {
+    flex: 1;
+}
+
+.custom-modal-body-textarea {
+    width : 350px;
+    min-height: 150px;
+    justify-items: center;
 }
 
 .add-id-list {
@@ -122,6 +190,12 @@
 .custom-modal-footer {
     display: flex;
     justify-content: flex-end;
+}
+
+.custom-modal-body-caution-container {
+    display: flex;
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
 }
 
 @keyframes fadeIn {

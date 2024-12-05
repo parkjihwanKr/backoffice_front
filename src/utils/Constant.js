@@ -35,12 +35,12 @@ export const positionMapping = {
 };
 
 export const attendanceMapping = {
-    "정시 출근": "HR",
-    "조퇴": "MARKETING",
-    "지각": "IT",
-    "결근": "FINANCE",
-    "외근": "SALES",
-    "휴가": "AUDIT",
+    "정시 출근": "ON_TIME",
+    "조퇴": "HALF_DAY",
+    "지각": "LATE",
+    "결근": "ABSENT",
+    "외근": "OUT_OF_OFFICE",
+    "휴가": "VACATION",
     "휴일": "HOLIDAY",
 };
 

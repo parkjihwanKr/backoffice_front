@@ -70,12 +70,35 @@ const AttendanceManagement = () => {
         }
     };
 
+    const handleAttendanceCreated = (newAttendance) => {
+        setAttendanceList((prevList) => {
+            // 새로운 기록의 createdAt이 오늘인지 확인
+            const isCreatedToday = DateUtils.isToday(new Date(newAttendance.createdAt));
+
+            if (isCreatedToday) {
+                const isDuplicate = prevList.some(
+                    (attendance) => attendance.createdAt === newAttendance.createdAt
+                );
+
+                // 중복이 아니면 추가
+                if (!isDuplicate) {
+                    const updatedList = [newAttendance, ...prevList];
+                    console.log("Updated attendance list:", updatedList); // 디버깅용 로그
+                    return updatedList;
+                }
+            }
+            return prevList;
+        });
+    };
+
+
     return (
         <div className="attendance-management-container">
             <AttendanceManagementHeader
                 filters={filters}
                 onFilterChange={handleSetFilters}
                 onDeleteSuccess={handleDeleteSuccess}
+                onAttendanceCreated={handleAttendanceCreated}
             />
             <AttendanceManagementBody
                 attendanceList={attendanceList}

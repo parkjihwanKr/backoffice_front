@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { imagePrefix } from "../../../../../utils/Constant";
-import {useLoading} from "../../../../utils/LoadingUtils";
+import { useLoading } from "../../../../utils/LoadingUtils";
 
 const AttendanceManagementBody = ({ attendanceList, loading }) => {
     const navigate = useNavigate();
@@ -21,15 +21,16 @@ const AttendanceManagementBody = ({ attendanceList, loading }) => {
     const handleDetailsClick = (attendanceDate) => {
         navigate("/admins/daily-attendance-management", {
             state: {
-                date: attendanceDate }
+                date: attendanceDate,
+            },
         });
     };
 
     const loadingJSX = useLoading(loading);
     if (loadingJSX) return loadingJSX;
 
-    if (!attendanceList || attendanceList.length === 0){
-        return <div>해당 데이터가 존재하지 않습니다.</div>;
+    if (!attendanceList || attendanceList.length === 0) {
+        return <div className="not-exist-data">해당 데이터가 존재하지 않습니다.</div>;
     }
 
     return (

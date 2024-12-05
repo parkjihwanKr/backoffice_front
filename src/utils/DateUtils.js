@@ -31,6 +31,26 @@ const DateUtils = {
             now.getFullYear() !== date.getFullYear();
     },
 
+    // 특정 날짜가 오늘과 동일한지 확인
+    isToday: function (date) {
+        if (!(date instanceof Date)) {
+            throw new Error("The parameter must be a Date object.");
+        }
+        const today = this.getToday();
+        return date.getFullYear() === today.getFullYear() &&
+            date.getMonth() === today.getMonth() &&
+            date.getDate() === today.getDate();
+    },
+
+    // 특정 날짜가 오늘 이전인지 확인
+    isBeforeToday: function (date) {
+        if (!(date instanceof Date)) {
+            throw new Error("The parameter must be a Date object.");
+        }
+        const today = this.getToday();
+        return date < today;
+    },
+
     // 오늘 날짜를 새로고침
     refreshToday: function () {
         cachedToday = new Date();

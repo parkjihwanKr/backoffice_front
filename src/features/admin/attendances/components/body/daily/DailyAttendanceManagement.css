@@ -9,3 +9,12 @@
     align-items: center;
     margin-bottom: 10px;
 }
+
+.change-attendance-status{
+    height : 30px;
+    width:36px;
+}
+
+.cursor-td {
+    cursor: pointer;
+}
