@@ -28,7 +28,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 /* 모달 타이틀 */
@@ -81,6 +81,7 @@
 }
 
 .vacationList-title {
+    text-align: center;
     background-color: #91c9f7;
     border-radius: 8px 8px 0px 0px;
     width : 100%;
@@ -89,7 +90,11 @@
     padding: 10px;
 }
 
-/* 수정/삭제 아이콘을 말풍선처럼 휴가 항목의 오른쪽 끝에 표시 */
+.vacationList-title span {
+    text-align: center;
+}
+
+    /* 수정/삭제 아이콘을 말풍선처럼 휴가 항목의 오른쪽 끝에 표시 */
 .vacation-action-menu {
     position: absolute;
     top: 50%;
@@ -125,6 +130,60 @@
     justify-content: flex-end; /* 푸터 내용 오른쪽 정렬 */
 }
 
+.vacationList-vacation-modal-footer img {
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-target {
+    cursor: pointer;
+}
+
+.tooltip-content {
+    visibility: hidden; /* 기본적으로 숨김 */
+    opacity: 0;
+    position: absolute;
+    top: 110%; /* 이미지 바로 아래 */
+    left: 0; /* 부모 요소의 왼쪽 기준 */
+    background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px; /* 크고 가독성 좋은 텍스트 */
+    line-height: 1.5;
+    width: auto; /* 툴팁의 너비를 내용에 맞게 조정 */
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    z-index: 100;
+    white-space: normal; /* 긴 문구도 줄바꿈 */
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.tooltip-container.active .tooltip-content {
+    visibility: visible; /* 가시성 추가 */
+    width: 300px;
+    opacity: 1;
+    transform: translateY(0); /* 위치 이동 제거 */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* 아이콘 스타일 */
 .vacation-action-icon {
     height: 36px;
@@ -142,22 +201,24 @@
 }
 
 .vacationList-urgent-reason,
-.vacationList-date,
-.vacationList-info-isAccepted {
+.vacationList-date{
     width: 100%; /* 각 요소가 부모 요소의 100% 차지 */
     text-align: center; /* 텍스트 중앙 정렬 */
-    margin: 5px; /* 요소 간 간격 */
+    margin-top: 10px;
 }
 
-.vacationList-info-isAccepted{
+.vacationList-info-isAccepted {
+    padding: 5px 0; /* 위아래 여백 추가 */
+    height: auto; /* 높이를 자동으로 설정 */
     font-weight: bold;
 }
+
 
     /* 구분선 */
 .border {
     color : black;
     width: 100%; /* hr이 전체 너비 차지 */
-    margin: 10px 0; /* 상하 간격 */
+    margin: 5px 0; /* 상하 간격 */
 }
 
 /* 모달 열리는 애니메이션 */
@@ -169,5 +230,18 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+
+/* 미디어 쿼리 적용 */
+@media (max-width: 768px) {
+    .tooltip-container.active .tooltip-content {
+        top: 20px; /* 아이콘의 상단에 맞춤 */
+        right: 0; /* 아이콘의 오른쪽에 맞춤 */
+        transform: translate(-100%); /* 상단 위치에 고정 */
+        visibility: visible; /* 표시 */
+        opacity: 1; /* 가시성 추가 */
+        animation: fadeIn 0.3s ease-in-out;
     }
 }

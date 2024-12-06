@@ -1,7 +1,8 @@
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import './UpdateAttributeModal.css';
+import '../../../../../components/ui/modal/Modal.css';
 import useUpdateAttribute from "../../hooks/useUpdateAttribute"; // custom hook 임포트
-import { DEPARTMENTS, ROLES, POSITIONS } from "../../../../../utils/Constant"; // Constant.js에서 임포트
+import { DEPARTMENTS, ROLES, POSITIONS } from "../../../../../utils/Constant";
+import SubmitButton from "../../../../../components/ui/buttons/SubmitButton"; // Constant.js에서 임포트
 
 const UpdateAttributeModal = ({ member, onClose, onSave }) => {
     const {
@@ -13,14 +14,14 @@ const UpdateAttributeModal = ({ member, onClose, onSave }) => {
     } = useUpdateAttribute(member, onSave, onClose);
 
     return (
-        <div className="update-attribute-modal">
-            <div className="update-attribute-modal-content">
-                <div className="update-attribute-modal-header">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>{member.memberName}님 권한 변경</h3>
                     <CloseImageButton handleClose={onClose} />
                 </div>
-                <div className="update-attribute-modal-body">
-                    <div className="update-attribute-form-group">
+                <div className="custom-modal-body">
+                    <div className="custom-modal-form-group">
                         <label htmlFor="department">부서:</label>
                         <select
                             id="department"
@@ -35,7 +36,7 @@ const UpdateAttributeModal = ({ member, onClose, onSave }) => {
                             ))}
                         </select>
                     </div>
-                    <div className="update-attribute-form-group">
+                    <div className="custom-modal-form-group">
                         <label htmlFor="role">역할:</label>
                         <select
                             id="role"
@@ -50,7 +51,7 @@ const UpdateAttributeModal = ({ member, onClose, onSave }) => {
                             ))}
                         </select>
                     </div>
-                    <div className="update-attribute-form-group">
+                    <div className="custom-modal-form-group">
                         <label htmlFor="position">직위:</label>
                         <select
                             id="position"
@@ -65,7 +66,7 @@ const UpdateAttributeModal = ({ member, onClose, onSave }) => {
                             ))}
                         </select>
                     </div>
-                    <div className="update-attribute-form-group">
+                    <div className="custom-modal-form-group">
                         <label htmlFor="file">파일 업로드:</label>
                         <input
                             id="file"
@@ -73,10 +74,8 @@ const UpdateAttributeModal = ({ member, onClose, onSave }) => {
                             onChange={(e) => setNewFile(e.target.files[0])}
                         />
                     </div>
-                    <div className="update-attribute-modal-footer">
-                        <button className="submit-button" onClick={handleSaveChanges}>
-                            제출
-                        </button>
+                    <div className="custom-modal-footer">
+                        <SubmitButton onSubmit={handleSaveChanges} text={"제출"}/>
                     </div>
                 </div>
             </div>

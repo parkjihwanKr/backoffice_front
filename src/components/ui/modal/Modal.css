@@ -37,6 +37,11 @@
     margin: 10px 0;
 }
 
+.custom-modal-body p {
+    text-align: center;
+    margin: 10px;
+}
+
 .custom-modal-body-index {
     margin-bottom: 10px;
 }
@@ -196,6 +201,24 @@
     display: flex;
     justify-content: center; /* 수직 중앙 정렬 */
     align-items: center; /* 수평 중앙 정렬 */
+}
+
+.custom-modal-form-group{
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    gap: 10px; /* label과 select 사이 간격 추가 */
+}
+
+.custom-modal-form-group label{
+    text-align: center;
+    font-weight: bold; /* 레이블 강조 */
+}
+
+.custom-modal-form-group select{
+    padding: 8px;
+    border: 1px solid lightgrey; /* 테두리 스타일 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    font-size: 14px; /* 텍스트 크기 */
 }
 
 @keyframes fadeIn {

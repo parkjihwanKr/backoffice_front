@@ -24,12 +24,14 @@ import VacationManagement from "./features/admin/vacations/components/VacationMa
 import NotificationManagement from "./features/admin/notifications/components/NotificationManagement";
 import FinanceManagement from "./features/admin/finances/components/FinanceManagement";
 import AuditManagement from "./features/admin/audit/components/AuditManagement";
-import MemberDetails from "./features/members/components/MemberDetails";
+import MemberDetails from "./features/members/components/details/MemberDetails";
 import HomeImageButton from "./components/ui/image/HomeImageButton";
 import {NotificationProvider} from "./features/notifications/context/NotificationContext";
 import BoardList from "./features/boards/shared/components/BoardList";
 import AttendanceManagement from "./features/admin/attendances/components/AttendanceManagement";
 import DailyAttendanceManagement from "./features/admin/attendances/components/body/daily/DailyAttendanceManagement";
+import UpdateMemberDetails from "./features/members/components/details/UpdateMemberDetails";
+import MemberAttendance from "./features/members/components/attendances/MemberAttendance";
 
 function App() {
     return (
@@ -91,6 +93,12 @@ function App() {
 
                             <Route path="/members/:memberId" element={
                                 <PrivateRoute component={MemberDetails}/>}/>
+
+                            <Route path="/members/:memberId/update" element={
+                                <PrivateRoute component={UpdateMemberDetails}/>}/>
+
+                            <Route path="/members/:memberId/attendance" element={
+                                <PrivateRoute component={MemberAttendance}/>}/>
 
                             {/* 근태 관리 페이지: HR/MANAGER 또는 CEO만 접근 가능 */}
                             <Route path="/admins/attendance-management"
