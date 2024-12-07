@@ -1,0 +1,63 @@
+.member-attendance-header {
+    position: relative; /* 컨테이너에 상대적 위치를 설정 */
+    text-align: center;
+    margin-top: 10px;
+}
+
+.member-attendance-header h2{
+    text-align: center;
+}
+
+.member-attendance-header-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    max-height: 40px;
+}
+
+.month-nav-button {
+    background: none;
+    border: none;
+    color : black;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0;
+}
+
+/*body*/
+.saturday {
+    color: blue; /* 토요일 텍스트 색상 */
+}
+
+.sunday {
+    color: red; /* 일요일 텍스트 색상 */
+}
+
+.no-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.member-attendance-body {
+    margin: 20px;
+}
+
+.member-attendance-body-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.member-attendance-body-table th,
+.member-attendance-body-table td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    width: 100px;
+}
+
+.member-attendance-body-table th {
+    font-weight: bold;
+}
