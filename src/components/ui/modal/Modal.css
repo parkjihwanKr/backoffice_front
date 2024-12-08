@@ -19,6 +19,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
     width: 400px;
     max-width: 90%;
+    min-height : 150px;
     animation: fadeIn 0.3s ease-out;
 }
 
@@ -46,7 +47,7 @@
     margin-bottom: 10px;
 }
 
-.custom-modal-body-index textarea {
+.custom-modal-body-index textarea, .description-textarea {
     width: 100%;
     min-height: 150px;
     justify-content: center; /* 가로 중앙 정렬 */
@@ -193,6 +194,11 @@
 }
 
 .custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.caution-description {
     display: flex;
     justify-content: flex-end;
 }

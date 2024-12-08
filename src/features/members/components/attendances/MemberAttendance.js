@@ -1,14 +1,14 @@
 import MemberAttendanceHeader from "./MemberAttendanceHeader";
 import MemberAttendanceBody from "./MemberAttendanceBody";
 import MemberAttendanceFooter from "./MemberAttendanceFooter";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import DateUtils from "../../../../utils/DateUtils";
-import {fetchMemberAttendanceListForMember} from "../../services/MembersService";
-import {useAuth} from "../../../auth/context/AuthContext";
+import { fetchMemberAttendanceListForMember } from "../../services/MembersService";
+import { useAuth } from "../../../auth/context/AuthContext";
 
 const MemberAttendance = () => {
-    const { id } = useAuth();
-    const today = DateUtils.getToday();
+    const { id } = useAuth(); // 로그인한 사용자의 memberId
+    const today = DateUtils.getToday(); // 오늘 날짜
     const [filters, setFilters] = useState({
         year: today.getFullYear(),
         month: today.getMonth() + 1,
@@ -21,6 +21,28 @@ const MemberAttendance = () => {
         setFilters(newFilters);
     };
 
+    // 특정 attendanceId의 데이터를 업데이트하는 함수
+    const updateAttendanceInState = (updatedAttendance) => {
+        setAttendanceList((prevList) =>
+            prevList.map((att) =>
+                att.attendanceId === updatedAttendance.attendanceId
+                    ? { ...att, ...updatedAttendance }
+                    : att
+            )
+        );
+    };
+
+    // 오늘 날짜의 attendanceId 찾기
+    const findTodayAttendanceId = () => {
+        const todayString = today.toISOString().split("T")[0]; // "yyyy-MM-dd" 형식
+        const todayAttendance = attendanceList.find(
+            (attendance) =>
+                attendance.memberId === id &&
+                attendance.createdAt.startsWith(todayString) // 오늘 날짜와 비교
+        );
+        return todayAttendance?.attendanceId || null; // 오늘의 attendanceId 또는 null
+    };
+
     useEffect(() => {
         const fetchMemberAttendanceList = async () => {
             setLoading(true);
@@ -28,7 +50,7 @@ const MemberAttendance = () => {
                 const response = await fetchMemberAttendanceListForMember(
                     id,
                     filters.year,
-                    filters.month,
+                    filters.month
                 );
                 setAttendanceList(response);
             } catch (error) {
@@ -41,7 +63,9 @@ const MemberAttendance = () => {
         fetchMemberAttendanceList();
     }, [filters]);
 
-    return(
+    const todayAttendanceId = findTodayAttendanceId(); // 오늘의 attendanceId 계산
+
+    return (
         <div className="member-attendance-container">
             <MemberAttendanceHeader
                 filters={filters}
@@ -54,8 +78,10 @@ const MemberAttendance = () => {
                 currentYear={filters.year}
                 currentMonth={filters.month}
             />
-            <MemberAttendanceFooter/>
+            <MemberAttendanceFooter
+                attendanceId={todayAttendanceId}
+                updateAttendanceInState={updateAttendanceInState}/>
         </div>
-    )
-}
+    );
+};
 export default MemberAttendance;

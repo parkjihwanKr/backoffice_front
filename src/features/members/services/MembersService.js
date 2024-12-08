@@ -28,3 +28,23 @@ export const fetchMemberAttendance = async (attendanceId) => {
     console.log(response.data);
     return response.data;
 }
+
+export const updateCheckInTime = async (attendanceId, checkInTime) => {
+    console.log("checkInTime : "+checkInTime);
+    const response
+        = await axiosInstance.patch(`/attendances/${attendanceId}/check-in`,{
+            checkInTime : checkInTime
+    });
+    console.log(response.data);
+    return response.data;
+}
+
+export const updateCheckOutTime = async (attendanceId, checkOutTime, description) => {
+    const response
+        = await axiosInstance.patch(`/attendances/${attendanceId}/check-out`, {
+            checkOutTime : checkOutTime,
+        description : description,
+    });
+    console.log(response.data);
+    return response.data;
+}
