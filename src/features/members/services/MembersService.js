@@ -20,3 +20,11 @@ export const fetchMemberAttendanceListForMember
 
     return response.data;
 }
+
+export const fetchMemberAttendance = async (attendanceId) => {
+    const response
+        = await axiosInstance.get(`/attendances/${attendanceId}`);
+
+    console.log(response.data);
+    return response.data;
+}

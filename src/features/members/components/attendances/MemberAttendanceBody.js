@@ -1,25 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import MemberAttendanceDetails from "./MemberAttendanceDetails";
 import { reverseAttendanceMapping } from "../../../../utils/Constant";
+import { fetchMemberAttendance } from "../../services/MembersService";
 
 const MemberAttendanceBody = ({
                                   currentYear,
                                   currentMonth, // currentMonth는 1부터 시작 (1월 = 1)
                                   attendances = [],
                               }) => {
-    // 요일에 따라 스타일 지정 (토요일: 파란색, 일요일: 빨간색)
+    const [selectedAttendance, setSelectedAttendance] = useState(null); // 선택한 attendanceId
+    const [modalData, setModalData] = useState(null); // 모달에 표시할 데이터
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜 정보 (년, 월, 일)
+
+    const openModal = async (attendanceId, year, month, day) => {
+        try {
+            const attendanceData = await fetchMemberAttendance(attendanceId); // API 호출
+            setModalData(attendanceData);
+            setSelectedAttendance(attendanceId);
+            setSelectedDate({ year, month, day });
+            setModalOpen(true);
+        } catch (error) {
+            alert(error.response.data.data + " : " + error.response.data.message);
+        }
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setModalData(null);
+        setSelectedAttendance(null);
+        setSelectedDate(null);
+    };
+
     const getDayClass = (day) => {
         const date = new Date(currentYear, currentMonth - 1, day); // currentMonth를 0-based로 변환
         const dayOfWeek = date.getDay(); // 0: 일요일, 6: 토요일
-
         if (dayOfWeek === 0) return "sunday"; // 일요일
         if (dayOfWeek === 6) return "saturday"; // 토요일
         return ""; // 평일
     };
 
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate(); // 해당 월의 마지막 날짜
-    const firstDayOfWeek = new Date(currentYear, currentMonth - 1, 1).getDay(); // 해당 월 1일의 요일 (0: 일요일, 6: 토요일)
+    const firstDayOfWeek = new Date(currentYear, currentMonth - 1, 1).getDay(); // 해당 월 1일의 요일
 
-    // 날짜별 응답 데이터를 매핑
     const attendanceMap = attendances.reduce((map, attendance) => {
         const createdDate = attendance.createdAt
             ? new Date(attendance.createdAt).getDate()
@@ -31,7 +54,6 @@ const MemberAttendanceBody = ({
         return map;
     }, {});
 
-    // 날짜 헤더 생성 함수 (요일)
     const renderDayHeaders = () => {
         const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
         return daysOfWeek.map((day, index) => (
@@ -41,19 +63,16 @@ const MemberAttendanceBody = ({
         ));
     };
 
-    // 주 단위로 달력을 렌더링하는 함수
     const renderCalendarRows = () => {
         const weeks = [];
         let currentDay = 1;
 
-        // 첫 번째 주 처리 (빈 칸 + 날짜)
         const firstWeek = Array.from({ length: 7 }, (_, i) => {
             if (i < firstDayOfWeek) return null; // 빈 칸
-            return currentDay++; // 1일부터 시작
+            return currentDay++;
         });
         weeks.push(firstWeek);
 
-        // 나머지 주 처리
         while (currentDay <= daysInMonth) {
             const week = Array.from({ length: 7 }, () => {
                 if (currentDay > daysInMonth) return null; // 월 말일 이후 빈 칸
@@ -65,8 +84,8 @@ const MemberAttendanceBody = ({
         return weeks.map((week, weekIndex) => (
             <tr key={weekIndex}>
                 {week.map((day, dayIndex) => {
-                    const dayClass = day ? getDayClass(day) : ""; // 요일에 따른 클래스
-                    const dayAttendance = attendanceMap[day] || []; // 해당 날짜의 출근 상태
+                    const dayClass = day ? getDayClass(day) : "";
+                    const dayAttendance = attendanceMap[day] || [];
 
                     return (
                         <td key={dayIndex} className={dayClass}>
@@ -76,7 +95,12 @@ const MemberAttendanceBody = ({
                                     {dayAttendance.length > 0 ? (
                                         <ul className="no-bullets">
                                             {dayAttendance.map((att, idx) => (
-                                                <li key={idx}>
+                                                <li className="no-bullets-open-details"
+                                                    key={idx}
+                                                    onClick={() =>
+                                                        openModal(att.attendanceId, currentYear, currentMonth, day)
+                                                    }
+                                                >
                                                     {reverseAttendanceMapping[att.attendanceStatus] || att.attendanceStatus}
                                                 </li>
                                             ))}
@@ -86,7 +110,7 @@ const MemberAttendanceBody = ({
                                     )}
                                 </>
                             ) : (
-                                <div>&nbsp;</div> // 빈 칸
+                                <div>&nbsp;</div>
                             )}
                         </td>
                     );
@@ -103,6 +127,13 @@ const MemberAttendanceBody = ({
                 </thead>
                 <tbody>{renderCalendarRows()}</tbody>
             </table>
+            {isModalOpen && (
+                <MemberAttendanceDetails
+                    attendanceData={modalData}
+                    selectedDate={selectedDate}
+                    onClose={closeModal}
+                />
+            )}
         </div>
     );
 };

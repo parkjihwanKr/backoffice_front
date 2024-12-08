@@ -221,6 +221,51 @@
     font-size: 14px; /* 텍스트 크기 */
 }
 
+.list-row {
+    display: flex;
+    flex-direction: row; /* 가로 방향 배치 */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.list-row-left, .list-row-right{
+    min-width : 180px;
+}
+
+.list-column {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    text-align: center; /* 텍스트 정렬 */
+    align-items: center; /* 자식 요소를 수평 중앙 정렬 */
+}
+
+.list-attendance-description-title {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.list-attendance-description-content {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 10;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    visibility: visible; /* 항상 보이도록 설정 */
+    opacity: 1; /* 항상 보이도록 설정 */
+    transition: none; /* 애니메이션 제거 */
+    white-space: nowrap;
+    min-height: 200px;
+    display: flex; /* 내용물을 중앙에 배치 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    min-width: 360px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

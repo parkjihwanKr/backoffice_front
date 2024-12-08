@@ -40,8 +40,13 @@
     margin: 0;
 }
 
+.no-bullets-open-details{
+    cursor: pointer;
+}
+
 .member-attendance-body {
     margin: 20px;
+    overflow-x: auto;
 }
 
 .member-attendance-body-table {
@@ -60,4 +65,10 @@
 
 .member-attendance-body-table th {
     font-weight: bold;
+}
+
+@media(max-width: 768px) {
+    .member-attendance-header h2{
+        font-size : 16px;
+    }
 }
