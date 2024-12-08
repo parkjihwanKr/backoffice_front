@@ -30,7 +30,7 @@ const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentM
                 label: `${i + 1}`,
             })),
         },
-        {
+        /*{
             name: "attendanceStatus",
             label: "근태 상태",
             type: "select",
@@ -42,7 +42,7 @@ const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentM
                 { value: "HOLIDAY", label: "휴일" },
                 { value: "VACATION", label: "휴가" },
             ],
-        },
+        },*/
     ];
 
     const handlePreviousMonth = () => {
@@ -78,6 +78,14 @@ const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentM
         setShowFilter(false);
     };
 
+    const handleValidatedFilterSubmit = () => {
+        if(filters.year == null || filters.month == null){
+            alert("년과 달은 필수적으로 입력하셔야합니다.");
+        }
+        onFilterChange(localFilters);
+        setShowFilter(false);
+    };
+
     return (
         <div className="member-attendance-header">
             <div className="member-attendance-header-title-container">
@@ -98,6 +106,8 @@ const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentM
                     filters={localFilters}
                     setFilters={setLocalFilters}
                     filterOptions={filterOptions}
+                    onSubmit={handleValidatedFilterSubmit}
+                    onReset={resetFilters}
                     toggleDropdown={() => setShowFilter(!showFilter)}
                 />
             )}

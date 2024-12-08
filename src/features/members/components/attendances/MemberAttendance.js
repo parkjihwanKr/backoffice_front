@@ -9,12 +9,9 @@ import {useAuth} from "../../../auth/context/AuthContext";
 const MemberAttendance = () => {
     const { id } = useAuth();
     const today = DateUtils.getToday();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
     const [filters, setFilters] = useState({
         year: today.getFullYear(),
         month: today.getMonth() + 1,
-        attendanceStatus : null,
     });
 
     const [attendanceList, setAttendanceList] = useState([]);
@@ -32,7 +29,6 @@ const MemberAttendance = () => {
                     id,
                     filters.year,
                     filters.month,
-                    filters.attendanceStatus,
                 );
                 setAttendanceList(response);
             } catch (error) {

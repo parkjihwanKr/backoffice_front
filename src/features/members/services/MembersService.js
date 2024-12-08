@@ -9,11 +9,10 @@ export const fetchMemberDetails = async (memberId) => {
 
 // 멤버 근태 기록 조회
 export const fetchMemberAttendanceListForMember
-    = async (memberId, year, month, attendanceStatus) => {
+    = async (memberId, year, month) => {
         // 요청 파라미터 구성
-    const params = {
-        year, month, attendanceStatus
-    };
+    const params = {year, month};
+
     const response
         = await axiosInstance.get(`/members/${memberId}/attendances`, {params,});
 
