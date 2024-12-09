@@ -1,29 +1,42 @@
-import React, {useState} from "react";
-import DateUtils from "../../../../../utils/DateUtils";
+import React, { useState } from "react";
 import "./AttendanceManagementHeader.css";
+import DateUtils from "../../../../../utils/DateUtils";
+import { imagePrefix } from "../../../../../utils/Constant";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../components/common/FilterDropDown";
-import {imagePrefix} from "../../../../../utils/Constant";
-import DeleteAttendanceModal from "./DeleteAttendanceModal";
-import CreateAttendanceModal from "./CreateAttendanceModal";
+import DeleteAttendanceModal from "./modal/DeleteAttendanceModal";
+import CreateAttendanceModal from "./modal/CreateAttendanceModal";
+import UpcomingAttendanceRecordModal from "./modal/UpcomingAttendanceRecordModal";
+import {fetchUpcomingAttendance} from "../../services/AttendanceManagementService";
 
 const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, onAttendanceCreated }) => {
     const [showFilter, setShowFilter] = useState(false);
     const [showAdminDropdown, setShowAdminDropdown] = useState(false);
     const [modalType, setModalType] = useState(null);
     const [localFilters, setLocalFilters] = useState(filters);
+    const [upcomingAttendance, setUpcomingAttendance] = useState([]);
 
     const handleDeleteSuccess = (deletedIds) => {
         if (!Array.isArray(deletedIds)) {
             console.error("onDeleteSuccess expected an array but received:", deletedIds);
             return;
         }
-        onDeleteSuccess(deletedIds); // 부모 컴포넌트로 삭제된 ID 전달
+        onDeleteSuccess(deletedIds);
     };
 
     const handleAttendanceCreated = (newAttendance) => {
-        onAttendanceCreated(newAttendance); // 새로운 근태 기록 데이터를 부모로 전달
-        setModalType(null); // 모달 닫기
+        onAttendanceCreated(newAttendance);
+        setModalType(null);
+    };
+
+    const handleUpcomingAttendance = async () => {
+        try {
+            const response = await fetchUpcomingAttendance();
+            setUpcomingAttendance(response);
+            setModalType("upcoming-record"); // 데이터를 로드한 후 모달을 표시
+        } catch (error) {
+            alert(`${error.response?.data?.data} : ${error.response?.data?.message}`);
+        }
     };
 
     const handlePreviousMonth = () => {
@@ -34,36 +47,6 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, 
             month: newDate.getMonth() + 1,
         });
     };
-
-    const filterOptions = [
-        {
-            name: "department",
-            label: "부서",
-            type: "select",
-            options: [
-                { value: "HR", label: "인사부" },
-                { value: "MARKETING", label: "마케팅부" },
-                { value: "IT", label: "아이티부" },
-                { value: "FINANCE", label: "재정부" },
-                { value: "SALES", label: "세일즈부" },
-                { value: "AUDIT", label: "회계부" },
-            ],
-        },
-        {
-            name: "year",
-            label: "년도",
-            type: "input",
-            inputType: "number",
-            placeholder: "YYYY",
-        },
-        {
-            name: "month",
-            label: "월",
-            type: "input",
-            inputType: "number",
-            placeholder: "MM",
-        },
-    ];
 
     const handleNextMonth = () => {
         const newDate = new Date(filters.year, filters.month - 1 + 1);
@@ -104,6 +87,36 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, 
         setModalType(null);
     };
 
+    const filterOptions = [
+        {
+            name: "department",
+            label: "부서",
+            type: "select",
+            options: [
+                { value: "HR", label: "인사부" },
+                { value: "MARKETING", label: "마케팅부" },
+                { value: "IT", label: "아이티부" },
+                { value: "FINANCE", label: "재정부" },
+                { value: "SALES", label: "세일즈부" },
+                { value: "AUDIT", label: "회계부" },
+            ],
+        },
+        {
+            name: "year",
+            label: "년도",
+            type: "input",
+            inputType: "number",
+            placeholder: "YYYY",
+        },
+        {
+            name: "month",
+            label: "월",
+            type: "input",
+            inputType: "number",
+            placeholder: "MM",
+        },
+    ];
+
     return (
         <div className="attendance-management-header">
             <div className="attendance-management-header-title-container">
@@ -118,19 +131,27 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, 
                         <ul>
                             <li onClick={() => setModalType("create")}>근태 기록 수동 생성</li>
                             <li onClick={() => setModalType("delete")}>근태 기록 수동 삭제</li>
+                            {/*클릭 시에 데이터를 조회하는 게 맞음.*/}
+                            <li onClick={handleUpcomingAttendance}>예정된 근태 기록 조회</li>
                         </ul>
                     </div>
                 )}
                 {modalType === "create" && (
                     <CreateAttendanceModal
                         onClose={handleCloseModal}
-                        onSubmit={handleAttendanceCreated} // 생성 완료 시 호출
+                        onSubmit={handleAttendanceCreated}
                     />
                 )}
                 {modalType === "delete" && (
                     <DeleteAttendanceModal
                         onClose={handleCloseModal}
                         onDeleteSuccess={handleDeleteSuccess}
+                    />
+                )}
+                {modalType === "upcoming-record" && (
+                    <UpcomingAttendanceRecordModal
+                        onClose={handleCloseModal}
+                        upcomingAttendances={upcomingAttendance}
                     />
                 )}
                 <button className="month-nav-button" onClick={handlePreviousMonth}>

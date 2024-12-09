@@ -83,3 +83,11 @@ export const updateAttendanceStatusForAdmin = async ( memberId, attendanceId, at
     return response.data;
 }
 
+// 관리자가 특정 기간의 다가오는 근태 기록을 조회
+export const fetchUpcomingAttendance = async () => {
+    const response = await axiosInstance.get(`/admin/attendances`, {
+        department : null
+    });
+    console.log(response.data);
+    return response.data;
+}

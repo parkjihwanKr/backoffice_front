@@ -3,6 +3,10 @@ let cachedToday = null;
 const DateUtils = {
     // 오늘 날짜 반환
     getToday: function () {
+        if(!cachedToday || cachedToday.getDate() != new Date().getDate()){
+            cachedToday = new Date();
+            cachedToday.setHours(0, 0, 0, 0); // 자정 시간으로 설정
+        }
         if (!cachedToday || this.isDateStale(cachedToday)) {
             cachedToday = new Date();
             cachedToday.setHours(0, 0, 0, 0); // 자정 시간으로 설정

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import '../../../../../components/ui/modal/Modal.css';
-import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import AddButton from "../../../../../components/ui/buttons/AddButton";
-import DeleteButton from "../../../../../components/ui/buttons/DeleteButton";
-import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
-import { deleteAttendanceManually } from "../../services/AttendanceManagementService";
+import '../../../../../../components/ui/modal/Modal.css';
+import CloseImageButton from "../../../../../../components/ui/image/CloseImageButton";
+import AddButton from "../../../../../../components/ui/buttons/AddButton";
+import DeleteButton from "../../../../../../components/ui/buttons/DeleteButton";
+import SubmitButton from "../../../../../../components/ui/buttons/SubmitButton";
+import { deleteAttendanceManually } from "../../../services/AttendanceManagementService";
 
 const DeleteAttendanceModal = ({ onClose, onDeleteSuccess }) => {
     const [attendanceIdList, setAttendanceIdList] = useState([]);

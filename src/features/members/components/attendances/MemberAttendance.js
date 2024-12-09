@@ -22,19 +22,26 @@ const MemberAttendance = () => {
     };
 
     // 특정 attendanceId의 데이터를 업데이트하는 함수
-    const updateAttendanceInState = (updatedAttendance) => {
+    const updateAttendanceInState = (attendanceId, updatedFields) => {
         setAttendanceList((prevList) =>
-            prevList.map((att) =>
-                att.attendanceId === updatedAttendance.attendanceId
-                    ? { ...att, ...updatedAttendance }
-                    : att
+            prevList.map((attendance) =>
+                attendance.attendanceId === attendanceId
+                    ? { ...attendance, ...updatedFields } // 해당 요소 업데이트
+                    : attendance // 다른 요소는 그대로
             )
         );
     };
 
     // 오늘 날짜의 attendanceId 찾기
     const findTodayAttendanceId = () => {
-        const todayString = today.toISOString().split("T")[0]; // "yyyy-MM-dd" 형식
+        const todayString = new Date().toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        }).replace(/\s/g, "")
+            .replace(/\./g, "-")
+            .replace(/-(?=[^-]*$)/, "");
+
         const todayAttendance = attendanceList.find(
             (attendance) =>
                 attendance.memberId === id &&
@@ -77,6 +84,7 @@ const MemberAttendance = () => {
                 attendances={attendanceList}
                 currentYear={filters.year}
                 currentMonth={filters.month}
+                updateAttendanceInState={updateAttendanceInState}
             />
             <MemberAttendanceFooter
                 attendanceId={todayAttendanceId}

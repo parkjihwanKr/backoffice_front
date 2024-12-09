@@ -10,6 +10,7 @@ const UpdateCheckOutTimeModal = ({ attendanceId, onClose, updateAttendanceInStat
     const handleSubmit = async () => {
         const currentCheckOutTime = DateUtils.formatDateTimeToISOString(new Date());
         try {
+            console.log("전달받은 attendanceId : "+attendanceId);
             const response = await updateCheckOutTime(attendanceId, currentCheckOutTime, description);
             updateAttendanceInState(response); // 상태 업데이트
             alert("퇴근 시간이 업데이트되었습니다.");
