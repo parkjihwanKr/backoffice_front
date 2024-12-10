@@ -21,6 +21,7 @@ export const fetchMemberAttendanceListForMember
     return response.data;
 }
 
+// 멤버 근태 기록 하나 조회
 export const fetchMemberAttendance = async (attendanceId) => {
     const response
         = await axiosInstance.get(`/attendances/${attendanceId}`);
@@ -29,6 +30,7 @@ export const fetchMemberAttendance = async (attendanceId) => {
     return response.data;
 }
 
+// 멤버 근태 기록 출근 요청
 export const updateCheckInTime = async (attendanceId, checkInTime) => {
     console.log("checkInTime : "+checkInTime);
     const response
@@ -39,6 +41,7 @@ export const updateCheckInTime = async (attendanceId, checkInTime) => {
     return response.data;
 }
 
+// 멤버 근태 기록 퇴근 요청
 export const updateCheckOutTime = async (attendanceId, checkOutTime, description) => {
     const response
         = await axiosInstance.patch(`/attendances/${attendanceId}/check-out`, {
@@ -48,3 +51,34 @@ export const updateCheckOutTime = async (attendanceId, checkOutTime, description
     console.log(response.data);
     return response.data;
 }
+
+// 멤버 프로필 수정
+export const updateMemberDetails = async (memberId, updatedMember) => {
+    const response
+        = await axiosInstance.patch(`/members/${memberId}/profile`, {
+            updatedMember : updatedMember
+    });
+    console.log(response.data);
+    return response.data;
+}
+
+// 멤버 프로필 이미지 수정
+export const updateMemberProfileImage = async (memberId, imageFile) => {
+    const formData = new FormData();
+    formData.append("file", imageFile); // `file` 키와 이미지 파일 추가
+
+    try {
+        const response
+            = await axiosInstance.patch(`/members/${memberId}/profileImage`,
+            formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data", // 반드시 multipart/form-data로 설정
+            },
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error( error);
+        throw error; // 오류 처리
+    }
+};

@@ -10,8 +10,10 @@ import useMemberDetails from "../../hooks/useMemberDetails"; // custom hook 사�
 import "./MemberDetails.css";
 import { useError, useLoading } from "../../../utils/LoadingUtils";
 import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
+import {useAuth} from "../../../auth/context/AuthContext";
 
 const MemberDetails = () => {
+    const { id, department, position } = useAuth();
     const { memberId } = useParams();
     const { member, loading, error, setMember } = useMemberDetails(memberId);
 
@@ -23,8 +25,7 @@ const MemberDetails = () => {
     });
 
     const hasAccess = () => {
-        return (member.department === "HR" && member.position === "MANAGER")
-            || member.position === "CEO";
+        return (department === "HR" && position === "MANAGER") || position === "CEO";
     };
 
     // 모달 상태를 통합적으로 관리
@@ -58,12 +59,15 @@ const MemberDetails = () => {
         <div className="member-details-page">
             <div className="member-details-sidebar">
                 <MemberProfile
+                    loginMemberId={id}
+                    memberId={member.memberId}
                     profileImageUrl={member.profileImageUrl}
                     name={member.memberName}
                     department={member.department}
                     position={member.position}
                 />
                 <MemberControls
+                    loginMemberId={id}
                     memberId={memberId}
                     onOpenAttributeModal={() => openModal("attribute")}
                     onOpenVacationDaysModal={() => openModal("vacationDays")}

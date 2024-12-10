@@ -1,4 +1,5 @@
 import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
+import {reverseDepartmentMapping, reversePositionMapping} from "../../../../utils/Constant";
 
 const MemberDetailsTable = ({ member }) => {
     return (
@@ -8,11 +9,11 @@ const MemberDetailsTable = ({ member }) => {
                 <td><strong>이름:</strong></td>
                 <td>{member.memberName}</td>
                 <td><strong>부서:</strong></td>
-                <td>{member.department}</td>
+                <td>{reverseDepartmentMapping[member.department]}</td>
             </tr>
             <tr>
                 <td><strong>직책:</strong></td>
-                <td>{member.position}</td>
+                <td>{reversePositionMapping[member.position]}</td>
                 <td><strong>이메일:</strong></td>
                 <td>{member.email}</td>
             </tr>

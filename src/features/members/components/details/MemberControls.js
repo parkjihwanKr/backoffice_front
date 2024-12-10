@@ -4,7 +4,7 @@ import PersonalVacationListModal from "../../../events/personal/components/Perso
 import React, { useState } from "react";
 import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
 
-const MemberControls = ({ memberId, onOpenAttributeModal, onOpenVacationDaysModal, hasAccess }) => {
+const MemberControls = ({ loginMemberId, memberId, onOpenAttributeModal, onOpenVacationDaysModal, hasAccess }) => {
     const navigate = useNavigate();
     const [isMemberVacationListModalOpen, setMemberVacationListModalOpen] = useState(false);
 
@@ -12,6 +12,11 @@ const MemberControls = ({ memberId, onOpenAttributeModal, onOpenVacationDaysModa
     useModalScroll(isMemberVacationListModalOpen);
 
     const handleEditPage = () => {
+        console.log("loginMemberId : "+loginMemberId+ " / updatedMemberId : "+memberId);
+        if(Number(loginMemberId) !== Number(memberId)){
+            alert("해당 멤버는 수정할 권한이 없습니다.");
+            return;
+        }
         navigate(`/members/${memberId}/update`);
     };
 
