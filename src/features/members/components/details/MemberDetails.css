@@ -135,7 +135,20 @@
     margin-bottom: 5px;
 }
 
-.member-details-introduction-update-button {
+.update-member-details-table-button{
     display: flex;
     justify-content: flex-end; /* 푸터 버튼을 오른쪽 정렬 */
+}
+
+.member-details-introduction textarea {
+    min-width: 100%;
+    border : 2px solid lightgrey;
+    border-radius: 5px;
+    height: 175px; /* 고정 높이 */
+    display: flex; /* Flexbox를 사용하여 내용 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    padding: 10px;
+    margin-bottom: 5px;
 }

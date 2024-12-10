@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 import "./MemberDetails.css";
 import "./UpdateMemberDetailsTable.css";
+import {useNavigate} from "react-router-dom";
+import ConfirmButton from "../../../../components/ui/buttons/ConfirmButton";
 
-const UpdateMemberDetailsTable = ({ member, onSave }) => {
+const UpdateMemberDetailsTable = ({ member, onEditMemberDetails }) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: member.name || "",
         memberName: member.memberName || "",
@@ -22,13 +25,22 @@ const UpdateMemberDetailsTable = ({ member, onSave }) => {
         }));
     };
 
-    const handleSubmit = () => {
-        // 서버 전송 또는 부모 컴포넌트로 전달
+    const handleSubmit = async () => {
         if (formData.password !== formData.passwordConfirm) {
-            alert("Passwords do not match!");
+            alert("비밀번호와 비밀번호 확인이 다르게 입력되었습니다.");
             return;
         }
-        onSave(formData); // 부모 컴포넌트나 서버로 데이터를 전송
+
+        try {
+            const updatedMember = await onEditMemberDetails(formData);
+            if (updatedMember) {
+                alert("멤버 정보가 성공적으로 업데이트되었습니다.");
+            }
+            navigate(`/members/${member.memberId}`);
+        } catch (error) {
+            console.error("Error updating member details:", error);
+            alert("멤버 정보 업데이트 중 오류가 발생했습니다.");
+        }
     };
 
     return (
@@ -108,21 +120,22 @@ const UpdateMemberDetailsTable = ({ member, onSave }) => {
                         />
                     </td>
                 </tr>
-                <tr>
-                    <td><strong>자기소개:</strong></td>
-                    <td>
-                            <textarea
-                                value={formData.introduction}
-                                onChange={(e) => handleChange("introduction", e.target.value)}
-                                placeholder="자기소개 입력"
-                                rows="4"
-                            />
+                <tr className= "member-details-table-row">
+                    <td colSpan="4" className="member-details-introduction">
+                        <div className="member-details-introduction-title">자기 소개</div>
+                        <textarea
+                            value={formData.introduction}
+                            onChange={(e) => handleChange("introduction", e.target.value)}
+                            placeholder="자기소개 입력"
+                            rows="4"
+                            className="member-details-introduction-content"
+                        />
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div className="update-actions">
-                <SubmitButton text={"변경"} onClick={handleSubmit} />
+            <div className="update-member-details-table-button">
+                <ConfirmButton text={"변경"} onClick={handleSubmit}/>
             </div>
         </div>
     );

@@ -53,14 +53,12 @@ export const updateCheckOutTime = async (attendanceId, checkOutTime, description
 }
 
 // 멤버 프로필 수정
-export const updateMemberDetails = async (memberId, updatedMember) => {
+export const updateMemberDetails = async (memberId, updatedMemberInfo) => {
     const response
-        = await axiosInstance.patch(`/members/${memberId}/profile`, {
-            updatedMember : updatedMember
-    });
+        = await axiosInstance.patch(`/members/${memberId}/profile`, updatedMemberInfo);
     console.log(response.data);
     return response.data;
-}
+};
 
 // 멤버 프로필 이미지 수정
 export const updateMemberProfileImage = async (memberId, imageFile) => {

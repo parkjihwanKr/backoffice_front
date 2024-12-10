@@ -41,9 +41,6 @@ const MemberDetailsTable = ({ member }) => {
                     <div className="member-details-introduction-content">
                         {member.introduction ? member.introduction : "자기소개가 없습니다."}
                     </div>
-                    <div className="member-details-introduction-update-button">
-                        <SubmitButton text={"자기 소개 수정"} />
-                    </div>
                 </td>
             </tr>
             </tbody>
