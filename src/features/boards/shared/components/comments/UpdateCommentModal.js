@@ -13,7 +13,7 @@ const UpdateCommentModal = ({
     const [newContent, setNewContent] = useState(commentContent);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         handleEditSubmit(newContent); // 부모 컴포넌트에서 전달받은 수정 함수 실행
         handleClose(); // 모달 닫기
     };

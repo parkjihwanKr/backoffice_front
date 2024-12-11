@@ -50,7 +50,7 @@ const useUpdateAttribute = (member, onSave, onClose) => {
             await updateAttribute(formData, member.memberId);
             onSave({ ...member, ...updatedData });
         } catch (error) {
-            console.error('Error updating member:', error);
+            alert(error.response.data.data + " : "+error.response.data.message);
         }
     };
 

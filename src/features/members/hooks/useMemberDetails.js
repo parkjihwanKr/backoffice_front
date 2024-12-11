@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchMemberDetails } from "../../members/services/MemberManagementService"; // 서비스 경로에 맞게 조정
+import { fetchMemberDetails } from "../services/MembersService"; // 서비스 경로에 맞게 조정
 
 const useMemberDetails = (memberId) => {
     const [member, setMember] = useState(null);

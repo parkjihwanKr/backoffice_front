@@ -3,34 +3,53 @@
     flex-direction: row; /* 프로필 이미지와 정보를 가로로 배치 */
     align-items: flex-start; /* 상단에 맞추어 정렬 */
     padding: 30px;
+    overflow-y : auto;
 }
 
-.member-details-profile {
-    margin-right: 20px; /* 프로필 이미지 오른쪽에 여백 추가 */
-    border: 2px solid lightgrey; /* 프로필 섹션에 테두리 추가 */
-    border-radius: 5px;
-    padding: 10px; /* 테두리 안쪽 여백 추가 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    width: 200px; /* 프로필 섹션의 너비 설정 */
+.member-details-sidebar {
+    width: 250px; /* 사이드바의 고정 너비 */
     display: flex;
-    flex-direction: column; /* 프로필 섹션 내에서 콘텐츠를 세로로 배치 */
-    align-items: center; /* 가로 가운데 정렬 */
+    flex-direction: column; /* 프로필과 컨트롤을 세로로 배치 */
+    gap: 15px;
+    align-items: center; /* 내용물 가운데 정렬 */
+    border: 2px solid lightgrey; /* 테두리 */
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9; /* 배경색 */
 }
 
 .member-details-profile img {
-    width: 150px;
-    height: 150px;
+    width: 10px;
+    height: 1px;
     margin-bottom: 10px; /* 이미지 아래에 여백 추가 */
 }
 
 .member-details-profile-info {
-    border-bottom: 2px solid lightgrey; /* 1px 두께의 밑 테두리 */
-    margin-bottom: 20px; /* 아래쪽 여백 추가 */
-    width: 100%; /* 프로필 정보가 프로필 섹션의 너비를 가득 차게 함 */
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid lightgrey;
+    width: 100%;
 }
 
-.member-details-profile p {
-    margin: 5px 0; /* 텍스트 항목 간 간격 */
+.member-details-profile-info img {
+    width: 150px; /* 이미지 너비를 100px로 줄임 */
+    height: 150px; /* 이미지 높이를 100px로 줄임 */
+    object-fit: cover;
+    margin-bottom: 10px; /* 이미지 아래에 여백 추가 */
+    border-radius: 100px;
+    cursor : pointer;
+}
+
+.profile-image.default-image {
+    border-radius: 0;
+}
+
+.member-details-profile-info p {
+    margin-top: 5px;
+    margin-bottom: 10px;
     text-align: center; /* 텍스트 가운데 정렬 */
     font-weight: bold; /* 텍스트 굵게 */
 }
@@ -62,6 +81,7 @@
 }
 
 .member-details-info {
+    margin-left: 15px;
     border: 2px solid lightgrey; /* 테두리 추가 */
     background-color: #f9f9f9; /* 배경색 추가 */
     border-radius: 8px; /* 모서리를 둥글게 */
@@ -70,17 +90,30 @@
 }
 
 .member-details-table {
-    width: 100%; /* 테이블 너비를 100%로 설정 */
-    border-collapse: collapse; /* 테이블 테두리 겹침 */
+    width: 100%; /* 화면에 맞춰 테이블 너비 설정 */
+    border-collapse: collapse; /* 테두리 겹침 */
+    box-sizing: border-box; /* 패딩 포함 */
+}
+
+.member-details-table input{
+    max-width: 150px;
 }
 
 .member-details-table td {
-    padding: 10px; /* 셀 내부 여백 */
+    padding: 13px; /* 셀 내부 여백 */
 }
 
 .member-details-table td:first-child, /* 첫 번째 열 가운데 정렬 */
 .member-details-table td:nth-child(3) { /* 세 번째 열 가운데 정렬 */
     text-align: center;
+}
+
+.member-details-table tr:nth-child(5) td {
+    padding-bottom: 20px; /* 5번째 행 아래 여백 추가 */
+}
+
+.member-details-table tr:nth-child(6) td {
+    padding-top: 20px; /* 6번째 행 위 여백 추가 */
 }
 
 .member-details-introduction {
@@ -104,4 +137,23 @@
     align-items: center; /* 세로 중앙 정렬 */
     text-align: center; /* 텍스트 가운데 정렬 */
     padding: 10px;
+    margin-bottom: 5px;
+}
+
+.update-member-details-table-button{
+    display: flex;
+    justify-content: flex-end; /* 푸터 버튼을 오른쪽 정렬 */
+}
+
+.member-details-introduction textarea {
+    min-width: 100%;
+    border : 2px solid lightgrey;
+    border-radius: 5px;
+    height: 175px; /* 고정 높이 */
+    display: flex; /* Flexbox를 사용하여 내용 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    padding: 10px;
+    margin-bottom: 5px;
 }

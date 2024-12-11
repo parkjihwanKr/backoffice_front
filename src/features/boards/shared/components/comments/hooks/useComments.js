@@ -40,7 +40,7 @@ export const useComments = (boardId, comments, setComments) => {
 
     // 댓글 생성 로직
     const handleCommentSubmit = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const newComment = await createBoardComment(boardId, { content: comment });
         setComments((prev) => [...prev, newComment]);
         setComment('');

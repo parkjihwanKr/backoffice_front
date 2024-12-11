@@ -1,4 +1,3 @@
-import './MemberManagement.css';
 import MemberManagementBody from "./body/MemberManagementBody";
 import MemberManagementFooter from "./footer/MemberManagementFooter";
 import MemberManagementHeader from "./header/MemberManagementHeader";

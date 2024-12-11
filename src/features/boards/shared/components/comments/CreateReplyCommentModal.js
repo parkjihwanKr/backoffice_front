@@ -18,7 +18,7 @@ const CreateReplyCommentModal = ({
     const [replyContent, setReplyContent] = useState('');
     const { name, department, position } = useAuth();
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         handleReplySubmit(replyContent); // 부모 컴포넌트에서 전달받은 답글 제출 함수 실행
         handleClose(); // 모달 닫기
     };

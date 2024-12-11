@@ -1,4 +1,3 @@
-// DropDownMenu.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../features/auth/context/AuthContext';
@@ -11,7 +10,7 @@ import NotificationListModal from '../../features/notifications/components/modal
 import { logout } from "../../features/auth/services/AuthService";
 
 const DropDownMenu = () => {
-    const { isAuthenticated, name, department, position } = useAuth();
+    const { id, isAuthenticated, name, department, position } = useAuth();
     const { isNotified, setIsNotified } = useNotification();
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
@@ -45,6 +44,10 @@ const DropDownMenu = () => {
         setIsNotified(false); // 알림 아이콘 상태 초기화
     };
 
+    const handleLinkClick = () => {
+        setIsDropdownOpen(false); // 메뉴 닫기
+    };
+
     return (
         <>
             <div className="custom-navbar-right">
@@ -67,17 +70,37 @@ const DropDownMenu = () => {
                         <ul className="custom-dropdown-menu">
                             {!isAuthenticated ? (
                                 <>
-                                    <li><Link to="/auth/signup">회원 가입</Link></li>
-                                    <li><Link to="/auth/login">로그인</Link></li>
+                                    <li>
+                                        <Link to="/auth/signup" onClick={handleLinkClick}>
+                                            회원 가입
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/auth/login" onClick={handleLinkClick}>
+                                            로그인
+                                        </Link>
+                                    </li>
                                 </>
                             ) : (
                                 <>
                                     <li onClick={handleShowLogoutModal}>로그 아웃</li>
-                                    <li><Link to="/boards">게시판</Link></li>
-                                    <li><Link to="/events">일정</Link></li>
+                                    <li>
+                                        <Link to="/boards" onClick={handleLinkClick}>
+                                            게시판
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/events" onClick={handleLinkClick}>
+                                            일정
+                                        </Link>
+                                    </li>
 
                                     {(position === 'MANAGER' || position === 'CEO') && (
-                                        <li><Link to="/admins">관리자 페이지</Link></li>
+                                        <li>
+                                            <Link to="/admins" onClick={handleLinkClick}>
+                                                관리자 페이지
+                                            </Link>
+                                        </li>
                                     )}
                                 </>
                             )}
@@ -92,6 +115,7 @@ const DropDownMenu = () => {
                 name={name}
                 department={department}
                 position={position}
+                memberId={id}
             />
 
             <LogoutModal

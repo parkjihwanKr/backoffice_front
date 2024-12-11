@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Boards.css';
-import SelectDepartmentModal from './SelectDepartmentModal';
+import SelectDepartmentModal from '../../../shared/SelectDepartmentModal';
 import useModal from '../hooks/useModal';
 import { getMappedDepartment } from '../services/BoardsService';
 import { imagePrefix } from "../../../../utils/Constant";

@@ -1,0 +1,41 @@
+.attendance-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* 카드 간격 */
+    justify-content: center;
+    padding: 8px;
+}
+
+.attendance-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 5px;
+    width: 350px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.attendance-card-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    color: #333333;
+    width: 100%;
+}
+
+.attendance-card-description {
+    width: auto;
+    border-radius: 6px;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 20px; /* 버튼 간의 간격 */
+}
+
+.attendance-card-attendance-date {
+    text-align: right;
+    font-size : 14px;
+}

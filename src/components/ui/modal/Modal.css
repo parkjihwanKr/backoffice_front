@@ -19,6 +19,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
     width: 400px;
     max-width: 90%;
+    min-height : 150px;
     animation: fadeIn 0.3s ease-out;
 }
 
@@ -37,11 +38,21 @@
     margin: 10px 0;
 }
 
+.custom-modal-body img{
+    width : 24px;
+    height : 24px;
+}
+
+.custom-modal-body p {
+    text-align: center;
+    margin: 10px;
+}
+
 .custom-modal-body-index {
     margin-bottom: 10px;
 }
 
-.custom-modal-body-index textarea {
+.custom-modal-body-index textarea, .description-textarea {
     width: 100%;
     min-height: 150px;
     justify-content: center; /* 가로 중앙 정렬 */
@@ -192,10 +203,78 @@
     justify-content: flex-end;
 }
 
+.caution-description {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .custom-modal-body-caution-container {
     display: flex;
     justify-content: center; /* 수직 중앙 정렬 */
     align-items: center; /* 수평 중앙 정렬 */
+}
+
+.custom-modal-form-group{
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    gap: 10px; /* label과 select 사이 간격 추가 */
+}
+
+.custom-modal-form-group label{
+    text-align: center;
+    font-weight: bold; /* 레이블 강조 */
+}
+
+.custom-modal-form-group select{
+    padding: 8px;
+    border: 1px solid lightgrey; /* 테두리 스타일 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    font-size: 14px; /* 텍스트 크기 */
+}
+
+.list-row {
+    display: flex;
+    flex-direction: row; /* 가로 방향 배치 */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.list-row-left, .list-row-right{
+    min-width : 180px;
+}
+
+.list-column {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    text-align: center; /* 텍스트 정렬 */
+    align-items: center; /* 자식 요소를 수평 중앙 정렬 */
+}
+
+.list-attendance-description-title {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.list-attendance-description-content {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 10;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    visibility: visible; /* 항상 보이도록 설정 */
+    opacity: 1; /* 항상 보이도록 설정 */
+    transition: none; /* 애니메이션 제거 */
+    white-space: nowrap;
+    min-height: 200px;
+    display: flex; /* 내용물을 중앙에 배치 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    min-width: 360px;
 }
 
 @keyframes fadeIn {

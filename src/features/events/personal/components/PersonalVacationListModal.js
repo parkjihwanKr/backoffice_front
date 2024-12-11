@@ -1,28 +1,28 @@
-import { useAuth } from "../../../auth/context/AuthContext";
-import './PersonalVacationListModal.css';
-import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../../../auth/context/AuthContext";
+import "./PersonalVacationListModal.css";
+import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import { getMemberVacationList } from "../services/PersonalScheduleService";
 import { imagePrefix } from "../../../../utils/Constant";
 import UpdateVacationModal from "./UpdateVacationModal";
 import DeleteVacationModal from "./DeleteVacationModal";
-import { adjustModalAlignment, addModalAlignmentListener } from "../../../../utils/ModalUtils"; // 모듈 가져오기
+import { adjustModalAlignment, addModalAlignmentListener } from "../../../../utils/ModalUtils";
 
 const PersonalVacationListModal = ({ handleClose }) => {
     const { name, id } = useAuth();
-    const [vacationList, setVacationList] = useState([]); // 휴가 목록
-    const [remainingVacationDays, setRemainingVacationDays] = useState(0); // 남은 휴가 일수
-    const [selectedVacation, setSelectedVacation] = useState(null); // 선택된 휴가
-    const [hoveredVacationId, setHoveredVacationId] = useState(null); // Hover된 휴가 ID
+    const [vacationList, setVacationList] = useState([]);
+    const [remainingVacationDays, setRemainingVacationDays] = useState(0);
+    const [selectedVacation, setSelectedVacation] = useState(null);
+    const [hoveredVacationId, setHoveredVacationId] = useState(null);
     const [isUpdateVacationModalOpen, setUpdateVacationModalOpen] = useState(false);
     const [isDeleteVacationModalOpen, setDeleteVacationModalOpen] = useState(false);
+    const [isTooltipVisible, setTooltipVisible] = useState(false); // 툴팁 가시성 상태
 
-    // 휴가 리스트를 가져오는 함수
     const fetchVacationList = async () => {
         try {
             const response = await getMemberVacationList(id);
-            setVacationList(response.vacationList || []); // 받아온 휴가 목록을 상태에 저장
-            setRemainingVacationDays(response.remainingVacationDays); // 남은 휴가 일수 설정
+            setVacationList(response.vacationList || []);
+            setRemainingVacationDays(response.remainingVacationDays);
         } catch (error) {
             console.error("Error fetching vacation list:", error);
         }
@@ -33,13 +33,8 @@ const PersonalVacationListModal = ({ handleClose }) => {
     }, [id]);
 
     const handleUpdateVacationModalOpen = (selectedVacation) => {
-        console.log("선택된 휴가 : " + selectedVacation);
         setSelectedVacation(selectedVacation);
         setUpdateVacationModalOpen(true);
-    };
-
-    const handleUpdateVacationModalClose = () => {
-        setUpdateVacationModalOpen(false);
     };
 
     const handleDeleteVacationModalOpen = (selectedVacation) => {
@@ -47,23 +42,19 @@ const PersonalVacationListModal = ({ handleClose }) => {
         setDeleteVacationModalOpen(true);
     };
 
-    const handleDeleteVacationModalClose = () => {
-        setDeleteVacationModalOpen(false);
+    const toggleTooltip = () => {
+        setTooltipVisible(!isTooltipVisible); // 툴팁 가시성 토글
     };
 
-    // 모달의 내용이 화면을 넘어가는지 체크하는 함수
     useEffect(() => {
         if (vacationList.length > 0) {
-            const modalOverlay = document.querySelector('.vacationList-modal-overlay');
-            const modalContent = document.querySelector('.vacationList-vacation-modal-content');
+            const modalOverlay = document.querySelector(".vacationList-modal-overlay");
+            const modalContent = document.querySelector(".vacationList-vacation-modal-content");
 
-            // 페이지 로드 시 정렬 조정
             adjustModalAlignment(modalOverlay, modalContent);
 
-            // 리사이즈 이벤트 리스너 추가
             const cleanup = addModalAlignmentListener(modalOverlay, modalContent);
 
-            // 컴포넌트 언마운트 시 리스너 제거
             return cleanup;
         }
     }, [vacationList]);
@@ -76,9 +67,6 @@ const PersonalVacationListModal = ({ handleClose }) => {
                     <CloseImageButton handleClose={handleClose} className="modal-close-icon" />
                 </div>
                 <div className="vacationList-vacation-modal-body">
-                    <div className="vacationList-vacation-modal-body-speech-ballon">
-                        <p>남은 휴가 일수: {remainingVacationDays}일</p>
-                    </div>
                     {vacationList.length === 0 ? (
                         <p>등록된 휴가가 없습니다.</p>
                     ) : (
@@ -91,22 +79,18 @@ const PersonalVacationListModal = ({ handleClose }) => {
                                     onMouseLeave={() => setHoveredVacationId(null)}
                                 >
                                     <div className="vacationList-info">
-                                        <span className="vacationList-title">
-                                            {vacation.title}
-                                        </span>
+                                        <span className="vacationList-title">{vacation.title}</span>
                                         <span className="vacationList-urgent-reason">
-                                            긴급한 사유 : {vacation.urgentReason ? vacation.urgentReason : '긴급한 사유 없음'}
+                                            긴급한 사유 : {vacation.urgentReason || "긴급한 사유 없음"}
                                         </span>
                                         <span className="vacationList-date">
                                             휴가 기간 : {vacation.startDate} ~ {vacation.endDate}
                                         </span>
                                         <hr className="border" />
                                         <div className="vacationList-info-isAccepted">
-                                            승인 여부 : {vacation.isAccepted ? '승인됨' : '미승인'}
+                                            승인 여부 : {vacation.isAccepted ? "승인됨" : "미승인"}
                                         </div>
                                     </div>
-
-                                    {/* 오른쪽 끝에 수정/삭제 아이콘 표시 */}
                                     {hoveredVacationId === vacation.vacationId && (
                                         <div className="vacation-action-menu">
                                             <img
@@ -129,20 +113,30 @@ const PersonalVacationListModal = ({ handleClose }) => {
                     )}
                 </div>
                 <div className="vacationList-vacation-modal-footer">
-                    ** 주의사항 1 : 지난 휴가는 해당 리스트에서 조회할 수 없습니다.
-                    ** 주의사항 2 : 승인되지 않은 휴가는 잔여 휴가에서 차감되지 않으며, 승인 시에 잔여 휴가 수가 변경됩니다.
-                    ** 예외적 상황 : 신청 기간 10월이라면 휴가 신청 시작의 시작날이 11월이면 휴가 생성 가능
+                    {/*<div className={`tooltip-container ${isTooltipVisible ? 'active' : ''}`}>
+                        <img
+                            src={`${imagePrefix}/shared/caution_document.png`}
+                            alt="주의사항 이미지"
+                            className="tooltip-target"
+                            onClick={toggleTooltip} // 클릭 시 툴팁 토글
+                        />
+                        <div className="tooltip-content">
+                            <p><strong>주의사항 1:</strong> 지난 휴가는 해당 리스트에서 조회할 수 없습니다.</p>
+                            <p><strong>주의사항 2:</strong> 승인되지 않은 휴가는 잔여 휴가에서 차감되지 않으며, 승인 시에 잔여 휴가 수가 변경됩니다.</p>
+                            <p><strong>예외적 상황:</strong> 신청 기간 10월이라면 휴가 신청 시작의 시작날이 11월이면 휴가 생성 가능.</p>
+                        </div>
+                    </div>*/}
+                    남은 휴가 일수: {remainingVacationDays}일
                 </div>
-                {/* 모달 */}
                 {isUpdateVacationModalOpen && (
                     <UpdateVacationModal
-                        handleClose={handleUpdateVacationModalClose}
+                        handleClose={() => setUpdateVacationModalOpen(false)}
                         selectedVacation={selectedVacation}
                     />
                 )}
                 {isDeleteVacationModalOpen && (
                     <DeleteVacationModal
-                        handleClose={handleDeleteVacationModalClose}
+                        handleClose={() => setDeleteVacationModalOpen(false)}
                         selectedVacation={selectedVacation}
                     />
                 )}
