@@ -43,6 +43,10 @@
     cursor : pointer;
 }
 
+.profile-image.default-image {
+    border-radius: 0;
+}
+
 .member-details-profile-info p {
     margin-top: 5px;
     margin-bottom: 10px;

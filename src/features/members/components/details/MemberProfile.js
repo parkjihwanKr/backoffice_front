@@ -1,18 +1,20 @@
-import {imagePrefix, reverseDepartmentMapping, reversePositionMapping} from "../../../../utils/Constant";
+import { imagePrefix, reverseDepartmentMapping, reversePositionMapping } from "../../../../utils/Constant";
 import './MemberDetails.css';
 import { updateMemberProfileImage } from "../../services/MembersService";
-import {useRef, useState} from "react";
+import { useRef, useState } from "react";
 
-const MemberProfile = ({ loginMemberId, memberId, profileImageUrl, name, department, position}) => {
+const MemberProfile = ({ loginMemberId, memberId, profileImageUrl, name, department, position }) => {
     const [currentImage, setCurrentImage] = useState(profileImageUrl);
     const fileInputRef = useRef(null); // 파일 input을 참조하기 위한 useRef
+
+    const isDefaultImage = !currentImage || currentImage.includes("default_profile_image");
 
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
         if (!selectedFile) return;
 
         try {
-            if((Number)(loginMemberId) !== (Number)(memberId)){
+            if (Number(loginMemberId) !== Number(memberId)) {
                 alert("해당 멤버는 프로필 사진을 바꿀 권한이 없습니다.");
                 return;
             }
@@ -35,7 +37,7 @@ const MemberProfile = ({ loginMemberId, memberId, profileImageUrl, name, departm
             <img
                 src={currentImage || `${imagePrefix}/shared/default_profile_image.png`}
                 alt="프로필"
-                className="profile-image"
+                className={`profile-image ${isDefaultImage ? "default-image" : ""}`}
                 onClick={handleImageClick} // 이미지 클릭 시 파일 선택 창 열기
             />
             <input

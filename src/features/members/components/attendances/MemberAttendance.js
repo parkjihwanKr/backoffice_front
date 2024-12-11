@@ -1,13 +1,13 @@
 import MemberAttendanceHeader from "./MemberAttendanceHeader";
 import MemberAttendanceBody from "./MemberAttendanceBody";
 import MemberAttendanceFooter from "./MemberAttendanceFooter";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import DateUtils from "../../../../utils/DateUtils";
-import { fetchMemberAttendanceListForMember } from "../../services/MembersService";
-import { useAuth } from "../../../auth/context/AuthContext";
+import {fetchMemberAttendanceListForMember} from "../../services/MembersService";
+import {useParams} from "react-router-dom";
 
 const MemberAttendance = () => {
-    const { id } = useAuth(); // 로그인한 사용자의 memberId
+    const { memberId } = useParams();
     const today = DateUtils.getToday(); // 오늘 날짜
     const [filters, setFilters] = useState({
         year: today.getFullYear(),
@@ -44,7 +44,7 @@ const MemberAttendance = () => {
 
         const todayAttendance = attendanceList.find(
             (attendance) =>
-                attendance.memberId === id &&
+                attendance.memberId === memberId &&
                 attendance.createdAt.startsWith(todayString) // 오늘 날짜와 비교
         );
         return todayAttendance?.attendanceId || null; // 오늘의 attendanceId 또는 null
@@ -55,7 +55,7 @@ const MemberAttendance = () => {
             setLoading(true);
             try {
                 const response = await fetchMemberAttendanceListForMember(
-                    id,
+                    memberId,
                     filters.year,
                     filters.month
                 );
