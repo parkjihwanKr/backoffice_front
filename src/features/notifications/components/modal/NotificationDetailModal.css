@@ -48,14 +48,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
+    min-width : 370px;
 }
 
 .notification-detail-modal-body-left,
 .notification-detail-modal-body-right {
     display: flex;
     flex: 1;
-    margin-bottom: 5px;
+    min-height : 24px;
+}
+
+.notification-detail-modal-body-left,
+.notification-detail-modal-body-right strong {
+    font-size: 15px;
 }
 
 .notification-detail-modal-body-right img{
@@ -69,6 +74,11 @@
 }
 
 .notification-detail-message-header {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.notification-detail-message-body {
     text-align: center;
     margin-bottom: 5px;
 }

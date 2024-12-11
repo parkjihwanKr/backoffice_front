@@ -1,5 +1,6 @@
 // NotificationDetailModal.js
 import React from 'react';
+import '../../../../components/ui/modal/Modal.css';
 import './NotificationDetailModal.css';
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import { imagePrefix, NOTIFICATION_TYPE_LABELS } from "../../../../utils/Constant";
@@ -18,13 +19,13 @@ const NotificationDetailModal = ({ notification, onClose, deleteNotification, de
     };
 
     return (
-        <div className="notification-detail-modal-overlay" onClick={onClose}>
-            <div className="notification-detail-modal" onClick={(e) => e.stopPropagation()}>
-                <div className="notification-detail-modal-header">
+        <div className="custom-modal-overlay" onClick={onClose}>
+            <div className="custom-modal-content" onClick={(e) => e.stopPropagation()}>
+                <div className="custom-modal-header">
                     <h3>알림 상세 정보</h3>
                     <CloseImageButton handleClose={onClose} />
                 </div>
-                <div className="notification-detail-modal-body">
+                <div className="custom-modal-body">
                     <div className="notification-detail-view-box">
                         <p>
                             <strong>발신자 :</strong> {notification.fromMemberName} ({notification.fromMemberDepartment}, {notification.fromMemberPosition})
@@ -33,7 +34,8 @@ const NotificationDetailModal = ({ notification, onClose, deleteNotification, de
                         <p><strong>발송일 :</strong> {notification.createdAt}</p>
                         <div className="notification-detail-modal-row">
                             <div className="notification-detail-modal-body-left">
-                                <strong>유형 : </strong> {NOTIFICATION_TYPE_LABELS[notification.notificationType] || "알 수 없는 알림 유형"}
+                                <strong>유형 : </strong>
+                                {NOTIFICATION_TYPE_LABELS[notification.notificationType] || "알 수 없는 알림 유형"}
                             </div>
                             <div className="notification-detail-modal-body-right">
                                 <strong>읽음 : </strong>
@@ -50,7 +52,7 @@ const NotificationDetailModal = ({ notification, onClose, deleteNotification, de
                         </div>
                         <div className="notification-detail-message">
                             <div className="notification-detail-message-header">
-                                <strong>내용 : </strong>
+                                <strong>설명 : </strong>
                             </div>
                             <div className="notification-detail-message-body">
                                 {notification.message}

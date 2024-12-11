@@ -30,19 +30,6 @@ const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentM
                 label: `${i + 1}`,
             })),
         },
-        /*{
-            name: "attendanceStatus",
-            label: "근태 상태",
-            type: "select",
-            options: [
-                { value: "ON_TIME", label: "정시 출근" },
-                { value: "LATE", label: "지각" },
-                { value: "ABSENT", label: "결근" },
-                { value: "OUT_OF_OFFICE", label: "외근" },
-                { value: "HOLIDAY", label: "휴일" },
-                { value: "VACATION", label: "휴가" },
-            ],
-        },*/
     ];
 
     const handlePreviousMonth = () => {

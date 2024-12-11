@@ -39,6 +39,7 @@
     height: 150px; /* 이미지 높이를 100px로 줄임 */
     object-fit: cover;
     margin-bottom: 10px; /* 이미지 아래에 여백 추가 */
+    border-radius: 100px;
     cursor : pointer;
 }
 

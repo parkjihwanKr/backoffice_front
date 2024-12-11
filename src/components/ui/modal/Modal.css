@@ -38,6 +38,11 @@
     margin: 10px 0;
 }
 
+.custom-modal-body img{
+    width : 24px;
+    height : 24px;
+}
+
 .custom-modal-body p {
     text-align: center;
     margin: 10px;
