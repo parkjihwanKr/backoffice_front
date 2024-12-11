@@ -29,7 +29,7 @@
 }
 
 .custom-modal-header h3 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     margin: 0;
 }
@@ -50,6 +50,14 @@
 
 .custom-modal-body-index {
     margin-bottom: 10px;
+}
+
+.center-align-label {
+    font-weight: bold;
+    font-size : 15px;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .custom-modal-body-index textarea, .description-textarea {
@@ -275,6 +283,11 @@
     align-items: center; /* 수직 중앙 정렬 */
     text-align: center; /* 텍스트 중앙 정렬 */
     min-width: 360px;
+}
+
+.gap-top-bottom {
+    margin-top : 10px;
+    margin-bottom: 10px;
 }
 
 @keyframes fadeIn {

@@ -1,10 +1,10 @@
 import MemberAttendanceHeader from "./MemberAttendanceHeader";
 import MemberAttendanceBody from "./MemberAttendanceBody";
 import MemberAttendanceFooter from "./MemberAttendanceFooter";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import DateUtils from "../../../../utils/DateUtils";
-import {fetchMemberAttendanceListForMember} from "../../services/MembersService";
-import {useParams} from "react-router-dom";
+import { fetchMemberAttendanceListForMember } from "../../services/MembersService";
+import { useParams } from "react-router-dom";
 
 const MemberAttendance = () => {
     const { memberId } = useParams();
@@ -16,6 +16,7 @@ const MemberAttendance = () => {
 
     const [attendanceList, setAttendanceList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [todayAttendanceId, setTodayAttendanceId] = useState(null);
 
     const handleSetFilters = (newFilters) => {
         setFilters(newFilters);
@@ -33,22 +34,29 @@ const MemberAttendance = () => {
     };
 
     // 오늘 날짜의 attendanceId 찾기
-    const findTodayAttendanceId = () => {
-        const todayString = new Date().toLocaleDateString("ko-KR", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-        }).replace(/\s/g, "")
-            .replace(/\./g, "-")
-            .replace(/-(?=[^-]*$)/, "");
+    useEffect(() => {
+        if (attendanceList.length > 0) {
+            const todayString = new Date().toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+            })
+                .replace(/\s/g, "")
+                .replace(/\./g, "-")
+                .replace(/-(?=[^-]*$)/, "");
 
-        const todayAttendance = attendanceList.find(
-            (attendance) =>
-                attendance.memberId === memberId &&
-                attendance.createdAt.startsWith(todayString) // 오늘 날짜와 비교
-        );
-        return todayAttendance?.attendanceId || null; // 오늘의 attendanceId 또는 null
-    };
+            console.log(todayString);
+
+            const todayAttendance = attendanceList.find(
+                (attendance) =>
+                    attendance.memberId === Number(memberId) &&
+                    attendance.createdAt.startsWith(todayString) // 오늘 날짜와 비교
+            );
+
+            console.log(todayAttendance);
+            setTodayAttendanceId(todayAttendance?.attendanceId || null); // 오늘의 attendanceId 설정
+        }
+    }, [attendanceList, memberId]); // attendanceList와 memberId가 변경될 때 실행
 
     useEffect(() => {
         const fetchMemberAttendanceList = async () => {
@@ -59,18 +67,18 @@ const MemberAttendance = () => {
                     filters.year,
                     filters.month
                 );
+                console.log("Fetched attendance list:", response);
                 setAttendanceList(response);
             } catch (error) {
                 alert(`에러 발생: ${error.message || error}`);
+                return;
             } finally {
                 setLoading(false);
             }
         };
 
         fetchMemberAttendanceList();
-    }, [filters]);
-
-    const todayAttendanceId = findTodayAttendanceId(); // 오늘의 attendanceId 계산
+    }, [filters, memberId]);
 
     return (
         <div className="member-attendance-container">
@@ -88,8 +96,10 @@ const MemberAttendance = () => {
             />
             <MemberAttendanceFooter
                 attendanceId={todayAttendanceId}
-                updateAttendanceInState={updateAttendanceInState}/>
+                updateAttendanceInState={updateAttendanceInState}
+            />
         </div>
     );
 };
+
 export default MemberAttendance;

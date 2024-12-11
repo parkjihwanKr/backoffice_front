@@ -6,9 +6,10 @@ import VacationManagementHeader from './header/VacationManagementHeader';
 import VacationManagementBody from './body/VacationManagementBody';
 import VacationManagementFooter from './footer/VacationManagementFooter';
 import './VacationManagement.css';
+import DateUtils from "../../../../utils/DateUtils";
 
 const VacationManagement = () => {
-    const today = new Date();
+    const today = DateUtils.getToday();
     const [currentYear, setCurrentYear] = useState(today.getFullYear());
     const [currentMonth, setCurrentMonth] = useState(today.getMonth());
     const [filters, setFilters] = useState({

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './UpdateSalaryModal.css';
+import '../../../../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import { updateSalary } from "../../services/MemberManagementService";
+import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
 
 const UpdateSalaryModal = ({ member, onClose, onSave }) => {
     const [newSalary, setNewSalary] = useState(member.salary || 0); // 초기 급여 설정
@@ -21,20 +23,22 @@ const UpdateSalaryModal = ({ member, onClose, onSave }) => {
     };
 
     return (
-        <div className="update-salary-modal">
-            <div className="update-salary-modal-content">
-                <div>
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>{member.memberName}님의 급여 변경</h3>
                     <CloseImageButton handleClose={onClose} />
                 </div>
-                <input
-                    type="number"
-                    value={newSalary}
-                    onChange={(e) => setNewSalary(e.target.value)}
-                    min="0"
-                />
-                <div className="update-salary-modal-footer">
-                    <button onClick={handleChangeSalary}>변경</button>
+                <div className="custom-modal-body">
+                    <input
+                        type="number"
+                        value={newSalary}
+                        onChange={(e) => setNewSalary(e.target.value)}
+                        min="0"
+                    />
+                </div>
+                <div className="custom-modal-footer">
+                    <SubmitButton onSubmit={handleChangeSalary} text={"급여 변경"}/>
                 </div>
             </div>
         </div>

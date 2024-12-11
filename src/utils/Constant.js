@@ -44,6 +44,12 @@ export const attendanceMapping = {
     "휴일": "HOLIDAY",
 };
 
+export const vacationMapping = {
+    "긴급한 휴가": "URGENT_LEAVE",
+    "병가": "SICK_LEAVE",
+    "연가": "ANNUAL_LEAVE",
+};
+
 export const NOTIFICATION_TYPE_LABELS = {
     MEMBER: "회원",
     BOARD: "게시판",
@@ -123,6 +129,10 @@ export const reverseDepartmentMapping = Object.fromEntries(
 
 export const reversePositionMapping = Object.fromEntries(
     Object.entries(positionMapping).map(([key, value]) => [value, key])
+);
+
+export const reverseVacationMapping = Object.fromEntries(
+    Object.entries(vacationMapping).map(([key, value]) => [value, key])
 );
 
 export const reverseAttendanceMapping = Object.fromEntries(

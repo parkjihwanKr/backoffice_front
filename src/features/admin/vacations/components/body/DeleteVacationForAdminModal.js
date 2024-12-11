@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './DeleteVacationForAdminModal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const DeleteVacationForAdminModal = ({ isOpen, vacation, onDelete, onClose }) => {
     const [deleteReason, setDeleteReason] = useState(''); // 삭제 사유 상태
@@ -16,27 +17,31 @@ const DeleteVacationForAdminModal = ({ isOpen, vacation, onDelete, onClose }) =>
     };
 
     return (
-        <div className="delete-vacation-admin-modal-overlay">
-            <div className="delete-vacation-admin-modal">
-                <div className="delete-vacation-admin-modal-header">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>휴가 삭제</h3>
                     <CloseImageButton handleClose={onClose} />
                 </div>
-                <p>정말로 <strong>'{vacation.onVacationMemberName}'</strong>님의 휴가를 삭제하시겠습니까?</p>
-
-                {/* 삭제 사유 입력란 */}
-                <div className="delete-reason-input">
-                    <label htmlFor="delete-reason">삭제 사유:</label>
-                    <textarea
-                        id="delete-reason"
-                        value={deleteReason}
-                        onChange={(e) => setDeleteReason(e.target.value)}
-                        placeholder="삭제 사유를 입력해주세요."
-                    />
+                <div className="custom-modal-body">
+                    정말로 <strong>'{vacation.onVacationMemberName}'</strong>님의 휴가를 삭제하시겠습니까?
+                    <div className="gap-top-bottom"></div>
+                    <div className="custom-modal-body-index">
+                        <label
+                            htmlFor="delete-reason"
+                            className="center-align-label">
+                            삭제 사유:
+                        </label>
+                        <textarea
+                            id="delete-reason"
+                            value={deleteReason}
+                            onChange={(e) => setDeleteReason(e.target.value)}
+                            placeholder="삭제 사유를 입력해주세요."
+                        />
+                    </div>
                 </div>
-
                 <div className="delete-vacation-admin-modal-footer">
-                    <button onClick={handleDelete}>삭제</button>
+                    <ConfirmButton onClick={handleDelete} text={"삭제"} />
                 </div>
             </div>
         </div>

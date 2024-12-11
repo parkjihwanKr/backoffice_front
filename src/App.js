@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router, Link, Navigate, Route, Routes} from 'react-router-dom';
 import Signup from './features/auth/components/Signup';
 import Login from "./features/auth/components/Login";
-import Logout from "./features/auth/components/Logout";
 import PrivateRoute from "./routes/PrivateRoute";
 import Boards from './features/boards/shared/components/Boards';
 import Notifications from './features/notifications/components/Notifications';
@@ -53,8 +52,6 @@ function App() {
                             <Route path="/auth/login" element={<Login/>}/>
 
                             {/* JWT 보호가 필요한 페이지 */}
-                            <Route path="/auth/logout"
-                                   element={<PrivateRoute component={Logout}/>}/>
                             <Route path="/"
                                    element={<PrivateRoute component={HomePage}/>}/>
                             <Route path="/boards/*"
