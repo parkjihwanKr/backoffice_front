@@ -10,7 +10,7 @@ const LogoutModal = ({ show, handleClose, handleLogout }) => {
             <div className="custom-modal-content"
                  onClick={(e) => e.stopPropagation()}> {/* 모달 바깥을 클릭하면 닫히도록 */}
                 <div className="custom-modal-header">
-                    <h3>Logout</h3>
+                    <h3>로그 아웃</h3>
                     <CloseImageButton handleClose={handleClose}/>
                 </div>
                 <div className="custom-modal-body">

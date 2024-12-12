@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './CreateVacationModal.css';
+import '../../../../../components/ui/modal/Modal.css';
 import { createVacationSchedule } from '../../services/PersonalScheduleService';
-import SubmitImageButton from '../../../../../components/ui/image/SubmitImageButton'; // Import new SubmitButton component
+import SubmitImageButton from '../../../../../components/ui/image/SubmitImageButton';
 import VacationWarningModal from './VacationWarningModal';
 import { imagePrefix } from "../../../../../utils/Constant";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
@@ -62,11 +63,11 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
     };
 
     return (
-        <div className="create-vacation-modal-overlay">
-            <div className="create-vacation-modal-content">
-                <div className="create-vacation-modal-header">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>휴가 신청</h3>
-                    <CloseImageButton handleClose={handleClose} className="modal-close-icon" />
+                    <CloseImageButton handleClose={handleClose}/>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="create-vacation-modal-body">

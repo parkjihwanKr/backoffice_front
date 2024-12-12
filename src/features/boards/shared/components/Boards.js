@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Boards.css';
+import '../../../shared/DomainContainer.css';
 import SelectDepartmentModal from '../../../shared/SelectDepartmentModal';
 import useModal from '../hooks/useModal';
 import { getMappedDepartment } from '../services/BoardsService';
@@ -23,33 +23,35 @@ const Boards = () => {
     };
 
     return (
-        <div className="boards-container">
-            <h1 className="boards-title">백오피스 게시판</h1>
-
-            <div className="boards-card-row">
-                <div className="boards-card">
-                    <div className="boards-card-header">
+        <div className="domain-container">
+            <h1 className="domain-title">백오피스 게시판</h1>
+            <div className="domain-card-row">
+                <div className="domain-card">
+                    <div className="domain-card-header">
                         <h3>전체 게시판</h3>
                     </div>
-                    <div className="boards-card-body">
+                    <div className="domain-card-body">
                         <img
                             src={`${imagePrefix}/shared/companyBoard.png`}
                             alt="전체 게시판 이미지"
-                            className="boards-card-img"/>
-                        <button className="all-boards-button" onClick={() => navigate('/all-boards')}>이동</button>
+                            className="domain-card-img"/>
+                        <button className="all-domain-button"
+                                onClick={() => navigate('/all-boards')}>
+                            이동
+                        </button>
                     </div>
                 </div>
 
-                <div className="boards-card">
-                    <div className="boards-card-header">
+                <div className="domain-card">
+                    <div className="domain-card-header">
                         <h3>부서 게시판</h3>
                     </div>
-                    <div className="boards-card-body">
+                    <div className="domain-card-body">
                         <img
                             src={`${imagePrefix}/shared/departmentBoard.png`}
                             alt="부서 게시판 이미지"
-                            className="boards-card-img"/>
-                        <button className="department-boards-button" onClick={openModal}>이동</button>
+                            className="domain-card-img"/>
+                        <button className="department-domain-button" onClick={openModal}>이동</button>
                     </div>
                 </div>
             </div>

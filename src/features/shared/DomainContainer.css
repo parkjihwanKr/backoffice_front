@@ -1,24 +1,24 @@
-.boards-title {
+.domain-title {
     text-align: center;
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
-.boards-container {
+.domain-container {
     margin: 0 auto;
     padding: 20px;
     max-width: 1200px;
 }
 
-.boards-card-row {
+.domain-card-row {
     display: flex;
     flex-wrap: wrap; /* 화면 크기 변경 시 자동 줄바꿈 */
     justify-content: space-between;
     gap: 20px;
 }
 
-.boards-card {
+.domain-card {
     width: 48%; /* 두 개의 카드가 한 줄에 배치되도록 설정 */
     background-color: #fff;
     border-radius: 10px;
@@ -29,38 +29,38 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.boards-card:hover {
+.domain-card:hover {
     transform: translateY(-3px); /* 위로 살짝 이동 */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 더 강한 그림자 */
 }
 
-.boards-card-body {
+.domain-card-body {
     padding: 20px;
     text-align: center;
     flex-grow: 1; /* 이미지 크기와 텍스트 간 균형 유지 */
 }
 
-.boards-card-header {
+.domain-card-header {
     font-weight: bold;
     font-size: 24px;
     text-align: center;
 }
 
-.boards-card-text {
+.domain-card-text {
     font-size: 1rem;
     margin-bottom: 15px;
     color: #666;
 }
 
-.boards-card-img {
+.domain-card-img {
     width: 100%;
     height: auto;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
 
-.all-boards-button,
-.department-boards-button {
+.all-domain-button,
+.department-domain-button {
     display: flex; /* 버튼 내부 요소 정렬 */
     align-items: center; /* 세로 정렬 */
     justify-content: center; /* 가로 정렬 */
@@ -77,8 +77,8 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.all-boards-button:hover,
-.department-boards-button:hover {
+.all-domain-button:hover,
+.department-domain-button:hover {
     background-color: royalblue; /* 호버 시 배경색 변경 */
     transform: translateY(-1px); /* 위로 살짝 이동 */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 더 강한 그림자 */
@@ -86,16 +86,16 @@
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    .boards-card-row {
+    .domain-card-row {
         flex-direction: column; /* 카드들을 수직으로 배치 */
         gap: 10px;
     }
 
-    .boards-card {
+    .domain-card {
         width: auto; /* 카드가 화면 너비에 맞게 확장 */
     }
 
-    .boards-container {
+    .domain-container {
         padding: 10px;
     }
 }
