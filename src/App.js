@@ -14,7 +14,7 @@ import BoardDetails from "./features/boards/shared/components/boardDetails/Board
 
 import './assets/styles/App.css';
 import {AuthProvider} from './features/auth/context/AuthContext';
-import HomePage from "./pages/HomePage";
+import MainPage from "./pages/MainPage";
 import NoSchedulePage from "./features/events/department/components/NoSchedule";
 import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
 import Admin from "./features/admin/shared/components/Admin";
@@ -53,7 +53,7 @@ function App() {
 
                             {/* JWT 보호가 필요한 페이지 */}
                             <Route path="/"
-                                   element={<PrivateRoute component={HomePage}/>}/>
+                                   element={<PrivateRoute component={MainPage}/>}/>
                             <Route path="/boards/*"
                                    element={<PrivateRoute component={Boards}/>}/>
                             <Route path="/notifications"

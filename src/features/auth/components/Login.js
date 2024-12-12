@@ -14,6 +14,7 @@ const Login = () => {
 
             if (response) {
                 navigate(`/`);
+                window.location.reload();
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {
