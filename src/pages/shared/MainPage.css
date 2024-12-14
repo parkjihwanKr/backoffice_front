@@ -1,0 +1,79 @@
+.main-page-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    overflow-y : auto;
+}
+
+.general-container,
+.personal-container{
+    width: 50%;
+    height: 50%;
+}
+
+.general-board-container,
+.general-event-container,
+.personal-board-container,
+.personal-event-container {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border : 1px solid black;
+
+}
+
+.general-board-header, .general-event-header,
+.personal-board-header, .personal-event-header{
+    position: relative;
+    margin-top: -20px;
+    text-align: center;
+}
+
+.general-board-header img, .general-event-header img,
+.personal-board-header img, .personal-event-header img{
+    position: absolute;
+    right : 1%;
+    top : 1%;
+    cursor: pointer;
+    width: 24px;
+    height : 24px;
+}
+
+.general-board-body {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.general-board-stats img {
+    width : 16px;
+    height : 16px;
+    vertical-align: middle;
+}
+
+.general-board-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.general-board-stats span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.general-board-title {
+    flex: 1; /* 제목을 왼쪽으로 붙임 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.general-board-metric {
+    display: flex; /* 이미지와 텍스트를 같은 라인에 배치 */
+    align-items: center; /* 텍스트와 이미지 세로 정렬 */
+    gap: 4px; /* 텍스트와 이미지 간격 */
+    text-align: right; /* 오른쪽 정렬 */
+}

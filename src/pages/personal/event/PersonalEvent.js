@@ -1,10 +1,13 @@
-import '../../MainPage.css';
+import '../../shared/MainPage.css';
+import {imagePrefix} from "../../../utils/Constant";
 
 const PersonalEvent = () => {
     return(
         <div className="personal-event-container">
             <div className="personal-event-header">
                 <h3> 이번주 회사 일정표 </h3>
+                <img
+                    src={`${imagePrefix}/shared/reply.png`}/>
             </div>
             <div className="personal-event-body">
                 회사의 이번주 일정표

@@ -1,11 +1,16 @@
-import PersonalEvent from "./event/GeneralEvent";
-import PersonalBoard from "./board/PersonalBoard";
 
-const PersonalContainer = () => {
+import PersonalBoard from "./board/PersonalBoard";
+import PersonalEvent from "./event/PersonalEvent";
+
+const PersonalContainer = ({data}) => {
+    const {boards, events, attendances} = data;
+    console.log("test : "+boards);
     return(
         <div className="personal-container">
-            <PersonalBoard/>
-            <PersonalEvent/>
+            <PersonalBoard
+                boards = {boards}/>
+            <PersonalEvent
+                events = {events}/>
         </div>
     );
 }

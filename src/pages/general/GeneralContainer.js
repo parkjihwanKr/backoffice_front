@@ -1,11 +1,14 @@
 import GeneralEvent from "./event/GeneralEvent";
 import GeneralBoard from "./board/GeneralBoard";
-import '../MainPage.css';
-const GeneralContainer = () => {
+import '../shared/MainPage.css';
+const GeneralContainer = ({data}) => {
+    const {boards, events} = data;
     return(
         <div className="general-container">
-            <GeneralBoard/>
-            <GeneralEvent/>
+            <GeneralBoard
+                boards = {boards}/>
+            <GeneralEvent
+                events = {events}/>
         </div>
     );
 }

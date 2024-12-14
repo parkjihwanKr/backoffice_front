@@ -52,6 +52,12 @@ const DropDownMenu = () => {
         <>
             <div className="custom-navbar-right">
                 <img
+                    src={`${imagePrefix}/shared/check-out-time.png`}
+                    alt="notification-list"
+                    className="notification-icon"
+                    onClick={handleNotificationClick} // 알림 클릭 핸들러
+                />
+                <img
                     src={`${imagePrefix}/shared/${isNotified
                         ? 'is_notified_true.png' : 'is_notified_false.png'}`}
                     alt="notification-list"

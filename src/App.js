@@ -14,7 +14,7 @@ import BoardDetails from "./features/boards/shared/components/boardDetails/Board
 
 import './assets/styles/App.css';
 import {AuthProvider} from './features/auth/context/AuthContext';
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/shared/MainPage";
 import NoSchedulePage from "./features/events/department/components/NoSchedule";
 import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
 import Admin from "./features/admin/shared/components/Admin";
