@@ -1,43 +1,89 @@
 .main-page-container {
-    margin-top: 30px;
+    margin-top: 10px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr 1fr; /* 2열 레이아웃 */
+    gap: 10px; /* 행과 열 사이의 간격 */
+    overflow-y: auto;
+}
+
+.favorites-container {
     display: flex;
-    flex-direction: row;
-    overflow-y : auto;
+    grid-row : 1;
+    grid-column: span 2;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.favorites-row {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(1, 3fr); /*1개의 행에서 3행으로 분리*/
+    gap: 10px; /* 각 열 간격 */
+    width: 100%;
+}
+
+.favorites-container-header {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .general-container,
-.personal-container{
-    width: 50%;
-    height: 50%;
+.personal-container {
+    height: auto; /* 동적 높이 조정 */
+    padding: 10px;
+    background-color: #ffffff;
 }
 
+.general-container {
+    grid-row: 2; /* 2행 1열 */
+    grid-column: 1;
+}
+
+.personal-container {
+    grid-row: 2; /* 2행 2열 */
+    grid-column: 2;
+}
+
+.attendance-container {
+    grid-row: 3; /* 3행 전체를 차지 */
+    grid-column: span 2;
+    height: auto;
+    padding: 10px;
+    background-color: #f2f2f2; /* 다른 배경색 추가 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 기존 스타일 유지 */
 .general-board-container,
 .general-event-container,
 .personal-board-container,
-.personal-event-container {
+.personal-event-container,
+.favorites-row{
     padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border : 1px solid black;
-
+    margin: 10px;
+    border: 1px solid black;
 }
 
 .general-board-header, .general-event-header,
-.personal-board-header, .personal-event-header{
+.personal-board-header, .personal-event-header {
     position: relative;
     margin-top: -20px;
     text-align: center;
 }
 
 .general-board-header img, .general-event-header img,
-.personal-board-header img, .personal-event-header img{
+.personal-board-header img, .personal-event-header img {
     position: absolute;
-    right : 1%;
-    top : 1%;
+    right: 1%;
+    top: 1%;
     cursor: pointer;
     width: 24px;
-    height : 24px;
+    height: 24px;
 }
 
 .general-board-body {
@@ -46,8 +92,8 @@
 }
 
 .general-board-stats img {
-    width : 16px;
-    height : 16px;
+    width: 16px;
+    height: 16px;
     vertical-align: middle;
 }
 
@@ -65,15 +111,15 @@
 }
 
 .general-board-title {
-    flex: 1; /* 제목을 왼쪽으로 붙임 */
-    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    flex: 1;
+    text-align: left;
     font-size: 14px;
     font-weight: bold;
 }
 
 .general-board-metric {
-    display: flex; /* 이미지와 텍스트를 같은 라인에 배치 */
-    align-items: center; /* 텍스트와 이미지 세로 정렬 */
-    gap: 4px; /* 텍스트와 이미지 간격 */
-    text-align: right; /* 오른쪽 정렬 */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-align: right;
 }

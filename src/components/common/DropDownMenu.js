@@ -8,6 +8,7 @@ import './DropDownMenu.css';
 import { imagePrefix } from '../../utils/Constant';
 import NotificationListModal from '../../features/notifications/components/modal/NotificationListModal';
 import { logout } from "../../features/auth/services/AuthService";
+import FavoritesModal from "../../features/favorites/FavoritesModal";
 
 const DropDownMenu = () => {
     const { id, isAuthenticated, name, department, position } = useAuth();
@@ -16,6 +17,7 @@ const DropDownMenu = () => {
     const [showUserModal, setShowUserModal] = useState(false);
     const [showNotificationListModal, setNotificationListModal] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [showFavoritesModal, setShowFavoritesModal] = useState(false);
 
     useEffect(() => {
         console.log("Notification icon state updated:", isNotified);
@@ -39,6 +41,9 @@ const DropDownMenu = () => {
     const handleShowNotificationListModal = () => setNotificationListModal(true);
     const handleCloseNotificationListModal = () => setNotificationListModal(false);
 
+    const handleShowFavoritesModal = () => setShowFavoritesModal(true);
+    const handleCloseFavoritesModal = () => setShowFavoritesModal(false);
+
     const handleNotificationClick = () => {
         handleShowNotificationListModal();
         setIsNotified(false); // 알림 아이콘 상태 초기화
@@ -52,16 +57,22 @@ const DropDownMenu = () => {
         <>
             <div className="custom-navbar-right">
                 <img
+                    src={`${imagePrefix}/shared/go_to.png`}
+                    alt="바로 가기"
+                    className="nav-bar-icon"
+                    onClick={handleShowFavoritesModal} // 알림 클릭 핸들러
+                />
+                <img
                     src={`${imagePrefix}/shared/check-out-time.png`}
                     alt="notification-list"
-                    className="notification-icon"
+                    className="nav-bar-icon"
                     onClick={handleNotificationClick} // 알림 클릭 핸들러
                 />
                 <img
                     src={`${imagePrefix}/shared/${isNotified
                         ? 'is_notified_true.png' : 'is_notified_false.png'}`}
                     alt="notification-list"
-                    className="notification-icon"
+                    className="nav-bar-icon"
                     onClick={handleNotificationClick} // 알림 클릭 핸들러
                 />
                 <img src={`${imagePrefix}/shared/user_info.png`}
@@ -134,6 +145,10 @@ const DropDownMenu = () => {
                 show={showNotificationListModal}
                 handleClose={handleCloseNotificationListModal}
             />
+
+            <FavoritesModal
+                show={showFavoritesModal}
+                handleClose={handleCloseFavoritesModal} />
         </>
     );
 };
