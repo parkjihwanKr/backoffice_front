@@ -6,13 +6,16 @@ import FavoritesContainer from "../personal/favorites/FavoritesContainer";
 import AttendanceContainer from "../personal/attendances/AttendanceContainer";
 
 const MainPage = () => {
-    const [generalData, setGeneralData] = useState({}); // 전체 게시판 및 일정 데이터를 저장
-    const [personalData, setPersonalData] = useState({}); // 개인 게시판 및 일정 데이터를 저장
+    const [personalFavorites, setPersonalFavorites] = useState(null);
+    const [generalData, setGeneralData] = useState({});
+    const [personalData, setPersonalData] = useState({});
+    const [personalAttendances, setPersonalAttendance] = useState({});
 
     useEffect(() => {
         const loadMainPageData = async () => {
             try {
                 const mainPageData = await fetchMainPage();
+                setPersonalFavorites(mainPageData.personalFavoritesDtoList || []);
                 setGeneralData({
                     boards: mainPageData.generalBoardDtoList || [],
                     events: mainPageData.generalEventDtoList || []
@@ -20,6 +23,8 @@ const MainPage = () => {
                 setPersonalData({
                     boards: mainPageData.departmentBoardDtoList || [],
                     events: mainPageData.personalEventDtoList || [],
+                });
+                setPersonalAttendance({
                     attendances : mainPageData.personalAttendanceDtoList || []
                 });
             } catch (error) {
@@ -32,11 +37,14 @@ const MainPage = () => {
 
     return (
         <div className="main-page-container">
-            <FavoritesContainer/>
+            <FavoritesContainer
+                personalFavorites={personalFavorites}/>
             {/* 전체 게시판과 일정 데이터를 GeneralContainer로 전달 */}
-            <GeneralContainer data={generalData} />
+            <GeneralContainer
+                data={generalData} />
             {/* 개인 게시판과 일정 데이터를 PersonalContainer로 전달 */}
-            <PersonalContainer data={personalData} />
+            <PersonalContainer
+                data={personalData} />
             <AttendanceContainer/>
         </div>
     );

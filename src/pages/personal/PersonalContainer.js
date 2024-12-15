@@ -3,8 +3,8 @@ import PersonalBoard from "./board/PersonalBoard";
 import PersonalEvent from "./event/PersonalEvent";
 
 const PersonalContainer = ({data}) => {
-    const {boards, events, attendances} = data;
-    console.log("test : "+boards);
+    const {boards, events} = data;
+
     return(
         <div className="personal-container">
             <PersonalBoard

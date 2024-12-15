@@ -1,0 +1,30 @@
+.favorite-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.favorites-item-text{
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease;
+    font-weight : bold;
+}
+
+.edit-favorites {
+    right : 12%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.delete-favorites {
+    right : 6%;
+    position: absolute;
+    cursor: pointer;
+}

@@ -7,9 +7,10 @@ export const fetchMemberFavoriteList = async () => {
     return response.data;
 }
 
-export const createMemberFavorites = async () => {
+export const createMemberFavorites = async (url, description) => {
     const response = await axiosInstance.post(`/favorites`, {
-
+        url : url,
+        description : description,
     });
     console.log(response.data);
     return response.data;

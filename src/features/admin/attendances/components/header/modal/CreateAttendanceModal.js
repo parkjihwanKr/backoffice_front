@@ -79,6 +79,7 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         <label>멤버 이름:</label>
                         <select
                             value={memberName}
+                            className="custom-modal-body-select"
                             onChange={(e) => setMemberName(e.target.value)}
                         >
                             <option value="">멤버 선택</option>
@@ -93,6 +94,7 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         <label>근태 상태:</label>
                         <select
                             value={attendanceStatus}
+                            className="custom-modal-body-select"
                             onChange={(e) => setAttendanceStatus(e.target.value)}
                         >
                             <option value="">선택하세요</option>
@@ -105,7 +107,7 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         </select>
                     </div>
                     <div className="custom-modal-body-index">
-                        <label>적용 시작 기간:</label>
+                        <label>시작일 : </label>
                         <input
                             type="datetime-local"
                             placeholder="YYYY-MM-DD HH:mm 형식으로 입력"
@@ -114,7 +116,7 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         />
                     </div>
                     <div className="custom-modal-body-index">
-                        <label>적용 마지막 기간:</label>
+                        <label>마감일 : </label>
                         <input
                             type="datetime-local"
                             placeholder="YYYY-MM-DD HH:mm 형식으로 입력"
@@ -123,10 +125,11 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         />
                     </div>
                     <div className="custom-modal-body-index">
-                        <label>설명:</label>
+                        <label className="custom-modal-body-content-label">설명:</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
+                            className="custom-modal-body-textarea"
                             placeholder="밑의 상황이 아니라면 꼭 적어주세요!!
                             지각은 무조건 10시 출근 ~ 18시 퇴근으로 고정되어 있습니다.
                             조퇴는 무조건 09시 출근 ~ 13시 퇴근으로 고정되어 적용됩니다.

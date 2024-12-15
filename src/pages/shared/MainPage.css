@@ -29,6 +29,58 @@
     font-size: 18px;
 }
 
+.favorites-container-header span{
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.favorites-container-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr)); /* 요소 크기에 따라 동적으로 조정 */
+    gap: 16px; /* 요소 간 간격 */
+    justify-content: center; /* 가로 방향으로 가운데 정렬 */
+    align-items: center; /* 세로 방향으로 가운데 정렬 */
+}
+
+.personal-favorites-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.personal-favorites-item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 8px;
+}
+
+.personal-favorites-item:hover {
+    transform: translateY(-3px); /* 위로 10px 떠오름 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+    background-color: #f9f9f9; /* 배경색 살짝 밝게 변경 */
+}
+
+.favorites-container-footer {
+    font-size : 13px;
+    text-align: right;
+}
+
 .general-container,
 .personal-container {
     height: auto; /* 동적 높이 조정 */
@@ -66,7 +118,9 @@
 .favorites-row{
     padding: 10px;
     margin: 10px;
-    border: 1px solid black;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .general-board-header, .general-event-header,
@@ -122,4 +176,10 @@
     align-items: center;
     gap: 4px;
     text-align: right;
+}
+
+@media (max-width: 768px) {
+    .favorites-container-footer {
+        font-size : 10px;
+    }
 }

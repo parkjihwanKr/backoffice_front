@@ -52,7 +52,7 @@ function App() {
                             <Route path="/auth/login" element={<Login/>}/>
 
                             {/* JWT 보호가 필요한 페이지 */}
-                            <Route path="/"
+                            <Route path="/*"
                                    element={<PrivateRoute component={MainPage}/>}/>
                             <Route path="/boards/*"
                                    element={<PrivateRoute component={Boards}/>}/>

@@ -57,15 +57,15 @@ const DropDownMenu = () => {
         <>
             <div className="custom-navbar-right">
                 <img
-                    src={`${imagePrefix}/shared/go_to.png`}
+                    src={`${imagePrefix}/shared/go_to_website.png`}
                     alt="바로 가기"
-                    className="nav-bar-icon"
+                    className="website-icon"
                     onClick={handleShowFavoritesModal} // 알림 클릭 핸들러
                 />
                 <img
                     src={`${imagePrefix}/shared/check-out-time.png`}
-                    alt="notification-list"
-                    className="nav-bar-icon"
+                    alt="출/퇴근 상태 변경"
+                    className="website-icon"
                     onClick={handleNotificationClick} // 알림 클릭 핸들러
                 />
                 <img
