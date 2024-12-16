@@ -16,6 +16,14 @@ export const createMemberFavorites = async (url, description) => {
     return response.data;
 }
 
+export const updateMemberFavorites = async (favoritesId, description) => {
+    const response = await axiosInstance.patch(`/favorites/${favoritesId}`, {
+        description : description,
+    });
+    console.log(response.data);
+    return response.data;
+}
+
 export const deleteMemberFavorites = async (favoritesId) => {
     const response
         = await axiosInstance.delete(`/favorites/${favoritesId}`);

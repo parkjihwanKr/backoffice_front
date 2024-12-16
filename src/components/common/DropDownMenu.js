@@ -24,7 +24,14 @@ const DropDownMenu = () => {
     }, [isNotified]);
 
     const handleLogout = async () => {
-        logout();
+        try {
+            await logout();
+            // 로컬 스토리지 및 상태 초기화
+            localStorage.clear();
+            window.location.href = '/auth/login';
+        } catch (error) {
+            console.error("Failed to logout:", error);
+        }
     };
 
     const toggleDropdown = () => {

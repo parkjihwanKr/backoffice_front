@@ -4,12 +4,30 @@ import { getCookie } from "../../../utils/CookieUtil";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
-    const [id, setId] = useState('');  // 사용자 ID
-    const [name, setName] = useState('');  // 사용자 이름
-    const [department, setDepartment] = useState('');  // 사용자 부서
-    const [position, setPosition] = useState('');  // 사용자 역할
-    const [loading, setLoading] = useState(true); // 로딩 상태 추가
+    // 해당 요청을 API 요청을 단 한 번만 하고자 함 -> 인증 및 서버에서 자주 가져올 정보를 한 번에 처리
+    // ** id, name, department, position
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        const storedAuth = localStorage.getItem('isAuthenticated');
+        return storedAuth ? JSON.parse(storedAuth) : null;
+    });
+
+    const [id, setId] = useState(() => {
+        return localStorage.getItem('id') || '';
+    });
+
+    const [name, setName] = useState(() => {
+        return localStorage.getItem('name') || '';
+    });
+
+    const [department, setDepartment] = useState(() => {
+        return localStorage.getItem('department') || '';
+    });
+
+    const [position, setPosition] = useState(() => {
+        return localStorage.getItem('position') || '';
+    });
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -20,39 +38,53 @@ export const AuthProvider = ({ children }) => {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
                     },
-                    credentials: 'include'
+                    credentials: 'include',
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
 
                     if (data.data) {
+                        // 인증 상태 업데이트 및 로컬 스토리지에 저장
                         setIsAuthenticated(true);
                         setId(data.data.id);
-                        setName(data.data.name); // 사용자 이름 설정
-                        setDepartment(data.data.department); // 부서 설정
-                        setPosition(data.data.position); // 역할 설정
+                        setName(data.data.name);
+                        setDepartment(data.data.department);
+                        setPosition(data.data.position);
+
+                        localStorage.setItem('isAuthenticated', JSON.stringify(true));
+                        localStorage.setItem('id', data.data.id);
+                        localStorage.setItem('name', data.data.name);
+                        localStorage.setItem('department', data.data.department);
+                        localStorage.setItem('position', data.data.position);
                     } else {
-                        console.error("Unexpected data structure!");
                         setIsAuthenticated(false);
+                        localStorage.removeItem('isAuthenticated');
                     }
                 } else {
                     setIsAuthenticated(false);
+                    localStorage.removeItem('isAuthenticated');
                 }
             } catch (error) {
                 console.error('Failed to check authentication', error);
                 setIsAuthenticated(false);
+                localStorage.removeItem('isAuthenticated');
             } finally {
-                setLoading(false); // 로딩 완료
+                setLoading(false);
             }
         };
 
-        checkAuth();
+        // 초기 로드 시 인증 상태 확인
+        if (!localStorage.getItem('isAuthenticated')) {
+            checkAuth();
+        } else {
+            setLoading(false);
+        }
     }, []);
 
+    // 로딩 상태 표시
     if (loading) {
-        return <div>Loading...</div>; // 로딩 상태를 표시할 수 있음
+        return <div>Loading...</div>;
     }
 
     return (

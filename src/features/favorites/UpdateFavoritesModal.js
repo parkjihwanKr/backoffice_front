@@ -1,8 +1,14 @@
 import '../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../components/ui/image/CloseImageButton";
-import React from "react";
+import React, {useState} from "react";
+import SubmitButton from "../../components/ui/buttons/SubmitButton";
 
-const UpdateFavoritesModal = ( onClose, currentUrl ) => {
+const UpdateFavoritesModal = ({ onClose, favorites, onUpdate }) => {
+    const [description, setDescription] = useState(favorites.description);
+
+    const handleUpdate = async () => {
+        onUpdate(favorites.favoritesId, description);
+    };
 
     return (
         <div className="custom-modal-overlay">
@@ -12,21 +18,25 @@ const UpdateFavoritesModal = ( onClose, currentUrl ) => {
                     <CloseImageButton handleClose={onClose} />
                 </div>
                 <div className="custom-modal-body">
-                    <p>현재 URL: {currentUrl}</p>
                     <div className="custom-modal-body-index">
                         <label className="custom-modal-body-content-label">설명:</label>
                         <input
                             type="text"
                             className="custom-modal-body-textarea"
-                            /*value={description}
+                            value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            */
                             placeholder="즐겨찾기 설명을 입력하세요"
                         />
                     </div>
+                    <div className="caution-description">
+                        현재 즐겨찾기 URL : {favorites.favoritesUrl}
+                    </div>
+                    <div className="caution-description">
+                        ※ 즐겨 찾기 URL은 변경하실 수 없습니다.
+                    </div>
                 </div>
                 <div className="custom-modal-footer">
-
+                    <SubmitButton onSubmit={handleUpdate} text={"수정"} />
                 </div>
             </div>
         </div>

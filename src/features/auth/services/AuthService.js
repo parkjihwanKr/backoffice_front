@@ -1,5 +1,4 @@
 // services/authService.js
-
 import axiosInstance from "../../../utils/AxiosUtils";
 import axios from "axios";
 
@@ -26,6 +25,11 @@ export const login = async (memberName, password) => {
     return response.data;
 }
 
+export const checkAuth = async () => {
+    const response = await axiosInstance.get(`/auth-check`);
+    return response.data;
+}
+
 export const checkUsernameAvailability = async (memberName) => {
     const response
         = await axiosUnauthenticated.get(`/check-available-memberName`,{
@@ -37,25 +41,5 @@ export const checkUsernameAvailability = async (memberName) => {
 }
 
 export const logout = async () => {
-    try {
-        const response = await fetch('/api/v1/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            console.log('Logout successful');
-        } else {
-            console.error('Logout failed');
-        }
-
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = '/auth/login';
-    } catch (error) {
-        console.error("Error: " + error);
-    }
+    const response = await axiosInstance.post(`/logout`);
 };

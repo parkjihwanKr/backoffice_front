@@ -3,7 +3,7 @@ import '../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../components/ui/image/CloseImageButton";
 import SubmitButton from "../../components/ui/buttons/SubmitButton";
 
-const DeleteFavoritesModal = ({ favorite, onClose, onConfirm }) => {
+const DeleteFavoritesModal = ({ favorite, onClose, onDelete }) => {
     return (
         <div className="custom-modal-overlay">
             <div className="custom-modal-content">
@@ -16,7 +16,7 @@ const DeleteFavoritesModal = ({ favorite, onClose, onConfirm }) => {
                     <p><strong>{favorite.url}</strong></p>
                 </div>
                 <div className="custom-modal-footer">
-                    <SubmitButton onSubmit={onConfirm} text={"삭제"}/> 
+                    <SubmitButton onSubmit={onDelete} text={"삭제"}/>
                 </div>
             </div>
         </div>
