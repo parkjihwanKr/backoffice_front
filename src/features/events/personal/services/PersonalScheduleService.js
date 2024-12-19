@@ -4,7 +4,9 @@ import axiosInstance from '../../../../utils/AxiosUtils'; // axiosInstance 가�
 export const getPersonalMonthSchedule = async (memberId, year, month) => {
     try {
         const currentMonth = month + 1;
-        const response = await axiosInstance.get(`/members/${memberId}/events/years/${year}/month/${currentMonth}`);
+        const response
+            = await axiosInstance.get(
+                `/members/${memberId}/events/years/${year}/month/${currentMonth}`);
         console.log("Response data: ", response.data);
         return response.data;
     } catch (error) {
@@ -22,7 +24,9 @@ export const getPersonalMonthSchedule = async (memberId, year, month) => {
 export const getPersonalDaySchedule = async (memberId, year, month, date) => {
     try {
         const currentMonth = month + 1;
-        const response = await axiosInstance.get(`/members/${memberId}/events/years/${year}/months/${currentMonth}/days/${date}`);
+        const response
+            = await axiosInstance.get(
+                `/members/${memberId}/events/years/${year}/months/${currentMonth}/days/${date}`);
         console.log("Response data: ", response.data);
         return response.data;
     } catch (error) {
@@ -39,7 +43,8 @@ export const getPersonalDaySchedule = async (memberId, year, month, date) => {
 // 개인 휴가 일정 생성 API 요청
 export const createVacationSchedule = async (vacationData) => {
     try {
-        const response = await axiosInstance.post(`/vacations`, vacationData);
+        const response
+            = await axiosInstance.post(`/vacations`, vacationData);
         console.log("Response data: ", response.data);
         return response.data;
     } catch (error) {
@@ -56,7 +61,8 @@ export const createVacationSchedule = async (vacationData) => {
 // 멤버의 휴가 리스트 가져오기
 export const getMemberVacationList = async (memberId) => {
     try {
-        const response = await axiosInstance.get(`/members/${memberId}/vacations`);
+        const response
+            = await axiosInstance.get(`/members/${memberId}/vacations`);
         console.log("Response data: ", response.data);
         return response.data;
     } catch (error) {
@@ -73,7 +79,9 @@ export const getMemberVacationList = async (memberId) => {
 // 휴가 일정 수정 API 요청
 export const updateVacationSchedule = async (vacationId, updatedVacationData) => {
     try {
-        const response = await axiosInstance.patch(`/vacations/${vacationId}`, updatedVacationData);
+        const response
+            = await axiosInstance.patch(`/vacations/${vacationId}`,
+            updatedVacationData);
         console.log("Response data: ", response.data);
         return response.data;
     } catch (error) {
@@ -90,7 +98,8 @@ export const updateVacationSchedule = async (vacationId, updatedVacationData) =>
 // 휴가 일정 삭제 API 요청
 export const deleteVacationSchedule = async (vacationId) => {
     try {
-        const response = await axiosInstance.delete(`/vacations/${vacationId}`);
+        const response
+            = await axiosInstance.delete(`/vacations/${vacationId}`);
         console.log("Response data: ", response.data);
         return response.data;
     } catch (error) {

@@ -1,7 +1,9 @@
 import React from 'react';
-import './DeleteDepartmentScheduleModal.css'; // Delete 모달 스타일
+import '../../../../../components/ui/modal/Modal.css';
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import SubmitButton from "../../../../../components/ui/buttons/SubmitButton"; // Delete 모달 스타일
 
-const DeleteDepartmentScheduleModal = ({ isOpen, onClose, onDelete }) => {
+const DeleteDepartmentScheduleModal = ({ title, isOpen, onClose, onDelete }) => {
     if (!isOpen) return null;
 
     const handleDelete = () => {
@@ -9,12 +11,17 @@ const DeleteDepartmentScheduleModal = ({ isOpen, onClose, onDelete }) => {
     };
 
     return (
-        <div className="delete-modal-overlay">
-            <div className="delete-modal">
-                <h5>정말로 이 일정을 삭제하시겠습니까?</h5>
-                <div className="modal-actions">
-                    <button className="btn btn-danger" onClick={handleDelete}>삭제</button>
-                    <button className="btn btn-secondary" onClick={onClose}>취소</button>
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
+                    <h3>일정 삭제</h3>
+                    <CloseImageButton handleClose={onClose}/>
+                </div>
+                <div className="custom-modal-body">
+                    정말로 '{title}'를 삭제하겠습니까?
+                </div>
+                <div className="custom-modal-footer">
+                    <SubmitButton onSubmit={handleDelete} text={"삭제"}/>
                 </div>
             </div>
         </div>

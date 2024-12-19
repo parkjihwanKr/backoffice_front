@@ -21,6 +21,7 @@
     max-width: 90%;
     min-height : 150px;
     animation: fadeIn 0.3s ease-out;
+    font-family: Arial, sans-serif;
 }
 
 .custom-modal-header {
@@ -51,7 +52,6 @@
     padding: 10px;
     background-color: #fff;
 }
-
 
 .custom-modal-body img{
     width : 24px;
@@ -148,7 +148,7 @@
 }
 
 .custom-modal-body-textarea {
-    width : 350px;
+    width : 100%;
     min-height: 150px;
     justify-items: center;
 }
@@ -226,7 +226,13 @@
     border-radius: 6px;
 }
 
+.custom-small-text {
+    justify-items: center;
+    justify-content: center;
+}
+
 .custom-modal-footer {
+    margin-top: 20px;
     display: flex;
     justify-content: flex-end;
 }
@@ -246,6 +252,11 @@
     display: flex;
     flex-direction: column; /* 세로 정렬 */
     gap: 10px; /* label과 select 사이 간격 추가 */
+    margin-bottom: 10px;
+}
+
+.custom-modal-form-group-right {
+    text-align: right;
 }
 
 .custom-modal-form-group label{
@@ -253,11 +264,12 @@
     font-weight: bold; /* 레이블 강조 */
 }
 
-.custom-modal-form-group select{
+.custom-modal-form-group select, input, textarea{
     padding: 8px;
     border: 1px solid lightgrey; /* 테두리 스타일 */
     border-radius: 5px; /* 테두리 둥글게 */
     font-size: 14px; /* 텍스트 크기 */
+    font-family: Arial, sans-serif;
 }
 
 .list-row {
@@ -308,6 +320,16 @@
 .gap-top-bottom {
     margin-top : 10px;
     margin-bottom: 10px;
+}
+
+.custom-modal-footer img {
+    width : 24px;
+    height : 24px;
+    transition: transform 0.3s ease;
+}
+
+.custom-modal-footer img:hover {
+    transform: scale(1.1);
 }
 
 @keyframes fadeIn {

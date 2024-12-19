@@ -21,13 +21,14 @@ export const login = async (memberName, password) => {
             memberName : memberName,
             password : password});
 
-    console.log(response.data);
+    console.log(response);
     return response.data;
 }
 
 export const checkAuth = async () => {
-    const response = await axiosInstance.get(`/auth-check`);
-    return response.data;
+    const response = await axiosInstance.get(`/check-auth`);
+    console.log(response);
+    return response.data.data;
 }
 
 export const checkUsernameAvailability = async (memberName) => {
@@ -42,4 +43,5 @@ export const checkUsernameAvailability = async (memberName) => {
 
 export const logout = async () => {
     const response = await axiosInstance.post(`/logout`);
+    return response.data;
 };

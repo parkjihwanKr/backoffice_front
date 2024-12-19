@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import './EventDetailModal.css';
+import '../../../../../components/ui/modal/Modal.css';
 import UpdateDepartmentScheduleModal from './UpdateDepartmentScheduleModal';
 import DeleteDepartmentScheduleModal from './DeleteDepartmentScheduleModal';
 import DownloadButton from "../../../../../components/ui/buttons/DownloadButton";
 import {imagePrefix} from '../../../../../utils/Constant';
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
@@ -19,61 +21,62 @@ const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
         if (onUpdate) {
             onUpdate(formData, event.eventId);
         }
+        onClose();
         setIsUpdateModalOpen(false);
     };
 
     const handleDeleteSubmit = () => {
         onDelete(event.eventId);
         setIsDeleteModalOpen(false);
+        onClose();
     };
 
     if (!isOpen || !event) return null;
 
     return (
-        <div className="event-details-modal-overlay">
-            <div className="event-details-modal">
-                {/* Header */}
-                <div className="event-details-modal-header">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>{event.title}</h3>
+                    <CloseImageButton handleClose={onClose} />
+                </div>
+                <div className="custom-modal-body">
+                    <div
+                        className="custom-modal-body-event-details"
+                        style={{
+                            height: event.fileUrlList && event.fileUrlList.length > 0 ? "110px" : "80px", // 높이를 동적으로 조정
+                        }}
+                    >
+                        <p>{event.description}</p>
+                        <p className="custom-small-text">
+                            시작일: {new Date(event.startDate).toLocaleString()}
+                        </p>
+                        <p className="custom-small-text">
+                            종료일: {new Date(event.endDate).toLocaleString()}
+                        </p>
+                        {event.fileUrlList && event.fileUrlList.length > 0 && (
+                            <DownloadButton
+                                fileList={event.fileUrlList}
+                                imagePrefix={imagePrefix}
+                                isModal={true}
+                            />
+                        )}
+                    </div>
                 </div>
 
-                {/* Body */}
-                <div className="event-details-modal-body">
-                    <div className="event-details-content-box">
-                        <p style={{ fontSize : '1.2rem'}}>{event.description}</p>
-                    </div>
-                    <p className="event-details-small-text">시작일: {new Date(event.startDate).toLocaleString()}</p>
-                    <p className="event-details-small-text">종료일: {new Date(event.endDate).toLocaleString()}</p>
-                    {event.fileUrlList && event.fileUrlList.length > 0 && (
-                        <DownloadButton fileList={event.fileUrlList} imagePrefix={imagePrefix} />
-                    )}
-                </div>
-
-                {/* Footer */}
-                <div className="event-details-modal-footer">
-                    <div className="event-details-action-icon">
-                        <img className="edit-schedule"
-                             src={`${imagePrefix}/shared/make_schedule.png`} alt="edit_schedule"
-                             onClick={handleUpdateClick}/>
-                        <img className="delete-schedule"
-                             src={`${imagePrefix}/shared/delete_schedule.png`} alt="delete_schedule"
-                             onClick={handleDeleteClick}/>
-                        <img className="close-schedule"
-                             src={`${imagePrefix}/shared/close-schedule.png`} alt="close_schedule"
-                             onClick={onClose}/>
-                    </div>
+                <div className="custom-modal-footer">
+                    <ConfirmButton onClick={handleUpdateClick} text={"수정"}/>
+                    <ConfirmButton onClick={handleDeleteClick} text={"삭제"}/>
                 </div>
             </div>
 
-            {/* Update 모달 */}
             <UpdateDepartmentScheduleModal
                 isOpen={isUpdateModalOpen}
                 onClose={() => setIsUpdateModalOpen(false)}
                 onSubmit={handleUpdateSubmit}
             />
-
-            {/* Delete 모달 */}
             <DeleteDepartmentScheduleModal
+                title={event.title}
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onDelete={handleDeleteSubmit}

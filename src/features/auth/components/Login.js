@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "../shared/Auth.css";
-import {Link, useNavigate} from "react-router-dom";
-import { login } from "../services/AuthService";
+import {Link} from "react-router-dom";
+import {login} from "../services/AuthService";
 
 const Login = () => {
     const [memberName, setMemberName] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await login(memberName, password);
-
+            console.log("login success.....");
             if (response) {
-                navigate(`/`);
-                window.location.reload();
+                localStorage.setItem("isAuthenticated", JSON.stringify(true));
+                window.location.href = '/';
             }
         } catch (error) {
+            localStorage.setItem("isAuthenticated", JSON.stringify(false));
             if (error.response && error.response.status === 401) {
                 alert("아이디 또는 비밀번호가 올바르지 않습니다.");
             } else {

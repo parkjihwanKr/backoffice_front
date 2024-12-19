@@ -38,7 +38,7 @@ const GeneralBoard = ({ boards = [] }) => {
                                         alt={board.isImportant ? 'important!' : 'not important'}
                                     />
                                 </span>
-                                <span className="general-board-title">
+                                <span className="general-domain-title">
                                     {board.title}
                                 </span>
                                 <span className="general-board-metric">

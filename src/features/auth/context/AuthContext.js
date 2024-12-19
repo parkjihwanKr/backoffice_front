@@ -1,88 +1,56 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getCookie } from "../../../utils/CookieUtil";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { checkAuth } from "../services/AuthService";
+import {deleteCookie} from "../../../utils/CookieUtil";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // 해당 요청을 API 요청을 단 한 번만 하고자 함 -> 인증 및 서버에서 자주 가져올 정보를 한 번에 처리
-    // ** id, name, department, position
-    const [isAuthenticated, setIsAuthenticated] = useState(() => {
-        const storedAuth = localStorage.getItem('isAuthenticated');
-        return storedAuth ? JSON.parse(storedAuth) : null;
-    });
-
-    const [id, setId] = useState(() => {
-        return localStorage.getItem('id') || '';
-    });
-
-    const [name, setName] = useState(() => {
-        return localStorage.getItem('name') || '';
-    });
-
-    const [department, setDepartment] = useState(() => {
-        return localStorage.getItem('department') || '';
-    });
-
-    const [position, setPosition] = useState(() => {
-        return localStorage.getItem('position') || '';
-    });
-
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [id, setId] = useState('');
+    const [name, setName] = useState('');
+    const [department, setDepartment] = useState('');
+    const [position, setPosition] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const checkAuth = async () => {
+        const initializeAuth = async () => {
             try {
-                const accessToken = getCookie('accessToken');
-                const response = await fetch('/api/v1/check-auth', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                    },
-                    credentials: 'include',
-                });
+                const response = await checkAuth(); // 서버 인증 확인
 
-                if (response.ok) {
-                    const data = await response.json();
+                if (response) {
+                    const { id, name, department, position } = response;
 
-                    if (data.data) {
-                        // 인증 상태 업데이트 및 로컬 스토리지에 저장
-                        setIsAuthenticated(true);
-                        setId(data.data.id);
-                        setName(data.data.name);
-                        setDepartment(data.data.department);
-                        setPosition(data.data.position);
+                    setIsAuthenticated(true);
+                    setId(id);
+                    setName(name);
+                    setDepartment(department);
+                    setPosition(position);
 
-                        localStorage.setItem('isAuthenticated', JSON.stringify(true));
-                        localStorage.setItem('id', data.data.id);
-                        localStorage.setItem('name', data.data.name);
-                        localStorage.setItem('department', data.data.department);
-                        localStorage.setItem('position', data.data.position);
-                    } else {
-                        setIsAuthenticated(false);
-                        localStorage.removeItem('isAuthenticated');
-                    }
-                } else {
-                    setIsAuthenticated(false);
-                    localStorage.removeItem('isAuthenticated');
+                    // LocalStorage에 저장
+                    localStorage.setItem('isAuthenticated', JSON.stringify(true));
+                    localStorage.setItem('id', id);
+                    localStorage.setItem('name', name);
+                    localStorage.setItem('department', department);
+                    localStorage.setItem('position', position);
                 }
             } catch (error) {
-                console.error('Failed to check authentication', error);
+                console.error("인증 실패 : ", error);
                 setIsAuthenticated(false);
-                localStorage.removeItem('isAuthenticated');
+                // localStorage.setItem('isAuthenticated', JSON.stringify(false));
             } finally {
-                setLoading(false);
+                setLoading(false); // 로딩 완료
             }
         };
 
-        // 초기 로드 시 인증 상태 확인
-        if (!localStorage.getItem('isAuthenticated')) {
-            checkAuth();
-        } else {
-            setLoading(false);
+        // LocalStorage의 값이 있으면 초기 상태 설정
+        const storedAuth = JSON.parse(localStorage.getItem('isAuthenticated'));
+        if (storedAuth) {
+            setIsAuthenticated(storedAuth);
         }
-    }, []);
 
-    // 로딩 상태 표시
+        initializeAuth(); // 한 번만 실행
+    }, []); // 의존성 배열에서 isAuthenticated를 제거
+
     if (loading) {
         return <div>Loading...</div>;
     }

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import './CreateDeaprtmentScheduleModal.css';
+import '../../../../../components/ui/modal/Modal.css';
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const CreateDepartmentScheduleModal = ({ isOpen, onClose, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -36,46 +38,53 @@ const CreateDepartmentScheduleModal = ({ isOpen, onClose, onSubmit }) => {
             alert("모든 필드를 채워 주세요.");
             return;
         }
-
-        try {
-            await onSubmit(formData);  // formData를 부모 컴포넌트로 전달하고 완료 대기
-            onClose();  // 성공적으로 생성되면 모달 닫기
-        } catch (error) {
-            console.error("Error creating schedule:", error);
-        }
+        onSubmit(formData);
     };
 
     if (!isOpen) return null;
 
     return (
-        <div className="create-department-schedule-modal open">
-            <div className="create-department-schedule-modal-content">
-                <h3 className="create-department-schedule-modal-title">부서 일정 만들기</h3>
-                <div className="create-department-schedule-modal-body">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
+                    <h3 className="custom-modal-title">
+                        부서 일정 만들기
+                    </h3>
+                    <CloseImageButton handleClose={onClose} />
+                </div>
+                <div className="custom-modal-body">
                     <form onSubmit={handleSubmit}>
-                        <div className="create-department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>제목:</label>
-                            <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+                            <input type="text" name="title" value={formData.title} onChange={handleChange} required/>
                         </div>
-                        <div className="create-department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>설명:</label>
-                            <textarea name="description" value={formData.description} onChange={handleChange} required />
+                            <textarea name="description"
+                                      className="custom-modal-body-textarea"
+                                      value={formData.description}
+                                      onChange={handleChange}
+                                      required/>
                         </div>
-                        <div className="create-department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>시작 날짜와 시간:</label>
-                            <input type="datetime-local" name="startDate" value={formData.startDate} onChange={handleChange} required />
+                            <input type="datetime-local" name="startDate" value={formData.startDate}
+                                   onChange={handleChange} required/>
                         </div>
-                        <div className="create-department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>종료 날짜와 시간:</label>
-                            <input type="datetime-local" name="endDate" value={formData.endDate} onChange={handleChange} required />
+                            <input type="datetime-local" name="endDate" value={formData.endDate} onChange={handleChange}
+                                   required/>
                         </div>
-                        <div className="create-department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>파일 첨부:</label>
-                            <input type="file" name="files" onChange={handleFileChange} multiple />
+                            <input type="file" name="files" onChange={handleFileChange} multiple/>
                         </div>
-                        <div className="create-department-schedule-modal-footer">
-                            <button type="submit" className="btn btn-primary">제출</button>
-                            <button type="button" className="btn btn-secondary" onClick={onClose}>닫기</button>
+                        <div className="custom-modal-form-group-right">
+                            ※ 한 달 일정만 생성해주세요!
+                        </div>
+                        <div className="custom-modal-footer">
+                            <ConfirmButton onSubmit={handleSubmit} text={"제출"}/>
                         </div>
                     </form>
                 </div>

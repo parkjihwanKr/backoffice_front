@@ -164,18 +164,36 @@
     gap: 4px;
 }
 
-.general-board-title {
+.general-domain-title {
     flex: 1;
     text-align: left;
     font-size: 14px;
     font-weight: bold;
 }
 
+.general-domain-date {
+    font-size : 12px;
+}
+
 .general-board-metric {
     display: flex;
     align-items: center;
+
+
     gap: 4px;
     text-align: right;
+}
+
+.general-event-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.general-event-title{
+    text-align: center;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {

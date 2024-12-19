@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { fetchSchedules, createEvent, updateEvent, deleteEvent } from '../services/DepartmentScheduleService';  // 서비스 함수들 가져오기
+import React, {useEffect, useState} from 'react';
+import {createEvent, deleteEvent, fetchSchedules, updateEvent} from '../services/DepartmentScheduleService'; // 서비스 함수들 가져오기
 import CreateDepartmentScheduleModal from './header/CreateDepartmentScheduleModal';
 import DepartmentScheduleHeader from './header/DepartmentScheduleHeader';
 import DepartmentScheduleBody from './body/DepartmentScheduleBody';
 import DepartmentScheduleFooter from './footer/DepartmentScheduleFooter';
 import './DepartmentSchedule.css';
-import { useNavigate, useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import EventDetailModal from "./body/EventDetailModal";
 
 const DepartmentSchedule = () => {
     const { department } = useParams();
-    const navigate = useNavigate();
 
     const today = new Date();
     const [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -19,15 +18,52 @@ const DepartmentSchedule = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // 생성 모달 상태 관리
     const [selectedEvent, setSelectedEvent] = useState(null); // 선택된 이벤트를 위한 상태 관리
 
+    // API 조회
     const loadSchedules = async () => {
-        let response = null;
         try {
-            response = await fetchSchedules(department, currentYear, currentMonth);
-            setSchedules(response.data);
+            const response
+                = await fetchSchedules(department, currentYear, currentMonth);
+            setSchedules(response);
+            console.log(response);
         } catch (error) {
-            console.error('일정 데이터를 가져오는 중 오류가 발생했습니다.', error);
+            alert(error.response.data.data + " : "+error.response.data.message);
+            console.error("일정 조회 실패 : "+error);
         }
-        console.log(response.data);
+    };
+
+    // 일정 업데이트 함수
+    const handleUpdateEvent = async (formData, eventId) => {
+        console.log(selectedEvent);
+        try {
+            const updatedEvent = await updateEvent(department, eventId, formData);
+            setSelectedEvent(updatedEvent);
+            loadSchedules();  // 일정 수정 후 일정을 다시 가져옴
+            closeEventDetailModal();
+        } catch (error) {
+            console.error('부서 일정 수정 중 오류 발생:', error);
+        }
+    };
+
+    // 일정 생성
+    const handleCreateEvent = async (formData) => {
+        try {
+            await createEvent(department, formData); // 일정 생성 API 호출
+            await loadSchedules(); // 일정 목록 다시 로드
+            closeModal(); // 모달 닫기
+        } catch (error) {
+            console.error("일정 생성 중 오류 발생:", error);
+        }
+    };
+
+    // 일정 삭제 함수
+    const handleDeleteEvent = async (eventId) => {
+        try {
+            await deleteEvent(department, eventId);
+            loadSchedules();  // 일정 삭제 후 일정을 다시 가져옴
+            closeEventDetailModal();
+        } catch (error) {
+            console.error('부서 일정 삭제 중 오류 발생 :', error);
+        }
     };
 
     useEffect(() => {
@@ -56,34 +92,7 @@ const DepartmentSchedule = () => {
     const openCreateModal = () => setIsCreateModalOpen(true);
     const closeModal = () => setIsCreateModalOpen(false);
 
-    const openEventDetailModal = (event) =>{
-        console.log("Event Click", event);
-        setSelectedEvent(event);
-    }
     const closeEventDetailModal = () => setSelectedEvent(null);
-
-    // 일정 업데이트 함수
-    const handleUpdateEvent = async (formData, eventId) => {
-        console.log(selectedEvent);
-        try {
-            await updateEvent(department, eventId, formData);
-            loadSchedules();  // 일정 수정 후 일정을 다시 가져옴
-            closeEventDetailModal();
-        } catch (error) {
-            console.error('부서 일정 수정 중 오류 발생:', error);
-        }
-    };
-
-    // 일정 삭제 함수
-    const handleDeleteEvent = async (eventId) => {
-        try {
-            await deleteEvent(department, eventId);
-            loadSchedules();  // 일정 삭제 후 일정을 다시 가져옴
-            closeEventDetailModal();
-        } catch (error) {
-            console.error('부서 일정 삭제 중 오류 발생 :', error);
-        }
-    };
 
     return (
         <div>
@@ -96,8 +105,8 @@ const DepartmentSchedule = () => {
                 currentYear={currentYear}
                 currentMonth={currentMonth}
                 schedules={schedules}
-                onUpdateEvent={handleUpdateEvent}  // 수정 함수 전달
-                onDeleteEvent={handleDeleteEvent}  // 삭제 함수 전달
+                onUpdateEvent={handleUpdateEvent}
+                onDeleteEvent={handleDeleteEvent}
             />
             <DepartmentScheduleFooter
                 onPrevMonth={handlePrevMonth}
@@ -108,12 +117,9 @@ const DepartmentSchedule = () => {
             <CreateDepartmentScheduleModal
                 isOpen={isCreateModalOpen}
                 onClose={closeModal}
-                onSubmit={(formData) => {
-                    createEvent(department, formData);
-                }}
+                onSubmit={handleCreateEvent}
             />
 
-            {/* Event 상세 모달 컴포넌트 */}
             <EventDetailModal
                 isOpen={!!selectedEvent}
                 onClose={closeEventDetailModal}

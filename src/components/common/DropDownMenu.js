@@ -9,6 +9,7 @@ import { imagePrefix } from '../../utils/Constant';
 import NotificationListModal from '../../features/notifications/components/modal/NotificationListModal';
 import { logout } from "../../features/auth/services/AuthService";
 import FavoritesModal from "../../features/favorites/FavoritesModal";
+import {deleteCookie} from "../../utils/CookieUtil";
 
 const DropDownMenu = () => {
     const { id, isAuthenticated, name, department, position } = useAuth();
@@ -27,11 +28,14 @@ const DropDownMenu = () => {
         try {
             await logout();
             // 로컬 스토리지 및 상태 초기화
-            localStorage.clear();
-            window.location.href = '/auth/login';
         } catch (error) {
             console.error("Failed to logout:", error);
         }
+        // 로그 아웃을 시도
+        localStorage.clear();
+        localStorage.setItem("isAuthenticated", JSON.stringify(false));
+        deleteCookie('refreshToken');
+        window.location.href = '/auth/login';
     };
 
     const toggleDropdown = () => {

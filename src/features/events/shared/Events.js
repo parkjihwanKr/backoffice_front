@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../shared/DomainContainer.css';
-import { imagePrefix } from '../../../utils/Constant';
+import {departmentMapping, imagePrefix, reverseDepartmentMapping} from '../../../utils/Constant';
 import SelectDepartmentModal from '../../shared/SelectDepartmentModal';
 
 const Events = () => {
@@ -23,7 +23,8 @@ const Events = () => {
 
     const handle_department_select = () => {
         if (selected_department) {
-            navigate(`/department-schedule/${selected_department}`); // 부서 일정표 페이지로 이동
+            const departmentCode = departmentMapping[selected_department];
+            navigate(`/department-schedule/${departmentCode}`); // 부서 일정표 페이지로 이동
             close_department_modal();
         } else {
             alert('부서를 선택해주세요.'); // 부서가 선택되지 않은 경우 경고
