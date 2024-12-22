@@ -59,7 +59,6 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
         } catch (error) {
             console.error("Error creating vacation:", error.data);
         }
-
     };
 
     return (
@@ -70,77 +69,76 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
                     <CloseImageButton handleClose={handleClose}/>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div className="create-vacation-modal-body">
-                        <label>
-                            휴가 제목:
+                    <div className="custom-modal-body">
+                        <div className="custom-modal-body-content">
+                            <label className="custom-modal-body-content-label">
+                                휴가 제목:
+                            </label>
                             <input
                                 type="text"
                                 value={vacationTitle}
                                 onChange={(e) => setVacationTitle(e.target.value)}
                                 required
                             />
-                        </label>
-                        <div className="row-label">
-                            <div className="row-label-urgent">
-                                <img src={`${imagePrefix}/shared/urgent.png`} alt="urgent icon" />
-                                <label className="row-label-text">긴급</label>
+                            <div>
+                                <img src={`${imagePrefix}/shared/urgent.png`} alt="urgent icon"/>
+                                <label className="custom-modal-body-content-label">긴급</label>
                                 <input
                                     type="checkbox"
                                     checked={urgent}
                                     onChange={(e) => setUrgent(e.target.checked)}
                                 />
+                                <label className="custom-modal-body-content-label">
+                                    <select
+                                        value={vacationType}
+                                        onChange={(e) => setVacationType(e.target.value)}
+                                        required
+                                    >
+                                        <option value="">휴가 종류를 선택해주세요!</option>
+                                        <option value="연가">연가</option>
+                                        <option value="병가">병가</option>
+                                        <option value="긴급한 휴가">긴급한 휴가</option>
+                                    </select>
+                                </label>
                             </div>
-                            <label>
-                                <select
-                                    value={vacationType}
-                                    onChange={(e) => setVacationType(e.target.value)}
-                                    required
-                                >
-                                    <option value="">휴가 종류를 선택해주세요!</option>
-                                    <option value="연가">연가</option>
-                                    <option value="병가">병가</option>
-                                    <option value="긴급한 휴가">긴급한 휴가</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div className="row-label">
-                            <label>
+                            <label className="custom-modal-body-content-label">
                                 시작일:
-                                <input
-                                    type="date"
-                                    value={vacationStartDate}
-                                    onChange={(e) => setVacationStartDate(e.target.value)}
-                                    required
-                                />
                             </label>
-                            <label>
+                            <input
+                                type="date"
+                                value={vacationStartDate}
+                                onChange={(e) => setVacationStartDate(e.target.value)}
+                                required
+                            />
+                            <label className="custom-modal-body-content-label">
                                 종료일:
-                                <input
-                                    type="date"
-                                    value={vacationEndDate}
-                                    onChange={(e) => setVacationEndDate(e.target.value)}
-                                    required
-                                />
                             </label>
-                        </div>
-                        <label className="row-label-reason">
-                            사유('긴급' 체크 시, 사용):
+                            <input
+                                type="date"
+                                value={vacationEndDate}
+                                onChange={(e) => setVacationEndDate(e.target.value)}
+                                required
+                            />
+                            <label className="custom-modal-body-content-label">
+                                사유('긴급' 체크 시, 사용):
+                            </label>
                             <textarea
                                 value={vacationReason}
                                 onChange={(e) => setVacationReason(e.target.value)}
                                 placeholder="Enter reason for vacation"
+                                className="custom-modal-body-textarea"
                             />
-                        </label>
+                        </div>
                     </div>
                     <div className="create-vacation-modal-footer">
                         <img
-                            title = "휴가 사용시 주의사항"
+                            title="휴가 사용시 주의사항"
                             src={`${imagePrefix}/shared/caution_document.png`}
                             className="footer-icon"
                             onClick={() => setShowWarningModal(true)}
                             alt="Warning icon"
                         />
-                        <SubmitImageButton onSubmit={handleSubmit} />
+                        <SubmitImageButton onSubmit={handleSubmit}/>
                     </div>
                 </form>
 

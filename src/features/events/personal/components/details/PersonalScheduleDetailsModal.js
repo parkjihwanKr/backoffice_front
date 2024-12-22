@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './PersonalScheduleDetailsModal.css';
+import '../../../../../components/ui/modal/Modal.css';
 import CreateVacationModal from './CreateVacationModal';
 import { imagePrefix } from "../../../../../utils/Constant";
-import { getPersonalDaySchedule } from "../../services/PersonalScheduleService";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import { getPersonalDaySchedule } from "../../services/PersonalScheduleService";
 import { adjustModalAlignment, addModalAlignmentListener } from '../../../../../utils/ModalUtils';
 
 const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberId }) => {
@@ -67,15 +68,13 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
     if (!show) return null;
 
     return (
-        <div className="personal-schedule-details-modal-overlay" ref={modalOverlayRef}>
-            <div className="personal-schedule-details-modal-content" ref={modalContentRef}>
-                <div className="personal-schedule-details-modal-header">
-                    <span className="personal-schedule-details-modal-title">
-                        Schedule Details for {selectedDate ? selectedDate.toLocaleDateString() : 'N/A'}
-                    </span>
+        <div className="custom-modal-overlay" ref={modalOverlayRef}>
+            <div className="custom-modal-content" ref={modalContentRef}>
+                <div className="custom-modal-header">
+                    <h3>{selectedDate ? selectedDate.toLocaleDateString() : 'N/A'}</h3>
                     <CloseImageButton handleClose={handleClose} />
                 </div>
-                <div className="personal-schedule-details-modal-body">
+                <div className="custom-modal-body">
                     {dayEvents && dayEvents.length > 0 ? (
                         <div>
                             {dayEvents.map((currentEvent) => (
@@ -87,7 +86,7 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                                     style={{ position: 'relative' }}
                                 >
                                     <div className="event-card-title">
-                                        {currentEvent.title || 'No Title'}
+                                        {currentEvent.title || '제목 없음'}
                                     </div>
                                     <div className="event-card-content">
                                         <strong>내용:</strong> {currentEvent.description || 'No description available'}
@@ -129,15 +128,16 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                             ))}
                         </div>
                     ) : (
-                        <p>No events on this day</p>
+                        <p>해당 날짜의 일정이 없습니다.</p>
                     )}
                 </div>
-                <div className="personal-schedule-details-modal-footer" style={{ marginTop: '10px' }}>
+                <div className="custom-modal-footer">
                     <img
                         title="휴가 추가"
                         src={`${imagePrefix}/shared/create_vacation_schedule.png`}
                         onClick={handleVacationModalOpen}
                         className="personal-schedule-action-icon"
+                        style = {{ width : "36px", height : "36px"}}
                     />
                 </div>
             </div>

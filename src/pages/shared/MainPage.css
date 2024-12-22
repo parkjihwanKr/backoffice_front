@@ -166,20 +166,20 @@
 
 .general-domain-title {
     flex: 1;
-    text-align: left;
     font-size: 14px;
     font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .general-domain-date {
     font-size : 12px;
 }
 
-.general-board-metric {
+.general-domain-metric, .general-board-metric, .general-event-metric {
     display: flex;
     align-items: center;
-
-
     gap: 4px;
     text-align: right;
 }
@@ -196,8 +196,17 @@
     font-weight: bold;
 }
 
+.pointer-img {
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     .favorites-container-footer {
         font-size : 10px;
+    }
+
+    .general-board-metric,
+    .general-event-metric {
+        display: none;
     }
 }

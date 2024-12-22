@@ -138,6 +138,10 @@
     margin-bottom: 8px; /* 다른 요소와의 간격 조정 */
 }
 
+.custom-modal-body-content input {
+    width : 95%;
+}
+
 .custom-modal-body-select {
     min-width: 97%;
     flex: 1;

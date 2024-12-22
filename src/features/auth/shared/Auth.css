@@ -67,28 +67,9 @@
 .auth-page-button {
     display: flex; /* 같은 행에 배치 */
     justify-content: space-between; /* 버튼 간격을 균등 분배 */
-    width: 100%; /* 부모의 너비를 가득 채움 */
-    margin-top: 20px;
-}
-
-.signup-button button{
-    display: flex;
-    justify-items: right;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: black;
-    background-color: cornflowerblue;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    height: 50px;
 }
 
 .auth-page-button button {
-    width: 200px;
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: bold;
@@ -113,22 +94,6 @@
     text-align: center;
 }
 
-.secondary-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: black;
-    background-color: cornflowerblue;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.secondary-button:hover {
-    background-color: royalblue;
-}
-
 .input-index {
     position: relative;
 }
@@ -137,11 +102,13 @@
     width: 120px;
     position: absolute;
     display: inline-block;
+    right : -20%;
     padding: 10px 20px;
     font-weight: bold;
     font-size: 0.9rem;
     color: white;
     background-color: cornflowerblue;
+    border : 1px solid cornflowerblue;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -187,5 +154,6 @@
     .speech-balloon {
         font-size: 10px;
         width: 10%;
+        right : -7%;
     }
 }

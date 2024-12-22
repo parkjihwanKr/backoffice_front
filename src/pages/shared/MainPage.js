@@ -18,11 +18,11 @@ const MainPage = () => {
                 setPersonalFavorites(mainPageData.personalFavoritesDtoList || []);
                 setGeneralData({
                     boards: mainPageData.generalBoardDtoList || [],
-                    events: mainPageData.departmentEventDtoList || []
+                    events: mainPageData.comapnyEventDtoList || []
                 });
                 setPersonalData({
                     boards: mainPageData.departmentBoardDtoList || [],
-                    events: mainPageData.personalEventDtoList || [],
+                    events: mainPageData.personalVacationDtoList || [],
                 });
                 setPersonalAttendance({
                     attendances : mainPageData.personalAttendanceDtoList || []

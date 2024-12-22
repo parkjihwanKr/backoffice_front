@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import "../shared/Auth.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {login} from "../services/AuthService";
+import ConfirmButton from "../../../components/ui/buttons/ConfirmButton";
+import SubmitButton from "../../../components/ui/buttons/SubmitButton";
 
 const Login = () => {
     const [memberName, setMemberName] = useState("");
     const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -26,6 +29,10 @@ const Login = () => {
         }
     };
 
+    const goToSignupPage = () => {
+        navigate('/auth/signup');
+    }
+    
     return (
         <div className="login-page">
             <div className="auth-page-header">
@@ -54,9 +61,14 @@ const Login = () => {
                         />
                     </div>
                     <div className="auth-page-button">
-                        <button type="submit">로그인</button>
+                        <button type="submit"
+                        style={{ width : "190px"}}>
+                            로그인
+                        </button>
                         <Link to="/auth/signup">
-                            <button type="button" className="secondary-button">
+                            <button type="button"
+                                    style={{ width : "190px"}}
+                                    className="secondary-button">
                                 회원 가입
                             </button>
                         </Link>
