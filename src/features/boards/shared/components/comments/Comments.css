@@ -81,10 +81,6 @@
     background-color: #f2f2f0;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 .comment-card {
     box-sizing: border-box; /* padding 포함 */
     position: relative;

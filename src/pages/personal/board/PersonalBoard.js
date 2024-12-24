@@ -32,7 +32,7 @@ const Personalboard = ({ boards = [] }) => {
                             onClick={() => goToDepartmentBoardDetails(board.boardId)} // 수정된 부분
                         >
                             <div className="general-board-stats">
-                                <span className="general-board-metric">
+                                <span className="general-domain-metric">
                                     <img
                                         src={board.isImportant ?
                                             `${imagePrefix}/shared/isImportant_true.png` :
@@ -43,15 +43,15 @@ const Personalboard = ({ boards = [] }) => {
                                 <span className="general-domain-title">
                                     {board.title}
                                 </span>
-                                <span className="general-board-metric">
+                                <span className="general-domain-metric">
                                     <img src={`${imagePrefix}/shared/likes.png`} alt="Likes Icon"/>
                                     : {board.likeCount}
                                 </span>
-                                <span className="general-board-metric">
+                                <span className="general-domain-metric">
                                     <img src={`${imagePrefix}/shared/commentList.png`} alt="Comments Icon"/>
                                     : {board.commentCount}
                                 </span>
-                                <span className="general-board-metric">
+                                <span className="general-domain-metric">
                                     <img src={`${imagePrefix}/shared/viewCount.png`} alt="Views Icon"/>
                                     : {board.viewCount}
                                 </span>

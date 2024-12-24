@@ -16,17 +16,19 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, 
     const [localFilters, setLocalFilters] = useState(filters);
     const [upcomingAttendance, setUpcomingAttendance] = useState([]);
 
-    const handleDeleteSuccess = (deletedIds) => {
-        if (!Array.isArray(deletedIds)) {
-            console.error("onDeleteSuccess expected an array but received:", deletedIds);
-            return;
-        }
-        onDeleteSuccess(deletedIds);
-    };
-
+    // 근태 기록 생성
     const handleAttendanceCreated = (newAttendance) => {
         onAttendanceCreated(newAttendance);
         setModalType(null);
+    };
+
+    // 근태 기록 삭제
+    const handleDeleteSuccess = (deletedIds) => {
+        if (!Array.isArray(deletedIds)) {
+            console.error("삭제 할 아이디 리스트가 없습니다. : ", deletedIds);
+            return;
+        }
+        onDeleteSuccess(deletedIds);
     };
 
     const handleUpcomingAttendance = async () => {

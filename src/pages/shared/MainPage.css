@@ -3,7 +3,7 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr 1fr; /* 2열 레이아웃 */
-    gap: 10px; /* 행과 열 사이의 간격 */
+    column-gap: 10px; /* 행과 열 사이의 간격 */
     overflow-y: auto;
 }
 
@@ -24,18 +24,18 @@
     width: 100%;
 }
 
-.favorites-container-header {
+.favorites-container-header, .attendances-container-header {
     font-weight: bold;
     font-size: 18px;
 }
 
-.favorites-container-header span{
+.favorites-container-header span, .attendances-container span{
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
 }
 
-.favorites-container-body {
+.favorites-container-body,.attendances-container-body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,15 +43,22 @@
     transition: max-height 0.5s ease-in-out;
 }
 
-.favorites-grid {
+.favorites-grid, .attendances-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(150px, 1fr)); /* 요소 크기에 따라 동적으로 조정 */
     gap: 16px; /* 요소 간 간격 */
     justify-content: center; /* 가로 방향으로 가운데 정렬 */
     align-items: center; /* 세로 방향으로 가운데 정렬 */
 }
 
-.personal-favorites-item {
+.favorites-grid {
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+}
+
+.attendances-grid {
+    grid-template-columns: repeat(7, minmax(10%, 1fr));
+}
+
+.personal-favorites-item, .personal-attendances-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,19 +77,20 @@
     margin-bottom: 8px;
 }
 
-.personal-favorites-item:hover {
+.personal-favorites-item:hover, .personal-attendances-item:hover {
     transform: translateY(-3px); /* 위로 10px 떠오름 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
     background-color: #f9f9f9; /* 배경색 살짝 밝게 변경 */
 }
 
-.favorites-container-footer {
+.favorites-container-footer, .attendances-container-footer {
     font-size : 13px;
     text-align: right;
 }
 
 .general-container,
-.personal-container {
+.personal-container,
+.attendances-container{
     height: auto; /* 동적 높이 조정 */
     padding: 10px;
     background-color: #ffffff;
@@ -96,18 +104,6 @@
 .personal-container {
     grid-row: 2; /* 2행 2열 */
     grid-column: 2;
-}
-
-.attendance-container {
-    grid-row: 3; /* 3행 전체를 차지 */
-    grid-column: span 2;
-    height: auto;
-    padding: 10px;
-    background-color: #f2f2f2; /* 다른 배경색 추가 */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 /* 기존 스타일 유지 */
@@ -131,7 +127,8 @@
 }
 
 .general-board-header img, .general-event-header img,
-.personal-board-header img, .personal-event-header img {
+.personal-board-header img, .personal-event-header img,
+.attendances-container-header img{
     position: absolute;
     right: 1%;
     top: 1%;
@@ -145,7 +142,7 @@
     margin-bottom: 10px;
 }
 
-.general-board-stats img {
+.general-board-stats img, .personal-attendances-item-index img {
     width: 16px;
     height: 16px;
     vertical-align: middle;
@@ -177,7 +174,7 @@
     font-size : 12px;
 }
 
-.general-domain-metric, .general-board-metric, .general-event-metric {
+.general-domain-metric, .general-board-metric {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -200,13 +197,54 @@
     cursor: pointer;
 }
 
+.attendances-container {
+    grid-row: 3; /* 3행 전체를 차지 */
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    grid-column: span 2;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.attendances-container-header {
+    text-align: center;
+    position: relative;
+}
+
+.attendances-container-body {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.personal-attendances-item {
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.personal-attendances-item-index {
+    margin-top : 3px;
+    margin-bottom: 3px;
+}
+
 @media (max-width: 768px) {
-    .favorites-container-footer {
+    .favorites-container-footer, .attendances-container-footer {
         font-size : 10px;
     }
 
-    .general-board-metric,
-    .general-event-metric {
+    .general-domain-metric {
         display: none;
+    }
+
+    .attendances-grid {
+        grid-template-rows: repeat(7, minmax(10%, 1fr));
     }
 }

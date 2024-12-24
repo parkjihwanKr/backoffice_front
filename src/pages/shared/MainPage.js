@@ -45,7 +45,8 @@ const MainPage = () => {
             {/* 개인 게시판과 일정 데이터를 PersonalContainer로 전달 */}
             <PersonalContainer
                 data={personalData} />
-            <AttendanceContainer/>
+            <AttendanceContainer
+                data = {personalAttendances}/>
         </div>
     );
 };

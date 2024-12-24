@@ -2,10 +2,11 @@ import React from "react";
 import "../../../../components/ui/modal/Modal.css";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import {reverseAttendanceMapping} from "../../../../utils/Constant";
+import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
 
-const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose }) => {
-    console.log(attendanceData);
+const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose, isOpen }) => {
 
+    useModalScroll(isOpen);
     const { year, month, day } = selectedDate || {};
 
     return (

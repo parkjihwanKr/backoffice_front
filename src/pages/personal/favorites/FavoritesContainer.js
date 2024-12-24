@@ -40,6 +40,9 @@ const FavoritesContainer = () => {
                         <p>즐겨찾기 목록이 없습니다.</p>
                     )}
                 </div>
+                <div className="favorites-container-footer">
+                    ★ 즐겨찾기 생성, 수정, 삭제는 위의 상단바에서 진행 가능합니다.
+                </div>
             </div>
         </div>
     );

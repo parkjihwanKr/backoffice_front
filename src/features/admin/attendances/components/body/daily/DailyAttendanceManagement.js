@@ -8,6 +8,7 @@ import FilterImageButton from "../../../../../../components/ui/buttons/FilterIma
 import FilterDropDown from "../../../../../../components/common/FilterDropDown";
 import useDailyAttendanceFilterListForHeader from "../../../hooks/useDailyAttendanceFilterListForHeader";
 import UpdateMemberAttendanceStatusModal from "./UpdateMemberAttendanceStatusModal";
+import useModalScroll from "../../../../../boards/shared/hooks/useModalScroll";
 
 const DailyAttendanceManagement = () => {
     const location = useLocation();
@@ -23,6 +24,8 @@ const DailyAttendanceManagement = () => {
     // 모달 상태 관리
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedAttendance, setSelectedAttendance] = useState(null);
+
+    useModalScroll(isModalOpen);
 
     const [filters, setFilters] = useState({
         department: null,

@@ -1,5 +1,5 @@
 import '../../shared/MainPage.css';
-import {imagePrefix, reverseDomainMapping, reverseVacationMapping} from "../../../utils/Constant";
+import {imagePrefix, reverseVacationMapping} from "../../../utils/Constant";
 import {useAuth} from "../../../features/auth/context/AuthContext";
 import {useNavigate} from "react-router-dom";
 
@@ -51,7 +51,7 @@ const PersonalEvent = ({events = []}) => {
                                     {new Date(vacation.endDate).toLocaleDateString()}
                                     )
                                 </span>
-                                <span className="general-event-metric">
+                                <span className="general-domain-metric">
                                     <img
                                         src={`${imagePrefix}/shared/go_to_details.png`}
                                         className="pointer-img"
