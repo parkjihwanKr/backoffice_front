@@ -157,6 +157,12 @@
     justify-items: center;
 }
 
+.custom-modal-body-text {
+    margin-top: 5px;
+    font-size: 13px;
+    text-align: right;
+}
+
 .add-id-list {
     font-weight: 600;
     margin-bottom: 10px;

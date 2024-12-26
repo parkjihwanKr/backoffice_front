@@ -66,34 +66,39 @@ const FavoritesModal = ({ show, handleClose }) => {
                         {favorites.length === 0 ? (
                             <p>즐겨찾기 목록이 없습니다.</p>
                         ) : (
-                            <ul className="no-bullets">
+                            <div className="favorite-list">
                                 {favorites.map((oneFavorites) => (
-                                    <li key={oneFavorites.favoritesId} className="favorite-item">
+                                    <div key={oneFavorites.favoritesId} className="favorite-item">
                                         <a
                                             href={oneFavorites.favoritesUrl}
-                                            className="favorites-item-text"
+                                            className="favorites-item-header"
                                         >
                                             {oneFavorites.description}
                                         </a>
-                                        <img
-                                            src={`${imagePrefix}/shared/edit.png`}
-                                            alt="Edit Favorite"
-                                            className="edit-favorites"
-                                            onClick={() => handleEditFavorite(oneFavorites)}
-                                        />
-                                        <img
-                                            src={`${imagePrefix}/shared/delete_domain.png`}
-                                            alt="Delete Favorite"
-                                            className="delete-favorites"
-                                            onClick={() => handleDeleteFavorite(oneFavorites)}
-                                        />
-                                    </li>
+                                        <div className="custom-modal-body-card-index">
+                                            <img
+                                                src={`${imagePrefix}/shared/edit.png`}
+                                                alt="Edit Favorite"
+                                                className="edit-favorites"
+                                                onClick={() => handleEditFavorite(oneFavorites)}
+                                            />
+                                            <img
+                                                src={`${imagePrefix}/shared/delete_domain.png`}
+                                                alt="Delete Favorite"
+                                                className="delete-favorites"
+                                                onClick={() => handleDeleteFavorite(oneFavorites)}
+                                            />
+                                        </div>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         )}
+                        <div className="custom-modal-body-text">
+                            ※ 즐겨찾기는 개인당 10개가 최대 갯수입니다.
+                        </div>
                     </div>
                     <div className="custom-modal-footer">
-                        <SubmitButton onSubmit={handleAddFavorite} text={"현재 페이지 추가"} />
+                        <SubmitButton onSubmit={handleAddFavorite} text={"현재 페이지 추가"}/>
                     </div>
                 </div>
             </div>

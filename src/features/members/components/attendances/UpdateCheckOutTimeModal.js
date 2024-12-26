@@ -3,8 +3,10 @@ import { updateCheckOutTime } from "../../services/MembersService";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 import DateUtils from "../../../../utils/DateUtils";
+import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
 
-const UpdateCheckOutTimeModal = ({ attendanceId, onClose, updateAttendanceInState }) => {
+const UpdateCheckOutTimeModal = ({ show, attendanceId, onClose, updateAttendanceInState }) => {
+    useModalScroll(show);
     const [description, setDescription] = useState(""); // 설명 입력값
 
     const handleSubmit = async () => {

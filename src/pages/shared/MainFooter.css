@@ -1,0 +1,54 @@
+.custom-footer {
+    margin-top: 40px;
+    padding: 10px 20px;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 아이콘 그룹과 텍스트 정렬 */
+    width: 100%;
+}
+
+.footer-links {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: black;
+}
+
+.footer-icon-credits {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: flex-end; /* 오른쪽 정렬 */
+    font-size: 12px;
+    color: #6c757d;
+    margin-left: auto; /* 왼쪽 공간 자동 */
+    text-align: right;
+}
+
+.footer-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px; /* 간격 조정 */
+}
+
+.icon-credit-img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.icon-credit-link:hover {
+    text-decoration: underline;
+}

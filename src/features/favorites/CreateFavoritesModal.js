@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import '../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../components/ui/image/CloseImageButton";
+import ConfirmButton from "../../components/ui/buttons/ConfirmButton";
 
-const CreateFavoritesModal = ({ currentUrl, onClose, onConfirm }) => {
+const CreateFavoritesModal = ({ onClose, onConfirm }) => {
     const [description, setDescription] = useState("");
+    const [currentUrl, setCurrentUrl] = useState(null);
 
     const handleConfirm = () => {
         onConfirm(description);
     };
+
+    useEffect(() => {
+        setCurrentUrl(window.location.href);
+    }, []);
 
     return (
         <div className="custom-modal-overlay">
@@ -17,9 +23,10 @@ const CreateFavoritesModal = ({ currentUrl, onClose, onConfirm }) => {
                     <CloseImageButton handleClose={onClose} />
                 </div>
                 <div className="custom-modal-body">
-                    <p>현재 URL: {currentUrl}</p>
                     <div className="custom-modal-body-index">
-                        <label className="custom-modal-body-content-label">설명:</label>
+                        <label className="custom-modal-body-content-label">
+                            설명 :
+                        </label>
                         <input
                             type="text"
                             className="custom-modal-body-textarea"
@@ -28,14 +35,12 @@ const CreateFavoritesModal = ({ currentUrl, onClose, onConfirm }) => {
                             placeholder="즐겨찾기 설명을 입력하세요"
                         />
                     </div>
+                    <div className="custom-modal-body-text">
+                        ※ {currentUrl}
+                    </div>
                 </div>
                 <div className="custom-modal-footer">
-                    <button onClick={handleConfirm} className="confirm-button">
-                        추가
-                    </button>
-                    <button onClick={onClose} className="cancel-button">
-                        취소
-                    </button>
+                    <ConfirmButton onClick={handleConfirm} text={"추가"}/>
                 </div>
             </div>
         </div>

@@ -101,3 +101,7 @@ body {
   margin-top: 20px;
   text-align: center;
 }
+
+* {
+  box-sizing: border-box;
+}

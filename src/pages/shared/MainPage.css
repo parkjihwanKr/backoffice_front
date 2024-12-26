@@ -83,7 +83,8 @@
     background-color: #f9f9f9; /* 배경색 살짝 밝게 변경 */
 }
 
-.favorites-container-footer, .attendances-container-footer {
+.favorites-container-footer, .attendances-container-footer,
+.personal-event-footer {
     font-size : 13px;
     text-align: right;
 }
@@ -219,7 +220,7 @@
     position: relative;
 }
 
-.attendances-container-body {
+.personal-event-body, .attendances-container-body {
     margin-top: 10px;
     margin-bottom: 10px;
 }

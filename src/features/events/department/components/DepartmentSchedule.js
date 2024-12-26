@@ -95,7 +95,7 @@ const DepartmentSchedule = () => {
     const closeEventDetailModal = () => setSelectedEvent(null);
 
     return (
-        <div>
+        <div className="department-schedule-container">
             <DepartmentScheduleHeader
                 currentYear={currentYear}
                 currentMonth={currentMonth}

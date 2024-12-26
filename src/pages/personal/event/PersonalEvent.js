@@ -2,10 +2,15 @@ import '../../shared/MainPage.css';
 import {imagePrefix, reverseVacationMapping} from "../../../utils/Constant";
 import {useAuth} from "../../../features/auth/context/AuthContext";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import VacationDetailModal from "../../../features/admin/vacations/components/body/VacationDetailModal";
 
 const PersonalEvent = ({events = []}) => {
     const {name} = useAuth();
     const navigate = useNavigate();
+
+    const [selectedVacation, setSelectedVacation] = useState(null); // 선택된 휴가 데이터
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
 
     if(events === []){
         console.log("전달 받은 개인 일정표가 없습니다.");
@@ -15,9 +20,25 @@ const PersonalEvent = ({events = []}) => {
         navigate('/personal-schedule');
     }
 
-    const goToVacationDetailsModal = () => {
-        alert("준비중..");
-    }
+    const openVacationDetailsModal = (vacation) => {
+        setSelectedVacation(vacation);
+        setIsModalOpen(true);
+    };
+
+    const closeVacationDetailsModal = () => {
+        setSelectedVacation(null);
+        setIsModalOpen(false);
+    };
+
+    const handleUpdateVacationIsAccepted = async (vacationId) => {
+        // 승인 상태 업데이트 API 호출 로직 추가
+        console.log(`휴가 ${vacationId} 승인 상태 업데이트`);
+    };
+
+    const handleDeleteVacation = async (vacationId) => {
+        // 휴가 삭제 API 호출 로직 추가
+        console.log(`휴가 ${vacationId} 삭제`);
+    };
 
     return(
         <div className="personal-event-container">
@@ -39,8 +60,9 @@ const PersonalEvent = ({events = []}) => {
                                     <img
                                         src={vacation.isAccepted ?
                                             `${imagePrefix}/shared/is_accepted_true_vacation.png` :
-                                            `${imagePrefix}/shared/is_accepted_false_vacation.png`}
-                                        alt={vacation.isAccepted ? '허용' : '안됨'}
+                                            `${imagePrefix}/shared/caution.png`}
+                                        alt={vacation.isAccepted ? '허용' : '허용 안됨'}
+                                        title={vacation.isAccepted ? '허용' : '허용 안됨'}
                                     />
                                 </span>
                                 <span className="general-domain-title">
@@ -55,7 +77,7 @@ const PersonalEvent = ({events = []}) => {
                                     <img
                                         src={`${imagePrefix}/shared/go_to_details.png`}
                                         className="pointer-img"
-                                        onClick={goToVacationDetailsModal}
+                                        onClick={() => openVacationDetailsModal(vacation)}
                                     />
                                 </span>
                             </div>
@@ -66,8 +88,17 @@ const PersonalEvent = ({events = []}) => {
                 )}
             </div>
             <div className="personal-event-footer">
-
+                ★ 해당 휴가 일정은 상세보기만 가능합니다.
             </div>
+            {isModalOpen && selectedVacation && (
+                <VacationDetailModal
+                    isOpen={isModalOpen}
+                    vacation={selectedVacation}
+                    onUpdateVacationIsAccepted={handleUpdateVacationIsAccepted}
+                    onDeleteVacation={handleDeleteVacation}
+                    onClose={closeVacationDetailsModal}
+                />
+            )}
         </div>
     );
 }

@@ -78,7 +78,7 @@ const AttendanceContainer = ( {data}) => {
                                             hour12: true,
                                         }).format(new Date(attendance.checkInTime))}
                                     </div>
-                                    {/* 퇴근 시간 */}
+
                                     <div className="personal-attendances-item-index">
                                         퇴근 : {attendance.checkOutTime === null
                                         ? " 기록 없음 "

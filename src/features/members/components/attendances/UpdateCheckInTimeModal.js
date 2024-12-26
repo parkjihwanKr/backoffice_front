@@ -3,8 +3,11 @@ import { updateCheckInTime } from "../../services/MembersService";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 import DateUtils from "../../../../utils/DateUtils";
+import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
 
-const UpdateCheckInTimeModal = ({ attendanceId, onClose, updateAttendanceInState }) => {
+const UpdateCheckInTimeModal = ({ show, attendanceId, onClose, updateAttendanceInState }) => {
+
+    useModalScroll(show);
 
     const handleSubmit = async () => {
         const currentCheckInTime = DateUtils.formatDateTimeToISOString(new Date());

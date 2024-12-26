@@ -33,6 +33,7 @@ import DailyAttendanceManagement from "./features/admin/attendances/components/b
 import UpdateMemberDetails from "./features/members/components/details/UpdateMemberDetails";
 import MemberAttendance from "./features/members/components/attendances/MemberAttendance";
 import {FavoritesProvider} from "./features/favorites/context/FavoritesProvider";
+import MainFooter from "./pages/shared/MainFooter";
 
 function App() {
     return (
@@ -142,6 +143,9 @@ function App() {
                                 {/* 시작 페이지가 "/"지만 로그인 하지 않으면 login 페이지로 */}
                                 <Route path="*" element={<Navigate to="/auth/login" replace/>}/>
                             </Routes>
+                            <MainFooter>
+                                {/*Main Footer container...*/}
+                            </MainFooter>
                         </div>
                     </Router>
                 </FavoritesProvider>

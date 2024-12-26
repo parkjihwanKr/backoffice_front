@@ -1,30 +1,44 @@
-.favorite-item {
+.favorite-list {
     display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    margin-bottom: 15px;
+    grid-template-columns: repeat(2, minmax(150px, 1fr)); /* 2열 레이아웃 */
+    min-height : 200px;
+    gap: 20px; /* 요소 간 간격 */
 }
 
-.favorites-item-text{
-    position: relative;
-    justify-content: center;
+.favorite-item {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 75px;
+    position : relative;
+}
+
+.favorite-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.favorites-item-header{
+    position: absolute;
     text-align: center;
-    margin-bottom: 5px;
     text-decoration: none;
     color: black;
     transition: color 0.3s ease;
     font-weight : bold;
 }
 
-.edit-favorites {
-    right : 12%;
+.custom-modal-body-card-index{
     position: absolute;
-    cursor: pointer;
+    bottom: 1%;
+    right : 1%;
 }
 
-.delete-favorites {
-    right : 6%;
-    position: absolute;
+.edit-favorites, .delete-favorites {
     cursor: pointer;
 }

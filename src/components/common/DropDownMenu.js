@@ -9,7 +9,11 @@ import { imagePrefix } from '../../utils/Constant';
 import NotificationListModal from '../../features/notifications/components/modal/NotificationListModal';
 import { logout } from "../../features/auth/services/AuthService";
 import FavoritesModal from "../../features/favorites/FavoritesModal";
-import {deleteCookie} from "../../utils/CookieUtil";
+import { deleteCookie } from "../../utils/CookieUtil";
+import UpdateCheckInTimeModal from "../../features/members/components/attendances/UpdateCheckInTimeModal";
+import UpdateCheckOutTimeModal from "../../features/members/components/attendances/UpdateCheckOutTimeModal";
+import {checkTodayAttendance} from "../../features/members/services/MembersService";
+import DateUtils from "../../utils/DateUtils";
 
 const DropDownMenu = () => {
     const { id, isAuthenticated, name, department, position } = useAuth();
@@ -19,6 +23,8 @@ const DropDownMenu = () => {
     const [showNotificationListModal, setNotificationListModal] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [showFavoritesModal, setShowFavoritesModal] = useState(false);
+    const [activeModal, setActiveModal] = useState(null); // "checkIn" or "checkOut" or null
+    const [todayAttendanceId, setTodayAttendanceId] = useState(null);
 
     useEffect(() => {
         console.log("Notification icon state updated:", isNotified);
@@ -27,11 +33,9 @@ const DropDownMenu = () => {
     const handleLogout = async () => {
         try {
             await logout();
-            // 로컬 스토리지 및 상태 초기화
         } catch (error) {
             console.error("Failed to logout:", error);
         }
-        // 로그 아웃을 시도
         localStorage.clear();
         localStorage.setItem("isAuthenticated", JSON.stringify(false));
         deleteCookie('refreshToken');
@@ -42,7 +46,6 @@ const DropDownMenu = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    // 모달 핸들러 함수들
     const handleShowLogoutModal = () => setShowLogoutModal(true);
     const handleCloseLogoutModal = () => setShowLogoutModal(false);
 
@@ -57,12 +60,63 @@ const DropDownMenu = () => {
 
     const handleNotificationClick = () => {
         handleShowNotificationListModal();
-        setIsNotified(false); // 알림 아이콘 상태 초기화
+        setIsNotified(false);
     };
 
     const handleLinkClick = () => {
-        setIsDropdownOpen(false); // 메뉴 닫기
+        setIsDropdownOpen(false);
     };
+
+    const handleAttendanceModal = () => {
+        const currentHour = new Date().getHours();
+        const currentMinute = new Date().getMinutes();
+
+        console.log(currentHour + " / " + currentMinute);
+
+        // 출근 시간 조건: 08:30 ~ 10:00
+        const isCheckInTime =
+            (currentHour === 8 && currentMinute >= 30) ||
+            (currentHour === 9) ||
+            (currentHour === 10 && currentMinute === 0);
+
+        // 퇴근 시간 조건: 12:00 ~ 19:00
+        const isCheckOutTime =
+            (currentHour >= 12 && currentHour < 19) ||
+            (currentHour === 19 && currentMinute === 0);
+
+        if (isCheckInTime) {
+            setActiveModal("checkIn"); // 출근 모달 열기
+            if(todayAttendanceId === null){
+                checkTodayAttendances(id, DateUtils.getToday());
+            }
+        } else if (isCheckOutTime) {
+            setActiveModal("checkOut"); // 퇴근 모달 열기
+            if(todayAttendanceId === null){
+                checkTodayAttendances(id, DateUtils.getToday());
+            }
+        } else {
+            alert("출근 시간 : 08:30 ~ 10:00" +
+                " / 퇴근 시간 : 17:30 ~ 19:00 " +
+                " / 예외적으로 조퇴의 경우 12시부터 퇴근 가능");
+        }
+    };
+
+    const handleCloseAttendanceModal = () => {
+        setActiveModal(null); // 모든 모달 닫기
+    };
+
+    const updateAttendanceInState = () => {
+        console.log("success updateAttendancesInState at navbar");
+    };
+
+    const checkTodayAttendances = async ( memberId, today) => {
+        try{
+            const response = await checkTodayAttendance(memberId, today);
+            setTodayAttendanceId(response.attendanceId);
+        }catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <>
@@ -71,24 +125,23 @@ const DropDownMenu = () => {
                     src={`${imagePrefix}/shared/go_to_website.png`}
                     alt="바로 가기"
                     className="website-icon"
-                    onClick={handleShowFavoritesModal} // 알림 클릭 핸들러
+                    onClick={handleShowFavoritesModal}
                 />
                 <img
                     src={`${imagePrefix}/shared/check-out-time.png`}
-                    alt="출/퇴근 상태 변경"
+                    alt="출/퇴근 신청"
                     className="website-icon"
-                    onClick={handleNotificationClick} // 알림 클릭 핸들러
+                    onClick={handleAttendanceModal}
                 />
                 <img
-                    src={`${imagePrefix}/shared/${isNotified
-                        ? 'is_notified_true.png' : 'is_notified_false.png'}`}
+                    src={`${imagePrefix}/shared/${isNotified ? 'is_notified_true.png' : 'is_notified_false.png'}`}
                     alt="notification-list"
                     className="nav-bar-icon"
-                    onClick={handleNotificationClick} // 알림 클릭 핸들러
+                    onClick={handleNotificationClick}
                 />
                 <img src={`${imagePrefix}/shared/user_info.png`}
                      onClick={handleShowUserModal}
-                     className="user-info"/>
+                     className="user-info" />
 
                 <div className="custom-dropdown">
                     <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
@@ -160,6 +213,26 @@ const DropDownMenu = () => {
             <FavoritesModal
                 show={showFavoritesModal}
                 handleClose={handleCloseFavoritesModal} />
+
+            {/* 출근 시간 변경 모달 */}
+            {activeModal === "checkIn" && (
+                <UpdateCheckInTimeModal
+                    show={true}
+                    attendanceId={todayAttendanceId}
+                    onClose={handleCloseAttendanceModal}
+                    updateAttendanceInState={updateAttendanceInState}
+                />
+            )}
+
+            {/* 퇴근 시간 변경 모달 */}
+            {activeModal === "checkOut" && (
+                <UpdateCheckOutTimeModal
+                    show={true}
+                    attendanceId={todayAttendanceId}
+                    onClose={handleCloseAttendanceModal}
+                    updateAttendanceInState={updateAttendanceInState}
+                />
+            )}
         </>
     );
 };
