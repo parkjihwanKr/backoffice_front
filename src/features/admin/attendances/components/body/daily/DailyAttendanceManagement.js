@@ -239,7 +239,7 @@ const DailyAttendanceManagement = () => {
                             <th>근태 상태</th>
                             <th>설명</th>
                             <th>멤버 조회</th>
-                            <th>근태 상태 변경</th>
+                            <th>상태 변경</th>
                         </tr>
                         </thead>
                         <tbody>

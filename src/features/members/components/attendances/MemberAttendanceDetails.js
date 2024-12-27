@@ -7,7 +7,17 @@ import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
 const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose, isOpen }) => {
 
     useModalScroll(isOpen);
-    const { year, month, day } = selectedDate || {};
+    console.log(attendanceData.createdAt);
+    const relevantDate = selectedDate || (() => {
+        const createdAtDate = new Date(attendanceData.createdAt);
+        return {
+            year: createdAtDate.getFullYear(),
+            month: createdAtDate.getMonth() + 1,
+            day: createdAtDate.getDate(),
+        };
+    })();
+
+    const { year, month, day } = relevantDate;
 
     return (
         <div className="custom-modal-overlay">

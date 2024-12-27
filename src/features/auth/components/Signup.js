@@ -194,7 +194,6 @@ const SignupForm = () => {
                             }}
                         />
                     </div>
-
                 </form>
             </div>
         </div>

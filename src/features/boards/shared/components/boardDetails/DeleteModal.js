@@ -1,7 +1,6 @@
 import React from 'react';
 import './DeleteModal.css';
 import DeleteButton from "../../../../../components/ui/buttons/DeleteButton";
-import {Button} from "react-bootstrap";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 
 const DeleteModal = ({ show, handleClose, handleDeleteSubmit }) => {

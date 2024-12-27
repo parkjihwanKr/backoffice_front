@@ -59,6 +59,7 @@
 }
 
 .personal-favorites-item, .personal-attendances-item {
+    min-height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -226,9 +227,15 @@
 }
 
 .personal-attendances-item {
+    position: relative;
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.personal-attendances-item-index-header{
+    position: absolute;
+    top : 5%;
 }
 
 .personal-attendances-item-index {

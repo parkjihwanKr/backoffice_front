@@ -99,8 +99,8 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
     return (
         <div ref={modalOverlayRef} className="create-notification-modal-overlay">
             <div ref={modalContentRef} className="create-notification-modal-content">
-                <div className="create-notification-modal-header">
-                    <h2>{title}</h2>
+                <div className="custom-modal-header">
+                    <h3>{title}</h3>
                     <CloseImageButton handleClose={onClose} />
                 </div>
 

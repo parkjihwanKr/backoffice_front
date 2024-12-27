@@ -15,7 +15,10 @@ const AttendanceContainer = ( {data}) => {
 
     useEffect(() => {
         if (data && data.attendances) {
-            setMemberAttendances(data.attendances);
+            const sortedAttendances = [...data.attendances].sort((a, b) =>
+                new Date(a.createdAt) - new Date(b.createdAt)
+            );
+            setMemberAttendances(sortedAttendances);
         }
     }, [data]);
 
@@ -47,21 +50,22 @@ const AttendanceContainer = ( {data}) => {
                 {memberAttendances && memberAttendances.length > 0 ? (
                     <div className="attendances-grid">
                         {memberAttendances.map((attendance, index) => {
-                            const checkInDate = attendance.checkInTime
+                            const relevantDate = attendance.checkInTime
                                 ? new Date(attendance.checkInTime)
-                                : null;
+                                : new Date(attendance.createdAt);
 
                             return (
                                 <div
-                                    key={attendance.attendanceId}
+                                    key={attendance.createdAt}
                                     className="personal-attendances-item"
                                     onClick={() => openModal(attendance)}
                                 >
-                                    {/* 요일과 날짜 표시 */}
-                                    <div className="personal-attendances-item-index">
-                                        {checkInDate
-                                            ? `${checkInDate.getMonth() + 1} / ${checkInDate.getDate()} ${dateEnum[checkInDate.getDay()]}`
-                                            : `${dateEnum[index % 7]} (날짜 없음)`}
+                                    <div className="personal-attendances-item-index-header">
+                                        {relevantDate
+                                            ? `${relevantDate.getMonth() + 1} / ${relevantDate.getDate()} ${
+                                                dateEnum[(relevantDate.getDay() + 6) % 7]
+                                            }`
+                                            : `${dateEnum[(index + 6) % 7]} (날짜 없음)`}
                                     </div>
                                     {/* 근태 상태 */}
                                     <div className="personal-attendances-item-index">
@@ -70,7 +74,7 @@ const AttendanceContainer = ( {data}) => {
                                     {/* 출근 시간 */}
                                     <div className="personal-attendances-item-index">
                                         출근 : {attendance.checkInTime === null
-                                        ? " 기록 없음 "
+                                        ? " - "
                                         : new Intl.DateTimeFormat("ko-KR", {
                                             hour: "2-digit",
                                             minute: "2-digit",
@@ -81,7 +85,7 @@ const AttendanceContainer = ( {data}) => {
 
                                     <div className="personal-attendances-item-index">
                                         퇴근 : {attendance.checkOutTime === null
-                                        ? " 기록 없음 "
+                                        ? " - "
                                         : new Intl.DateTimeFormat("ko-KR", {
                                             hour: "2-digit",
                                             minute: "2-digit",

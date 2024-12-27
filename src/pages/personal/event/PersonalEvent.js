@@ -78,6 +78,7 @@ const PersonalEvent = ({events = []}) => {
                                         src={`${imagePrefix}/shared/go_to_details.png`}
                                         className="pointer-img"
                                         onClick={() => openVacationDetailsModal(vacation)}
+                                        alt={"휴가 상세보기 조회"}
                                     />
                                 </span>
                             </div>
