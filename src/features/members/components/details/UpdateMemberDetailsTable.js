@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 import "./MemberDetails.css";
 import "./UpdateMemberDetailsTable.css";
 import {useNavigate} from "react-router-dom";
@@ -122,7 +121,9 @@ const UpdateMemberDetailsTable = ({ member, onEditMemberDetails }) => {
                 </tr>
                 <tr className= "member-details-table-row">
                     <td colSpan="4" className="member-details-introduction">
-                        <div className="member-details-introduction-title">자기 소개</div>
+                        <div className="member-details-introduction-title">
+                            자기 소개
+                        </div>
                         <textarea
                             value={formData.introduction}
                             onChange={(e) => handleChange("introduction", e.target.value)}

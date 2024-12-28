@@ -4,8 +4,8 @@ import useModalScroll from "../../../features/boards/shared/hooks/useModalScroll
 import {getDepartmentName, getPositionName} from "../../../utils/Constant";
 
 import './Modal.css';
-import SubmitButton from "../buttons/SubmitButton";
 import {useNavigate} from "react-router-dom";
+import LinkButton from "../buttons/LinkButton";
 
 const UserInfoModal = ({ show, handleClose, name, department, position, memberId }) => {
     useModalScroll(show);
@@ -39,7 +39,7 @@ const UserInfoModal = ({ show, handleClose, name, department, position, memberId
                     <p>{mappedDepartment && mappedPosition ? `역할 : ${mappedDepartment}, ${mappedPosition}` : ''}</p>
                 </div>
                 <div className="custom-modal-footer">
-                    <SubmitButton text={"개인 페이지 가기"} onSubmit={handleMemberDetailsClick} />
+                    <LinkButton text={"개인 페이지 가기"} goToLink={handleMemberDetailsClick} />
                 </div>
             </div>
         </div>

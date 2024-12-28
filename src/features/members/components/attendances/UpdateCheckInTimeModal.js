@@ -34,7 +34,7 @@ const UpdateCheckInTimeModal = ({ show, attendanceId, onClose, updateAttendanceI
                 </div>
                 <div className="custom-modal-body">
                     <div className="caution-description">
-                        현재 시간에 맞추어 출근 신청이 됩니다.
+                        ☆ 현재 시간에 맞추어 출근 신청이 됩니다.
                     </div>
                 </div>
                 <div className="custom-modal-footer">

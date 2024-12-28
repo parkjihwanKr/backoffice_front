@@ -94,18 +94,19 @@
 .personal-container,
 .attendances-container{
     height: auto; /* 동적 높이 조정 */
-    padding: 10px;
     background-color: #ffffff;
 }
 
 .general-container {
     grid-row: 2; /* 2행 1열 */
     grid-column: 1;
+    padding-left: 10px;
 }
 
 .personal-container {
     grid-row: 2; /* 2행 2열 */
     grid-column: 2;
+    padding-right: 10px;
 }
 
 /* 기존 스타일 유지 */

@@ -7,7 +7,6 @@ const SubmitButton = ({ onSubmit, text }) => {
             className="button"
             onClick={(e) => {
                 e.preventDefault();
-                console.log("SubmitButton clicked");
                 onSubmit(); // 여기서 handleSubmit이 전달되는지 확인
             }}
             style={{

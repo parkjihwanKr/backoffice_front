@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import './CreateVacationModal.css';
 import '../../../../../components/ui/modal/Modal.css';
-import { createVacationSchedule } from '../../services/PersonalScheduleService';
-import SubmitImageButton from '../../../../../components/ui/image/SubmitImageButton';
+import {createVacationSchedule} from '../../services/PersonalScheduleService';
 import VacationWarningModal from './VacationWarningModal';
-import { imagePrefix } from "../../../../../utils/Constant";
+import {imagePrefix} from "../../../../../utils/Constant";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
 import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const CreateVacationModal = ({ handleClose, initialStartDate }) => {

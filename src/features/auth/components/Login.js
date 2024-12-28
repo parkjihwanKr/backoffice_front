@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {login} from "../services/AuthService";
 import ConfirmButton from "../../../components/ui/buttons/ConfirmButton";
 import SubmitButton from "../../../components/ui/buttons/SubmitButton";
+import LinkButton from "../../../components/ui/buttons/LinkButton";
 
 const Login = () => {
     const [memberName, setMemberName] = useState("");
@@ -61,17 +62,8 @@ const Login = () => {
                         />
                     </div>
                     <div className="auth-page-button">
-                        <button type="submit"
-                        style={{ width : "190px"}}>
-                            로그인
-                        </button>
-                        <Link to="/auth/signup">
-                            <button type="button"
-                                    style={{ width : "190px"}}
-                                    className="secondary-button">
-                                회원 가입
-                            </button>
-                        </Link>
+                        <ConfirmButton onClick={handleSubmit} text={"로그인"}/>
+                        <LinkButton goToLink={goToSignupPage} text={"회원가입"}/>
                     </div>
                 </form>
             </div>

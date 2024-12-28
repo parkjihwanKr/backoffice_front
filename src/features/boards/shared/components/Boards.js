@@ -58,7 +58,7 @@ const Boards = () => {
 
             <SelectDepartmentModal
                 showModal={showModal}
-                handleClose={closeModal}
+                onClose={closeModal}
                 selectedDepartment={selectedDepartment}
                 setSelectedDepartment={setSelectedDepartment}
                 handleSubmit={handleSubmit}

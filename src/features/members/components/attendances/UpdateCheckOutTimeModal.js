@@ -45,8 +45,8 @@ const UpdateCheckOutTimeModal = ({ show, attendanceId, onClose, updateAttendance
                             className="description-textarea"
                         />
                     </div>
-                    <div className=".caution-description">
-                        현재 시간에 맞추어 퇴근 신청이 됩니다.
+                    <div className="caution-description">
+                        ☆ 현재 시간에 맞추어 퇴근 신청이 됩니다.
                     </div>
                 </div>
                 <div className="custom-modal-footer">

@@ -27,7 +27,7 @@ const DropDownMenu = () => {
     const [todayAttendanceId, setTodayAttendanceId] = useState(null);
 
     useEffect(() => {
-        console.log("Notification icon state updated:", isNotified);
+        console.log("알림 상태 업데이트 : ", isNotified);
     }, [isNotified]);
 
     const handleLogout = async () => {

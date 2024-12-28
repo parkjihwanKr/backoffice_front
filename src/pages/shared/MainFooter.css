@@ -1,3 +1,4 @@
+/* MainFooter.css */
 .custom-footer {
     padding: 10px 20px;
     display: flex;
@@ -5,6 +6,18 @@
     align-items: center;
     font-size: 14px;
     width: 100%;
+}
+
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 40px); /* padding 고려 */
+    text-align: right;
+}
+
+.default-footer {
+    position: static;
 }
 
 .footer-content {
@@ -29,7 +42,6 @@
     flex-direction: column;
     align-items: flex-end;
     font-size: 12px;
-    color: #6c757d;
     margin-left: auto;
     text-align: right;
 }

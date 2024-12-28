@@ -15,36 +15,6 @@
     padding : 20px;
 }
 
-/*.auth-page {
-    margin-top: 150px;
-    padding: 20px;
-    border: 1px solid #d3d3d3;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 500px;
-    background-color: #ffffff;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex : 1;
-    flex-direction: column;
-    justify-content: center; !* 수직 중앙 정렬 *!
-    align-items: center; !* 가로 중앙 정렬 *!
-}
-
-.login-page, .auth-page {
-    padding: 20px;
-    border: 1px solid #d3d3d3;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 500px;
-    background-color: #ffffff;
-    font-family: 'Arial', sans-serif;
-    flex-direction: column;
-    justify-items: center;
-    align-items: center;
-    transform: translate(-50%, -50%); !* 수직 및 수평 중심 보정 *!
-}*/
-
 .auth-page-header {
     text-align: center;
     font-weight: bold;
@@ -94,21 +64,7 @@
     justify-content: space-between; /* 버튼 간격을 균등 분배 */
 }
 
-.auth-page-button button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: black;
-    background-color: cornflowerblue;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    height: 50px;
-}
-
-.auth-page-button button:hover {
+.auth-button:hover {
     background-color: royalblue;
 }
 
@@ -162,25 +118,40 @@
     border-right-color: royalblue;
 }
 
+.auth-button {
+    width : 190px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    height: 50px;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    .auth-page {
+    .auth-page, .login-page {
         margin-left: 65px;
         margin-right: 65px;
-        width: 300px;
+        width: 70%;
     }
 
     .auth-page-body form {
         width: 250px;
     }
 
-    .auth-page-button button {
-        width: 120px;
-    }
-
     .speech-balloon {
         font-size: 10px;
         width: 10%;
         left : 350px;
+    }
+
+    .auth-button {
+        width: 50%;
     }
 }

@@ -132,7 +132,7 @@
 .member-details-introduction-content {
     border : 2px solid lightgrey;
     border-radius: 5px;
-    height: 250px; /* 고정 높이 */
+    height: 300px; /* 고정 높이 */
     display: flex; /* Flexbox를 사용하여 내용 중앙 정렬 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
@@ -150,7 +150,7 @@
     min-width: 100%;
     border : 2px solid lightgrey;
     border-radius: 5px;
-    height: 175px; /* 고정 높이 */
+    height: 300px; /* 고정 높이 */
     display: flex; /* Flexbox를 사용하여 내용 중앙 정렬 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */

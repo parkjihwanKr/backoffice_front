@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import '../../../../../components/ui/modal/Modal.css';
 import './UpdateBoardDetailsModal.css';
 import { addModalAlignmentListener, adjustModalAlignment } from "../../../../../utils/ModalUtils";
 import { imagePrefix } from "../../../../../utils/Constant";
 import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
-import CloseButton from "../../../../../components/ui/buttons/CloseButton";
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 
 const UpdateBoardDetailsModal = ({
                                      show,
@@ -76,10 +77,9 @@ const UpdateBoardDetailsModal = ({
     const isDepartmentBoard = location.pathname.includes("/departments/"); // 부서 게시판 여부 확인
 
     return (
-        <div className="edit-board-modal-overlay" ref={modalOverlayRef}>
-            <div className="edit-board-modal" ref={modalContentRef}>
-                <div className="edit-board-modal-header">
-                    <div className="edit-board-modal-header-left">
+        <div className="custom-modal-overlay" ref={modalOverlayRef}>
+            <div className="custom-modal-content" ref={modalContentRef}>
+                <div className="edit-board-modal-header-left">
                         <img
                             src={
                                 editForm.isImportant
@@ -100,10 +100,12 @@ const UpdateBoardDetailsModal = ({
                                 onClick={handleToggleIsLocked}
                             />
                         )}
-                    </div>
-                    <h2 className="edit-board-modal-header-center">게시글 수정</h2>
                 </div>
-                <div className="edit-board-modal-body">
+                <div className="custom-modal-header">
+                    <h3>게시글 수정</h3>
+                    <CloseImageButton handleClose={handleClose}/>
+                </div>
+                <div className="custom-modal-body">
                     <form>
                         <div className="form-group">
                             <label>제목</label>
@@ -111,7 +113,7 @@ const UpdateBoardDetailsModal = ({
                                 type="text"
                                 value={editForm.title}
                                 onChange={(e) =>
-                                    setEditForm({ ...editForm, title: e.target.value })
+                                    setEditForm({...editForm, title: e.target.value})
                                 }
                                 className="form-control"
                             />
@@ -122,7 +124,7 @@ const UpdateBoardDetailsModal = ({
                                 rows={3}
                                 value={editForm.content}
                                 onChange={(e) =>
-                                    setEditForm({ ...editForm, content: e.target.value })
+                                    setEditForm({...editForm, content: e.target.value})
                                 }
                                 className="form-control"
                             />
@@ -132,7 +134,7 @@ const UpdateBoardDetailsModal = ({
                             <select
                                 value={editForm.category}
                                 onChange={(e) =>
-                                    setEditForm({ ...editForm, category: e.target.value })
+                                    setEditForm({...editForm, category: e.target.value})
                                 }
                                 className="form-control"
                             >
@@ -152,9 +154,8 @@ const UpdateBoardDetailsModal = ({
                         </div>
                     </form>
                 </div>
-                <div className="edit-board-modal-footer">
-                    <SubmitButton onSubmit={handleSubmit} text = "수정"/>
-                    <CloseButton handleClose={handleClose} />
+                <div className="custom-modal-footer">
+                    <SubmitButton onSubmit={handleSubmit} text="수정"/>
                 </div>
             </div>
         </div>
