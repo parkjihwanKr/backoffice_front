@@ -65,6 +65,7 @@ const MemberManagementHeader = ({ onFilterChange }) => {
                 showFilters={showFilters}
                 filters={filters}
                 setFilters={setFilters}
+                setShowFilters={setShowFilters}
                 filterOptions={filterOptions}
                 onSubmit={handleFilterApply}
                 onReset={handleFilterReset}

@@ -1,23 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../features/auth/context/AuthContext";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import {useAuth} from "../../features/auth/context/AuthContext";
 import UserInfoModal from "../ui/modal/UserInfoModal";
 import LogoutModal from "../ui/modal/LogoutModal";
 import NotificationListModal from "../../features/notifications/components/modal/NotificationListModal";
 import FavoritesModal from "../../features/favorites/FavoritesModal";
 import UpdateCheckInTimeModal from "../../features/members/components/attendances/UpdateCheckInTimeModal";
 import UpdateCheckOutTimeModal from "../../features/members/components/attendances/UpdateCheckOutTimeModal";
-import { useLogout } from "./hooks/useLogout";
-import { useNotifications } from "./hooks/useNotifications";
-import { useAttendanceModal } from "./hooks/useAttendanceModal";
-import { useDropdown } from "./hooks/useDropDown";
-import { useFavoritesModal } from "./hooks/useFavoritesModal";
+import {useLogout} from "./hooks/useLogout";
+import {useNotifications} from "./hooks/useNotifications";
+import {useAttendanceModal} from "./hooks/useAttendanceModal";
+import {useDropdown} from "./hooks/useDropDown";
+import {useFavoritesModal} from "./hooks/useFavoritesModal";
 import './DropDownMenu.css';
 import {imagePrefix} from "../../utils/Constant";
 import {useUserInfoModal} from "./hooks/useUserInfoModal";
+import {getMemberProfileImage} from "../../features/members/services/MembersService";
 
 const DropDownMenu = () => {
     const { id, isAuthenticated, name, department, position } = useAuth();
+    const [profileImageUrl, setProfileImageUrl]
+        = useState(`${imagePrefix}/shared/user_info.png`);
+
     const {
         showUserInfoModal,
         handleShowUserModal,
@@ -48,6 +52,20 @@ const DropDownMenu = () => {
         handleCloseFavoritesModal,
     } = useFavoritesModal();
 
+    useEffect(() => {
+        fetchMemberProfileImage();
+    }, []);
+
+    const fetchMemberProfileImage = async () => {
+        try {
+            const response = await getMemberProfileImage(id);
+            setProfileImageUrl(response.profileImageUrl);
+            console.log("계속 해서 호출하나?");
+        }catch (error) {
+            console.error(error.response.data.data + " : "+error.response.data.message);
+        }
+    }
+
     return (
         <>
             <div className="custom-navbar-right">
@@ -70,13 +88,13 @@ const DropDownMenu = () => {
                     onClick={handleNotificationClick}
                 />
                 <img
-                    src={`${imagePrefix}/shared/user_info.png`}
+                    src={profileImageUrl}
                     alt="User Info"
                     className="user-info"
                     onClick={handleShowUserModal}
                 />
                 <div className="custom-dropdown">
-                    <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
+                <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
                         Menu
                     </button>
                     {isDropdownOpen && (
@@ -108,7 +126,7 @@ const DropDownMenu = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/members/1/attendances" onClick={handleLinkClick}>
+                                        <Link to={`/members/${id}/attendance`} onClick={handleLinkClick}>
                                             개인 근태 기록
                                         </Link>
                                     </li>

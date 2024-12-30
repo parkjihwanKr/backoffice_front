@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, {useState} from "react";
+import {useParams} from "react-router-dom";
 import MemberProfile from "./MemberProfile";
 import MemberControls from "./MemberControls";
 import MemberDetailsTable from "./MemberDetailsTable";
@@ -8,8 +8,8 @@ import UpdateVacationDaysModal from "../../../admin/members/components/body/Upda
 import PersonalVacationListModal from "../../../events/personal/components/PersonalVacationListModal";
 import useMemberDetails from "../../hooks/useMemberDetails"; // custom hook 사용
 import "./MemberDetails.css";
-import { useError, useLoading } from "../../../utils/LoadingUtils";
-import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
+import {useError, useLoading} from "../../../utils/LoadingUtils";
+import useModalScroll from "../../../boards/hooks/useModalScroll";
 import {useAuth} from "../../../auth/context/AuthContext";
 
 const MemberDetails = () => {

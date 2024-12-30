@@ -3,31 +3,29 @@ import {BrowserRouter as Router, Link, Navigate, Route, Routes} from 'react-rout
 import Signup from './features/auth/components/Signup';
 import Login from "./features/auth/components/Login";
 import PrivateRoute from "./routes/PrivateRoute";
-import Boards from './features/boards/shared/components/Boards';
+import Boards from './features/boards/components/Boards';
 import Notifications from './features/notifications/components/Notifications';
 import Events from './features/events/shared/Events';
 import DepartmentSchedule from './features/events/department/components/DepartmentSchedule';
-import DepartmentBoards from './features/boards/department/components/DepartmentBoard';
-import CreateBoard from "./features/boards/shared/components/CreateBoard";
+import DepartmentBoards from './features/boards/components/DepartmentBoard';
+import CreateBoard from "./features/boards/components/CreateBoard";
 import DropDownMenu from "./components/common/DropDownMenu";
-import BoardDetails from "./features/boards/shared/components/boardDetails/BoardDetails";
+import BoardDetails from "./features/boards/components/boardDetails/BoardDetails";
 
 import './assets/styles/App.css';
 import {AuthProvider} from './features/auth/context/AuthContext';
 import {NotificationProvider} from "./features/notifications/context/NotificationContext";
 
 import MainPage from "./pages/shared/MainPage";
-import NoSchedulePage from "./features/events/department/components/NoSchedule";
 import PersonalSchedule from "./features/events/personal/components/PersonalSchedule";
 import Admin from "./features/admin/shared/components/Admin";
 import MemberManagement from "./features/admin/members/components/MemberManagement";
 import VacationManagement from "./features/admin/vacations/components/VacationManagement";
 import NotificationManagement from "./features/admin/notifications/components/NotificationManagement";
-import FinanceManagement from "./features/admin/finances/components/FinanceManagement";
 import AuditManagement from "./features/admin/audit/components/AuditManagement";
 import MemberDetails from "./features/members/components/details/MemberDetails";
 import HomeImageButton from "./components/ui/image/HomeImageButton";
-import BoardList from "./features/boards/shared/components/BoardList";
+import BoardList from "./features/boards/components/BoardList";
 import AttendanceManagement from "./features/admin/attendances/components/AttendanceManagement";
 import DailyAttendanceManagement from "./features/admin/attendances/components/body/daily/DailyAttendanceManagement";
 import UpdateMemberDetails from "./features/members/components/details/UpdateMemberDetails";
@@ -81,8 +79,6 @@ function App() {
                                        element={<PrivateRoute component={DepartmentSchedule}/>}/>
                                 <Route path="/personal-schedule"
                                        element={<PrivateRoute component={PersonalSchedule}/>}/>
-                                <Route path="/no-schedules"
-                                       element={<PrivateRoute component={NoSchedulePage}/>}/>
                                 <Route path="/admins"
                                        element={<PrivateRoute component={Admin}/>}/>
 
@@ -123,13 +119,6 @@ function App() {
                                 {/* 사내 알림 페이지: MANAGER 또는 CEO만 접근 가능 */}
                                 <Route path="/admins/notification-management"
                                        element={<PrivateRoute component={NotificationManagement}
-                                                              allowedPositions={['MANAGER', 'CEO']}
-                                       />}/>
-
-                                {/* 재정 관리 페이지: FINANCE/MANAGER 또는 CEO만 접근 가능 */}
-                                <Route path="/admins/finance-management"
-                                       element={<PrivateRoute component={FinanceManagement}
-                                                              allowedDepartments={['FINANCE']}
                                                               allowedPositions={['MANAGER', 'CEO']}
                                        />}/>
 

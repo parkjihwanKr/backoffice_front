@@ -27,7 +27,7 @@
 .admin-dropdown-menu {
     position: absolute;
     top: 30px; /* 아이콘 아래로 배치 */
-    left: 30px; /* 오른쪽 정렬 */
+    left: 1%;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;

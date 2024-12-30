@@ -13,12 +13,6 @@ export const fetchFilteredMembers = async (position, department) => {
     return response.data;
 };
 
-export const fetchMemberDetails = async (memberId) => {
-    const response = await axiosInstance.get(`/members/${memberId}`);
-    console.log("Response data : ", response.data);
-    return response.data;
-}
-
 export const updateAttribute = async (formData, memberId) => {
     try {
         const response = await axiosInstance.patch(`/members/${memberId}/attribute`, formData, {

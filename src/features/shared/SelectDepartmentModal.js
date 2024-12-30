@@ -3,7 +3,7 @@ import '../../components/ui/modal/Modal.css'; // 모달 관련 CSS 가져오기
 import {DEPARTMENTS} from '../../utils/Constant';
 import CloseImageButton from "../../components/ui/image/CloseImageButton";
 import ConfirmButton from "../../components/ui/buttons/ConfirmButton";
-import useModalScroll from "../boards/shared/hooks/useModalScroll";
+import useModalScroll from "../boards/hooks/useModalScroll";
 
 const SelectDepartmentModal = ({
                                    showModal,

@@ -59,7 +59,7 @@ const Personalboard = ({ boards = [] }) => {
                         </div>
                     ))
                 ) : (
-                    <p>게시판 정보가 없습니다.</p>
+                    <p className="not-exist-data">게시판 정보가 없습니다.</p>
                 )}
             </div>
             <div className="general-board-footer">

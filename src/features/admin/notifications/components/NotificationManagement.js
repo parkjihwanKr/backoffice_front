@@ -1,4 +1,5 @@
 /*NotificationManagement.js*/
+import './NotificationManagement.css';
 import NotificationManagementBody from "./body/NotificationManagementBody";
 import NotificationManagementFooter from "./footer/NotificationManagementFooter";
 import NotificationManagementHeader from "./header/NotificationManagementHeader";

@@ -98,7 +98,7 @@ const AttendanceContainer = ( {data}) => {
                         })}
                     </div>
                 ) : (
-                    <p>근태 기록 목록이 없습니다.</p>
+                    <p className="not-exist-data">근태 기록 목록이 없습니다.</p>
                 )}
             </div>
             <div className="attendances-container-footer">

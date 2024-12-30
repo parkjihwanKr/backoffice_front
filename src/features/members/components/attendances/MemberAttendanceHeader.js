@@ -93,9 +93,9 @@ const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentM
                     filters={localFilters}
                     setFilters={setLocalFilters}
                     filterOptions={filterOptions}
+                    setShowFilters={setShowFilter}
                     onSubmit={handleValidatedFilterSubmit}
                     onReset={resetFilters}
-                    toggleDropdown={() => setShowFilter(!showFilter)}
                 />
             )}
         </div>

@@ -82,7 +82,15 @@ export const updateMemberProfileImage = async (memberId, imageFile) => {
 };
 
 // 상단 바의 멤버의 근태 기록 확인
-export const checkTodayAttendance = async (memberId, createdAt) => {
+export const checkTodayAttendance = async (memberId) => {
     const response = await axiosInstance.get(`/members/${memberId}/check-today-attendance`);
+    return response.data;
+}
+
+// 멤버의 프로필 사진 조회
+export const getMemberProfileImage = async (memberId) => {
+    const response
+        = await axiosInstance.get(
+            `/members/${memberId}/profile-image`);
     return response.data;
 }

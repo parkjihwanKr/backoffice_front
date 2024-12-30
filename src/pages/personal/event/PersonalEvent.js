@@ -65,7 +65,7 @@ const PersonalEvent = ({events = []}) => {
                                         title={vacation.isAccepted ? '허용' : '허용 안됨'}
                                     />
                                 </span>
-                                <span className="general-domain-title">
+                                <span className="general-domain-title" style={{ cursor : "default"}}>
                                     {reverseVacationMapping[vacation.vacationType]}
                                     (
                                     {new Date(vacation.startDate).toLocaleDateString()}
@@ -85,7 +85,7 @@ const PersonalEvent = ({events = []}) => {
                         </div>
                     ))
                 ) : (
-                    <p>개인 휴가 정보가 없습니다.</p>
+                    <p className="not-exist-data">개인 휴가 정보가 없습니다.</p>
                 )}
             </div>
             <div className="personal-event-footer">

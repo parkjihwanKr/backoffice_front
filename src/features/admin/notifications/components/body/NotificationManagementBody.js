@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CreateNotificationModal from './CreateNotificationModal';
 import { DEPARTMENTS } from '../../../../../utils/Constant';
 import { fetchMemberList } from '../../../members/services/MemberManagementService';
-import './NotificationManagementBody.css';
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const NotificationManagementBody = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);

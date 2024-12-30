@@ -56,7 +56,12 @@ const CreateDepartmentScheduleModal = ({ isOpen, onClose, onSubmit }) => {
                     <form onSubmit={handleSubmit}>
                         <div className="custom-modal-form-group">
                             <label>제목:</label>
-                            <input type="text" name="title" value={formData.title} onChange={handleChange} required/>
+                            <input
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                required/>
                         </div>
                         <div className="custom-modal-form-group">
                             <label>설명:</label>

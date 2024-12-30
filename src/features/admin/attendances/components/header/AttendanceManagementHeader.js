@@ -170,6 +170,7 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, 
                     showFilters={showFilter}
                     filters={localFilters}
                     setFilters={setLocalFilters}
+                    setShowFilters={setShowFilter}
                     filterOptions={filterOptions}
                     onSubmit={handleValidatedFilterSubmit}
                     onReset={resetFilters}

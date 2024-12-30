@@ -5,7 +5,7 @@ import DeleteVacationForAdminModal from "./DeleteVacationForAdminModal";
 import { useModalVisibility } from '../../hooks/useModalVisibility';
 import {reverseVacationMapping} from "../../../../../utils/Constant";
 import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
-import useModalScroll from "../../../../boards/shared/hooks/useModalScroll";
+import useModalScroll from "../../../../boards/hooks/useModalScroll";
 import {useAuth} from "../../../../auth/context/AuthContext";
 
 const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onDeleteVacation, onClose }) => {

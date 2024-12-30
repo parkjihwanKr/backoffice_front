@@ -3,7 +3,6 @@ import { getCookie } from "../../../../../utils/CookieUtil";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import { useFetchMemberList } from "../../hooks/useFetchMemberList";
 import { useModalAlignment } from "../../hooks/useModalAlignment";
-import "./CreateNotificationModal.css";
 import {
     departmentMapping,
     positionMapping,
@@ -11,6 +10,7 @@ import {
     imagePrefix,
 } from "../../../../../utils/Constant";
 import { sendWebSocketBroadcastMessage, sendWebSocketMessage } from "../../../../../utils/WebSocketUtil";
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments = DEPARTMENTS }) => {
     const [message, setMessage] = useState("");
@@ -208,12 +208,7 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
                 />
 
                 <div className="create-notification-modal-buttons">
-                    <button
-                        onClick={handleSend}
-                        className="notification-submit-button"
-                    >
-                        발송
-                    </button>
+                    <ConfirmButton onClick={handleSend} text={"발송"}/>
                 </div>
             </div>
         </div>

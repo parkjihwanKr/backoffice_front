@@ -37,7 +37,7 @@ const FavoritesContainer = () => {
                             ))}
                         </div>
                     ) : (
-                        <p>즐겨찾기 목록이 없습니다.</p>
+                        <p className="not-exist-data">즐겨찾기 목록이 없습니다.</p>
                     )}
                 </div>
                 <div className="favorites-container-footer">

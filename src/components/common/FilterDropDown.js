@@ -1,5 +1,6 @@
 import React from 'react';
 import './FilterDropDown.css';
+import CloseImageButton from "../ui/image/CloseImageButton";
 
 const FilterDropDown = ({
                             showFilters,
@@ -8,17 +9,20 @@ const FilterDropDown = ({
                             filterOptions,
                             onSubmit,
                             onReset,
-                            toggleDropdown,
-                            showResetButton = true, // 기본값 true
+                            setShowFilters,
+                            showResetButton = true,
                         }) => {
     if (!showFilters) return null;
 
     return (
         <div className="custom-filters-dropdown">
+            <h3 className="custom-filters-dropdown-header">필터 적용</h3>
+            <CloseImageButton handleClose={() => setShowFilters(!showFilters)} />
             {filterOptions.map((filter) => {
                 if (filter.type === 'select') {
                     return (
-                        <div key={filter.name} className="custom-filter-item">
+                        <div key={filter.name}
+                             className={`custom-filter-item ${filter.type === 'checkbox' ? 'checkbox-item' : ''}`}>
                             <label htmlFor={filter.name}>{filter.label}:</label>
                             <select
                                 id={filter.name}
@@ -37,6 +41,23 @@ const FilterDropDown = ({
                                     </option>
                                 ))}
                             </select>
+                        </div>
+                    );
+                } else if (filter.type === 'checkbox') {
+                    return (
+                        <div key={filter.name} className="custom-filter-item my-checkbox-item">
+                            <label htmlFor={filter.name}>{filter.label}</label>
+                            <input
+                                type="checkbox"
+                                id={filter.name}
+                                checked={!!filters[filter.name]}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        [filter.name]: e.target.checked || null,
+                                    })
+                                }
+                            />
                         </div>
                     );
                 } else if (filter.type === 'input') {

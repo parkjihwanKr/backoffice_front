@@ -171,6 +171,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .general-domain-date {

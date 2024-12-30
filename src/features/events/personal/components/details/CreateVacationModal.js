@@ -134,7 +134,7 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
                             <textarea
                                 value={vacationReason}
                                 onChange={(e) => setVacationReason(e.target.value)}
-                                placeholder="왼쪽 상단의 이미지를 클릭하여 '긴급함' 이미지로 변경했다면 사유를 작성해주세요."
+                                placeholder="연가를 제외한 종류를 선택했다면 왼쪽 상단의 이미지를 클릭하여 '긴급함' 이미지로 변경하고  사유를 작성해주세요."
                                 className="custom-modal-body-textarea"
                             />
                         </div>

@@ -39,7 +39,7 @@
 .vacation-management-dropdown-menu {
     position: absolute;
     top: 60px; /* settings 아이콘 바로 아래 */
-    right: 20px;
+    left: 1%;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;

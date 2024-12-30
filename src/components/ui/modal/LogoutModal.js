@@ -1,7 +1,7 @@
 import React from 'react';
 import CloseImageButton from "../image/CloseImageButton";
 import ConfirmButton from "../buttons/ConfirmButton";
-import useModalScroll from "../../../features/boards/shared/hooks/useModalScroll"; // 스타일을 함께 불러옵니다.
+import useModalScroll from "../../../features/boards/hooks/useModalScroll"; // 스타일을 함께 불러옵니다.
 
 const LogoutModal = ({ show, handleClose, handleLogout }) => {
     useModalScroll(show);

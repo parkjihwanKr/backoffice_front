@@ -38,7 +38,7 @@ const GeneralEvent = ({events = []}) => {
                         </div>
                     ))
                 ) : (
-                    <p>일정 정보가 없습니다.</p>
+                    <p className="not-exist-data">일정 정보가 없습니다.</p>
                 )}
             </div>
             <div className="general-event-footer">
