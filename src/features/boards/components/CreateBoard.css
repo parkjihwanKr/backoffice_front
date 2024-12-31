@@ -1,0 +1,172 @@
+.create-board-title {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.create-board-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-board-container-left,
+.create-board-container-right {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-board-card-settings {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.create-board-card-settings img {
+    height : 24px;
+    width : 24px;
+}
+
+.create-board-container-left .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.file-input-group {
+    margin-top: 20px;
+}
+
+.create-board-container-right {
+    cursor: default;
+}
+
+.create-board-form .form-group {
+    margin-bottom: 15px;
+}
+
+.create-board-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-field,
+.textarea-field {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    font-size: 16px;
+}
+
+.textarea-field {
+    height: 150px;
+    resize: none;
+}
+
+.board-submit-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.board-submit-button {
+    padding: 10px 20px;
+    background-color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.board-submit-button:hover {
+    background-color: royalblue;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.attached-files {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.attached-files ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 5px 0 0 0;
+}
+
+.attached-files li {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.board-card-important img {
+    width: 30px;
+    height: 30px;
+}
+
+.file-placeholder {
+    width: 100px;
+    height: auto;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    display: flex;
+    position: relative; /* 내부 요소 정렬을 위해 */
+    overflow: hidden; /* 이미지를 벗어나지 않도록 설정 */
+}
+
+.file-placeholder img {
+    width: 100px; /* 너비를 부모 크기에 맞춤 */
+    height: 100px; /* 높이를 부모 크기에 맞춤 */
+    display: block; /* 중앙 정렬을 위해 블록 요소로 변경 */
+    position: relative; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.create-board-container-left-footer {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .create-board-container {
+        flex-direction: column; /* 수직 배치로 변경 */
+        gap: 10px; /* 간격을 줄임 */
+    }
+
+    .create-board-container-left,
+    .create-board-container-right {
+        flex: none; /* 너비 조정을 수동으로 설정 */
+        width: 100%; /* 각 섹션이 화면 전체 너비를 차지 */
+    }
+}

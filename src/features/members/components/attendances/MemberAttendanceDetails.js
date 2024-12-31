@@ -2,11 +2,22 @@ import React from "react";
 import "../../../../components/ui/modal/Modal.css";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import {reverseAttendanceMapping} from "../../../../utils/Constant";
+import useModalScroll from "../../../boards/hooks/useModalScroll";
 
-const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose }) => {
-    console.log(attendanceData);
+const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose, isOpen }) => {
 
-    const { year, month, day } = selectedDate || {};
+    useModalScroll(isOpen);
+    console.log(attendanceData.createdAt);
+    const relevantDate = selectedDate || (() => {
+        const createdAtDate = new Date(attendanceData.createdAt);
+        return {
+            year: createdAtDate.getFullYear(),
+            month: createdAtDate.getMonth() + 1,
+            day: createdAtDate.getDate(),
+        };
+    })();
+
+    const { year, month, day } = relevantDate;
 
     return (
         <div className="custom-modal-overlay">

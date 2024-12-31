@@ -101,7 +101,7 @@ const PersonalSchedule = () => {
 
     return (
         <div className="personal-schedule-container">
-            <h1>Personal Schedule for {name}</h1>
+            <h1>{name}님의 개인 일정표</h1>
             <div className="calendar">
                 <div className="calendar-header">
                     <button onClick={() => setCurrentDate(new Date(currentYear, currentMonth - 1))}>&lt;&lt;</button>

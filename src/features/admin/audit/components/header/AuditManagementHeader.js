@@ -3,7 +3,7 @@ import React from 'react';
 import FilterDropDown from '../../../../../components/common/FilterDropDown'; // 공통 컴포넌트 사용
 import useAuditFilterListForHeader from '../../hooks/useAuditFilterListForHeader';
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
-import { AUDIT_LOG_LABELS } from '../../../../../utils/Constant';
+import {AUDIT_LOG_LABELS} from '../../../../../utils/Constant';
 
 const AuditManagementHeader = ({ setFilters, applyFilters }) => {
     const {
@@ -60,6 +60,7 @@ const AuditManagementHeader = ({ setFilters, applyFilters }) => {
                 filters={localFilters}
                 setFilters={setLocalFilters}
                 filterOptions={filterOptions}
+                setShowFilters={toggleFilterDropdown}
                 onSubmit={handleFilterSubmit}
                 onReset={resetFilters}
                 toggleDropdown={toggleFilterDropdown}

@@ -2,7 +2,7 @@ import './MemberDetails.css';
 import { useNavigate } from "react-router-dom";
 import PersonalVacationListModal from "../../../events/personal/components/PersonalVacationListModal";
 import React, { useState } from "react";
-import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
+import useModalScroll from "../../../boards/hooks/useModalScroll";
 
 const MemberControls = ({ loginMemberId, memberId, onOpenAttributeModal, onOpenVacationDaysModal, hasAccess }) => {
     const navigate = useNavigate();

@@ -1,0 +1,137 @@
+.board-details-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #f9f9f9; /* 배경색 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    width : 90%;
+    margin: 20px auto; /* 화면 중앙 배치 */
+    overflow: auto;
+    z-index: 1;
+}
+
+.board-details-container.modal-open {
+    overflow: hidden;
+}
+
+.board-details {
+    position: relative; /* ::before와 ::after를 기준으로 배치 */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 기존 선 */
+    margin-bottom: 20px;
+    padding: 0 10px; /* 내용물과 선의 간격 조정 */
+}
+
+.board-details::before,
+.board-details::after {
+    content: ''; /* 가상 요소 생성 */
+    position: absolute;
+    bottom: -1px; /* 기존 선과 높이를 정확히 맞춤 */
+    width: auto; /* 양쪽으로 추가될 선의 길이 */
+    height: 1px; /* 선의 두께를 기존 border-bottom과 동일하게 설정 */
+    background-color: rgba(0, 0, 0, 0.1); /* 선의 색상 */
+    z-index : 2000
+}
+
+/*header*/
+.board-details-card-header {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    padding: 10px 0; /* 상하 여백 추가 */
+    background-color: #f9f9f9; /* 연한 배경색 */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 부드러운 구분선 */
+    margin-bottom: 10px;
+    border-radius: 8px 8px 0 0;
+}
+
+/* 제목 스타일 */
+.board-details-card-header h2 {
+    font-weight: bold;
+    font-size: 30px; /* 적당한 크기 */
+    margin: 0; /* 여백 제거 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 좌측과 우측 아이콘 영역 */
+.left-action-icons,
+.right-action-icons {
+    display: flex;
+    gap: 10px; /* 아이콘 간격 */
+    position: absolute;
+    top: 10px; /* 위쪽으로 정렬 */
+}
+
+.left-action-icons {
+    left: 10px; /* 왼쪽 정렬 */
+}
+
+.right-action-icons {
+    right: 10px; /* 오른쪽 정렬 */
+}
+
+/* 아이콘 스타일 */
+.board-details-card-header img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.board-details-card-header img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 768px) {
+    .board-details-card-header h2 {
+        font-size: 20px; /* 작은 화면에서 제목 크기 감소 */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .board-details-card-header h2 {
+        font-size: 18px; /* 더 작은 화면에서 제목 크기 감소 */
+    }
+    .board-details-card-header img {
+        width: 25px;
+        height: 25px; /* 아이콘 크기 줄임 */
+    }
+}
+
+/*body*/
+.board-details-user-info {
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    font-size: 15px; /* 폰트 크기 */
+    margin-bottom: 10px; /* 하단 여백 */
+    margin-top: 20px;
+}
+
+.board-details-card-body {
+    min-height: 300px;
+}
+
+/*footer*/
+.board-details-footer{
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+    align-items: center;
+    padding: 10px 0;
+    margin-right: 3px;
+}
+
+.board-details-footer img{
+    display: flex;
+    width: 24px;
+    height: 24px;
+}
+
+.meta-item.like-button:hover img,
+.meta-item.comment-count:hover img,
+.meta-item.view-count:hover img {
+    filter: brightness(1.2); /* 호버 시 아이콘을 밝게 */
+}

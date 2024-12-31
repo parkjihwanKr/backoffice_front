@@ -21,6 +21,7 @@
     max-width: 90%;
     min-height : 150px;
     animation: fadeIn 0.3s ease-out;
+    font-family: Arial, sans-serif;
 }
 
 .custom-modal-header {
@@ -29,13 +30,27 @@
 }
 
 .custom-modal-header h3 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     margin: 0;
 }
 
 .custom-modal-body {
     margin: 10px 0;
+}
+
+.select-department {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.select-department option {
+    padding: 10px;
+    background-color: #fff;
 }
 
 .custom-modal-body img{
@@ -50,6 +65,14 @@
 
 .custom-modal-body-index {
     margin-bottom: 10px;
+}
+
+.center-align-label {
+    font-weight: bold;
+    font-size : 15px;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .custom-modal-body-index textarea, .description-textarea {
@@ -115,14 +138,29 @@
     margin-bottom: 8px; /* 다른 요소와의 간격 조정 */
 }
 
+.custom-modal-body-content input {
+    min-width : 95%;
+}
+
 .custom-modal-body-select {
+    min-width: 100%;
     flex: 1;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .custom-modal-body-textarea {
-    width : 350px;
+    width : 100%;
     min-height: 150px;
     justify-items: center;
+}
+
+.custom-modal-body-text {
+    margin-top: 5px;
+    font-size: 13px;
+    text-align: right;
 }
 
 .add-id-list {
@@ -198,12 +236,19 @@
     border-radius: 6px;
 }
 
+.custom-small-text {
+    justify-items: center;
+    justify-content: center;
+}
+
 .custom-modal-footer {
+    margin-top: 20px;
     display: flex;
     justify-content: flex-end;
 }
 
 .caution-description {
+    margin-top: 20px;
     display: flex;
     justify-content: flex-end;
 }
@@ -218,6 +263,11 @@
     display: flex;
     flex-direction: column; /* 세로 정렬 */
     gap: 10px; /* label과 select 사이 간격 추가 */
+    margin-bottom: 10px;
+}
+
+.custom-modal-form-group-right {
+    text-align: right;
 }
 
 .custom-modal-form-group label{
@@ -225,11 +275,13 @@
     font-weight: bold; /* 레이블 강조 */
 }
 
-.custom-modal-form-group select{
+.custom-modal-form-group select, input, textarea{
     padding: 8px;
     border: 1px solid lightgrey; /* 테두리 스타일 */
     border-radius: 5px; /* 테두리 둥글게 */
     font-size: 14px; /* 텍스트 크기 */
+    font-family: Arial, sans-serif;
+    width : 100%;
 }
 
 .list-row {
@@ -256,6 +308,7 @@
     font-size: 17px;
     font-weight: bold;
     text-align: center; /* 텍스트 가운데 정렬 */
+    margin-bottom: 5px;
 }
 
 .list-attendance-description-content {
@@ -275,6 +328,21 @@
     align-items: center; /* 수직 중앙 정렬 */
     text-align: center; /* 텍스트 중앙 정렬 */
     min-width: 360px;
+}
+
+.gap-top-bottom {
+    margin-top : 10px;
+    margin-bottom: 10px;
+}
+
+.custom-modal-footer img {
+    width : 24px;
+    height : 24px;
+    transition: transform 0.3s ease;
+}
+
+.custom-modal-footer img:hover {
+    transform: scale(1.1);
 }
 
 @keyframes fadeIn {

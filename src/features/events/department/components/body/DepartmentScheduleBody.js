@@ -91,7 +91,7 @@ const DepartmentScheduleBody = ({ currentYear, currentMonth, schedules, onUpdate
     };
 
     return (
-        <div className="schedule-container">
+        <div className="schedule-body">
             <table className="calendar-table">
                 <thead>
                 <tr>

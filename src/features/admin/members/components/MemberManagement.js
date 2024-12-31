@@ -1,8 +1,8 @@
 import MemberManagementBody from "./body/MemberManagementBody";
-import MemberManagementFooter from "./footer/MemberManagementFooter";
 import MemberManagementHeader from "./header/MemberManagementHeader";
 import useFilters from "../../shared/hooks/useFilters";
 import usePagination from "../../shared/hooks/usePagination";
+import PaginationFooter from "../../../../components/common/PaginationFooter";
 
 const MemberManagement = () => {
     // 필터 상태 관리
@@ -20,7 +20,7 @@ const MemberManagement = () => {
                 currentPage={currentPage}
                 updateTotalPages={updateTotalPages}
             />
-            <MemberManagementFooter
+            <PaginationFooter
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}

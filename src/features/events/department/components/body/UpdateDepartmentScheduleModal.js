@@ -1,6 +1,8 @@
 /*UpdateDepartmentScheduleModal.js*/
 import React, { useState } from "react";
-import './UpdateDepartmentScheduleModal.css';
+import '../../../../../components/ui/modal/Modal.css';
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const UpdateDepartmentScheduleModal = ({ isOpen, onClose, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -30,34 +32,40 @@ const UpdateDepartmentScheduleModal = ({ isOpen, onClose, onSubmit }) => {
     }
 
     return (
-        <div className="department-schedule-modal open">
-            <div className="department-schedule-modal-content">
-                <h5 className="department-schedule-modal-title">부서 일정 변경하기</h5>
-                <div className="department-schedule-modal-body">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
+                    <h3 className="custom-modal-title">
+                        부서 일정 변경하기
+                    </h3>
+                    <CloseImageButton handleClose={onClose}/>
+                </div>
+                <div className="custom-modal-body">
                     <form onSubmit={handleSubmit}>
-                        <div className="department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>제목:</label>
                             <input type="text" name="title" value={formData.title} onChange={handleChange} required/>
                         </div>
-                        <div className="department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>설명:</label>
-                            <textarea name="description" value={formData.description} onChange={handleChange} required/>
+                            <textarea name="description"
+                                      className="custom-modal-body-textarea"
+                                      value={formData.description} onChange={handleChange} required/>
                         </div>
-                        <div className="department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>시작 날짜와 시간:</label>
                             <input type="datetime-local" name="startDate" value={formData.startDate} onChange={handleChange} required/>
                         </div>
-                        <div className="department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>종료 날짜와 시간:</label>
                             <input type="datetime-local" name="endDate" value={formData.endDate} onChange={handleChange} required/>
                         </div>
-                        <div className="department-schedule-form-group">
+                        <div className="custom-modal-form-group">
                             <label>파일 첨부:</label>
                             <input type="file" name="files" onChange={handleFileChange} multiple/>
                         </div>
-                        <div className='department-schedule-modal-custom-footer'>
-                            <button type="submit" className="btn btn-primary">제출</button>
-                            <button type="button" className="btn btn-secondary" onClick={onClose}>닫기</button>
+                        <div className='custom-modal-footer'>
+                            <ConfirmButton onClick={handleSubmit} text={"수정"}/>
                         </div>
                     </form>
                 </div>

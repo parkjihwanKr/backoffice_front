@@ -44,6 +44,12 @@ export const attendanceMapping = {
     "휴일": "HOLIDAY",
 };
 
+export const vacationMapping = {
+    "긴급한 휴가": "URGENT_LEAVE",
+    "병가": "SICK_LEAVE",
+    "연가": "ANNUAL_LEAVE",
+};
+
 export const NOTIFICATION_TYPE_LABELS = {
     MEMBER: "회원",
     BOARD: "게시판",
@@ -125,9 +131,30 @@ export const reversePositionMapping = Object.fromEntries(
     Object.entries(positionMapping).map(([key, value]) => [value, key])
 );
 
+export const reverseVacationMapping = Object.fromEntries(
+    Object.entries(vacationMapping).map(([key, value]) => [value, key])
+);
+
 export const reverseAttendanceMapping = Object.fromEntries(
     Object.entries(attendanceMapping).map(([key, value]) => [value, key])
 );
+
+/*
+export const reverseDomainMapping = ( domainType ) => {
+    switch(domainType){
+        case "vacation" : {
+            Object.fromEntries(Object.entries(vacationMapping).map(([key, value]) => [value, key]));
+        }
+        case "attendance" : {
+            Object.fromEntries(Object.entries(attendanceMapping).map(([key, value]) => [value, key]));
+        }
+        default : {
+            alert("해당하는 도메인 타입은 없습니다.");
+            console.error("도메인 타입 에러");
+        }
+    }
+}
+*/
 
 export const getAuditLogTypeName = (type) => {
     return AUDIT_LOG_TYPE_LABELS[type] || type; // 매핑된 값 반환, 없으면 그대로 반환

@@ -3,7 +3,7 @@ let cachedToday = null;
 const DateUtils = {
     // 오늘 날짜 반환
     getToday: function () {
-        if(!cachedToday || cachedToday.getDate() != new Date().getDate()){
+        if(!cachedToday || cachedToday.getDate() !== new Date().getDate()){
             cachedToday = new Date();
             cachedToday.setHours(0, 0, 0, 0); // 자정 시간으로 설정
         }
@@ -28,12 +28,6 @@ const DateUtils = {
     // 오늘 날짜를 ISO 8601 문자열로 반환 (자정 기준)
     getTodayAsISOString: function () {
         return this.formatDateTimeToISOString(this.getToday());
-    },
-
-    // 현재 시간을 ISO 8601 문자열("YYYY-MM-DDTHH:mm:ss")로 반환
-    getCurrentTimeAsISOString: function () {
-        const now = new Date();
-        return this.formatDateTimeToISOString(now);
     },
 
     // 날짜가 오래되었는지 확인

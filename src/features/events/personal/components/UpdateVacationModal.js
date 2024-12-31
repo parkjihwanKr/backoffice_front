@@ -3,8 +3,8 @@ import './UpdateVacationModal.css';
 import { updateVacationSchedule } from '../services/PersonalScheduleService'; // 수정 API
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import {imagePrefix} from "../../../../utils/Constant";
-import SubmitImageButton from "../../../../components/ui/image/SubmitImageButton";
 import VacationWarningModal from "./details/VacationWarningModal";
+import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 
 const UpdateVacationModal = ({ handleClose, selectedVacation }) => {
     // selectedVacation이 없을 경우 오류 방지를 위해 기본 값을 설정
@@ -140,7 +140,7 @@ const UpdateVacationModal = ({ handleClose, selectedVacation }) => {
                             onClick={() => setShowWarningModal(true)}
                             alt="Warning icon"
                         />
-                        <SubmitImageButton onSubmit={handleSubmit}/>
+                        <SubmitButton onSubmit={handleSubmit}/>
                     </div>
                 </form>
                 <VacationWarningModal

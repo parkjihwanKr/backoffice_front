@@ -4,18 +4,17 @@ import CloseImageButton from "../../../../../../components/ui/image/CloseImageBu
 import { imagePrefix, getAttendanceStatus } from "../../../../../../utils/Constant";
 import SubmitButton from "../../../../../../components/ui/buttons/SubmitButton";
 import { updateAttendanceStatusForAdmin } from "../../../services/AttendanceManagementService";
+import ConfirmButton from "../../../../../../components/ui/buttons/ConfirmButton";
 
 const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) => {
     const [attendanceStatus, setAttendanceStatus] = useState(attendance.attendanceStatus);
     const [description, setDescription] = useState(attendance.description || "");
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async () => {
         try {
             console.log("Submitting data:",
                 { memberId: attendance.memberId, attendanceId: attendance.attendanceId,
                     attendanceStatus, description });
-            setIsSubmitting(true);
             // API 요청
             const updatedAttendance = await updateAttendanceStatusForAdmin(
                 attendance.memberId,
@@ -31,10 +30,13 @@ const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) =>
         } catch (error) {
             alert(error.response.data.data + " : " + error.response.data.message);
         } finally {
-            setIsSubmitting(false);
             onClose(); // 모달 닫기
         }
     };
+
+    const handleCautionModal = () => {
+        alert("준비중...");
+    }
 
     return (
         <div className="custom-modal-overlay">
@@ -93,17 +95,12 @@ const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) =>
                     </div>
                 </div>
                 <div className="custom-modal-footer">
-                    <div className="custom-modal-body-caution-container">
-                        <img
-                            src={`${imagePrefix}/shared/caution_document.png`}
-                            alt="caution"
-                            className="custom-caution-icon"
-                        />
-                    </div>
+                    <ConfirmButton
+                        onClick={handleCautionModal}
+                        text={"주의 사항"}/>
                     <SubmitButton
                         onSubmit={handleSubmit}
-                        text={isSubmitting ? "변경 중..." : "변경"}
-                        disabled={isSubmitting}
+                        text={"변경"}
                     />
                 </div>
             </div>

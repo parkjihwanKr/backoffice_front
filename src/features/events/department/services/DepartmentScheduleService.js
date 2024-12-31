@@ -1,17 +1,16 @@
 // DepartmentScheduleService.js
 import axios from 'axios';
 import { getCookie } from "../../../../utils/CookieUtil";
+import axiosInstance from "../../../../utils/AxiosUtils";
 
 const accessToken = getCookie('accessToken');
 
-// 일정 가져오기
+// 회사 일정 가져오기
 export const fetchSchedules = async (department, year, month) => {
-    return await axios.get(
-        `/api/v1/departments/${department}/events/years/${year}/months/${month + 1}`,
-        {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        }
-    );
+    const response
+        = await axiosInstance.get(
+            `/departments/${department}/events/years/${year}/months/${month + 1}`,{});
+    return response.data;
 };
 
 export const createEvent = async (department, formData) => {
@@ -32,13 +31,13 @@ export const createEvent = async (department, formData) => {
         }
     }
 
-    // Authorization 헤더에 액세스 토큰을 추가하여 요청 보내기
-    return await axios.post(`/api/v1/departments/${department}/events`, requestData, {
+    const response
+        = await axiosInstance.post(`/departments/${department}/events`, requestData, {
         headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
         },
     });
+    return response.data;
 };
 
 // 일정 수정하기

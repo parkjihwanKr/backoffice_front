@@ -1,0 +1,64 @@
+/* MainFooter.css */
+.custom-footer {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    width: 100%;
+}
+
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 40px); /* padding 고려 */
+    text-align: right;
+}
+
+.default-footer {
+    position: static;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.footer-links {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: black;
+}
+
+.footer-icon-credits {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+    margin-left: auto;
+    text-align: right;
+}
+
+.footer-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.icon-credit-img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.icon-credit-link:hover {
+    text-decoration: underline;
+}

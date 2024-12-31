@@ -4,7 +4,7 @@ import {ec2serverPrefix, MAX_FILENAME_LENGTH} from "../../../utils/Constant";
 import {extractFileName} from "../../../utils/ImageUtils";
 import {truncateFileName} from "../../../utils/FileUtils";
 
-const DownloadButton = ({ fileList, imagePrefix }) => {
+const DownloadButton = ({ fileList, imagePrefix, isModal }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     // 파일 다운로드 함수
@@ -36,8 +36,26 @@ const DownloadButton = ({ fileList, imagePrefix }) => {
         setIsDropdownOpen((prev) => !prev);
     };
 
+    /*
+    style={{
+                                    position : "absolute",
+                                    right : "7%",
+                                    bottom : "28%",
+                                    display: "block", // 조건에 따라 버튼만 보이도록 설정
+                                }}
+     */
     return (
-        <div className="download-button-container">
+        <div className="download-button-container"
+            style={
+                isModal
+                    ? {
+                        position: "absolute",
+                        right: "7%",
+                        bottom: "28%",
+                        display: "block",
+                    }
+                    : undefined
+            }>
             <button
                 className="download-button"
                 onClick={toggleDropdown}

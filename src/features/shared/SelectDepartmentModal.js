@@ -3,6 +3,7 @@ import '../../components/ui/modal/Modal.css'; // 모달 관련 CSS 가져오기
 import {DEPARTMENTS} from '../../utils/Constant';
 import CloseImageButton from "../../components/ui/image/CloseImageButton";
 import ConfirmButton from "../../components/ui/buttons/ConfirmButton";
+import useModalScroll from "../boards/hooks/useModalScroll";
 
 const SelectDepartmentModal = ({
                                    showModal,
@@ -11,6 +12,7 @@ const SelectDepartmentModal = ({
                                    setSelectedDepartment,
                                    handleSubmit
                                }) => {
+    useModalScroll(showModal);
     if (!showModal) return null; // 모달이 표시되지 않으면 아무것도 렌더링하지 않음
 
     return (

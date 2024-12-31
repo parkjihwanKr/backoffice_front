@@ -1,0 +1,37 @@
+/*UpdateBoardDetailsModal.css*/
+.edit-board-modal-header-left {
+    position: absolute;
+    align-items: center;
+}
+
+.edit-board-modal-header-left img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+/* form-group 클래스 */
+.form-group {
+    margin: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin: 5px;
+}
+
+/* 기본 input 스타일 */
+.form-control {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* textarea 스타일 */
+textarea.form-control {
+    resize: vertical;
+}

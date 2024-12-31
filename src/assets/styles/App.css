@@ -1,8 +1,14 @@
 body {
+  height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  padding-top: 5px; /* 상단 고정 요소의 높이만큼 여백을 줌 */
-  scroll-behavior: smooth; /* 부드러운 스크롤을 위해 추가 */
+  scroll-behavior: smooth;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 화면 전체 높이 확보 */
 }
 
 .custom-navbar {
@@ -12,10 +18,10 @@ body {
   max-height: 100px;
   z-index: 1;
   background-color: white;
-  border-bottom: 2px solid #d3d3d3; /* 하단 경계선을 검정색으로 설정 */
+  border-bottom: 2px solid #d3d3d3;
   display: flex;
-  justify-content: space-between; /* 메뉴와 홈 아이콘 사이의 간격을 유지 */
-  align-items: center; /* 수직 정렬 */
+  justify-content: space-between;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -101,3 +107,8 @@ body {
   margin-top: 20px;
   text-align: center;
 }
+
+* {
+  box-sizing: border-box;
+}
+

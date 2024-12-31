@@ -1,13 +1,15 @@
-.schedule-container {
+.schedule-body{
     width: 100%;
     overflow-x: auto; /* 가로 스크롤 허용 */
+    height: 100%;
     padding-left: 20px; /* 왼쪽 패딩 */
     padding-right: 20px; /* 오른쪽 패딩 */
     box-sizing: border-box; /* 패딩 포함하여 너비 계산 */
 }
 
 .calendar-table {
-    width: 100%;
+    overflow-y:auto;
+    height: 100%;
     border-collapse: collapse;
 }
 

@@ -64,7 +64,7 @@ const AttendanceManagement = () => {
             setAttendanceList(response.content); // 최신 데이터로 업데이트
             setTotalPages(response.totalPages);
         } catch (error) {
-            console.error("Error fetching updated list after deletion:", error);
+            console.error("삭제 후, 근태 기록 리스트를 가져오는 데, 실패했습니다. : ", error);
         } finally {
             setLoading(false); // 로딩 종료
         }
@@ -83,7 +83,7 @@ const AttendanceManagement = () => {
                 // 중복이 아니면 추가
                 if (!isDuplicate) {
                     const updatedList = [newAttendance, ...prevList];
-                    console.log("Updated attendance list:", updatedList); // 디버깅용 로그
+                    console.log("근태 기록 수정 :", updatedList); // 디버깅용 로그
                     return updatedList;
                 }
             }

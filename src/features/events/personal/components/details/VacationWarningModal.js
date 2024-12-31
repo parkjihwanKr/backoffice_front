@@ -1,21 +1,22 @@
 /*VacationWarningModal.js*/
 import React from 'react';
 import './VacationWarningModal.css';
+import '../../../../../components/ui/modal/Modal.css'
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 
 const VacationWarningModal = ({ show, handleClose }) => {
     if (!show) return null; // 모달이 보이지 않을 때는 렌더링하지 않음
 
     return (
-        <div className="warning-modal-overlay">
-            <div className="warning-modal-content">
-                <div className="warning-modal-header">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>
                         주의사항
-                        <CloseImageButton handleClose={handleClose}/>
                     </h3>
+                    <CloseImageButton handleClose={handleClose}/>
                 </div>
-                <div className="warning-modal-body">
+                <div className="custom-modal-body">
                     <p>휴가 신청 기간에 맞춰서 연가를 사용해주세요!</p>
                     <p>휴가 신청 기간에 맞지 않은 날짜 입력 시, 사용이 안됩니다.</p>
                     <p>휴가 시작일과 마지막일은 토요일/일요일이면 안됩니다. </p>

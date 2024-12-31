@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import {getDepartmentName, getPositionName, imagePrefix} from "../../../../../utils/Constant";
 import useFilteredMembers from "../../../shared/hooks/useFilteredMembers";
-import UpdateSalaryModal from './UpdateSalaryModal'; // 급여 변경 모달 임포트
+import UpdateSalaryModal from './UpdateSalaryModal';
 import './MemberManagementBody.css';
 import '../../../shared/components/table.css';
 import React, { useState } from 'react';

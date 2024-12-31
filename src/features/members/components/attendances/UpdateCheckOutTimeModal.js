@@ -3,8 +3,10 @@ import { updateCheckOutTime } from "../../services/MembersService";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 import DateUtils from "../../../../utils/DateUtils";
+import useModalScroll from "../../../boards/hooks/useModalScroll";
 
-const UpdateCheckOutTimeModal = ({ attendanceId, onClose, updateAttendanceInState }) => {
+const UpdateCheckOutTimeModal = ({ show, attendanceId, onClose, updateAttendanceInState }) => {
+    useModalScroll(show);
     const [description, setDescription] = useState(""); // 설명 입력값
 
     const handleSubmit = async () => {
@@ -43,8 +45,8 @@ const UpdateCheckOutTimeModal = ({ attendanceId, onClose, updateAttendanceInStat
                             className="description-textarea"
                         />
                     </div>
-                    <div className=".caution-description">
-                        현재 시간에 맞추어 퇴근 신청이 됩니다.
+                    <div className="caution-description">
+                        ☆ 현재 시간에 맞추어 퇴근 신청이 됩니다.
                     </div>
                 </div>
                 <div className="custom-modal-footer">

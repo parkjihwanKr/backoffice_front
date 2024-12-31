@@ -18,7 +18,7 @@ import useDropdownMenu from "../../hooks/useDropDownMenu";
 import useNotificationFilter from "../../hooks/useNotificationFilter";
 import { useNotification } from '../../context/NotificationContext';
 import { fetchMemberNotificationList } from "../../services/NotificationService";
-import useModalScroll from "../../../boards/shared/hooks/useModalScroll";
+import useModalScroll from "../../../boards/hooks/useModalScroll";
 
 const NotificationListModal = ({ show, handleClose }) => {
     const { id, name, department, position } = useAuth();

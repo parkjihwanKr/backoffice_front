@@ -1,13 +1,13 @@
 .member-details-page {
     display: flex;
-    flex-direction: row; /* 프로필 이미지와 정보를 가로로 배치 */
-    align-items: flex-start; /* 상단에 맞추어 정렬 */
+    flex-direction: row;
+    align-items: flex-start;
     padding: 30px;
     overflow-y : auto;
 }
 
 .member-details-sidebar {
-    width: 250px; /* 사이드바의 고정 너비 */
+    width: 250px;
     display: flex;
     flex-direction: column; /* 프로필과 컨트롤을 세로로 배치 */
     gap: 15px;
@@ -60,7 +60,7 @@
     gap: 10px; /* 버튼 간격 */
     justify-content: center; /* 버튼들을 수직 가운데 정렬 */
     align-items: center; /* 버튼들을 가로 가운데 정렬 */
-    width: 100%; /* 버튼 컨테이너의 너비를 프로필과 동일하게 설정 */
+    width: 100%;
 }
 
 .details-button {
@@ -73,11 +73,12 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: -1px;
-    text-align: center; /* 텍스트 가운데 정렬 */
+    text-align: center;
+    border : 2px solid white;
 }
 
 .details-button:hover {
-    background-color: lightgrey;
+    background-color: #d9d9d9;
 }
 
 .member-details-info {
@@ -131,7 +132,7 @@
 .member-details-introduction-content {
     border : 2px solid lightgrey;
     border-radius: 5px;
-    height: 250px; /* 고정 높이 */
+    height: 300px; /* 고정 높이 */
     display: flex; /* Flexbox를 사용하여 내용 중앙 정렬 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
@@ -149,7 +150,7 @@
     min-width: 100%;
     border : 2px solid lightgrey;
     border-radius: 5px;
-    height: 175px; /* 고정 높이 */
+    height: 300px; /* 고정 높이 */
     display: flex; /* Flexbox를 사용하여 내용 중앙 정렬 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */

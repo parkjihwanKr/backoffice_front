@@ -1,69 +1,100 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../features/auth/context/AuthContext';
-import { useNotification } from '../../features/notifications/context/NotificationContext';
-import UserInfoModal from '../ui/modal/UserInfoModal';
-import LogoutModal from '../ui/modal/LogoutModal';
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import {useAuth} from "../../features/auth/context/AuthContext";
+import UserInfoModal from "../ui/modal/UserInfoModal";
+import LogoutModal from "../ui/modal/LogoutModal";
+import NotificationListModal from "../../features/notifications/components/modal/NotificationListModal";
+import FavoritesModal from "../../features/favorites/FavoritesModal";
+import UpdateCheckInTimeModal from "../../features/members/components/attendances/UpdateCheckInTimeModal";
+import UpdateCheckOutTimeModal from "../../features/members/components/attendances/UpdateCheckOutTimeModal";
+import {useLogout} from "./hooks/useLogout";
+import {useNotifications} from "./hooks/useNotifications";
+import {useAttendanceModal} from "./hooks/useAttendanceModal";
+import {useDropdown} from "./hooks/useDropDown";
+import {useFavoritesModal} from "./hooks/useFavoritesModal";
 import './DropDownMenu.css';
-import { imagePrefix } from '../../utils/Constant';
-import NotificationListModal from '../../features/notifications/components/modal/NotificationListModal';
-import { logout } from "../../features/auth/services/AuthService";
+import {imagePrefix} from "../../utils/Constant";
+import {useUserInfoModal} from "./hooks/useUserInfoModal";
+import {getMemberProfileImage} from "../../features/members/services/MembersService";
 
 const DropDownMenu = () => {
     const { id, isAuthenticated, name, department, position } = useAuth();
-    const { isNotified, setIsNotified } = useNotification();
-    const [showLogoutModal, setShowLogoutModal] = useState(false);
-    const [showUserModal, setShowUserModal] = useState(false);
-    const [showNotificationListModal, setNotificationListModal] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [profileImageUrl, setProfileImageUrl]
+        = useState(`${imagePrefix}/shared/user_info.png`);
+
+    const {
+        showUserInfoModal,
+        handleShowUserModal,
+        handleCloseUserModal,
+    } = useUserInfoModal();
+    const {
+        showLogoutModal,
+        handleLogout,
+        handleShowLogoutModal,
+        handleCloseLogoutModal,
+    } = useLogout();
+    const {
+        isNotified,
+        showNotificationListModal,
+        handleNotificationClick,
+        handleCloseNotificationListModal,
+    } = useNotifications();
+    const {
+        activeModal,
+        todayAttendanceId,
+        handleAttendanceModal,
+        handleCloseAttendanceModal,
+    } = useAttendanceModal(id);
+    const { isDropdownOpen, toggleDropdown, handleLinkClick } = useDropdown();
+    const {
+        showFavoritesModal,
+        handleShowFavoritesModal,
+        handleCloseFavoritesModal,
+    } = useFavoritesModal();
 
     useEffect(() => {
-        console.log("Notification icon state updated:", isNotified);
-    }, [isNotified]);
+        fetchMemberProfileImage();
+    }, []);
 
-    const handleLogout = async () => {
-        logout();
-    };
-
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
-
-    // 모달 핸들러 함수들
-    const handleShowLogoutModal = () => setShowLogoutModal(true);
-    const handleCloseLogoutModal = () => setShowLogoutModal(false);
-
-    const handleShowUserModal = () => setShowUserModal(true);
-    const handleCloseUserModal = () => setShowUserModal(false);
-
-    const handleShowNotificationListModal = () => setNotificationListModal(true);
-    const handleCloseNotificationListModal = () => setNotificationListModal(false);
-
-    const handleNotificationClick = () => {
-        handleShowNotificationListModal();
-        setIsNotified(false); // 알림 아이콘 상태 초기화
-    };
-
-    const handleLinkClick = () => {
-        setIsDropdownOpen(false); // 메뉴 닫기
-    };
+    const fetchMemberProfileImage = async () => {
+        try {
+            const response = await getMemberProfileImage(id);
+            setProfileImageUrl(response.profileImageUrl);
+            console.log("계속 해서 호출하나?");
+        }catch (error) {
+            console.error(error.response.data.data + " : "+error.response.data.message);
+        }
+    }
 
     return (
         <>
             <div className="custom-navbar-right">
                 <img
-                    src={`${imagePrefix}/shared/${isNotified
-                        ? 'is_notified_true.png' : 'is_notified_false.png'}`}
-                    alt="notification-list"
-                    className="notification-icon"
-                    onClick={handleNotificationClick} // 알림 클릭 핸들러
+                    src={`${imagePrefix}/shared/go_to_website.png`}
+                    alt="바로 가기"
+                    className="website-icon"
+                    onClick={handleShowFavoritesModal}
                 />
-                <img src={`${imagePrefix}/shared/user_info.png`}
-                     onClick={handleShowUserModal}
-                     className="user-info"/>
-
+                <img
+                    src={`${imagePrefix}/shared/check-out-time.png`}
+                    alt="출/퇴근 신청"
+                    className="website-icon"
+                    onClick={handleAttendanceModal}
+                />
+                <img
+                    src={`${imagePrefix}/shared/${isNotified ? "is_notified_true.png" : "is_notified_false.png"}`}
+                    alt="notification-list"
+                    className="nav-bar-icon"
+                    onClick={handleNotificationClick}
+                />
+                <img
+                    src={profileImageUrl}
+                    alt="User Info"
+                    className="user-info"
+                    onClick={handleShowUserModal}
+                />
                 <div className="custom-dropdown">
-                    <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
+                <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
                         Menu
                     </button>
                     {isDropdownOpen && (
@@ -94,8 +125,12 @@ const DropDownMenu = () => {
                                             일정
                                         </Link>
                                     </li>
-
-                                    {(position === 'MANAGER' || position === 'CEO') && (
+                                    <li>
+                                        <Link to={`/members/${id}/attendance`} onClick={handleLinkClick}>
+                                            개인 근태 기록
+                                        </Link>
+                                    </li>
+                                    {(position === "MANAGER" || position === "CEO") && (
                                         <li>
                                             <Link to="/admins" onClick={handleLinkClick}>
                                                 관리자 페이지
@@ -110,7 +145,7 @@ const DropDownMenu = () => {
             </div>
 
             <UserInfoModal
-                show={showUserModal}
+                show={showUserInfoModal}
                 handleClose={handleCloseUserModal}
                 name={name}
                 department={department}
@@ -128,6 +163,26 @@ const DropDownMenu = () => {
                 show={showNotificationListModal}
                 handleClose={handleCloseNotificationListModal}
             />
+
+            <FavoritesModal
+                show={showFavoritesModal}
+                handleClose={handleCloseFavoritesModal}
+            />
+
+            {activeModal === "checkIn" && (
+                <UpdateCheckInTimeModal
+                    show={true}
+                    attendanceId={todayAttendanceId}
+                    onClose={handleCloseAttendanceModal}
+                />
+            )}
+            {activeModal === "checkOut" && (
+                <UpdateCheckOutTimeModal
+                    show={true}
+                    attendanceId={todayAttendanceId}
+                    onClose={handleCloseAttendanceModal}
+                />
+            )}
         </>
     );
 };

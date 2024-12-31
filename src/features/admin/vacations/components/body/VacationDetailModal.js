@@ -1,9 +1,12 @@
 import React from 'react';
-import './VacationDetailModal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import UpdateIsAcceptedModal from './UpdateIsAcceptedModal';
 import DeleteVacationForAdminModal from "./DeleteVacationForAdminModal";
 import { useModalVisibility } from '../../hooks/useModalVisibility';
+import {reverseVacationMapping} from "../../../../../utils/Constant";
+import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
+import useModalScroll from "../../../../boards/hooks/useModalScroll";
+import {useAuth} from "../../../../auth/context/AuthContext";
 
 const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onDeleteVacation, onClose }) => {
     const {
@@ -15,10 +18,19 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
         closeDeleteModal,
     } = useModalVisibility();
 
+    const { department, position} = useAuth();
+    useModalScroll(isOpen);
     if (!isOpen || !vacation) return null;
 
-    const buttonText = vacation.isAccepted ? '미승인' : '승인';
+    // 버튼 텍스트는 승인 여부에 따라 변경
+    const buttonText = vacation.isAccepted ? '미승인 요청' : '승인 요청';
 
+    const hasAccess = () => {
+        if((department ===  "HR" && position == "MANAGER") || position === "CEO"){
+            return true;
+        }
+        return false;
+    }
     const handleUpdateIsAccepted = async () => {
         try {
             await onUpdateVacationIsAccepted(vacation.vacationId); // 부모 컴포넌트로 상태 업데이트 요청
@@ -40,24 +52,45 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
     }
 
     return (
-        <div className="vacation-details-modal-overlay">
-            <div className="vacation-details-modal">
-                <div className="vacation-details-modal-header">
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
                     <h3>{vacation.onVacationMemberName}님의 휴가</h3>
                     <CloseImageButton handleClose={onClose} />
                 </div>
-                <div className="vacation-details-modal-body">
-                    <p><strong>휴가
-                        기간:</strong> {new Date(vacation.startDate).toLocaleDateString()} ~ {new Date(vacation.endDate).toLocaleDateString()}
+                <div className="custom-modal-body">
+                    <p>
+                        <strong>휴가 기간 : </strong>
+                        {new Date(vacation.startDate).toLocaleDateString()}
+                        ~ {new Date(vacation.endDate).toLocaleDateString()}
                     </p>
-                    <p><strong>휴가 종류 : </strong> {vacation.vacationType}</p>
-                    <p><strong>휴가 사유 : </strong> {vacation.urgentReason}</p>
-                    <hr/>
-                    <p><strong>승인 여부 :</strong> {vacation.isAccepted ? '승인됨' : '미승인'}</p>
+                    <p>
+                        <strong>휴가 사유 : </strong>
+                        {vacation.urgentReason && vacation.urgentReason.trim() !== ""
+                            ? vacation.urgentReason
+                            : "사유 없음"}
+                    </p>
+                    <p>
+                        <strong>휴가 종류 : </strong>
+                        {reverseVacationMapping[vacation.vacationType]}
+                        <strong style={{marginLeft: "10px"}}>승인 여부 :</strong> {vacation.isAccepted ? '승인됨' : '미승인'}
+                    </p>
                 </div>
-                <div className="vacation-details-modal-footer">
-                    <button onClick={openUpdateModal}>{buttonText}</button>
-                    <button onClick={openDeleteModal}>삭제</button>
+                <div className="custom-modal-footer">
+                    {hasAccess() ? (
+                        <>
+                            <ConfirmButton
+                                onClick={openUpdateModal}
+                                text={buttonText}
+                            />
+                            <ConfirmButton
+                                onClick={openDeleteModal}
+                                text={"삭제"}
+                            />
+                        </>
+                    ) : (
+                        <div></div>
+                    )}
                 </div>
             </div>
 

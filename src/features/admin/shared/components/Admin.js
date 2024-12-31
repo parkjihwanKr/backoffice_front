@@ -41,13 +41,6 @@ const Admin = () => {
                     </Link>
                 )}
 
-                {/* 회사 재정 관리 페이지 */}
-                {isFinanceManagerOrCEO && (
-                    <Link to="/admins/finance-management">
-                        <button>회사 재정 관리 페이지</button>
-                    </Link>
-                )}
-
                 {/* 회계 감사 페이지 */}
                 {isAuditManagerOrCEO && (
                     <Link to="/admins/audit-management">
