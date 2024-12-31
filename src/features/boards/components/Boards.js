@@ -12,7 +12,6 @@ const Boards = () => {
     const navigate = useNavigate();
 
     const handleSubmit = () => {
-        console.log("handelSubmit method call");
         const mappedDepartment = getMappedDepartment(selectedDepartment);
         if (selectedDepartment) {
             navigate(`/department-boards/${mappedDepartment}`);

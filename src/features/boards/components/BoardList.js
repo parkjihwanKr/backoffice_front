@@ -7,7 +7,6 @@ import useFetchBoards from "../hooks/useFetchBoards";
 import PaginationFooter from "../../../components/common/PaginationFooter";
 
 const BoardList = ({ isDepartmentBoard }) => {
-    console.log("isDepartmentBoard : "+isDepartmentBoard);
 
     const navigate = useNavigate();
     const { department } = useParams(); // department 값을 URL에서 가져옴
