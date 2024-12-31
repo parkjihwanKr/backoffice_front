@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../../../../components/ui/modal/Modal.css';
+import '../../../../../components/ui/modal/Modal.css';
 import './UpdateBoardDetailsModal.css';
-import { addModalAlignmentListener, adjustModalAlignment } from "../../../../utils/ModalUtils";
-import { imagePrefix } from "../../../../utils/Constant";
-import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
-import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
+import { addModalAlignmentListener, adjustModalAlignment } from "../../../../../utils/ModalUtils";
+import { imagePrefix } from "../../../../../utils/Constant";
+import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 
 const UpdateBoardDetailsModal = ({
                                      show,
@@ -153,6 +153,9 @@ const UpdateBoardDetailsModal = ({
                             />
                         </div>
                     </form>
+                </div>
+                <div className="custom-modal-body-text">
+                    ※ '별', '잠금' 표시를 통해 게시글 수정을 제어할 수 있습니다.
                 </div>
                 <div className="custom-modal-footer">
                     <SubmitButton onSubmit={handleSubmit} text="수정"/>

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Comments.css';
-import EditCommentModal from "./UpdateCommentModal";
-import DeleteCommentModal from "./DeleteCommentModal";
-import CreateReplyCommentModal from './CreateReplyCommentModal';
+import EditCommentModal from "./modal/UpdateCommentModal";
+import DeleteCommentModal from "./modal/DeleteCommentModal";
+import CreateReplyCommentModal from './modal/CreateReplyCommentModal';
 import Reply from './replys/Reply';
 import {imagePrefix} from '../../../../utils/Constant';
 import {useComments} from './hooks/useComments';

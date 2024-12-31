@@ -1,14 +1,15 @@
 import React, {useState} from "react";
+import "./BoardDetails.css";
+
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAuth} from "../../../auth/context/AuthContext";
 import Comments from "../comments/Comments";
 import BoardDetailsFooter from "./BoardDetailsFooter";
-import "./BoardDetails.css";
 
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "./modal/DeleteModal";
 import BoardDetailsHeader from "./BoardDetailsHeader";
 import BoardDetailsBody from "./BoardDetailsBody";
-import UpdateBoardDetailsModal from "./UpdateBoardDetailsModal";
+import UpdateBoardDetailsModal from "./modal/UpdateBoardDetailsModal";
 
 import useBoardDetails from "../../hooks/useBoardDetails";
 import useModalScroll from "../../hooks/useModalScroll";
@@ -48,11 +49,12 @@ const BoardDetails = () => {
     // 중요도 변경
     const toggleImportant = async () => {
         try {
-            await patchMarkAsImportant(board.boardId);
+            const response = await patchMarkAsImportant(board.boardId);
             setBoard((prevBoard) => ({
                 ...prevBoard,
                 isImportant: !prevBoard.isImportant,
             }));
+            alert(response.message);
         } catch (error) {
             console.error("Error toggling important status:", error);
             alert("중요도 변경에 실패했습니다.");
@@ -62,11 +64,12 @@ const BoardDetails = () => {
     // 잠금 상태 변경
     const toggleLocked = async () => {
         try {
-            await patchMarkAsLocked(board.boardId);
+            const response = await patchMarkAsLocked(board.boardId);
             setBoard((prevBoard) => ({
                 ...prevBoard,
                 isLocked: !prevBoard.isLocked,
             }));
+            alert(response.message);
         } catch (error) {
             console.error("Error toggling locked status:", error);
             alert("잠금 상태 변경에 실패했습니다.");
@@ -81,7 +84,7 @@ const BoardDetails = () => {
             setBoard(response); // 수정된 데이터로 상태 업데이트
             setShowEditModal(false);
         } catch (error) {
-            console.error("Error updating board details:", error);
+            console.error("게시글 상세보기 실패 : ", error);
         }
     };
 
@@ -96,7 +99,7 @@ const BoardDetails = () => {
                 navigate(`/department-boards/${department}`);
             }
         } catch (error) {
-            console.error("Error deleting board:", error);
+            console.error("게시글 삭제 실패 오류 : ", error);
         }
     };
 

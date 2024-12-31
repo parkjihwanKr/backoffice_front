@@ -100,8 +100,8 @@ export const fetchBoardDetails = async (boardId) => {
 
 // 부서 게시글 상세보기 조회 API
 export const fetchDepartmentBoardDetails = async (boardId, department) => {
-    console.log("fetchDepartmentBoarDetails method starts...");
-    const response = await axiosInstance.get(`/departments/${department}/boards/${boardId}`)
+    const response
+        = await axiosInstance.get(`/departments/${department}/boards/${boardId}`)
     console.log(response.data);
     return response.data;
 }
@@ -159,7 +159,6 @@ export const updateBoardDetails = async (boardId, editForm, files, isDepartmentB
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log(response.data);
         return response.data;
     }
 };
@@ -177,7 +176,6 @@ export const createBoardLike = async (boardId, emoji) => {
         = await axiosInstance.post(`boards/${boardId}/reactions`, {
         emoji: emoji, // 이모지 데이터 추가
     });
-    console.log(response);
     return response.data;
 };
 
@@ -185,20 +183,17 @@ export const createBoardLike = async (boardId, emoji) => {
 export const deleteBoardLike = async (boardId, likeId) => {
     const response
         = await axiosInstance.delete(`boards/${boardId}/reactions/${likeId}`);
-    console.log(response.data);
     return response.data;
 }
 
 // 중요도 변경 API
 export const patchMarkAsImportant = async (boardId) => {
     const response = await axiosInstance.patch(`/boards/${boardId}/important`);
-    console.log(response.data);
     return response.data;
 };
 
 // 잠금 상태 변경 API
 export const patchMarkAsLocked = async (boardId) => {
     const response = await axiosInstance.patch(`/boards/${boardId}/lock`);
-    console.log(response.data);
     return response.data;
 };

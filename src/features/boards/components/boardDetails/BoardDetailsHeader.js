@@ -1,5 +1,4 @@
 import React from 'react';
-import './BoardDetailsHeader.css';
 import {imagePrefix} from "../../../../utils/Constant";
 
 const BoardDetailsHeader =

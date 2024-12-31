@@ -31,7 +31,7 @@ const BoardList = ({ isDepartmentBoard }) => {
                 : `/all-boards/${boardId}`;
             navigate(path);
         } else {
-            console.error("boardId is undefined");
+            console.error("게시글 아이디가 정의되지 않음.");
         }
     };
 

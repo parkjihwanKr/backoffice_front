@@ -152,6 +152,11 @@
     justify-content: center; /* 수평 중앙 정렬 */
 }
 
+.create-board-container-left-footer {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .create-board-container {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './CreateReplyCommentModal.css';
-import useModalScroll from '../../hooks/useModalScroll';
-import CloseImageButton from '../../../../components/ui/image/CloseImageButton';
-import SubmitButton from '../../../../components/ui/buttons/SubmitButton';
-import {imagePrefix} from "../../../../utils/Constant";
-import {useAuth} from "../../../auth/context/AuthContext";
+import useModalScroll from '../../../hooks/useModalScroll';
+import CloseImageButton from '../../../../../components/ui/image/CloseImageButton';
+import SubmitButton from '../../../../../components/ui/buttons/SubmitButton';
+import {imagePrefix} from "../../../../../utils/Constant";
+import {useAuth} from "../../../../auth/context/AuthContext";
 
 const CreateReplyCommentModal = ({
                                      show,
@@ -28,11 +28,11 @@ const CreateReplyCommentModal = ({
     if (!show) return null;
 
     return (
-        <div className="create-reply-modal-overlay">
-            <div className="create-reply-modal">
-                <CloseImageButton handleClose={handleClose} />
-                <div className="create-reply-modal-header">
-                    <h2 className="create-reply-modal-title">답글 작성</h2>
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content">
+                <div className="custom-modal-header">
+                    <CloseImageButton handleClose={handleClose} />
+                    <h3>답글 작성</h3>
                 </div>
                 <div className="create-reply-modal-body">
                     <div className="create-reply-modal-body-row-1">

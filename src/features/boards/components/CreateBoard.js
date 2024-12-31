@@ -111,11 +111,14 @@ const CreateBoard = () => {
                             </ul>
                         </div>
                     )}
+                    <div className="create-board-container-left-footer">
+                        ※ 상단의 '별', '잠금' 표시를 통해 해당 게시글을 제어할 수 있습니다.
+                    </div>
                 </div>
 
                 {/* Right Section */}
                 <div className="create-board-container-right">
-                    <form onSubmit={createBoard} className="create-board-form">
+                <form onSubmit={createBoard} className="create-board-form">
                         <div className="form-group">
                             <label htmlFor="title">제목</label>
                             <input

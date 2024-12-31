@@ -1,5 +1,4 @@
 import React from 'react';
-import './BoardDetailsFooter.css';
 import { useAuth } from "../../../auth/context/AuthContext";
 import { imagePrefix } from '../../../../utils/Constant';
 import useLike from '../../hooks/useLike';

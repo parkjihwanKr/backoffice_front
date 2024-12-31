@@ -78,7 +78,7 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
                         alt="urgent icon"
                         onClick={handleUrgentToggle}
                         title={urgent ? "긴급 상태 활성화" : "긴급 상태 비활성화"}
-                        style={{ position : "absolute", left : "5%", top : "2%"}}
+                        style={{ position : "absolute", left : "5%", top : "2%", width : "36px", height : "36px"}}
                     />
                     <h3>휴가 신청</h3>
                     <CloseImageButton handleClose={handleClose}/>

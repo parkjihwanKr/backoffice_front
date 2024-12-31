@@ -1,5 +1,4 @@
 import React from 'react';
-import './BoardDetailsBody.css';
 import DownloadButton from '../../../../components/ui/buttons/DownloadButton';
 import {imagePrefix} from "../../../../utils/Constant";
 import {useAuth} from "../../../auth/context/AuthContext";

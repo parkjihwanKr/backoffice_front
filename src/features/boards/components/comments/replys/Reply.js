@@ -1,8 +1,8 @@
 // Reply.js
 import React, { useState } from 'react';
 import './Reply.css';
-import UpdateReplyModal from './UpdateReplyModal';
-import DeleteReplyModal from './DeleteReplyModal';
+import UpdateReplyModal from './modal/UpdateReplyModal';
+import DeleteReplyModal from './modal/DeleteReplyModal';
 import { useAuth } from '../../../../auth/context/AuthContext';
 import { imagePrefix } from '../../../../../utils/Constant';
 import { useReply } from '../hooks/useReply';
@@ -22,7 +22,6 @@ const Reply = ({ reply, commentId, setComments }) => {
         });
 
     const handleEditReply = (replyContent) => {
-        console.log(reply);
         setEditingReplyContent(replyContent);
         setShowEditModal(true);
     };
