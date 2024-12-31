@@ -8,8 +8,6 @@ export const fetchFilteredVacations = async (year, month, isAccepted, urgent, de
             department: department !== undefined && department !== 'all' ? department : null,
         }
     });
-
-    console.log("Response data : ", response.data);
     return response.data;
 };
 

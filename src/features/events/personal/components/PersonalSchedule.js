@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import './PersonalSchedule.css';
-import { useAuth } from "../../../auth/context/AuthContext";
-import { getPersonalMonthSchedule, getPersonalDaySchedule } from '../services/PersonalScheduleService';
+import {useAuth} from "../../../auth/context/AuthContext";
+import {getPersonalDaySchedule, getPersonalMonthSchedule} from '../services/PersonalScheduleService';
 import PersonalScheduleDetailsModal from './details/PersonalScheduleDetailsModal';
 import PersonalScheduleFooter from "./PersonalScheduleFooter";
 
@@ -16,7 +16,7 @@ const PersonalSchedule = () => {
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; // 요일
+    const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토']; // 요일
 
     useEffect(() => {
         fetchPersonalSchedule();
@@ -27,7 +27,7 @@ const PersonalSchedule = () => {
             const schedule = await getPersonalMonthSchedule(id, currentYear, currentMonth);
             setEvents(schedule); // 월별 일정을 상태로 저장
         } catch (error) {
-            console.error('Error fetching personal schedule:', error);
+            console.error('개인 일정 페이지 조회 실패 : ', error);
         }
     };
 
@@ -39,7 +39,7 @@ const PersonalSchedule = () => {
             setDayEvents(daySchedule);
             setShowModal(true);
         } catch (error) {
-            console.error('Error fetching personal day schedule:', error);
+            console.error('선택된 일의 개인 일정 조회 실패 : ', error);
         }
     };
 
@@ -105,12 +105,14 @@ const PersonalSchedule = () => {
             <div className="calendar">
                 <div className="calendar-header">
                     <button onClick={() => setCurrentDate(new Date(currentYear, currentMonth - 1))}>&lt;&lt;</button>
-                    <span>{`${currentYear}년 ${currentMonth + 1}월`}</span>
+                    <span className="calendar-header-year-month">
+                        {`${currentYear}년 ${currentMonth + 1}월`}
+                    </span>
                     <button onClick={() => setCurrentDate(new Date(currentYear, currentMonth + 1))}>&gt;&gt;</button>
                 </div>
                 <div className="calendar-days">
                     {daysOfWeek.map((day, index) => (
-                        <div key={index} className={`day-header ${day === 'Sun' ? 'sunday' : day === 'Sat' ? 'saturday' : ''}`}>{day}</div>
+                        <div key={index} className={`day-header ${day === '일' ? 'sunday' : day === '토' ? 'saturday' : ''}`}>{day}</div>
                     ))}
                     {renderCalendarDays()}
                 </div>

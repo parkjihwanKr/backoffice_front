@@ -1,6 +1,5 @@
 import React from 'react';
-import './DepartmentScheduleFooter.css';
-import {imagePrefix} from '../../../../../utils/Constant';
+import {imagePrefix} from '../../../../utils/Constant';
 
 const DepartmentScheduleFooter = ({ onPrevMonth, onNextMonth }) => {
     return (

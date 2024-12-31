@@ -4,10 +4,10 @@ import '../../../../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
-const UpdateDepartmentScheduleModal = ({ isOpen, onClose, onSubmit }) => {
+const UpdateDepartmentScheduleModal = ({ isOpen, title, description, onClose, onSubmit }) => {
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
+        title: title || '',
+        description: description || '',
         startDate: '',
         endDate: '',
         files: null,

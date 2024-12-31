@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import './DepartmentScheduleBody.css'; // 필요한 스타일을 위한 CSS
-import EventDetailModal from './EventDetailModal'; // 모달 컴포넌트 가져오기
+import EventDetailModal from './modal/EventDetailModal'; // 모달 컴포넌트 가져오기
 
 const DepartmentScheduleBody = ({ currentYear, currentMonth, schedules, onUpdateEvent, onDeleteEvent }) => {
     const [selectedEvent, setSelectedEvent] = useState(null); // 클릭된 이벤트를 저장하는 상태

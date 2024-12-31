@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { imagePrefix } from '../../../../utils/Constant';
-import './PersonalScheduleFooter.css';
-import CreateVacationModal from './details/CreateVacationModal';
-import PersonalVacationListModal from "./PersonalVacationListModal";
+import CreateVacationModal from './modal/CreateVacationModal';
+import PersonalVacationListModal from "./modal/PersonalVacationListModal";
 
 const PersonalScheduleFooter = () => {
     const [isCreateVacationModalOpen, setCreateVacationModalOpen] = useState(false);

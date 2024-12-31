@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../shared/DomainContainer.css';
-import {departmentMapping, imagePrefix, reverseDepartmentMapping} from '../../../utils/Constant';
+import {departmentMapping, imagePrefix} from '../../../utils/Constant';
 import SelectDepartmentModal from '../../shared/SelectDepartmentModal';
 
 const Events = () => {
     const navigate = useNavigate();
-    const [is_modal_open, set_is_modal_open] = useState(false); // 모달 상태 관리
-    const [selected_department, set_selected_department] = useState(''); // 선택된 부서
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDepartment, setSelectedDepartment] = useState('');
 
-    const go_to_personal_schedule = () => {
-        navigate('/personal-schedule'); // 개인 일정표 페이지로 이동
+    const goToPersonalSchedule = () => {
+        navigate('/personal-schedule');
     };
 
-    const open_department_modal = () => {
-        set_is_modal_open(true); // 모달 열기
+    const openDepartmentModal = () => {
+        setIsModalOpen(true); // 모달 열기
     };
 
-    const close_department_modal = () => {
-        set_is_modal_open(false); // 모달 닫기
+    const closeDepartmentModal = () => {
+        setIsModalOpen(false); // 모달 닫기
     };
 
-    const handle_department_select = () => {
-        if (selected_department) {
-            const departmentCode = departmentMapping[selected_department];
-            navigate(`/department-schedule/${departmentCode}`); // 부서 일정표 페이지로 이동
-            close_department_modal();
+    const handleDepartmentSelect = () => {
+        if (selectedDepartment) {
+            const departmentCode = departmentMapping[selectedDepartment];
+            navigate(`/department-schedule/${departmentCode}`);
+            closeDepartmentModal();
         } else {
-            alert('부서를 선택해주세요.'); // 부서가 선택되지 않은 경우 경고
+            alert('부서를 선택해주세요.');
         }
     };
 
@@ -45,7 +45,7 @@ const Events = () => {
                             alt="부서 스케줄 이미지"
                             className="domain-card-img"/>
                         <button className="all-domain-button"
-                                onClick={open_department_modal}>
+                                onClick={openDepartmentModal}>
                             이동
                         </button>
                     </div>
@@ -60,20 +60,20 @@ const Events = () => {
                             alt="개인 스케줄 이미지"
                             className="domain-card-img"/>
                         <button className="all-domain-button"
-                                onClick={go_to_personal_schedule}>
+                                onClick={goToPersonalSchedule}>
                             이동
                         </button>
                     </div>
                 </div>
             </div>
 
-            {is_modal_open && (
+            {isModalOpen && (
                 <SelectDepartmentModal
-                    showModal={is_modal_open}
-                    onClose={close_department_modal}
-                    selectedDepartment={selected_department}
-                    setSelectedDepartment={set_selected_department}
-                    handleSubmit={handle_department_select}
+                    showModal={isModalOpen}
+                    onClose={closeDepartmentModal}
+                    selectedDepartment={selectedDepartment}
+                    setSelectedDepartment={setSelectedDepartment}
+                    handleSubmit={handleDepartmentSelect}
                 />
             )}
         </div>

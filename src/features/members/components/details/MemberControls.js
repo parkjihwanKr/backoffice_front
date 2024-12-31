@@ -1,6 +1,6 @@
 import './MemberDetails.css';
 import { useNavigate } from "react-router-dom";
-import PersonalVacationListModal from "../../../events/personal/components/PersonalVacationListModal";
+import PersonalVacationListModal from "../../../events/personal/components/modal/PersonalVacationListModal";
 import React, { useState } from "react";
 import useModalScroll from "../../../boards/hooks/useModalScroll";
 

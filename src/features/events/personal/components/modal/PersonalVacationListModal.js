@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../auth/context/AuthContext";
+import { useAuth } from "../../../../auth/context/AuthContext";
 import "./PersonalVacationListModal.css";
-import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
-import { getMemberVacationList } from "../services/PersonalScheduleService";
-import { imagePrefix } from "../../../../utils/Constant";
+import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
+import { getMemberVacationList } from "../../services/PersonalScheduleService";
+import { imagePrefix } from "../../../../../utils/Constant";
 import UpdateVacationModal from "./UpdateVacationModal";
 import DeleteVacationModal from "./DeleteVacationModal";
-import { adjustModalAlignment, addModalAlignmentListener } from "../../../../utils/ModalUtils";
+import { adjustModalAlignment, addModalAlignmentListener } from "../../../../../utils/ModalUtils";
 
 const PersonalVacationListModal = ({ handleClose }) => {
     const { name, id } = useAuth();
@@ -113,20 +113,7 @@ const PersonalVacationListModal = ({ handleClose }) => {
                     )}
                 </div>
                 <div className="vacationList-vacation-modal-footer">
-                    {/*<div className={`tooltip-container ${isTooltipVisible ? 'active' : ''}`}>
-                        <img
-                            src={`${imagePrefix}/shared/caution_document.png`}
-                            alt="주의사항 이미지"
-                            className="tooltip-target"
-                            onClick={toggleTooltip} // 클릭 시 툴팁 토글
-                        />
-                        <div className="tooltip-content">
-                            <p><strong>주의사항 1:</strong> 지난 휴가는 해당 리스트에서 조회할 수 없습니다.</p>
-                            <p><strong>주의사항 2:</strong> 승인되지 않은 휴가는 잔여 휴가에서 차감되지 않으며, 승인 시에 잔여 휴가 수가 변경됩니다.</p>
-                            <p><strong>예외적 상황:</strong> 신청 기간 10월이라면 휴가 신청 시작의 시작날이 11월이면 휴가 생성 가능.</p>
-                        </div>
-                    </div>*/}
-                    남은 휴가 일수: {remainingVacationDays}일
+                    <strong>※ 남은 휴가 일수 : {remainingVacationDays}일</strong>
                 </div>
                 {isUpdateVacationModalOpen && (
                     <UpdateVacationModal

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import './DepartmentScheduleHeader.css';
-import { useAuth } from "../../../../auth/context/AuthContext";
+import { useAuth } from "../../../auth/context/AuthContext";
 import { useParams } from "react-router-dom";
-import {imagePrefix} from '../../../../../utils/Constant';
+import {imagePrefix, reverseDepartmentMapping} from '../../../../utils/Constant';
 
 const DepartmentScheduleHeader = ({ currentYear, currentMonth, onCreateModal }) => {
     const { isAuthenticated, name, department: userDepartment, position: userPosition } = useAuth();
@@ -12,11 +11,6 @@ const DepartmentScheduleHeader = ({ currentYear, currentMonth, onCreateModal }) 
     const isAdmin = userPosition === 'CEO';
 
     useEffect(() => {
-        console.log('user name:', name);
-        console.log('user department:', department);
-        console.log('departmentMember:', departmentMember);
-        console.log('user position : ', userPosition);
-        console.log('isAdmin : '+isAdmin);
     }, [name, department, departmentMember]);
 
     if (!isAuthenticated) {
@@ -26,7 +20,7 @@ const DepartmentScheduleHeader = ({ currentYear, currentMonth, onCreateModal }) 
     return (
         <div className="schedule-header">
             {/* 부서 일정표 제목 */}
-            <h2 className="schedule-title">{department} 부서 일정표 - {currentYear}년 {currentMonth + 1}월</h2>
+            <h2 className="schedule-title">{reverseDepartmentMapping[department]} 부서 일정표 - {currentYear}년 {currentMonth + 1}월</h2>
 
             {/* 부서 인원 또는 관리자가 일정 작성/수정/삭제 가능 */}
             {(departmentMember || isAdmin) && (

@@ -15,7 +15,7 @@ const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
     const handleDeleteClick = () => setIsDeleteModalOpen(true);
 
     useEffect(() => {
-        console.log(event);
+
     }, [event]);
     const handleUpdateSubmit = (formData) => {
         if (onUpdate) {
@@ -72,6 +72,8 @@ const EventDetailModal = ({ isOpen, onClose, event, onUpdate, onDelete }) => {
 
             <UpdateDepartmentScheduleModal
                 isOpen={isUpdateModalOpen}
+                title = {event.title}
+                description = {event.description}
                 onClose={() => setIsUpdateModalOpen(false)}
                 onSubmit={handleUpdateSubmit}
             />

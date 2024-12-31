@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {createEvent, deleteEvent, fetchSchedules, updateEvent} from '../services/DepartmentScheduleService'; // 서비스 함수들 가져오기
-import CreateDepartmentScheduleModal from './header/CreateDepartmentScheduleModal';
-import DepartmentScheduleHeader from './header/DepartmentScheduleHeader';
-import DepartmentScheduleBody from './body/DepartmentScheduleBody';
-import DepartmentScheduleFooter from './footer/DepartmentScheduleFooter';
+import {createEvent, deleteEvent, fetchSchedules, updateEvent} from '../services/DepartmentScheduleService';
+import CreateDepartmentScheduleModal from './modal/CreateDepartmentScheduleModal';
+import DepartmentScheduleHeader from './DepartmentScheduleHeader';
+import DepartmentScheduleBody from './DepartmentScheduleBody';
+import DepartmentScheduleFooter from './DepartmentScheduleFooter';
 import './DepartmentSchedule.css';
 import {useParams} from "react-router-dom";
-import EventDetailModal from "./body/EventDetailModal";
+import EventDetailModal from "./modal/EventDetailModal";
+import {alertError} from "../../../../utils/ErrorUtils";
 
 const DepartmentSchedule = () => {
     const { department } = useParams();
@@ -26,8 +27,7 @@ const DepartmentSchedule = () => {
             setSchedules(response);
             console.log(response);
         } catch (error) {
-            alert(error.response.data.data + " : "+error.response.data.message);
-            console.error("일정 조회 실패 : "+error);
+            alertError(error);
         }
     };
 
@@ -40,7 +40,7 @@ const DepartmentSchedule = () => {
             loadSchedules();  // 일정 수정 후 일정을 다시 가져옴
             closeEventDetailModal();
         } catch (error) {
-            console.error('부서 일정 수정 중 오류 발생:', error);
+            alertError(error);
         }
     };
 
@@ -51,7 +51,7 @@ const DepartmentSchedule = () => {
             await loadSchedules(); // 일정 목록 다시 로드
             closeModal(); // 모달 닫기
         } catch (error) {
-            console.error("일정 생성 중 오류 발생:", error);
+            alertError(error);
         }
     };
 
@@ -62,7 +62,7 @@ const DepartmentSchedule = () => {
             loadSchedules();  // 일정 삭제 후 일정을 다시 가져옴
             closeEventDetailModal();
         } catch (error) {
-            console.error('부서 일정 삭제 중 오류 발생 :', error);
+            alertError(error);
         }
     };
 
