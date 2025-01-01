@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "./MemberDetails.css";
-import "./UpdateMemberDetailsTable.css";
 import {useNavigate} from "react-router-dom";
 import ConfirmButton from "../../../../components/ui/buttons/ConfirmButton";
 

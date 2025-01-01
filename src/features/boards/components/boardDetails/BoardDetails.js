@@ -12,7 +12,7 @@ import BoardDetailsBody from "./BoardDetailsBody";
 import UpdateBoardDetailsModal from "./modal/UpdateBoardDetailsModal";
 
 import useBoardDetails from "../../hooks/useBoardDetails";
-import useModalScroll from "../../hooks/useModalScroll";
+import useModalScroll from "../../../../hooks/useModalScroll";
 import {
     deleteBoardDetails,
     patchMarkAsImportant,

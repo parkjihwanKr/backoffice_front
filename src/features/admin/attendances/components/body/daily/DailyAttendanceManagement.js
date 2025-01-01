@@ -8,7 +8,7 @@ import FilterImageButton from "../../../../../../components/ui/buttons/FilterIma
 import FilterDropDown from "../../../../../../components/common/FilterDropDown";
 import useDailyAttendanceFilterListForHeader from "../../../hooks/useDailyAttendanceFilterListForHeader";
 import UpdateMemberAttendanceStatusModal from "./UpdateMemberAttendanceStatusModal";
-import useModalScroll from "../../../../../boards/hooks/useModalScroll";
+import useModalScroll from "../../../../../../hooks/useModalScroll";
 
 const DailyAttendanceManagement = () => {
     const location = useLocation();

@@ -3,7 +3,6 @@ import axiosInstance from "../../../utils/AxiosUtils";
 // 멤버 상세 보기 조회
 export const fetchMemberDetails = async (memberId) => {
     const response = await axiosInstance.get(`/members/${memberId}`);
-    console.log("Response data : ", response.data);
     return response.data;
 }
 
@@ -16,8 +15,6 @@ export const fetchMemberAttendanceListForMember
     const response
         = await axiosInstance.get(`/members/${memberId}/attendances`, {params,});
 
-    console.log(response.data);
-
     return response.data;
 }
 
@@ -25,19 +22,15 @@ export const fetchMemberAttendanceListForMember
 export const fetchMemberAttendance = async (attendanceId) => {
     const response
         = await axiosInstance.get(`/attendances/${attendanceId}`);
-
-    console.log(response.data);
     return response.data;
 }
 
 // 멤버 근태 기록 출근 요청
 export const updateCheckInTime = async (attendanceId, checkInTime) => {
-    console.log("checkInTime : "+checkInTime);
     const response
         = await axiosInstance.patch(`/attendances/${attendanceId}/check-in`,{
             checkInTime : checkInTime
     });
-    console.log(response.data);
     return response.data;
 }
 
@@ -48,7 +41,6 @@ export const updateCheckOutTime = async (attendanceId, checkOutTime, description
             checkOutTime : checkOutTime,
         description : description,
     });
-    console.log(response.data);
     return response.data;
 }
 
@@ -56,7 +48,6 @@ export const updateCheckOutTime = async (attendanceId, checkOutTime, description
 export const updateMemberDetails = async (memberId, updatedMemberInfo) => {
     const response
         = await axiosInstance.patch(`/members/${memberId}/profile`, updatedMemberInfo);
-    console.log(response.data);
     return response.data;
 };
 
@@ -73,7 +64,6 @@ export const updateMemberProfileImage = async (memberId, imageFile) => {
                     "Content-Type": "multipart/form-data", // 반드시 multipart/form-data로 설정
             },
         });
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error( error);

@@ -22,10 +22,14 @@
 }
 
 .user-info {
-    border-radius: 100px;
+    border-radius: 50%;
     cursor: pointer;
     height: 40px;
     width: 40px;
+}
+
+.custom-border {
+    border: 2px solid dimgray;
 }
 
 .custom-dropdown {

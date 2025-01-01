@@ -5,8 +5,8 @@ import UserInfoModal from "../ui/modal/UserInfoModal";
 import LogoutModal from "../ui/modal/LogoutModal";
 import NotificationListModal from "../../features/notifications/components/modal/NotificationListModal";
 import FavoritesModal from "../../features/favorites/FavoritesModal";
-import UpdateCheckInTimeModal from "../../features/members/components/attendances/UpdateCheckInTimeModal";
-import UpdateCheckOutTimeModal from "../../features/members/components/attendances/UpdateCheckOutTimeModal";
+import UpdateCheckInTimeModal from "../../features/members/components/attendances/modal/UpdateCheckInTimeModal";
+import UpdateCheckOutTimeModal from "../../features/members/components/attendances/modal/UpdateCheckOutTimeModal";
 import {useLogout} from "./hooks/useLogout";
 import {useNotifications} from "./hooks/useNotifications";
 import {useAttendanceModal} from "./hooks/useAttendanceModal";
@@ -16,6 +16,7 @@ import './DropDownMenu.css';
 import {imagePrefix} from "../../utils/Constant";
 import {useUserInfoModal} from "./hooks/useUserInfoModal";
 import {getMemberProfileImage} from "../../features/members/services/MembersService";
+import {alertError} from "../../utils/ErrorUtils";
 
 const DropDownMenu = () => {
     const { id, isAuthenticated, name, department, position } = useAuth();
@@ -60,9 +61,8 @@ const DropDownMenu = () => {
         try {
             const response = await getMemberProfileImage(id);
             setProfileImageUrl(response.profileImageUrl);
-            console.log("계속 해서 호출하나?");
         }catch (error) {
-            console.error(error.response.data.data + " : "+error.response.data.message);
+            alertError(error);
         }
     }
 
@@ -88,13 +88,13 @@ const DropDownMenu = () => {
                     onClick={handleNotificationClick}
                 />
                 <img
-                    src={profileImageUrl}
+                    src={profileImageUrl || `${imagePrefix}/shared/user_info.png`}
                     alt="User Info"
-                    className="user-info"
+                    className={`user-info ${profileImageUrl && profileImageUrl !== `${imagePrefix}/shared/user_info.png` ? 'custom-border' : ''}`}
                     onClick={handleShowUserModal}
                 />
                 <div className="custom-dropdown">
-                <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
+                    <button className="custom-dropdown-toggle" onClick={toggleDropdown}>
                         Menu
                     </button>
                     {isDropdownOpen && (

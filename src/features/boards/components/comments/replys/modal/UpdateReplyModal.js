@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../../../../../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../../../../../components/ui/image/CloseImageButton";
-import useModalScroll from "../../../../hooks/useModalScroll";
+import useModalScroll from "../../../../../../hooks/useModalScroll";
 import SubmitButton from "../../../../../../components/ui/buttons/SubmitButton";
 
 const UpdateReplyModal

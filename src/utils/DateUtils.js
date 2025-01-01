@@ -1,5 +1,7 @@
 let cachedToday = null;
 
+export const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
 const DateUtils = {
     // 오늘 날짜 반환
     getToday: function () {

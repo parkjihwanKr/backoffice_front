@@ -1,22 +1,14 @@
 import React from "react";
 import "../../../../components/ui/modal/Modal.css";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
-import {reverseAttendanceMapping} from "../../../../utils/Constant";
-import useModalScroll from "../../../boards/hooks/useModalScroll";
+import { reverseAttendanceMapping } from "../../../../utils/Constant";
+import useModalScroll from "../../../../hooks/useModalScroll";
+import useMemberAttendanceDetails from "./hooks/useMemberAttendanceDetails";
 
 const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose, isOpen }) => {
-
     useModalScroll(isOpen);
-    console.log(attendanceData.createdAt);
-    const relevantDate = selectedDate || (() => {
-        const createdAtDate = new Date(attendanceData.createdAt);
-        return {
-            year: createdAtDate.getFullYear(),
-            month: createdAtDate.getMonth() + 1,
-            day: createdAtDate.getDate(),
-        };
-    })();
 
+    const { relevantDate } = useMemberAttendanceDetails(attendanceData, selectedDate);
     const { year, month, day } = relevantDate;
 
     return (
@@ -33,19 +25,20 @@ const MemberAttendanceDetails = ({ attendanceData, selectedDate, onClose, isOpen
                         <ul className="no-bullets">
                             <div className="list-row">
                                 <li className="list-row-left">
-                                    근태 상태 : <br/> {reverseAttendanceMapping[attendanceData.attendanceStatus]
-                                    || attendanceData.attendanceStatus}
+                                    근태 상태 : <br />{" "}
+                                    {reverseAttendanceMapping[attendanceData.attendanceStatus] ||
+                                        attendanceData.attendanceStatus}
                                 </li>
                                 <li className="list-row-right">
-                                    생성 일자 : <br/> {attendanceData.createdAt}
+                                    생성 일자 : <br /> {attendanceData.createdAt}
                                 </li>
                             </div>
                             <div className="list-row">
                                 <li className="list-row-left">
-                                    출근 시간: <br/> {attendanceData.checkInTime || "-"}
+                                    출근 시간: <br /> {attendanceData.checkInTime || "-"}
                                 </li>
                                 <li className="list-row-right">
-                                    퇴근 시간: <br/> {attendanceData.checkOutTime || "-"}
+                                    퇴근 시간: <br /> {attendanceData.checkOutTime || "-"}
                                 </li>
                             </div>
                             <div className="list-column">

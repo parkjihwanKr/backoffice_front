@@ -6,10 +6,10 @@ import MemberDetailsTable from "./MemberDetailsTable";
 import UpdateAttributeModal from "../../../admin/members/components/body/UpdateAttributeModal";
 import UpdateVacationDaysModal from "../../../admin/members/components/body/UpdateVacationDaysModal";
 import PersonalVacationListModal from "../../../events/personal/components/modal/PersonalVacationListModal";
-import useMemberDetails from "../../hooks/useMemberDetails"; // custom hook 사용
+import useMemberDetails from "./hooks/useMemberDetails";
 import "./MemberDetails.css";
 import {useError, useLoading} from "../../../utils/LoadingUtils";
-import useModalScroll from "../../../boards/hooks/useModalScroll";
+import useModalScroll from "../../../../hooks/useModalScroll";
 import {useAuth} from "../../../auth/context/AuthContext";
 
 const MemberDetails = () => {
