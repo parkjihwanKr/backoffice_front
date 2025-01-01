@@ -130,6 +130,7 @@
 
 /* 이벤트 카드 푸터 */
 .event-card-footer {
+    text-align: right;
     font-size: 14px;
     color: #555;
 }

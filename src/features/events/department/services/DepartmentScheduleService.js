@@ -51,14 +51,16 @@ export const updateEvent = async (department, eventId, formData) => {
         }
     }
 
-    return await axios.patch(`/api/v1/departments/${department}/events/${eventId}`, requestData, {
+    return axiosInstance.patch(`/departments/${department}/events/${eventId}`, requestData,{
+        headers: {
+            "Content-Type": "multipart/form-data", // 반드시 multipart/form-data로 설정
+        }});
+    /*return await axios.patch(`/api/v1/departments/${department}/events/${eventId}`, requestData, {
         headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    });*/
 };
 
 // 일정 삭제하기
 export const deleteEvent = async (department, eventId) => {
-    return await axios.delete(`/api/v1/departments/${department}/events/${eventId}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    return axiosInstance.delete(`/departments/${department}/events/${eventId}`);
 };

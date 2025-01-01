@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import "../shared/Auth.css";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {login} from "../services/AuthService";
 import ConfirmButton from "../../../components/ui/buttons/ConfirmButton";
-import SubmitButton from "../../../components/ui/buttons/SubmitButton";
 import LinkButton from "../../../components/ui/buttons/LinkButton";
 
 const Login = () => {

@@ -61,8 +61,8 @@ const PersonalEvent = ({events = []}) => {
                                         src={vacation.isAccepted ?
                                             `${imagePrefix}/shared/is_accepted_true_vacation.png` :
                                             `${imagePrefix}/shared/caution.png`}
-                                        alt={vacation.isAccepted ? '허용' : '허용 안됨'}
-                                        title={vacation.isAccepted ? '허용' : '허용 안됨'}
+                                        alt={vacation.isAccepted ? '승인' : '승인 안됨'}
+                                        title={vacation.isAccepted ? '승인' : '승인 안됨'}
                                     />
                                 </span>
                                 <span className="general-domain-title" style={{ cursor : "default"}}>

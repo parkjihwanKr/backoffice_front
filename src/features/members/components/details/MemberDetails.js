@@ -5,7 +5,7 @@ import MemberControls from "./MemberControls";
 import MemberDetailsTable from "./MemberDetailsTable";
 import UpdateAttributeModal from "../../../admin/members/components/body/UpdateAttributeModal";
 import UpdateVacationDaysModal from "../../../admin/members/components/body/UpdateVacationDaysModal";
-import PersonalVacationListModal from "../../../events/personal/components/PersonalVacationListModal";
+import PersonalVacationListModal from "../../../events/personal/components/modal/PersonalVacationListModal";
 import useMemberDetails from "../../hooks/useMemberDetails"; // custom hook 사용
 import "./MemberDetails.css";
 import {useError, useLoading} from "../../../utils/LoadingUtils";

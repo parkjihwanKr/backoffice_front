@@ -9,7 +9,6 @@ export const getMappedDepartment = (department) => {
 export const fetchAllBoards = async () => {
     try {
         const response = await axiosInstance.get(`/boards`);
-        console.log(response.data);
         return response.data || []; // 데이터 반환
     } catch (error) {
         console.error('Error fetching boards:', error.message);
@@ -22,7 +21,6 @@ export const fetchDepartmentBoards = async (department) => {
     try {
         const response
             = await axiosInstance.get(`departments/${department}/boards`);
-        console.log(response.data);
         return response.data || []; // 데이터 반환
     } catch (error) {
         console.error('Error fetching boards:', error.message);
@@ -90,7 +88,6 @@ export const createDepartmentBoards = async (department, data, files) => {
 export const fetchBoardDetails = async (boardId) => {
     try {
         const response = await axiosInstance.get(`/boards/${boardId}`);
-        console.log(response.data);
         return response.data || []; // 데이터 반환
     } catch (error) {
         console.error('Error fetching boards:', error.message);
@@ -102,7 +99,6 @@ export const fetchBoardDetails = async (boardId) => {
 export const fetchDepartmentBoardDetails = async (boardId, department) => {
     const response
         = await axiosInstance.get(`/departments/${department}/boards/${boardId}`)
-    console.log(response.data);
     return response.data;
 }
 // 게시글 상세보기 수정 API
@@ -150,7 +146,6 @@ export const updateBoardDetails = async (boardId, editForm, files, isDepartmentB
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log(response.data);
         return response.data;
     }else{
         const response
@@ -166,7 +161,6 @@ export const updateBoardDetails = async (boardId, editForm, files, isDepartmentB
 // 게시글 삭제
 export const deleteBoardDetails = async (boardId) => {
     const response = await axiosInstance.delete(`boards/${boardId}`);
-    console.log(response.data);
     return response.data;
 }
 

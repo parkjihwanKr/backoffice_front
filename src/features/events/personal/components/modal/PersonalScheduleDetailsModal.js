@@ -86,7 +86,14 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                                     style={{ position: 'relative' }}
                                 >
                                     <div className="event-card-title">
-                                        {currentEvent.title || '제목 없음'}
+                                        {currentEvent.title|| '제목 없음'}
+                                        ({currentEvent.eventType === 'VACATION'
+                                            ? '개인 일정'
+                                            : currentEvent.eventType === 'DEPARTMENT'
+                                                ? '부서'
+                                                : currentEvent.eventType === 'COMPANY'
+                                                    ? '회사'
+                                                    : '알 수 없음'})
                                     </div>
                                     <div className="event-card-content">
                                         <strong>내용:</strong> {currentEvent.description || 'No description available'}
@@ -98,14 +105,7 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                                         <strong>마감일:</strong> {new Date(currentEvent.endDate).toLocaleString()}
                                     </div>
                                     <div className="event-card-footer">
-                                        <strong>일정:</strong>
-                                        {currentEvent.eventType === 'VACATION'
-                                            ? ' 개인 일정'
-                                            : currentEvent.eventType === 'DEPARTMENT'
-                                                ? ' 부서'
-                                                : currentEvent.eventType === 'COMPANY'
-                                                    ? ' 회사'
-                                                    : ' 알 수 없음'}
+
                                     </div>
 
                                     {currentEvent.eventType === 'VACATION' && (

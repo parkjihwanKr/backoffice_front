@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './CreateVacationModal.css';
 import '../../../../../components/ui/modal/Modal.css';
 import {createVacationSchedule} from '../../services/PersonalScheduleService';
 import VacationWarningModal from './VacationWarningModal';
@@ -20,8 +19,10 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
     useEffect(() => {
         if (initialStartDate) {
             // UTC 시간을 로컬 시간으로 변환해서 YYYY-MM-DD 형식으로 처리
-            const localDate = new Date(initialStartDate.getTime() - initialStartDate.getTimezoneOffset() * 60000);
-            const formattedStartDate = localDate.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
+            const localDate
+                = new Date(initialStartDate.getTime() - initialStartDate.getTimezoneOffset() * 60000);
+            const formattedStartDate
+                = localDate.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
             setVacationStartDate(formattedStartDate); // 휴가 시작일로 설정
         }
     }, [initialStartDate]);
@@ -57,11 +58,10 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
         };
 
         try {
-            const response = await createVacationSchedule(vacationData);
-            console.log("Vacation created successfully:", response);
+            await createVacationSchedule(vacationData);
             handleClose();
         } catch (error) {
-            console.error("Error creating vacation:", error.data);
+            console.error("휴가 생성 실패 : ", error.data);
         }
     };
 
@@ -139,7 +139,7 @@ const CreateVacationModal = ({ handleClose, initialStartDate }) => {
                             />
                         </div>
                     </div>
-                    <div className="create-vacation-modal-footer">
+                    <div className="custom-modal-footer">
                         <ConfirmButton
                             onClick={() => setShowWarningModal(true)}
                             text={"주의 사항"}/>

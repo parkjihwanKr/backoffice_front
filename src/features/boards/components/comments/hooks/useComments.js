@@ -122,7 +122,6 @@ export const useComments = (boardId, comments, setComments) => {
                         : comment
                 )
             );
-            console.log(error.response.data);
             alert(error.response.data.data + " : " + error.response.data.message);
         } finally {
             requestInProgress.current = false;
