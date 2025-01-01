@@ -1,56 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import CloseImageButton from "../../components/ui/image/CloseImageButton";
-import './FavoritesModal.css';
-import '../../components/ui/modal/Modal.css';
+import "./FavoritesModal.css";
+import "../../components/ui/modal/Modal.css";
 import CreateFavoritesModal from "./CreateFavoritesModal";
 import DeleteFavoritesModal from "./DeleteFavoritesModal";
 import UpdateFavoritesModal from "./UpdateFavoritesModal";
 import { useFavorites } from "./context/FavoritesProvider";
 import SubmitButton from "../../components/ui/buttons/SubmitButton";
-import {imagePrefix} from "../../utils/Constant";
+import { imagePrefix } from "../../utils/Constant";
+import useFavoritesModal from "./hooks/useFavoritesModal";
 
 const FavoritesModal = ({ show, handleClose }) => {
     const { favorites, addFavorite, editFavorite, removeFavorite } = useFavorites();
-    const [showCreateModal, setShowCreateModal] = useState(false);
-    const [showUpdateModal, setShowUpdateModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [favoriteToEdit, setFavoriteToEdit] = useState(null);
-    const [favoriteToDelete, setFavoriteToDelete] = useState(null);
 
-    const handleAddFavorite = () => {
-        if (favorites.length >= 11) {
-            alert("즐겨찾기는 최대 11개까지 등록할 수 있습니다.");
-            return;
-        }
-        setShowCreateModal(true);
-    };
-
-    const handleConfirmAddFavorite = async (description) => {
-        await addFavorite(window.location.href, description);
-        setShowCreateModal(false);
-    };
-
-    const handleEditFavorite = (favorite) => {
-        setFavoriteToEdit(favorite);
-        setShowUpdateModal(true);
-    };
-
-    const handleConfirmEditFavorite = async (favoritesId, description) => {
-        await editFavorite(favoritesId, description);
-        setShowUpdateModal(false);
-        setFavoriteToEdit(null);
-    };
-
-    const handleDeleteFavorite = (favorite) => {
-        setFavoriteToDelete(favorite);
-        setShowDeleteModal(true);
-    };
-
-    const handleConfirmDeleteFavorite = async () => {
-        await removeFavorite(favoriteToDelete.favoritesId);
-        setShowDeleteModal(false);
-        setFavoriteToDelete(null);
-    };
+    const {
+        showCreateModal,
+        showUpdateModal,
+        showDeleteModal,
+        favoriteToEdit,
+        favoriteToDelete,
+        setShowCreateModal,
+        setShowUpdateModal,
+        setShowDeleteModal,
+        handleAddFavorite,
+        handleConfirmAddFavorite,
+        handleEditFavorite,
+        handleConfirmEditFavorite,
+        handleDeleteFavorite,
+        handleConfirmDeleteFavorite,
+    } = useFavoritesModal(favorites, addFavorite, editFavorite, removeFavorite);
 
     if (!show) return null;
 
@@ -98,7 +76,7 @@ const FavoritesModal = ({ show, handleClose }) => {
                         </div>
                     </div>
                     <div className="custom-modal-footer">
-                        <SubmitButton onSubmit={handleAddFavorite} text={"현재 페이지 추가"}/>
+                        <SubmitButton onSubmit={handleAddFavorite} text={"현재 페이지 추가"} />
                     </div>
                 </div>
             </div>
