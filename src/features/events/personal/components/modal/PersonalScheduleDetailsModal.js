@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './PersonalScheduleDetailsModal.css';
 import '../../../../../components/ui/modal/Modal.css';
-import CreateVacationModal from '../modal/CreateVacationModal';
+import CreateVacationModal from './CreateVacationModal';
 import { imagePrefix } from "../../../../../utils/Constant";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import { getPersonalDaySchedule } from "../../services/PersonalScheduleService";

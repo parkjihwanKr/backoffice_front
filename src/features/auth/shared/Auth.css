@@ -137,13 +137,11 @@
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .auth-page, .login-page {
-        margin-left: 65px;
-        margin-right: 65px;
         width: 70%;
     }
 
     .auth-page-body form {
-        width: 250px;
+        width: 90%;
     }
 
     .speech-balloon {

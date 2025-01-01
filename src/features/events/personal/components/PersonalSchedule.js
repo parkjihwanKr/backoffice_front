@@ -1,72 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './PersonalSchedule.css';
-import {useAuth} from "../../../auth/context/AuthContext";
-import {getPersonalDaySchedule, getPersonalMonthSchedule} from '../services/PersonalScheduleService';
-import PersonalScheduleDetailsModal from './details/PersonalScheduleDetailsModal';
+import { useAuth } from "../../../auth/context/AuthContext";
+import PersonalScheduleDetailsModal from './modal/PersonalScheduleDetailsModal';
 import PersonalScheduleFooter from "./PersonalScheduleFooter";
+import usePersonalSchedule from "../hooks/usePersonalSchedule";
 
 const PersonalSchedule = () => {
     const { id, name } = useAuth();
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const [events, setEvents] = useState([]); // 월별 일정을 저장
-    const [dayEvents, setDayEvents] = useState([]); // 특정 날짜의 일정을 저장
-    const [selectedDate, setSelectedDate] = useState(null); // 선택한 날짜
-    const [showModal, setShowModal] = useState(false); // 모달 상태
+    const {
+        currentDate,
+        setCurrentDate,
+        events,
+        dayEvents,
+        selectedDate,
+        showModal,
+        currentMonth,
+        currentYear,
+        selectDate,
+        getDayColor,
+        handleClose
+    } = usePersonalSchedule(id);
 
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-
-    const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토']; // 요일
-
-    useEffect(() => {
-        fetchPersonalSchedule();
-    }, [currentMonth, currentYear]);
-
-    const fetchPersonalSchedule = async () => {
-        try {
-            const schedule = await getPersonalMonthSchedule(id, currentYear, currentMonth);
-            setEvents(schedule); // 월별 일정을 상태로 저장
-        } catch (error) {
-            console.error('개인 일정 페이지 조회 실패 : ', error);
-        }
-    };
-
-    const selectDate = async (day) => {
-        const selected = new Date(currentYear, currentMonth, day);
-        setSelectedDate(selected);
-        try {
-            const daySchedule = await getPersonalDaySchedule(id, currentYear, currentMonth, day);
-            setDayEvents(daySchedule);
-            setShowModal(true);
-        } catch (error) {
-            console.error('선택된 일의 개인 일정 조회 실패 : ', error);
-        }
-    };
-
-    const getDayColor = (day) => {
-        const dayEvents = events.filter(event => {
-            const eventStartDate = new Date(event.startDate);
-            const eventEndDate = new Date(event.endDate);
-            return eventStartDate.getDate() <= day && eventEndDate.getDate() >= day;
-        });
-
-        const dayOfWeek = new Date(currentYear, currentMonth, day).getDay();
-
-        let additionalClass = "";
-        if (dayOfWeek === 0) {
-            additionalClass = "sunday"; // 일요일
-        } else if (dayOfWeek === 6) {
-            additionalClass = "saturday"; // 토요일
-        }
-
-        const hasEvent = dayEvents.length > 0 ? 'pastel-event' : '';
-
-        return `${hasEvent} ${additionalClass}`; // 클래스 이름 반환
-    };
-
-    const handleClose = () => {
-        setShowModal(false);
-    };
+    const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
     const renderCalendarDays = () => {
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();

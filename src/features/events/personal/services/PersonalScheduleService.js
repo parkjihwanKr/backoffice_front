@@ -1,4 +1,5 @@
-import axiosInstance from '../../../../utils/AxiosUtils'; // axiosInstance 가져오기
+import axiosInstance from '../../../../utils/AxiosUtils';
+import {alertError} from "../../../../utils/ErrorUtils"; // axiosInstance 가져오기
 
 // 개인 일정 API 요청
 export const getPersonalMonthSchedule = async (memberId, year, month) => {
@@ -10,8 +11,7 @@ export const getPersonalMonthSchedule = async (memberId, year, month) => {
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error("Error code: " + error.response.data.data + " : " + error.response.data.message);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } else {
             console.error(year+ "년 "+month+"월 개인 일정 조회 실패 : ", error.message);
         }
@@ -29,8 +29,7 @@ export const getPersonalDaySchedule = async (memberId, year, month, date) => {
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error("Error code: " + error.response.data.data + " : " + error.response.data.message);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } else {
             console.error(+date+"일 개인 일정  조회 실패 : "+ error.message);
         }
@@ -46,8 +45,7 @@ export const createVacationSchedule = async (vacationData) => {
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error("Error code: " + error.response.data.data + " : " + error.response.data.message);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } else {
             console.error("휴가 생성 실패 : ", error.message);
         }
@@ -63,8 +61,7 @@ export const getMemberVacationList = async (memberId) => {
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error("Error code: " + error.response.data.data + " : " + error.response.data.message);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } else {
             console.error("개인 휴가 리스트 조회 실패 : ", error.message);
         }
@@ -81,8 +78,7 @@ export const updateVacationSchedule = async (vacationId, updatedVacationData) =>
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error("Error code: " + error.response.data.data + " : " + error.response.data.message);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } else {
             console.error("휴가 수정 실패 : ", error.message);
         }
@@ -98,8 +94,7 @@ export const deleteVacationSchedule = async (vacationId) => {
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error("Error code: " + error.response.data.data + " : " + error.response.data.message);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } else {
             console.error("휴가 삭제 실패 : ", error.message);
         }
