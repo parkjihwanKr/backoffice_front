@@ -53,7 +53,7 @@
     color: black;
 }
 
-.sunday {
+.sunday, .holiday {
     color: red; /* 일요일 빨간색 */
 }
 

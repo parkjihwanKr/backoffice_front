@@ -39,8 +39,12 @@
     height: 150px; /* 이미지 높이를 100px로 줄임 */
     object-fit: cover;
     margin-bottom: 10px; /* 이미지 아래에 여백 추가 */
-    border-radius: 100px;
+    border-radius: 50%;
     cursor : pointer;
+}
+
+.profile-image.profile-image-info {
+    border: 2px solid dimgray;
 }
 
 .profile-image.default-image {
@@ -157,4 +161,8 @@
     text-align: center; /* 텍스트 가운데 정렬 */
     padding: 10px;
     margin-bottom: 5px;
+}
+
+.member-details-table .address{
+    min-width: 500px;
 }

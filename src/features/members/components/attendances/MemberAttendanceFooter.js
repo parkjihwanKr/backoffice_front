@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { imagePrefix } from "../../../../utils/Constant";
-import UpdateCheckOutTimeModal from "./UpdateCheckOutTimeModal";
-import UpdateCheckInTimeModal from "./UpdateCheckInTimeModal";
+import UpdateCheckOutTimeModal from "./modal/UpdateCheckOutTimeModal";
+import UpdateCheckInTimeModal from "./modal/UpdateCheckInTimeModal";
+import useMemberAttendanceFooter from "./hooks/useMemberAttendanceFooter";
 
 const MemberAttendanceFooter = ({ attendanceId, updateAttendanceInState }) => {
-    const [isCheckInModalOpen, setCheckInModalOpen] = useState(false);
-    const [isCheckOutModalOpen, setCheckOutModalOpen] = useState(false);
-
-    const openCheckInModal = () => setCheckInModalOpen(true);
-    const closeCheckInModal = () => setCheckInModalOpen(false);
-
-    const openCheckOutModal = () => setCheckOutModalOpen(true);
-    const closeCheckOutModal = () => setCheckOutModalOpen(false);
+    const {
+        isCheckInModalOpen,
+        isCheckOutModalOpen,
+        openCheckInModal,
+        closeCheckInModal,
+        openCheckOutModal,
+        closeCheckOutModal,
+    } = useMemberAttendanceFooter();
 
     return (
         <div className="member-attendance-footer">
@@ -20,13 +21,13 @@ const MemberAttendanceFooter = ({ attendanceId, updateAttendanceInState }) => {
                     src={`${imagePrefix}/shared/check-in-time.png`}
                     className="check-in-time-img"
                     title="당일 출근 신청"
-                    onClick={openCheckInModal} // 클릭 시 출근 모달 열기
+                    onClick={openCheckInModal}
                 />
                 <img
                     src={`${imagePrefix}/shared/check-out-time.png`}
                     className="check-out-time-img"
                     title="당일 퇴근 신청"
-                    onClick={openCheckOutModal} // 클릭 시 퇴근 모달 열기
+                    onClick={openCheckOutModal}
                 />
             </div>
 
@@ -35,7 +36,7 @@ const MemberAttendanceFooter = ({ attendanceId, updateAttendanceInState }) => {
                 <UpdateCheckInTimeModal
                     attendanceId={attendanceId}
                     onClose={closeCheckInModal}
-                    updateAttendanceInState={updateAttendanceInState} // 상태 업데이트 함수 전달
+                    updateAttendanceInState={updateAttendanceInState}
                 />
             )}
 
@@ -44,7 +45,7 @@ const MemberAttendanceFooter = ({ attendanceId, updateAttendanceInState }) => {
                 <UpdateCheckOutTimeModal
                     attendanceId={attendanceId}
                     onClose={closeCheckOutModal}
-                    updateAttendanceInState={updateAttendanceInState} // 상태 업데이트 함수 전달
+                    updateAttendanceInState={updateAttendanceInState}
                 />
             )}
         </div>

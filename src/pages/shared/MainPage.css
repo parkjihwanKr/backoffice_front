@@ -55,7 +55,7 @@
 }
 
 .attendances-grid {
-    grid-template-columns: repeat(7, minmax(10%, 1fr));
+    grid-template-columns: repeat(7, minmax(13%, 1fr));
 }
 
 .personal-favorites-item, .personal-attendances-item {

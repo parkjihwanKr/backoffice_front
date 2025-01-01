@@ -1,4 +1,3 @@
-import SubmitButton from "../../../../components/ui/buttons/SubmitButton";
 import {reverseDepartmentMapping, reversePositionMapping} from "../../../../utils/Constant";
 
 const MemberDetailsTable = ({ member }) => {

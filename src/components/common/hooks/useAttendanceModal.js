@@ -11,8 +11,6 @@ export const useAttendanceModal = (userId) => {
         const currentHour = new Date().getHours();
         const currentMinute = new Date().getMinutes();
 
-        console.log(currentHour + " / " + currentMinute);
-
         const isCheckInTime =
             (currentHour === 8 && currentMinute >= 30) ||
             (currentHour === 9) ||

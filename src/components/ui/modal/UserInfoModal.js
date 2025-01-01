@@ -1,6 +1,6 @@
 import React from 'react';
 import CloseImageButton from "../image/CloseImageButton";
-import useModalScroll from "../../../features/boards/hooks/useModalScroll";
+import useModalScroll from "../../../hooks/useModalScroll";
 import {getDepartmentName, getPositionName} from "../../../utils/Constant";
 
 import './Modal.css';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './CreateReplyCommentModal.css';
-import useModalScroll from '../../../hooks/useModalScroll';
+import useModalScroll from '../../../../../hooks/useModalScroll';
 import CloseImageButton from '../../../../../components/ui/image/CloseImageButton';
 import SubmitButton from '../../../../../components/ui/buttons/SubmitButton';
 import {imagePrefix} from "../../../../../utils/Constant";

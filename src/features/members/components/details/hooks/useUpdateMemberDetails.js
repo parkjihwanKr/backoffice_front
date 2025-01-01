@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchMemberDetails } from "../services/MembersService"; // 서비스 경로에 맞게 조정
+import { fetchMemberDetails } from "../../../services/MembersService";
 
-const useMemberDetails = (memberId) => {
+const useUpdateMemberDetails = (memberId) => {
     const [member, setMember] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -27,4 +27,4 @@ const useMemberDetails = (memberId) => {
     return { member, loading, error, setMember };
 };
 
-export default useMemberDetails;
+export default useUpdateMemberDetails;

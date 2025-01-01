@@ -1,15 +1,15 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import MemberProfile from "./MemberProfile";
-import useMemberDetails from "../../hooks/useMemberDetails"; // custom hook 사용
 import "./MemberDetails.css";
 import {useError, useLoading} from "../../../utils/LoadingUtils";
 import UpdateMemberDetailsTable from "./UpdateMemberDetailsTable";
 import {updateMemberDetails} from "../../services/MembersService";
+import useUpdateMemberDetails from "./hooks/useUpdateMemberDetails";
 
 const UpdateMemberDetails = () => {
     const { memberId } = useParams();
-    const { member, loading, error, setMember } = useMemberDetails(memberId);
+    const { member, loading, error, setMember } = useUpdateMemberDetails(memberId);
     const loadingJSX = useLoading(loading);
     const errorJSX = useError(error);
 

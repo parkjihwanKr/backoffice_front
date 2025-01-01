@@ -1,77 +1,24 @@
+import React from "react";
 import { useAuth } from "../../../auth/context/AuthContext";
-import { useState } from "react";
 import FilterImageButton from "../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../components/common/FilterDropDown";
-import DateUtils from "../../../../utils/DateUtils";
-import './MemberAttendance.css';
+import useMemberAttendanceHeader from "./hooks/useMemberAttendanceHeader";
+import "./MemberAttendance.css";
 
-const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear, currentMonth }) => {
+const MemberAttendanceHeader = ({ filters, onFilterChange, currentYear }) => {
     const { name } = useAuth();
-    const [showFilter, setShowFilter] = useState(false);
-    const [localFilters, setLocalFilters] = useState(filters);
 
-    const filterOptions = [
-        {
-            name: "year",
-            label: "년도",
-            type: "select",
-            options: [
-                { value: currentYear - 1, label: `${currentYear - 1}` },
-                { value: currentYear, label: `${currentYear}` },
-                { value: currentYear + 1, label: `${currentYear + 1}` },
-            ],
-        },
-        {
-            name: "month",
-            label: "월",
-            type: "select",
-            options: Array.from({ length: 12 }, (_, i) => ({
-                value: i + 1,
-                label: `${i + 1}`,
-            })),
-        },
-    ];
-
-    const handlePreviousMonth = () => {
-        const newMonth = filters.month === 1 ? 12 : filters.month - 1;
-        const newYear = filters.month === 1 ? filters.year - 1 : filters.year;
-
-        onFilterChange({
-            ...filters,
-            year: newYear,
-            month: newMonth,
-        });
-    };
-
-    const handleNextMonth = () => {
-        const newMonth = filters.month === 12 ? 1 : filters.month + 1;
-        const newYear = filters.month === 12 ? filters.year + 1 : filters.year;
-
-        onFilterChange({
-            ...filters,
-            year: newYear,
-            month: newMonth,
-        });
-    };
-
-    const resetFilters = () => {
-        const defaultFilters = {
-            year: DateUtils.getToday().getFullYear(),
-            month: DateUtils.getToday().getMonth() + 1,
-            attendanceStatus: null,
-        };
-        setLocalFilters(defaultFilters);
-        onFilterChange(defaultFilters);
-        setShowFilter(false);
-    };
-
-    const handleValidatedFilterSubmit = () => {
-        if(filters.year == null || filters.month == null){
-            alert("년과 달은 필수적으로 입력하셔야합니다.");
-        }
-        onFilterChange(localFilters);
-        setShowFilter(false);
-    };
+    const {
+        showFilter,
+        setShowFilter,
+        localFilters,
+        setLocalFilters,
+        filterOptions,
+        handlePreviousMonth,
+        handleNextMonth,
+        resetFilters,
+        handleValidatedFilterSubmit,
+    } = useMemberAttendanceHeader(filters, onFilterChange, currentYear);
 
     return (
         <div className="member-attendance-header">
