@@ -5,7 +5,7 @@ import UpdateSalaryModal from './UpdateSalaryModal';
 import './MemberManagementBody.css';
 import '../../../shared/components/table.css';
 import React, { useState } from 'react';
-import {useError, useLoading} from "../../../../utils/LoadingUtils";
+import {useError, useLoading} from "../../../../../utils/LoadingUtils";
 
 const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
     const pageSize = 10; // 페이지당 표시할 멤버 수

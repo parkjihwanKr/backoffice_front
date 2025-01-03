@@ -1,17 +1,19 @@
-// src/hooks/useNotificationFilter.js
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
-const useNotificationFilter = (notifications, setNotifications, toggleSelectionMode, setIsSelectionMode, markAllNotificationsAsRead, handleDeleteAllNotifications) => {
+const useNotificationFilter = (initialNotifications, setNotifications, toggleSelectionMode, setIsSelectionMode, markAllNotificationsAsRead, handleDeleteAllNotifications) => {
+    // 원본 알림 리스트 유지
+    const [originalNotifications] = useState(initialNotifications);
+
     const filterNotifications = useCallback(async (type) => {
         switch (type) {
             case 'all':
-                setNotifications(notifications);
+                setNotifications(originalNotifications);
                 break;
             case 'unread':
-                setNotifications(notifications.filter(n => !n.isRead));
+                setNotifications(originalNotifications.filter(n => !n.isRead));
                 break;
             case 'read':
-                setNotifications(notifications.filter(n => n.isRead));
+                setNotifications(originalNotifications.filter(n => n.isRead));
                 break;
             case 'selected-delete':
                 toggleSelectionMode();
@@ -28,7 +30,7 @@ const useNotificationFilter = (notifications, setNotifications, toggleSelectionM
             default:
                 break;
         }
-    }, [notifications, setNotifications, toggleSelectionMode, setIsSelectionMode, markAllNotificationsAsRead, handleDeleteAllNotifications]);
+    }, [originalNotifications, setNotifications, toggleSelectionMode, setIsSelectionMode, markAllNotificationsAsRead, handleDeleteAllNotifications]);
 
     return { filterNotifications };
 };

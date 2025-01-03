@@ -10,7 +10,7 @@ import { useAuth } from "../../../auth/context/AuthContext";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import { imagePrefix, NOTIFICATION_TYPE_LABELS } from "../../../../utils/Constant";
 import { addModalAlignmentListener, adjustModalAlignment } from "../../../../utils/ModalUtils";
-import NotificationPaginationFooter from './footer/NotificationPaginationFooter';
+import NotificationPaginationFooter from './NotificationPaginationFooter';
 import NotificationDetailModal from './NotificationDetailModal';
 
 import useSelectionMode from "../../hooks/useSelectionMode";

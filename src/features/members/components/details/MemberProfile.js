@@ -1,16 +1,21 @@
-import React from "react";
-import { reverseDepartmentMapping, reversePositionMapping } from "../../../../utils/Constant";
+import React, {useEffect} from "react";
+import {reverseDepartmentMapping, reversePositionMapping} from "../../../../utils/Constant";
 import useMemberProfile from "./hooks/useMemberProfile";
 import "./MemberDetails.css";
 
 const MemberProfile = ({ loginMemberId, memberId, profileImageUrl, name, department, position }) => {
     const {
         currentImage,
+        setCurrentImage,
         isDefaultImage,
         fileInputRef,
         handleFileChange,
         handleImageClick,
     } = useMemberProfile(loginMemberId, memberId, profileImageUrl);
+
+    useEffect(() => {
+        setCurrentImage(profileImageUrl || null);
+    }, [profileImageUrl, setCurrentImage]);
 
     return (
         <div className="member-details-profile-info">
@@ -32,8 +37,7 @@ const MemberProfile = ({ loginMemberId, memberId, profileImageUrl, name, departm
                 <strong>이름:</strong> {name}
             </p>
             <p>
-                <strong>직위 : </strong>
-                {reverseDepartmentMapping[department]}, {reversePositionMapping[position]}
+                <strong>직위:</strong> {reverseDepartmentMapping[department]}, {reversePositionMapping[position]}
             </p>
         </div>
     );

@@ -19,7 +19,7 @@ import {
     patchMarkAsLocked,
     updateBoardDetails
 } from "../../services/BoardsService";
-import {useError, useLoading} from "../../../utils/LoadingUtils";
+import {useError, useLoading} from "../../../../utils/LoadingUtils";
 
 const BoardDetails = () => {
     const location = useLocation(); // 현재 URL 경로 가져오기

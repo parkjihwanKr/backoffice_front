@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../features/auth/context/AuthContext";
 import UserInfoModal from "../ui/modal/UserInfoModal";
@@ -15,13 +15,9 @@ import {useFavoritesModal} from "./hooks/useFavoritesModal";
 import './DropDownMenu.css';
 import {imagePrefix} from "../../utils/Constant";
 import {useUserInfoModal} from "./hooks/useUserInfoModal";
-import {getMemberProfileImage} from "../../features/members/services/MembersService";
-import {alertError} from "../../utils/ErrorUtils";
 
 const DropDownMenu = () => {
-    const { id, isAuthenticated, name, department, position } = useAuth();
-    const [profileImageUrl, setProfileImageUrl]
-        = useState(`${imagePrefix}/shared/user_info.png`);
+    const { id, isAuthenticated, name, department, position, profileImageUrl } = useAuth();
 
     const {
         showUserInfoModal,
@@ -52,19 +48,6 @@ const DropDownMenu = () => {
         handleShowFavoritesModal,
         handleCloseFavoritesModal,
     } = useFavoritesModal();
-
-    useEffect(() => {
-        fetchMemberProfileImage();
-    }, []);
-
-    const fetchMemberProfileImage = async () => {
-        try {
-            const response = await getMemberProfileImage(id);
-            setProfileImageUrl(response.profileImageUrl);
-        }catch (error) {
-            alertError(error);
-        }
-    }
 
     return (
         <>
@@ -151,6 +134,7 @@ const DropDownMenu = () => {
                 department={department}
                 position={position}
                 memberId={id}
+                profileImageUrl={profileImageUrl}
             />
 
             <LogoutModal

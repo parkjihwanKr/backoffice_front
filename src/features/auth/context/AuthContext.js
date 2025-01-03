@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { checkAuth } from "../services/AuthService";
-import {deleteCookie} from "../../../utils/CookieUtil";
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import {checkAuth} from "../services/AuthService";
 
 const AuthContext = createContext();
 
@@ -10,6 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [name, setName] = useState('');
     const [department, setDepartment] = useState('');
     const [position, setPosition] = useState('');
+    const [profileImageUrl, setProfileImageUrl] = useState('') ;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -18,13 +18,14 @@ export const AuthProvider = ({ children }) => {
                 const response = await checkAuth(); // 서버 인증 확인
 
                 if (response) {
-                    const { id, name, department, position } = response;
+                    const { id, name, department, position, profileImageUrl } = response;
 
                     setIsAuthenticated(true);
                     setId(id);
                     setName(name);
                     setDepartment(department);
                     setPosition(position);
+                    setProfileImageUrl(profileImageUrl);
 
                     // LocalStorage에 저장
                     localStorage.setItem('isAuthenticated', JSON.stringify(true));
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem('name', name);
                     localStorage.setItem('department', department);
                     localStorage.setItem('position', position);
+                    localStorage.setItem('profileImageUrl', profileImageUrl);
                 }
             } catch (error) {
                 console.error("인증 실패 : ", error);
@@ -56,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, id, name, department, position }}>
+        <AuthContext.Provider value={{ isAuthenticated, id, name, department, position, profileImageUrl, setProfileImageUrl }}>
             {children}
         </AuthContext.Provider>
     );
