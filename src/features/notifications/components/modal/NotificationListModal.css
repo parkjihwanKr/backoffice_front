@@ -198,14 +198,14 @@
     margin-bottom: 8px;
 }
 
-.is-read-status .read-image,
+.is-read-status .list-read-image,
 .is-read-status .settings-image {
     height: 20px;
     width: 20px;
     margin-right: 5px;
 }
 
-.is-read-status .read-image {
+.is-read-status .list-read-image {
     position: absolute;
     top: -7px;
     right: 10px;
