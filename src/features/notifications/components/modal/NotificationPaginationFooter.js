@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../../../components/common/PaginationFooter.css"; // 필요한 경우 스타일 추가
+import "../../../../components/common/PaginationFooter.css"; // 필요한 경우 스타일 추가
 
 const NotificationPaginationFooter = ({ currentPage, totalPages, onPageChange }) => {
 

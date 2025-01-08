@@ -34,6 +34,7 @@ import {FavoritesProvider} from "./features/favorites/context/FavoritesProvider"
 import MainFooter from "./pages/shared/MainFooter";
 
 function App() {
+
     return (
         <AuthProvider>
             <NotificationProvider>

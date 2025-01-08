@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { imagePrefix } from "../../../../../utils/Constant";
-import { useLoading } from "../../../../utils/LoadingUtils";
+import { useLoading } from "../../../../../utils/LoadingUtils";
 
 const AttendanceManagementBody = ({ attendanceList, loading }) => {
     const navigate = useNavigate();

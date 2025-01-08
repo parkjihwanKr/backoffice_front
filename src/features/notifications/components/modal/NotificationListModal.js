@@ -10,7 +10,7 @@ import { useAuth } from "../../../auth/context/AuthContext";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
 import { imagePrefix, NOTIFICATION_TYPE_LABELS } from "../../../../utils/Constant";
 import { addModalAlignmentListener, adjustModalAlignment } from "../../../../utils/ModalUtils";
-import NotificationPaginationFooter from './footer/NotificationPaginationFooter';
+import NotificationPaginationFooter from './NotificationPaginationFooter';
 import NotificationDetailModal from './NotificationDetailModal';
 
 import useSelectionMode from "../../hooks/useSelectionMode";
@@ -32,6 +32,7 @@ const NotificationListModal = ({ show, handleClose }) => {
     const [activeDropdownId, setActiveDropdownId] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPage ] = useState(0);
+    const [originalNotifications, setOriginalNotifications] = useState([]);
 
     const { isSelectionMode, toggleSelectionMode, selectedNotifications, handleCheckboxChange, setIsSelectionMode } = useSelectionMode();
     const { isDropdownOpen, toggleDropdown } = useDropdownMenu();
@@ -39,9 +40,11 @@ const NotificationListModal = ({ show, handleClose }) => {
     const loadNotifications = async (page) => {
         try {
             const response = await fetchMemberNotificationList(id, page, 10);
-            console.log("loadNotifications : "+response.content);
             setNotificationList(response.content);
             setTotalPage(response.totalPages);
+
+            // originalNotifications와 동기화
+            setOriginalNotifications(response.content);
         } catch (error) {
             console.error("알림 데이터를 가져오는 데 실패했습니다:", error);
         }
@@ -61,7 +64,7 @@ const NotificationListModal = ({ show, handleClose }) => {
         try {
             await updateIsReadStatus(id);
             setNotificationList(prev => prev.map(n => ({ ...n, isRead: true })));
-            console.log("모든 알림이 읽음 상태로 변경되었습니다.");
+            alert("모든 알림이 읽음 상태로 변경되었습니다.");
         } catch (error) {
             console.error("모든 알림 읽음 상태 변경에 실패했습니다:", error);
             alert("모든 알림 읽음 상태 변경에 실패했습니다.");
@@ -82,7 +85,7 @@ const NotificationListModal = ({ show, handleClose }) => {
     };
 
     const { filterNotifications } = useNotificationFilter(
-        notificationList,
+        originalNotifications,
         setNotificationList,
         toggleSelectionMode,
         setIsSelectionMode,
@@ -210,7 +213,7 @@ const NotificationListModal = ({ show, handleClose }) => {
                                     <div className="notification-list-right">
                                         <div className="is-read-status">
                                             {notification.isRead && (
-                                                <img src={`${imagePrefix}/shared/viewCount.png`} alt="읽음" className="read-image" />
+                                                <img src={`${imagePrefix}/shared/viewCount.png`} alt="읽음" className="list-read-image" />
                                             )}
                                             <img
                                                 src={`${imagePrefix}/shared/notification_settings.png`}
@@ -226,7 +229,10 @@ const NotificationListModal = ({ show, handleClose }) => {
                                                     {!notification.isRead && (
                                                         <div
                                                             className="option-one"
-                                                            onClick={() => markNotificationAsRead(notification.notificationId)}>
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                markNotificationAsRead(notification.notificationId)
+                                                            }}>
                                                             해당 알림 읽음 변경
                                                         </div>
                                                     )}
@@ -241,8 +247,11 @@ const NotificationListModal = ({ show, handleClose }) => {
                                                     </div>
                                                     <div
                                                         className="option-three"
-                                                        onClick={() => deleteNotification(notification.notificationId)}>해당
-                                                        알림 삭제
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            deleteNotification(notification.notificationId)
+                                                        }}>
+                                                        해당 알림 삭제
                                                     </div>
                                                 </div>
                                             )}

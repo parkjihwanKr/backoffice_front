@@ -1,38 +1,30 @@
-import React, { useState } from 'react';
-import { imagePrefix } from '../../../../utils/Constant';
+import React from 'react';
+import {imagePrefix} from '../../../../utils/Constant';
 import CreateVacationModal from './modal/CreateVacationModal';
 import PersonalVacationListModal from "./modal/PersonalVacationListModal";
+import usePersonalScheduleFooter from "../hooks/usePersonalScheduleFooter";
 
 const PersonalScheduleFooter = () => {
-    const [isCreateVacationModalOpen, setCreateVacationModalOpen] = useState(false);
-    const [isMemberVacationListModalOpen, setMemberVacationListModalOpen] = useState(false);
-    const handleCreateVacationModalOpen = () => {
-        setCreateVacationModalOpen(true);
-    };
-
-    const handleCreateVacationModalClose = () => {
-        setCreateVacationModalOpen(false);
-    };
-
-    const handleMemberVacationListModalOpen = () => {
-        setMemberVacationListModalOpen(true);
-    };
-
-    const handleMemberVacationListModalClose = () => {
-        setMemberVacationListModalOpen(false);
-    };
+    const {
+        isCreateVacationModalOpen,
+        isMemberVacationListModalOpen,
+        handleCreateVacationModalOpen,
+        handleCreateVacationModalClose,
+        handleMemberVacationListModalOpen,
+        handleMemberVacationListModalClose
+    } = usePersonalScheduleFooter();
 
     return (
         <div className="personal-schedule-main-footer">
             <img
                 title="휴가 추가"
                 src={`${imagePrefix}/shared/create_vacation_schedule.png`}
-                onClick={handleCreateVacationModalOpen}  // 클릭 시 모달 열기
+                onClick={handleCreateVacationModalOpen}
             />
             <img
                 title="휴가 리스트 조회"
                 src={`${imagePrefix}/shared/find_vacation_schedule.png`}
-                onClick={handleMemberVacationListModalOpen}  // 클릭 시 모달 열기
+                onClick={handleMemberVacationListModalOpen}
             />
             {isCreateVacationModalOpen && (
                 <CreateVacationModal

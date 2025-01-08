@@ -1,69 +1,21 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React from 'react';
 import './PersonalScheduleDetailsModal.css';
 import '../../../../../components/ui/modal/Modal.css';
 import CreateVacationModal from './CreateVacationModal';
-import { imagePrefix } from "../../../../../utils/Constant";
+import {imagePrefix} from "../../../../../utils/Constant";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import { getPersonalDaySchedule } from "../../services/PersonalScheduleService";
-import { adjustModalAlignment, addModalAlignmentListener } from '../../../../../utils/ModalUtils';
+import usePersonalScheduleDetailsModal from "../../hooks/usePersonalScheduleDetailsModal";
 
 const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberId }) => {
-    const [isVacationModalOpen, setVacationModalOpen] = useState(false);
-    const [editingVacation, setEditingVacation] = useState(null); // 수정 중인 휴가 상태 추가
-    const [dayEvents, setDayEvents] = useState([]); // 특정 날짜의 이벤트 상태 추가
-    const [hoveredEventId, setHoveredEventId] = useState(null); // 마우스 호버 상태 추가
-
-    const modalOverlayRef = useRef(null);
-    const modalContentRef = useRef(null);
-
-    useEffect(() => {
-        const fetchDaySchedule = async () => {
-            if (selectedDate && memberId) {
-                const year = selectedDate.getFullYear();
-                const month = selectedDate.getMonth();
-                const day = selectedDate.getDate();
-
-                try {
-                    const data = await getPersonalDaySchedule(memberId, year, month, day);
-                    setDayEvents(data); // 받아온 이벤트를 상태로 설정
-                } catch (error) {
-                    console.error("Error fetching day schedule:", error);
-                }
-            }
-        };
-
-        fetchDaySchedule();
-    }, [selectedDate, memberId]);
-
-    // 모달 정렬 로직 추가
-    useEffect(() => {
-        if (show) {
-            const modalOverlay = modalOverlayRef.current;
-            const modalContent = modalContentRef.current;
-
-            // 모달 정렬 조정
-            adjustModalAlignment(modalOverlay, modalContent);
-
-            // resize 이벤트 리스너 추가 및 클린업
-            const cleanup = addModalAlignmentListener(modalOverlay, modalContent);
-
-            return cleanup; // 언마운트 시 리스너 제거
-        }
-    }, [show]);
-
-    const handleVacationModalOpen = () => {
-        setVacationModalOpen(true);
-    };
-
-    const handleVacationModalClose = () => {
-        setVacationModalOpen(false);
-        setEditingVacation(null); // 수정 취소 시 초기화
-    };
-
-    const handleEditVacation = (vacation) => {
-        setEditingVacation(vacation);
-        setVacationModalOpen(true);
-    };
+    const {isVacationModalOpen,
+        dayEvents,
+        hoveredEventId,
+        setHoveredEventId,
+        modalOverlayRef,
+        modalContentRef,
+        handleVacationModalOpen,
+        handleVacationModalClose,}
+        = usePersonalScheduleDetailsModal(show, selectedDate, memberId);
 
     if (!show) return null;
 
@@ -88,12 +40,12 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                                     <div className="event-card-title">
                                         {currentEvent.title|| '제목 없음'}
                                         ({currentEvent.eventType === 'VACATION'
-                                            ? '개인 일정'
-                                            : currentEvent.eventType === 'DEPARTMENT'
-                                                ? '부서'
-                                                : currentEvent.eventType === 'COMPANY'
-                                                    ? '회사'
-                                                    : '알 수 없음'})
+                                        ? '개인 일정'
+                                        : currentEvent.eventType === 'DEPARTMENT'
+                                            ? '부서'
+                                            : currentEvent.eventType === 'COMPANY'
+                                                ? '회사'
+                                                : '알 수 없음'})
                                     </div>
                                     <div className="event-card-content">
                                         <strong>내용:</strong> {currentEvent.description || 'No description available'}
@@ -107,23 +59,6 @@ const PersonalScheduleDetailsModal = ({ show, handleClose, selectedDate, memberI
                                     <div className="event-card-footer">
 
                                     </div>
-
-                                    {currentEvent.eventType === 'VACATION' && (
-                                        <div className="vacation-actions">
-                                            <img
-                                                title="휴가 수정"
-                                                src={`${imagePrefix}/shared/edit_vacation_schedule.png`}
-                                                className="vacation-action-icon"
-                                                onClick={() => handleEditVacation(currentEvent)}
-                                            />
-                                            <img
-                                                title="휴가 삭제"
-                                                src={`${imagePrefix}/shared/delete_schedule.png`}
-                                                className="vacation-action-icon"
-                                                onClick={() => console.log("Delete action here")}
-                                            />
-                                        </div>
-                                    )}
                                 </div>
                             ))}
                         </div>

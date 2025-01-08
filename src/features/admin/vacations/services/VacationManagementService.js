@@ -40,7 +40,7 @@ export const updateVacationPeriod = async (startDate, endDate) => {
         const formattedStartDate = new Date(startDate).toISOString().slice(0, 19); // 시간 포함
         const formattedEndDate = new Date(endDate).toISOString().slice(0, 19); // 시간 포함
 
-        const response = await axiosInstance.patch('/vacations/updatePeriod', {
+        const response = await axiosInstance.patch('/vacations/update-period', {
             startDate: formattedStartDate, // 서버가 예상하는 String 형식
             endDate: formattedEndDate      // 서버가 예상하는 String 형식
         });

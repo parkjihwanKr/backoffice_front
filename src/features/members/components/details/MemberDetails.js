@@ -8,7 +8,7 @@ import UpdateVacationDaysModal from "../../../admin/members/components/body/Upda
 import PersonalVacationListModal from "../../../events/personal/components/modal/PersonalVacationListModal";
 import useMemberDetails from "./hooks/useMemberDetails";
 import "./MemberDetails.css";
-import {useError, useLoading} from "../../../utils/LoadingUtils";
+import {useError, useLoading} from "../../../../utils/LoadingUtils";
 import useModalScroll from "../../../../hooks/useModalScroll";
 import {useAuth} from "../../../auth/context/AuthContext";
 
@@ -73,6 +73,7 @@ const MemberDetails = () => {
                     onOpenVacationDaysModal={() => openModal("vacationDays")}
                     onOpenVacationListModal={() => openModal("vacationList")}
                     hasAccess={hasAccess()}
+                    updateMode={false}
                 />
             </div>
             <div className="member-details-info">

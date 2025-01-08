@@ -12,18 +12,9 @@ export const fetchMemberNotificationList = async (memberId, currentPage, pageSiz
     return response.data; // 전체 페이지 정보 반환
 };
 
-export const fetchReadNotificationList = async (memberId) => {
-    const response
-        = await axiosInstance.get(`/members/${memberId}/notifications/read`, {
-    });
-
-    console.log("response.data.content : "+response.data.content);
-    return response.data.content;
-}
-
 export const updateIsReadStatus = async (memberId) => {
     const response
-        = await axiosInstance.post(`/members/${memberId}/notifications/changeIsReadTrue`, {
+        = await axiosInstance.post(`/members/${memberId}/notifications/change-is-read-true`, {
     });
 
     console.log("response.data.data : "+response.data.data);

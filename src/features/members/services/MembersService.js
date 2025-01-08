@@ -58,7 +58,7 @@ export const updateMemberProfileImage = async (memberId, imageFile) => {
 
     try {
         const response
-            = await axiosInstance.patch(`/members/${memberId}/profileImage`,
+            = await axiosInstance.patch(`/members/${memberId}/profile-image`,
             formData, {
                 headers: {
                     "Content-Type": "multipart/form-data", // 반드시 multipart/form-data로 설정
@@ -82,5 +82,10 @@ export const getMemberProfileImage = async (memberId) => {
     const response
         = await axiosInstance.get(
             `/members/${memberId}/profile-image`);
+    return response.data;
+}
+
+export const deleteMemberProfileImage = async (memberId) => {
+    const response = await axiosInstance.delete(`/members/${memberId}/profile-image`);
     return response.data;
 }

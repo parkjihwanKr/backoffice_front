@@ -35,6 +35,14 @@
     margin: 0;
 }
 
+.read-image {
+    position : absolute;
+    left : 5%;
+    top : 5%;
+    height : 24px;
+    width : 24px;
+}
+
 .custom-modal-body {
     margin: 10px 0;
 }
@@ -246,6 +254,7 @@
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
+    font-size: 13px;
 }
 
 .caution-description {
@@ -344,6 +353,21 @@
 
 .custom-modal-footer img:hover {
     transform: scale(1.1);
+}
+
+.custom-modal-body-description{
+    height : 200px;
+    display: flex;
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding : 10px;
+}
+
+.divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 @keyframes fadeIn {

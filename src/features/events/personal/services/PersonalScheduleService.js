@@ -101,3 +101,9 @@ export const deleteVacationSchedule = async (vacationId) => {
         throw error;
     }
 };
+
+// 휴가 정정 기간 조회 API
+export const getUpcomingUpdateVacationPeriod = async () => {
+    const response = await axiosInstance(`/vacations/update-period`, {});
+    return response.data;
+}

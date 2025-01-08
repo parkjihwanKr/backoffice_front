@@ -1,14 +1,14 @@
-
-import { useEffect, useState } from 'react';
-import { getPersonalDaySchedule, getPersonalMonthSchedule } from '../services/PersonalScheduleService';
-import { alertError } from '../../../../utils/ErrorUtils';
+import { useEffect, useState } from "react";
+import { getPersonalDaySchedule, getPersonalMonthSchedule } from "../services/PersonalScheduleService";
+import { alertError } from "../../../../utils/ErrorUtils";
 
 const usePersonalSchedule = (memberId) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [events, setEvents] = useState([]); // Monthly schedule
-    const [dayEvents, setDayEvents] = useState([]); // Schedule for a specific day
-    const [selectedDate, setSelectedDate] = useState(null); // Selected date
-    const [showModal, setShowModal] = useState(false); // Modal state
+    const [dayEvents, setDayEvents] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+    const [isUpcomingModalOpen, setIsUpcomingModalOpen] = useState(false);
 
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
@@ -32,7 +32,7 @@ const usePersonalSchedule = (memberId) => {
         try {
             const daySchedule = await getPersonalDaySchedule(memberId, currentYear, currentMonth, day);
             setDayEvents(daySchedule);
-            setShowModal(true);
+            setIsDetailsModalOpen(true); // Open details modal
         } catch (error) {
             alertError(error);
         }
@@ -59,8 +59,47 @@ const usePersonalSchedule = (memberId) => {
         return `${hasEvent} ${additionalClass}`;
     };
 
-    const handleClose = () => {
-        setShowModal(false);
+    const renderCalendarDays = () => {
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        const today = new Date();
+        const days = [];
+
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            days.push(<div key={`empty-${i}`} className="empty-day"></div>);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayColor = getDayColor(day);
+            const isToday =
+                today.getDate() === day &&
+                today.getMonth() === currentMonth &&
+                today.getFullYear() === currentYear;
+
+            days.push(
+                <div
+                    key={day}
+                    className={`calendar-day ${day === currentDate.getDate() ? 'selected' : ''} ${dayColor} ${isToday ? 'today' : ''}`}
+                    onClick={() => selectDate(day)}
+                >
+                    {day}
+                </div>
+            );
+        }
+
+        return days;
+    };
+
+    const handleToggleMenu = () => {
+        setIsUpcomingModalOpen(true); // Open upcoming modal
+    };
+
+    const handleDetailsModalClose = () => {
+        setIsDetailsModalOpen(false); // Close details modal
+    };
+
+    const handleUpcomingModalClose = () => {
+        setIsUpcomingModalOpen(false); // Close upcoming modal
     };
 
     return {
@@ -69,13 +108,17 @@ const usePersonalSchedule = (memberId) => {
         events,
         dayEvents,
         selectedDate,
-        showModal,
+        isDetailsModalOpen,
+        isUpcomingModalOpen,
         currentMonth,
         currentYear,
         fetchPersonalSchedule,
         selectDate,
         getDayColor,
-        handleClose
+        renderCalendarDays,
+        handleToggleMenu,
+        handleDetailsModalClose,
+        handleUpcomingModalClose,
     };
 };
 

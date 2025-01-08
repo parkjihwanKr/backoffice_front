@@ -1,5 +1,5 @@
 import '../../shared/MainPage.css';
-import {imagePrefix} from "../../../utils/Constant";
+import {imagePrefix, reverseDepartmentMapping} from "../../../utils/Constant";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../../features/auth/context/AuthContext";
 
@@ -18,7 +18,7 @@ const Personalboard = ({ boards = [] }) => {
     return(
         <div className="personal-board-container">
             <div className="personal-board-header">
-                <h3> {department} 게시판 </h3>
+                <h3> {reverseDepartmentMapping[department]} 게시판 </h3>
                 <img
                     src={`${imagePrefix}/shared/reply.png`}
                     onClick={goToDepartmentBoard}/>
