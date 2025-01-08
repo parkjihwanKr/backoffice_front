@@ -1,62 +1,40 @@
-import React from 'react';
-import './PersonalSchedule.css';
-import { useAuth } from "../../../auth/context/AuthContext";
-import PersonalScheduleDetailsModal from './modal/PersonalScheduleDetailsModal';
+import React from "react";
+import UpcomingUpdateVacationPeriodModal from "./modal/UpcomingUpdateVacationModal";
+import PersonalScheduleDetailsModal from "./modal/PersonalScheduleDetailsModal";
 import PersonalScheduleFooter from "./PersonalScheduleFooter";
+import { imagePrefix } from "../../../../utils/Constant";
 import usePersonalSchedule from "../hooks/usePersonalSchedule";
+import { useAuth } from "../../../auth/context/AuthContext";
+import './PersonalSchedule.css';
 
 const PersonalSchedule = () => {
     const { id, name } = useAuth();
     const {
-        currentDate,
         setCurrentDate,
-        events,
-        dayEvents,
-        selectedDate,
-        showModal,
+        renderCalendarDays,
         currentMonth,
         currentYear,
-        selectDate,
-        getDayColor,
-        handleClose
+        isDetailsModalOpen,
+        isUpcomingModalOpen,
+        selectedDate,
+        handleToggleMenu,
+        handleDetailsModalClose,
+        handleUpcomingModalClose,
     } = usePersonalSchedule(id);
 
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const renderCalendarDays = () => {
-        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-        const today = new Date();
-        const days = [];
-
-        for (let i = 0; i < firstDayOfMonth; i++) {
-            days.push(<div key={`empty-${i}`} className="empty-day"></div>);
-        }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayColor = getDayColor(day);
-            const isToday =
-                today.getDate() === day &&
-                today.getMonth() === currentMonth &&
-                today.getFullYear() === currentYear;
-
-            days.push(
-                <div
-                    key={day}
-                    className={`calendar-day ${day === currentDate.getDate() ? 'selected' : ''} ${dayColor} ${isToday ? 'today' : ''}`}
-                    onClick={() => selectDate(day)}
-                >
-                    {day}
-                </div>
-            );
-        }
-
-        return days;
-    };
-
     return (
         <div className="personal-schedule-container">
             <h1>{name}님의 개인 일정표</h1>
+            <div className="find-upcoming-schedule">
+                <img
+                    src={`${imagePrefix}/shared/find_upcoming_updated_vacation_period.png`}
+                    onClick={handleToggleMenu}
+                    alt="이번달 휴가 정정 기간 조회"
+                    title="이번달 휴가 정정 기간 조회"
+                />
+            </div>
             <div className="calendar">
                 <div className="calendar-header">
                     <button onClick={() => setCurrentDate(new Date(currentYear, currentMonth - 1))}>&lt;&lt;</button>
@@ -74,10 +52,14 @@ const PersonalSchedule = () => {
             </div>
             <PersonalScheduleFooter />
             <PersonalScheduleDetailsModal
-                show={showModal}
-                handleClose={handleClose}
+                show={isDetailsModalOpen}
+                handleClose={handleDetailsModalClose} // Correctly passing the handler
                 selectedDate={selectedDate}
                 memberId={id}
+            />
+            <UpcomingUpdateVacationPeriodModal
+                show={isUpcomingModalOpen}
+                handleClose={handleUpcomingModalClose}
             />
         </div>
     );

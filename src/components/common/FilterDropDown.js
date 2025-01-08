@@ -84,7 +84,7 @@ const FilterDropDown = ({
 
             <div className="custom-filter-actions">
                 <button onClick={onSubmit}>조회</button>
-                {showResetButton && <button onClick={onReset}>전체 보기</button>}
+                {showResetButton && <button onClick={onReset}>초기화</button>}
             </div>
         </div>
     );

@@ -2,11 +2,11 @@ import axiosInstance from "../../../../utils/AxiosUtils";
 
 // 월별 근태 기록 조회 (필터링 가능)
 export const fetchMemberAttendanceList
-    = async (department, year, month, page, size) => {
+    = async (department, year, month, page) => {
     try {
         // 요청 파라미터 구성
         const params = {
-            department, year, month, page, size};
+            department, year, month, page};
 
         // API 요청
         const response

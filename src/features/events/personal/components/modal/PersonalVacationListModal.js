@@ -1,63 +1,26 @@
-import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../../auth/context/AuthContext";
 import "./PersonalVacationListModal.css";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import { getMemberVacationList } from "../../services/PersonalScheduleService";
 import { imagePrefix } from "../../../../../utils/Constant";
 import UpdateVacationModal from "./UpdateVacationModal";
 import DeleteVacationModal from "./DeleteVacationModal";
-import { adjustModalAlignment, addModalAlignmentListener } from "../../../../../utils/ModalUtils";
+import usePersonalVacationListModal from "../../hooks/usePersonalVacationListModal";
 
 const PersonalVacationListModal = ({ handleClose }) => {
     const { name, id } = useAuth();
-    const [vacationList, setVacationList] = useState([]);
-    const [remainingVacationDays, setRemainingVacationDays] = useState(0);
-    const [selectedVacation, setSelectedVacation] = useState(null);
-    const [hoveredVacationId, setHoveredVacationId] = useState(null);
-    const [isUpdateVacationModalOpen, setUpdateVacationModalOpen] = useState(false);
-    const [isDeleteVacationModalOpen, setDeleteVacationModalOpen] = useState(false);
-    const [isTooltipVisible, setTooltipVisible] = useState(false); // 툴팁 가시성 상태
-
-    const fetchVacationList = async () => {
-        try {
-            const response = await getMemberVacationList(id);
-            setVacationList(response.vacationList || []);
-            setRemainingVacationDays(response.remainingVacationDays);
-        } catch (error) {
-            console.error("Error fetching vacation list:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchVacationList();
-    }, [id]);
-
-    const handleUpdateVacationModalOpen = (selectedVacation) => {
-        setSelectedVacation(selectedVacation);
-        setUpdateVacationModalOpen(true);
-    };
-
-    const handleDeleteVacationModalOpen = (selectedVacation) => {
-        setSelectedVacation(selectedVacation);
-        setDeleteVacationModalOpen(true);
-    };
-
-    const toggleTooltip = () => {
-        setTooltipVisible(!isTooltipVisible); // 툴팁 가시성 토글
-    };
-
-    useEffect(() => {
-        if (vacationList.length > 0) {
-            const modalOverlay = document.querySelector(".vacationList-modal-overlay");
-            const modalContent = document.querySelector(".vacationList-vacation-modal-content");
-
-            adjustModalAlignment(modalOverlay, modalContent);
-
-            const cleanup = addModalAlignmentListener(modalOverlay, modalContent);
-
-            return cleanup;
-        }
-    }, [vacationList]);
+    const {
+        vacationList,
+        remainingVacationDays,
+        selectedVacation,
+        hoveredVacationId,
+        setHoveredVacationId,
+        isUpdateVacationModalOpen,
+        handleUpdateVacationModalOpen,
+        handleUpdateVacationModalClose,
+        isDeleteVacationModalOpen,
+        handleDeleteVacationModalOpen,
+        handleDeleteVacationModalClose
+    } = usePersonalVacationListModal(id);
 
     return (
         <div className="vacationList-modal-overlay">
@@ -91,7 +54,7 @@ const PersonalVacationListModal = ({ handleClose }) => {
                                             승인 여부 : {vacation.isAccepted ? "승인됨" : "미승인"}
                                         </div>
                                     </div>
-                                    {hoveredVacationId === vacation.vacationId && (
+                                    {hoveredVacationId === vacation.vacationId && !vacation.isAccepted &&  (
                                         <div className="vacation-action-menu">
                                             <img
                                                 title="휴가 수정"
@@ -113,17 +76,17 @@ const PersonalVacationListModal = ({ handleClose }) => {
                     )}
                 </div>
                 <div className="vacationList-vacation-modal-footer">
-                    <strong>※ 남은 휴가 일수 : {remainingVacationDays}일</strong>
+                    <p><strong>※ 남은 휴가 일수 : {remainingVacationDays}일</strong></p>
                 </div>
                 {isUpdateVacationModalOpen && (
                     <UpdateVacationModal
-                        handleClose={() => setUpdateVacationModalOpen(false)}
+                        handleClose={handleUpdateVacationModalClose}
                         selectedVacation={selectedVacation}
                     />
                 )}
                 {isDeleteVacationModalOpen && (
                     <DeleteVacationModal
-                        handleClose={() => setDeleteVacationModalOpen(false)}
+                        handleClose={handleDeleteVacationModalClose}
                         selectedVacation={selectedVacation}
                     />
                 )}

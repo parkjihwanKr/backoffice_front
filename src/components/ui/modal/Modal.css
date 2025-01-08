@@ -254,6 +254,7 @@
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
+    font-size: 13px;
 }
 
 .caution-description {

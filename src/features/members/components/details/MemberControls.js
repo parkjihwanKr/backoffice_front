@@ -40,6 +40,10 @@ const MemberControls = ({ loginMemberId, memberId, onOpenAttributeModal, onOpenV
         }
     };
 
+    const handleCommingSoon = () => {
+        alert("준비 중...");
+    }
+
     return (
         <div className="member-details-buttons">
             {updateMode ? (
@@ -60,7 +64,7 @@ const MemberControls = ({ loginMemberId, memberId, onOpenAttributeModal, onOpenV
                     <button className="details-button" onClick={handlePersonalSchedule}>
                         개인 일정표
                     </button>
-                    <button className="details-button">개인 설문조사</button>
+                    <button className="details-button" onClick={handleCommingSoon}>개인 설문조사</button>
                     <button className="details-button" onClick={handleMemberAttendancePage}>
                         개인 근태 기록 확인
                     </button>

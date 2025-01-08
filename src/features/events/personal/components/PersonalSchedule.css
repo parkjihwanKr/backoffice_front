@@ -133,6 +133,16 @@
     width: 100px;
 }
 
+.find-upcoming-schedule img {
+    position: absolute;
+    right : 10%;
+    top : 2%;
+    width: 36px; /* 아이콘 너비 */
+    height: 36px; /* 아이콘 높이 */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
 .personal-schedule-main-footer img {
     width: 36px; /* 아이콘 너비 */
     height: 36px; /* 아이콘 높이 */
@@ -141,6 +151,7 @@
     transition: transform 0.3s ease;
 }
 
-.personal-schedule-footer img:hover {
+.personal-schedule-footer img:hover ,
+.find-upcoming-schedule img:hover{
     transform: scale(1.1); /* 마우스 호버 시 아이콘 확대 */
 }

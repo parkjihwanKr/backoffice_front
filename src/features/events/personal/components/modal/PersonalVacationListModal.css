@@ -186,8 +186,8 @@
 
 /* 아이콘 스타일 */
 .vacation-action-icon {
-    height: 36px;
-    width: 36px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
     margin-right: 10px;
     transition: transform 0.3s ease;

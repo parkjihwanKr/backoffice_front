@@ -22,13 +22,12 @@ const AttendanceManagement = () => {
         const fetchFilteredAttendanceList = async () => {
             setLoading(true);
             try {
-                const totalMemberCount = await getMemberTotalCount();
+                // const totalMemberCount = await getMemberTotalCount();
                 const response = await fetchMemberAttendanceList(
                     filters.department,
                     filters.year,
                     filters.month,
-                    currentPage,
-                    totalMemberCount * 7
+                    currentPage
                 );
                 setAttendanceList(response.content);
                 setTotalPages(response.totalPages);

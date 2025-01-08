@@ -1,8 +1,9 @@
 // AuditDetailModal.js
 import React from "react";
-import "./AuditDetailModal.css";
+import '../../../../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import useModalScroll from "../../../../../hooks/useModalScroll";
+import {getAuditLogTypeName} from "../../../../../utils/Constant";
 
 const AuditDetailModal = ({ isOpen, handleClose, audit }) => {
     useModalScroll(isOpen);
@@ -10,21 +11,22 @@ const AuditDetailModal = ({ isOpen, handleClose, audit }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="audit-details-modal-overlay">
-            <div className="audit-details-modal"
+        <div className="custom-modal-overlay">
+            <div className="custom-modal-content"
                  onClick={(e) => e.stopPropagation()}>
-                <div className="audit-details-modal-header">
-                    <h2>감사 상세 정보</h2>
+                <div className="custom-modal-header">
+                    <h3>감사 상세 정보</h3>
+                    <CloseImageButton handleClose={handleClose}/>
                 </div>
-                <CloseImageButton handleClose={handleClose}/>
                 {audit ? (
-                    <div className="audit-details-modal-body">
+                    <div className="custom-modal-body">
                         <p><strong>이름:</strong> {audit.memberName} ({audit.department}, {audit.position})</p>
-                        <p><strong>타입:</strong> {audit.auditLogType}</p>
-                        <div>
-                            <p><strong>메세지:</strong> {audit.details}</p>
-                        </div>
                         <p><strong>발생일:</strong> {new Date(audit.createdAt).toLocaleDateString()}</p>
+                        <p><strong>타입:</strong> {getAuditLogTypeName(audit.auditLogType)}</p>
+
+                        <div className="custom-modal-body-description">
+                            <p>{audit.details}</p>
+                        </div>
                     </div>
                 ) : (
                     <p>데이터가 없습니다.</p>

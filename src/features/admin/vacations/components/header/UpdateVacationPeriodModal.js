@@ -17,10 +17,11 @@ const UpdateVacationPeriodModal = ({ onClose, currentYear, currentMonth }) => {
 
     useEffect(() => {
         if (error) {
-            alert(`오류: ${error}`);
+            alert(`${error}`);
         }
         if (success) {
-            alert(`성공: ${success}`);
+            alert(`${success}`);
+            onClose();
         }
     }, [error, success]);
 
