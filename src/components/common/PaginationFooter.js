@@ -1,5 +1,5 @@
 import React from "react";
-import "./PaginationFooter.css"; // 필요한 경우 스타일 추가
+import "./PaginationFooter.css";
 
 const PaginationFooter = ({ currentPage, totalPages, onPageChange }) => {
 

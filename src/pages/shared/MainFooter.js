@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import './MainFooter.css';
+import {imagePrefix} from "../../utils/Constant";
 
 const MainFooter = () => {
     const [isFixed, setIsFixed] = useState(false);
@@ -53,7 +54,8 @@ const MainFooter = () => {
                     <div className="footer-icons">
                         <p>
                             <img
-                                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                                src={`${imagePrefix}/shared/flaticon.png`}
+                                style={{ height : "36px", width : "36px"}}
                                 alt="Flaticon Logo"
                                 className="icon-credit-img"
                             />

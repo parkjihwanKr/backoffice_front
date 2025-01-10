@@ -1,42 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../../../../../components/ui/modal/Modal.css";
 import CloseImageButton from "../../../../../../components/ui/image/CloseImageButton";
 import { imagePrefix, getAttendanceStatus } from "../../../../../../utils/Constant";
 import SubmitButton from "../../../../../../components/ui/buttons/SubmitButton";
-import { updateAttendanceStatusForAdmin } from "../../../services/AttendanceManagementService";
 import ConfirmButton from "../../../../../../components/ui/buttons/ConfirmButton";
+import useUpdateMemberAttendanceStatus from "../../../hooks/useUpdateMemberAttendanceStatus";
 
 const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) => {
-    const [attendanceStatus, setAttendanceStatus] = useState(attendance.attendanceStatus);
-    const [description, setDescription] = useState(attendance.description || "");
-
-    const handleSubmit = async () => {
-        try {
-            console.log("Submitting data:",
-                { memberId: attendance.memberId, attendanceId: attendance.attendanceId,
-                    attendanceStatus, description });
-            // API 요청
-            const updatedAttendance = await updateAttendanceStatusForAdmin(
-                attendance.memberId,
-                attendance.attendanceId,
-                attendanceStatus,
-                description
-            );
-
-            updatedAttendance.attendanceStatus = attendanceStatus; // 업데이트된 상태 반영
-            updatedAttendance.description = description; // 설명 추가 반영
-
-            onSubmit(updatedAttendance); // 부모 컴포넌트로 결과 전달
-        } catch (error) {
-            alert(error.response.data.data + " : " + error.response.data.message);
-        } finally {
-            onClose(); // 모달 닫기
-        }
-    };
-
-    const handleCautionModal = () => {
-        alert("준비중...");
-    }
+    const {
+        attendanceStatus,
+        description,
+        handleAttendanceStatusChange,
+        handleDescriptionChange,
+        handleSubmit,
+        handleCautionModal,
+    } = useUpdateMemberAttendanceStatus(attendance, onSubmit, onClose);
 
     return (
         <div className="custom-modal-overlay">
@@ -74,7 +52,7 @@ const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) =>
                         <label className="custom-modal-body-content-label">근태 상태:</label>
                         <select
                             value={attendanceStatus}
-                            onChange={(e) => setAttendanceStatus(e.target.value)}
+                            onChange={(e) => handleAttendanceStatusChange(e.target.value)}
                             className="custom-modal-body-select"
                         >
                             <option value="ON_TIME">정시 출근</option>
@@ -88,7 +66,7 @@ const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) =>
                         <label className="custom-modal-body-content-label">설명:</label>
                         <textarea
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => handleDescriptionChange(e.target.value)}
                             className="custom-modal-body-textarea"
                             placeholder="변경 사항에 대한 설명을 입력하세요."
                         />
@@ -97,7 +75,8 @@ const UpdateMemberAttendanceStatusModal = ({ attendance, onSubmit, onClose }) =>
                 <div className="custom-modal-footer">
                     <ConfirmButton
                         onClick={handleCautionModal}
-                        text={"주의 사항"}/>
+                        text={"주의 사항"}
+                    />
                     <SubmitButton
                         onSubmit={handleSubmit}
                         text={"변경"}

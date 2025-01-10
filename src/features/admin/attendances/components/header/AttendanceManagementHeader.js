@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AttendanceManagementHeader.css";
+import '../AttendanceManagement.css';
 import DateUtils from "../../../../../utils/DateUtils";
 import { imagePrefix } from "../../../../../utils/Constant";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
