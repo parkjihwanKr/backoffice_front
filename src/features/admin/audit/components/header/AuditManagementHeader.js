@@ -1,6 +1,6 @@
 import './AuditManagementHeader.css';
 import React from 'react';
-import FilterDropDown from '../../../../../components/common/FilterDropDown'; // 공통 컴포넌트 사용
+import FilterDropDown from '../../../../../components/common/FilterDropDown';
 import useAuditFilterListForHeader from '../../hooks/useAuditFilterListForHeader';
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import {AUDIT_LOG_LABELS} from '../../../../../utils/Constant';
