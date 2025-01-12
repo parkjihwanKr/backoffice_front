@@ -223,6 +223,7 @@ const DailyAttendanceManagement = () => {
                     filterOptions={filterOptions}
                     onSubmit={handleValidatedFilterSubmit}
                     onReset={resetFilters}
+                    setShowFilters={toggleFilterDropdown}
                     toggleDropdown={toggleFilterDropdown}
                     showResetButton={false}
                 />

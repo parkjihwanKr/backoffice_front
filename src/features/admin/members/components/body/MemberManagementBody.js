@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import {getDepartmentName, getPositionName, imagePrefix} from "../../../../../utils/Constant";
 import useFilteredMembers from "../../../shared/hooks/useFilteredMembers";
 import UpdateSalaryModal from './UpdateSalaryModal';
-import './MemberManagementBody.css';
+import '../MemberManagement.css';
 import '../../../shared/components/table.css';
 import React, { useState } from 'react';
 import {useError, useLoading} from "../../../../../utils/LoadingUtils";
@@ -10,7 +10,8 @@ import {useError, useLoading} from "../../../../../utils/LoadingUtils";
 const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
     const pageSize = 10; // 페이지당 표시할 멤버 수
     const navigate = useNavigate();
-    const { members, setMembers, loading, error } = useFilteredMembers(filters, currentPage, pageSize, updateTotalPages); // setMembers 추가
+    const { members, setMembers, loading, error }
+        = useFilteredMembers(filters, currentPage, pageSize, updateTotalPages); // setMembers 추가
 
     const [selectedMember, setSelectedMember] = useState(null); // 선택된 멤버
     const [showSalaryModal, setShowSalaryModal] = useState(false); // 급여 변경 모달 상태
@@ -94,6 +95,7 @@ const MemberManagementBody = ({ filters, currentPage, updateTotalPages }) => {
             {/* 급여 변경 모달 */}
             {showSalaryModal && (
                 <UpdateSalaryModal
+                    show={showSalaryModal}
                     member={selectedMember}
                     onClose={() => setShowSalaryModal(false)}
                     onSave={handleSaveSalary} // 변경된 급여를 저장

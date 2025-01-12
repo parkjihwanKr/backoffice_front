@@ -5,6 +5,7 @@ import AddButton from "../../../../../../components/ui/buttons/AddButton";
 import DeleteButton from "../../../../../../components/ui/buttons/DeleteButton";
 import SubmitButton from "../../../../../../components/ui/buttons/SubmitButton";
 import { deleteAttendanceManually } from "../../../services/AttendanceManagementService";
+import {alertError} from "../../../../../../utils/ErrorUtils";
 
 const DeleteAttendanceModal = ({ onClose, onDeleteSuccess }) => {
     const [attendanceIdList, setAttendanceIdList] = useState([]);
@@ -66,7 +67,7 @@ const DeleteAttendanceModal = ({ onClose, onDeleteSuccess }) => {
             setAttendanceIdList([]);
             onClose();
         } catch (error) {
-            alert(`삭제 실패: ${error.response?.data?.message || error.message}`);
+            alertError(error);
         }
     };
 

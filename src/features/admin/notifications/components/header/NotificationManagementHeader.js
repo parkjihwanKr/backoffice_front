@@ -1,5 +1,5 @@
 /*NotificationManagementHeader.js*/
-import './NotificationManagement.css';
+import '../NotificationManagement.css';
 
 const NotificationManagementHeader = () => {
     return(

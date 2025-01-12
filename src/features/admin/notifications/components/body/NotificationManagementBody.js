@@ -1,9 +1,8 @@
 // NotificationManagement.js
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import CreateNotificationModal from './CreateNotificationModal';
-import { DEPARTMENTS } from '../../../../../utils/Constant';
-import { fetchMemberList } from '../../../members/services/MemberManagementService';
-import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
+import {DEPARTMENTS} from '../../../../../utils/Constant';
+import {fetchMemberList} from '../../../members/services/MemberManagementService';
 
 const NotificationManagementBody = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);

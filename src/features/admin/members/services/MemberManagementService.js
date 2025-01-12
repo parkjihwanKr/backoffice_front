@@ -1,30 +1,20 @@
 import axiosInstance from "../../../../utils/AxiosUtils";
 import CacheManager from "../../../../utils/CacheManager";
 
-export const fetchFilteredMembers = async (position, department) => {
-    const response = await axiosInstance.get(`/admin/members/filtered`, {
-        params: {
-            position: position !== undefined ? position : null, // 값이 undefined이면 null로 처리
-            department: department !== undefined ? department : null,
-        }
+export const fetchFilteredMembers = async (position, department, page, pageSize) => {
+    const response = await axiosInstance.get("/admin/members/filtered", {
+        params: { position, department, page, size: pageSize },
     });
-
-    console.log("Response data : ", response.data);
     return response.data;
 };
 
 export const updateAttribute = async (formData, memberId) => {
-    try {
-        const response = await axiosInstance.patch(`/members/${memberId}/attribute`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data', // FormData 전송을 위한 헤더 설정
-            },
-        });
-        console.log('Success:', response.data);
-        return response.data;
-    } catch (error) {
-        console.error('Error updating attribute:', error);
-    }
+    const response = await axiosInstance.patch(`/members/${memberId}/attribute`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data', // FormData 전송을 위한 헤더 설정
+        },
+    });
+    return response.data;
 };
 
 export const updateRemainingVacationDays = async (memberId, changeRemainingVacationDays) => {

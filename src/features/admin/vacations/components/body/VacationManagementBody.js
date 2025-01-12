@@ -1,6 +1,7 @@
 import React from 'react';
 import VacationDetailModal from "./VacationDetailModal";
 import { useModal } from '../../hooks/useModal';
+import {HOLIDAYS} from "../../../../../utils/Holidays";
 
 const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loading, onUpdateVacationIsAccepted, onDeleteVacation }) => {
     const { isModalOpen, selectedVacation, openModal, closeModal } = useModal(); // Use the custom hook
@@ -35,7 +36,16 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loa
             const currentDate = new Date(currentYear, currentMonth, day + 1);
             const dayOfWeek = currentDate.getDay(); // 0: 일요일, 6: 토요일
 
-            const headerClass = dayOfWeek === 6 ? 'saturday-header' : dayOfWeek === 0 ? 'sunday-header' : '';
+            const holidayKey = `${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+            const isHoliday = HOLIDAYS.hasOwnProperty(holidayKey);
+
+            const headerClass = isHoliday
+                ? 'sunday-header'
+                : dayOfWeek === 6
+                    ? 'saturday-header'
+                    : dayOfWeek === 0
+                        ? 'sunday-header'
+                        : '';
 
             return (
                 <th key={day} className={headerClass}>

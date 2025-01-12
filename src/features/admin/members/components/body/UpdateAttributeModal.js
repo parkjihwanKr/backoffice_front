@@ -74,6 +74,9 @@ const UpdateAttributeModal = ({ member, onClose, onSave }) => {
                             onChange={(e) => setNewFile(e.target.files[0])}
                         />
                     </div>
+                    <div className="custom-modal-body-text">
+                        ※ 파일은 필수로 등록해주셔야 합니다!
+                    </div>
                     <div className="custom-modal-footer">
                         <SubmitButton onSubmit={handleSaveChanges} text={"제출"}/>
                     </div>
