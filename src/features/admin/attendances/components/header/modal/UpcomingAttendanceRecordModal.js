@@ -11,7 +11,7 @@ const UpcomingAttendanceRecordModal = ({ onClose, upcomingAttendances }) => {
                     <CloseImageButton handleClose={onClose} />
                 </div>
                 <div className="custom-modal-body">
-                    {upcomingAttendances ? (
+                    {upcomingAttendances && upcomingAttendances.length > 0 ? (
                         <div className="attendance-card-container">
                             {upcomingAttendances.map((upcomingAttendance) => (
                                 <div
@@ -33,7 +33,7 @@ const UpcomingAttendanceRecordModal = ({ onClose, upcomingAttendances }) => {
                             ))}
                         </div>
                     ) : (
-                        <p>No upcoming attendance records available.</p>
+                        <p>예정된 외근 기록이 없습니다.</p>
                     )}
                 </div>
             </div>

@@ -14,6 +14,13 @@
     margin-right: auto;
 }
 
+/*header*/
+.notification-management-header h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
 /* NotificationManagementBody.css */
 .notification-management-body {
     display: flex;

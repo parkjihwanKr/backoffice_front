@@ -4,9 +4,6 @@ import { imagePrefix } from "../../../utils/Constant";
 
 const FavoritesContainer = () => {
     const { favorites } = useFavorites();
-
-    console.log("Updated favorites:", favorites);
-
     const handleNavigateToFavorite = (url) => {
         if (url) {
             window.location.href = url;

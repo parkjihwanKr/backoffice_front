@@ -67,6 +67,7 @@ export const NOTIFICATION_TYPE_LABELS = {
     UPDATE_EXPENSE_REPORT_STATUS: "비용 보고서 상태 업데이트",
     UPDATE_EXPENSE_REPORT: "비용 보고서 업데이트",
     CREATE_ATTENDANCES_MANUALLY : "근태 기록 수동 작성",
+    ALL_NOTIFICATIONS : "모든 멤버 알림",
 };
 
 export const AUDIT_LOG_TYPE_LABELS = {

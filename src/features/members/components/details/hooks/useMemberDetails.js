@@ -59,6 +59,7 @@ const useMemberDetails = (memberId, auth) => {
 
     return {
         member,
+        setMember,
         loading,
         error,
         modals,

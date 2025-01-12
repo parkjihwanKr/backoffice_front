@@ -4,8 +4,10 @@ import '../../../../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import { updateSalary } from "../../services/MemberManagementService";
 import SubmitButton from "../../../../../components/ui/buttons/SubmitButton";
+import useModalScroll from "../../../../../hooks/useModalScroll";
 
-const UpdateSalaryModal = ({ member, onClose, onSave }) => {
+const UpdateSalaryModal = ({ show, member, onClose, onSave }) => {
+    useModalScroll(show);
     const [newSalary, setNewSalary] = useState(member.salary || 0); // 초기 급여 설정
 
     // 새로 선택된 member가 변경되면 newSalary를 초기화
@@ -27,8 +29,12 @@ const UpdateSalaryModal = ({ member, onClose, onSave }) => {
             <div className="custom-modal-content">
                 <div className="custom-modal-header">
                     <h3>{member.memberName}님의 급여 변경</h3>
-                    <CloseImageButton handleClose={onClose} />
+                    <CloseImageButton handleClose={onClose}/>
                 </div>
+                <div className="custom-modal-divider"
+                     style={{
+                        marginTop : "40px"
+                }}/>
                 <div className="custom-modal-body">
                     <input
                         type="number"

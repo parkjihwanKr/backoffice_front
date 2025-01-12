@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { departmentMapping, positionMapping, roleMapping } from "../../../../utils/Constant";
 import { updateAttribute } from "../services/MemberManagementService";
+import {alertError, successAlert} from "../../../../utils/ErrorUtils";
 
 const useUpdateAttribute = (member, onSave, onClose) => {
     // 초기 상태에서 영문 값 -> 한국어 값으로 변환
@@ -49,8 +50,9 @@ const useUpdateAttribute = (member, onSave, onClose) => {
         try {
             await updateAttribute(formData, member.memberId);
             onSave({ ...member, ...updatedData });
+            successAlert(member.memberName+"님의 권한이 변경되었습니다.");
         } catch (error) {
-            alert(error.response.data.data + " : "+error.response.data.message);
+            alertError(error);
         }
     };
 

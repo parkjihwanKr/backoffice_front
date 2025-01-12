@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../../../components/ui/modal/Modal.css';
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
 import UpdateIsAcceptedModal from './UpdateIsAcceptedModal';
 import DeleteVacationForAdminModal from "./DeleteVacationForAdminModal";
@@ -59,22 +60,44 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
                     <CloseImageButton handleClose={onClose} />
                 </div>
                 <div className="custom-modal-body">
-                    <p>
-                        <strong>휴가 기간 : </strong>
-                        {new Date(vacation.startDate).toLocaleDateString()}
-                        ~ {new Date(vacation.endDate).toLocaleDateString()}
-                    </p>
-                    <p>
+                    <table className="custom-modal-table">
+                        <tbody>
+                        <tr>
+                            <td className="custom-modal-table-column-1">
+                                <strong>휴가 기간 : </strong>
+                            </td>
+                            <td className="custom-modal-table-column-2">
+                                {new Date(vacation.startDate).toLocaleDateString()}
+                                ~ {new Date(vacation.endDate).toLocaleDateString()}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="custom-modal-table-column-1">
+                                <strong>휴가 종류 : </strong>
+                            </td>
+                            <td className="custom-modal-table-column-2">
+                                {reverseVacationMapping[vacation.vacationType]}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="custom-modal-table-column-1">
+                                <strong>승인 여부 : </strong>
+                            </td>
+                            <td className="custom-modal-table-column-2">
+                                {vacation.isAccepted ? '승인됨' : '미승인'}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div className="custom-modal-divider"/>
+                    <div className="custom-modal-body-description-title">
                         <strong>휴가 사유 : </strong>
+                    </div>
+                    <div className="custom-modal-body-description">
                         {vacation.urgentReason && vacation.urgentReason.trim() !== ""
                             ? vacation.urgentReason
                             : "사유 없음"}
-                    </p>
-                    <p>
-                        <strong>휴가 종류 : </strong>
-                        {reverseVacationMapping[vacation.vacationType]}
-                        <strong style={{marginLeft: "10px"}}>승인 여부 :</strong> {vacation.isAccepted ? '승인됨' : '미승인'}
-                    </p>
+                    </div>
                 </div>
                 <div className="custom-modal-footer">
                     {hasAccess() ? (

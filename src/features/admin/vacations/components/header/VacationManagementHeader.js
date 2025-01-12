@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./VacationManagementHeader.css";
 import { imagePrefix } from "../../../../../utils/Constant";
 import UpdateVacationPeriodModal from "./UpdateVacationPeriodModal";
@@ -15,6 +15,14 @@ const VacationManagementHeader = ({ currentYear, currentMonth, onApplyFilters })
         isUrgent: null,
         department: null,
     });
+
+    useEffect(() => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            year: currentYear,
+            month: currentMonth + 1,
+        }));
+    }, [currentYear, currentMonth]);
 
     const filterOptions = [
         {

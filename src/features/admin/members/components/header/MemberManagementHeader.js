@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./MemberManagementHeader.css";
+import "../MemberManagement.css";
 import "../../../shared/components/filter.css";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../components/common/FilterDropDown";

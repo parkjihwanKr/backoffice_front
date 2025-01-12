@@ -1,20 +1,14 @@
 import axiosInstance from "../../../../utils/AxiosUtils";
+import {alertError} from "../../../../utils/ErrorUtils";
 
 // 월별 근태 기록 조회 (필터링 가능)
 export const fetchMemberAttendanceList
     = async (department, year, month, page) => {
     try {
-        // 요청 파라미터 구성
         const params = {
             department, year, month, page};
-
-        // API 요청
         const response
             = await axiosInstance.get("/admin/attendances/monthly", {params,});
-
-        console.log(response.data);
-
-        // 반환 데이터
         return response.data;
     } catch (error) {
         console.log(error);
@@ -26,37 +20,23 @@ export const fetchMemberAttendanceList
 export const fetchDailyMemberAttendance
     = async ({department, memberName, year, month, day, page, size}) => {
     try {
-        // 요청 파라미터 구성
         const params = {
             department, memberName, year, month, day, page, size};
-
-        // API 요청
         const response
             = await axiosInstance.get("/admin/attendances/daily", {params,});
-
-        console.log(response.data);
-
-        // 반환 데이터
         return response.data;
     } catch (error) {
-        alert(error.response.data.data + " : "+error.response.data.message);
-        // console.error("Error fetching attendance data:", error);
+        alertError(error);
         throw error;
     }
 };
 
 // 근태 기록 수동 삭제
 export const deleteAttendanceManually = async (attendanceIdList) => {
-    console.log("deleteAttendanceManually method param:", attendanceIdList);
-    try {
-        const response = await axiosInstance.delete(`/attendances`, {
-            data: attendanceIdList, // JSON 배열 형태로 보냄
-        });
-        return response.data;
-    } catch (error) {
-        console.error("API 요청 실패:", error);
-        throw error;
-    }
+    const response = await axiosInstance.delete(`/attendances`, {
+        data: attendanceIdList,
+    });
+    return response.data;
 };
 
 // 근태 당일 기록 생성
@@ -79,7 +59,6 @@ export const updateAttendanceStatusForAdmin = async ( memberId, attendanceId, at
             description: description,
         }
     );
-    console.log(response.data);
     return response.data;
 }
 
@@ -88,6 +67,5 @@ export const fetchUpcomingAttendance = async () => {
     const response = await axiosInstance.get(`/admin/attendances`, {
         department : null
     });
-    console.log(response.data);
     return response.data;
 }
