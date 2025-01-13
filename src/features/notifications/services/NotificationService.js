@@ -8,7 +8,6 @@ export const fetchMemberNotificationList = async (memberId, currentPage, pageSiz
         }
     });
 
-    console.log("response.data 전체:", JSON.stringify(response.data));
     return response.data; // 전체 페이지 정보 반환
 };
 
@@ -17,7 +16,6 @@ export const updateIsReadStatus = async (memberId) => {
         = await axiosInstance.post(`/members/${memberId}/notifications/change-is-read-true`, {
     });
 
-    console.log("response.data.data : "+response.data.data);
     return response.data.data;
 }
 
@@ -26,7 +24,6 @@ export const deleteNotificationList = async (memberId, selectedNotificationIdLis
         data: { notificationIds: selectedNotificationIdList }
     });
 
-    console.log("response.data.data:", response.data.data);
     return response.data.data;
 };
 
@@ -35,6 +32,5 @@ export const getNotification = async (memberId, selectedNotificationId) => {
         = await axiosInstance.get(
             `/members/${memberId}/notifications/${selectedNotificationId}`, {
         });
-    console.log("response.data:", response.data.data);
     return response.data.data;
 }

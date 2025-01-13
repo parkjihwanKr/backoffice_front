@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../../features/auth/context/AuthContext";
 
 const Personalboard = ({ boards = [] }) => {
-    console.log(boards);
     const navigate = useNavigate();
     const {department} = useAuth();
     const goToDepartmentBoard = () => {

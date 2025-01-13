@@ -48,8 +48,8 @@ const useUpdateVacationModal = (selectedVacation, handleClose) => {
         };
 
         try {
-            const response = await updateVacationSchedule(selectedVacation.vacationId, updatedVacationData);
-            console.log("Vacation updated successfully:", response);
+            await updateVacationSchedule(
+                selectedVacation.vacationId, updatedVacationData);
             handleClose(); // Close modal after successful update
         } catch (error) {
             console.error("Error updating vacation:", error);

@@ -1,9 +1,5 @@
 // 모달의 정렬을 조정하는 유틸리티 함수
 export function adjustModalAlignment(modalOverlay, modalContent) {
-    console.log("Adjusting modal alignment...");
-    console.log("Window height:", window.innerHeight);
-    console.log("Modal height:", modalContent.offsetHeight);
-
     const windowHeight = window.innerHeight;
     const modalHeight = modalContent.offsetHeight;
 

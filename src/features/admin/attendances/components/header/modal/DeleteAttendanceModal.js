@@ -5,7 +5,7 @@ import AddButton from "../../../../../../components/ui/buttons/AddButton";
 import DeleteButton from "../../../../../../components/ui/buttons/DeleteButton";
 import SubmitButton from "../../../../../../components/ui/buttons/SubmitButton";
 import { deleteAttendanceManually } from "../../../services/AttendanceManagementService";
-import {alertError} from "../../../../../../utils/ErrorUtils";
+import {alertError, alertSuccess} from "../../../../../../utils/ErrorUtils";
 
 const DeleteAttendanceModal = ({ onClose, onDeleteSuccess }) => {
     const [attendanceIdList, setAttendanceIdList] = useState([]);
@@ -57,7 +57,7 @@ const DeleteAttendanceModal = ({ onClose, onDeleteSuccess }) => {
     const handleDeleteAttendanceList = async () => {
         try {
             await deleteAttendanceManually(attendanceIdList);
-            alert("삭제가 완료되었습니다.");
+            alertSuccess("삭제가 완료되었습니다.");
 
             // 성공 시 삭제된 ID 전달
             if (onDeleteSuccess) {

@@ -28,7 +28,6 @@ const useMemberProfile = (loginMemberId, memberId, initialProfileImageUrl) => {
             setProfileImageUrl(updatedProfile.profileImageUrl);
         } catch (error) {
             alert("프로필 이미지 업데이트 중 오류가 발생했습니다.");
-            console.error(error);
         }
     };
 

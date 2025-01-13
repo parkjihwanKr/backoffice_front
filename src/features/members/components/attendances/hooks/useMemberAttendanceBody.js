@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fetchMemberAttendance } from "../../../services/MembersService";
 import { HOLIDAYS } from "../../../../../utils/Holidays";
+import {alertError} from "../../../../../utils/ErrorUtils";
 
 const useMemberAttendance = (currentYear, currentMonth, attendances = []) => {
     const [selectedAttendance, setSelectedAttendance] = useState(null);
@@ -16,7 +17,7 @@ const useMemberAttendance = (currentYear, currentMonth, attendances = []) => {
             setSelectedDate({ year, month, day });
             setModalOpen(true);
         } catch (error) {
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         }
     };
 

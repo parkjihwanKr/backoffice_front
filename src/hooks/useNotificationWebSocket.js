@@ -11,12 +11,10 @@ const useNotificationWebSocket = (setIsNotified, handleNotificationReceived, han
         initializeWebSocket(
             accessToken,
             (notification) => {
-                console.log("Received notification from WebSocket:", notification);
                 setIsNotified(true);  // 알림 상태 업데이트
                 handleNotificationReceived(notification);  // 새 알림을 리스트에 추가
             },
             (broadcastNotification) => {
-                console.log("Received broadcast from WebSocket:", broadcastNotification);
                 handleBroadcastNotification(broadcastNotification); // 브로드캐스트 알림 처리
             }
         );

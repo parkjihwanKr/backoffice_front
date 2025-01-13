@@ -28,7 +28,6 @@ const useBoardForm = () => {
         setFiles(Array.from(e.target.files));
     };
 
-    // Show alert for errors
     useEffect(() => {
         if (error) {
             alert(error);

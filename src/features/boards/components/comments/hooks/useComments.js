@@ -8,6 +8,7 @@ import {
     deleteCommentReaction,
     updateComment
 } from "../service/CommentsService";
+import {alertError} from "../../../../../utils/ErrorUtils";
 
 export const useComments = (boardId, comments, setComments) => {
     const {id} = useAuth();
@@ -122,7 +123,7 @@ export const useComments = (boardId, comments, setComments) => {
                         : comment
                 )
             );
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } finally {
             requestInProgress.current = false;
         }

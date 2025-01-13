@@ -1,6 +1,7 @@
 // useLike.js
 import { useState, useEffect } from 'react';
 import { createBoardLike, deleteBoardLike } from '../services/BoardsService';
+import {alertError} from "../../../utils/ErrorUtils";
 
 const useLike = (boardId, reactionList, likeCount, userId) => {
     const [liked, setLiked] = useState(false);
@@ -39,8 +40,7 @@ const useLike = (boardId, reactionList, likeCount, userId) => {
                 setCurrentLikeCount((prev) => prev + 1);
             }
         } catch (error) {
-            alert(error.response.data.data +" : "+error.response.data.message);
-            // throw error;
+            alertError(error);
         }
     };
 

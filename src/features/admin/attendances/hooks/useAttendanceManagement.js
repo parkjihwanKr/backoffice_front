@@ -78,7 +78,7 @@ const useAttendanceManagement = () => {
 
                 if (!isDuplicate) {
                     const updatedList = [newAttendance, ...prevList];
-                    console.log("근태 기록 수정:", updatedList);
+
                     return updatedList;
                 }
             }
@@ -88,7 +88,6 @@ const useAttendanceManagement = () => {
 
     const isFebruaryWith28Days = () => {
         const date = attendanceList[0].createdAt;
-        console.log(date); // 2024-11-28 00:00:00
 
         const year = parseInt(date.substring(0, 4), 10); // 연도 추출
         const month = parseInt(date.substring(5, 7), 10); // 월 추출
@@ -96,7 +95,6 @@ const useAttendanceManagement = () => {
         // 2월 여부와 해당 월의 마지막 날짜가 28인지 확인
         const isFebruaryWith28Days = (month === 2) && (new Date(year, 2, 0).getDate() === 28);
 
-        console.log(isFebruaryWith28Days); // true 또는 false
         return isFebruaryWith28Days;
     };
 

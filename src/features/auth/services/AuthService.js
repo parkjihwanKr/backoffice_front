@@ -21,13 +21,11 @@ export const login = async (memberName, password) => {
             memberName : memberName,
             password : password});
 
-    console.log(response);
     return response.data;
 }
 
 export const checkAuth = async () => {
     const response = await axiosInstance.get(`/check-auth`);
-    console.log(response);
     return response.data.data;
 }
 

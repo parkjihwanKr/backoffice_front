@@ -6,7 +6,7 @@ export const useNotifications = () => {
     const [showNotificationListModal, setShowNotificationListModal] = useState(false);
 
     useEffect(() => {
-        console.log("알림 상태 업데이트 : ", isNotified);
+
     }, [isNotified]);
 
     const handleNotificationClick = () => {

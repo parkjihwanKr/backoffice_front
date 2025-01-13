@@ -4,6 +4,11 @@ import {useAuth} from "../../../features/auth/context/AuthContext";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import VacationDetailModal from "../../../features/admin/vacations/components/body/VacationDetailModal";
+import {
+    deleteVacation,
+    updateVacationIsAccepted
+} from "../../../features/admin/vacations/services/VacationManagementService";
+import {alertSuccess} from "../../../utils/ErrorUtils";
 
 const PersonalEvent = ({events = []}) => {
     const {name} = useAuth();
@@ -11,10 +16,6 @@ const PersonalEvent = ({events = []}) => {
 
     const [selectedVacation, setSelectedVacation] = useState(null); // 선택된 휴가 데이터
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
-
-    if(events === []){
-        console.log("전달 받은 개인 일정표가 없습니다.");
-    }
 
     const goToPersonalSchedule = () => {
         navigate('/personal-schedule');
@@ -32,12 +33,20 @@ const PersonalEvent = ({events = []}) => {
 
     const handleUpdateVacationIsAccepted = async (vacationId) => {
         // 승인 상태 업데이트 API 호출 로직 추가
-        console.log(`휴가 ${vacationId} 승인 상태 업데이트`);
+        try {
+            await updateVacationIsAccepted(vacationId);
+        }catch (error) {
+            console.error(error);
+        }
     };
 
-    const handleDeleteVacation = async (vacationId) => {
-        // 휴가 삭제 API 호출 로직 추가
-        console.log(`휴가 ${vacationId} 삭제`);
+    const handleDeleteVacation = async (vacationId, deleteReason) => {
+        try {
+            await deleteVacation(vacationId, deleteReason);
+            alertSuccess("휴가가 삭제되었습니다.");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return(
@@ -96,7 +105,9 @@ const PersonalEvent = ({events = []}) => {
                     isOpen={isModalOpen}
                     vacation={selectedVacation}
                     onUpdateVacationIsAccepted={handleUpdateVacationIsAccepted}
-                    onDeleteVacation={handleDeleteVacation}
+                    onDeleteVacation={(vacationId, reason) => {
+                        handleDeleteVacation(vacationId, reason);
+                    }}
                     onClose={closeVacationDetailsModal}
                 />
             )}

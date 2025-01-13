@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DateUtils from "../../../../../utils/DateUtils";
 import { fetchMemberAttendanceListForMember } from "../../../services/MembersService";
+import {alertError} from "../../../../../utils/ErrorUtils";
 
 const useMemberAttendance = (memberId) => {
     const today = DateUtils.getToday(); // 오늘 날짜
@@ -61,7 +62,7 @@ const useMemberAttendance = (memberId) => {
                 );
                 setAttendanceList(response);
             } catch (error) {
-                alert(`에러 발생: ${error.message || error}`);
+                alertError(error);
             } finally {
                 setLoading(false);
             }

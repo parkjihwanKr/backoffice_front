@@ -1,4 +1,4 @@
-export const successAlert = (message) => {
+export const alertSuccess = (message) => {
     alert(message);
 }
 export const alertError = (error) => {

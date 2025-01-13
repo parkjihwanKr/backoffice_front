@@ -44,7 +44,6 @@ const CreateNotificationModal = ({ title, isOpen, onClose, onSubmit, departments
                 excludedMemberDepartment: selectedDepts.map(dept => departmentMapping[dept]),
             };
 
-            console.log("Filtered Payload:", filteredPayload);
 
             sendWebSocketMessage("/app/admins/notifications/filtered", filteredPayload, accessToken)
                 .then(() => {

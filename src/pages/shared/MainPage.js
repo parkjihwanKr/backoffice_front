@@ -4,6 +4,7 @@ import PersonalContainer from "../personal/PersonalContainer";
 import {fetchMainPage} from "../services/MainPageService";
 import FavoritesContainer from "../personal/favorites/FavoritesContainer";
 import AttendanceContainer from "../personal/attendances/AttendanceContainer";
+import {alertError} from "../../utils/ErrorUtils";
 
 const MainPage = () => {
     const [personalFavorites, setPersonalFavorites] = useState(null);
@@ -28,7 +29,7 @@ const MainPage = () => {
                     attendances : mainPageData.personalAttendanceDtoList || []
                 });
             } catch (error) {
-                alert(error.response.data.data +" : "+error.response.data.message);
+                alertError(error);
             }
         };
 

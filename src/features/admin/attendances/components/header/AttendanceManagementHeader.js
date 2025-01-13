@@ -8,6 +8,7 @@ import DeleteAttendanceModal from "./modal/DeleteAttendanceModal";
 import CreateAttendanceModal from "./modal/CreateAttendanceModal";
 import UpcomingAttendanceRecordModal from "./modal/UpcomingAttendanceRecordModal";
 import {fetchUpcomingAttendance} from "../../services/AttendanceManagementService";
+import {alertError} from "../../../../../utils/ErrorUtils";
 
 const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, onAttendanceCreated }) => {
     const [showFilter, setShowFilter] = useState(false);
@@ -37,7 +38,7 @@ const AttendanceManagementHeader = ({ filters, onFilterChange, onDeleteSuccess, 
             setUpcomingAttendance(response);
             setModalType("upcoming-record"); // 데이터를 로드한 후 모달을 표시
         } catch (error) {
-            alert(`${error.response?.data?.data} : ${error.response?.data?.message}`);
+            alertError(error);
         }
     };
 

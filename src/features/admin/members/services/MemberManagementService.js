@@ -25,7 +25,6 @@ export const updateRemainingVacationDays = async (memberId, changeRemainingVacat
                 vacationDays : changeRemainingVacationDays
             }
         );
-        console.log('Success:', response.data);
         return response.data;
     } catch (error) {
         console.error('Error updating members vacation:', error);
@@ -38,10 +37,10 @@ export const updateSalary = async (memberId, memberName, changeSalary) => {
             memberName : memberName,
             salary : changeSalary,
         });
-        console.log("Response Data:", response.data);
         return response.data;
     }catch (error){
-        console.log(error);
+        console.error(error);
+
     }
 };
 
@@ -54,9 +53,6 @@ const fetchMemberListFromAPI = async () => {
 const memberCacheManager = new CacheManager(fetchMemberListFromAPI);
 
 export const fetchMemberList = async () => {
-    if (memberCacheManager.getCache() == null) {
-        console.log("is null");
-    }
     return memberCacheManager.getCache(); // 캐시에서 데이터 가져오기
 };
 

@@ -1,8 +1,9 @@
 // hooks/useCreateAttendance.js
-import { useState, useEffect } from "react";
-import { fetchMemberList } from "../../members/services/MemberManagementService";
-import { createAttendance } from "../services/AttendanceManagementService";
+import {useEffect, useState} from "react";
+import {fetchMemberList} from "../../members/services/MemberManagementService";
+import {createAttendance} from "../services/AttendanceManagementService";
 import DateUtils from "../../../../utils/DateUtils";
+import {alertError, alertSuccess} from "../../../../utils/ErrorUtils";
 
 const useCreateAttendance = (onSubmit, onClose) => {
     const [memberList, setMemberList] = useState([]);
@@ -46,11 +47,11 @@ const useCreateAttendance = (onSubmit, onClose) => {
 
         try {
             const response = await createAttendance(data);
-            alert("근태 기록이 성공적으로 생성되었습니다.");
+            alertSuccess("근태 기록이 성공적으로 생성되었습니다.");
             onSubmit(response);
             onClose();
         } catch (error) {
-            alert(`${error.response.data.data} : ${error.response.data.message}`);
+            alertError(error);
         }
     };
 
