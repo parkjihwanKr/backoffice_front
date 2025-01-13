@@ -1,5 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 import { updateReply, deleteReply, toggleReplyLike } from '../service/CommentsService';
+import {alertError} from "../../../../../utils/ErrorUtils";
 
 export const useReply = ({ reply, commentId, setComments, userId }) => {
     const [liked, setLiked] = useState(false);
@@ -55,8 +56,7 @@ export const useReply = ({ reply, commentId, setComments, userId }) => {
                 )
             );
         } catch (error) {
-            console.log(error.response.data);
-            alert(error.response.data.data +" : "+error.response.data.message);
+            alertError(error);
             // throw error;
         }
     };
@@ -78,8 +78,7 @@ export const useReply = ({ reply, commentId, setComments, userId }) => {
                 setLikeCount((prev) => prev + 1);
             }
         } catch (error) {
-            console.log(error.response.data);
-            alert(error.response.data.data + " : " + error.response.data.message);
+            alertError(error);
         } finally {
             requestInProgress.current = false;
         }

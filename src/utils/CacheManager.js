@@ -7,9 +7,7 @@ class CacheManager {
 
     // SessionStorage 활용이 더 좋을듯?
     async getCache() {
-        console.log("getCache start");
         if (this.cache) return this.cache; // 캐시된 데이터 반환
-        console.log("not found cachedData... loading...")
         if (this.isFetching) {
             // 이미 요청 중이면 기다림
             return new Promise((resolve) => {

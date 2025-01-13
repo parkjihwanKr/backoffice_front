@@ -6,7 +6,7 @@ import useValidation from "../hooks/useValidation";
 import useUsernameAvailability from "../hooks/useUsernameAvailability";
 import "../shared/Auth.css";
 import ConfirmButton from "../../../components/ui/buttons/ConfirmButton";
-import { alertError } from "../../../utils/ErrorUtils";
+import {alertError, alertSuccess} from "../../../utils/ErrorUtils";
 
 const SignupForm = () => {
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ const SignupForm = () => {
         }
         try {
             await signup(formData);
-            alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+            alertSuccess("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
             navigate("/auth/login");
         } catch (error) {
             alertError(error);
@@ -42,7 +42,7 @@ const SignupForm = () => {
     const checkUsername = async () => {
         const isAvailable = await handleUsernameCheck(formData.memberName);
         if (isAvailable) {
-            alert("사용 가능한 아이디입니다.");
+            alertSuccess("사용 가능한 아이디입니다.");
         }
     };
 

@@ -106,10 +106,10 @@ const VacationManagementBody = ({ currentYear, currentMonth, vacations = [], loa
 
             <VacationDetailModal
                 isOpen={isModalOpen}
-                onClose={closeModal}
                 vacation={selectedVacation}
-                onUpdateVacationIsAccepted={onUpdateVacationIsAccepted} // 상태 업데이트 함수 전달
-                onDeleteVacation={onDeleteVacation} // 삭제 함수 전달
+                onUpdateVacationIsAccepted={onUpdateVacationIsAccepted}
+                onDeleteVacation={(reason) => onDeleteVacation(selectedVacation.vacationId, reason)} // 삭제 이유 전달
+                onClose={closeModal}
             />
         </div>
     );

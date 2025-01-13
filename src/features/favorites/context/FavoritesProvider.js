@@ -22,7 +22,6 @@ export const FavoritesProvider = ({ children }) => {
         const loadFavorites = async () => {
             try {
                 const favoriteList = await fetchMemberFavoriteList();
-                console.log("Fetched favorites:", favoriteList);
                 setFavorites(favoriteList);
             } catch (error) {
                 console.error("Failed to fetch favorites:", error);

@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { fetchMemberList } from "../../members/services/MemberManagementService";
 
 const useDailyAttendanceFilterListForHeader = (setFilters, applyFilters) => {
-    //console.log("useDailyAttendanceFilterListForHeader 호출됨");
 
     const [memberList, setMemberList] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
@@ -18,7 +17,6 @@ const useDailyAttendanceFilterListForHeader = (setFilters, applyFilters) => {
     useEffect(() => {
         const loadMemberList = async () => {
             try {
-                console.log("loadMemberList... start!");
                 const members = await fetchMemberList();
                 setMemberList(members);
             } catch (error) {

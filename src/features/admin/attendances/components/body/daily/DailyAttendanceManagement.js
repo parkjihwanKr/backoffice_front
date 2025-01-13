@@ -9,6 +9,7 @@ import FilterDropDown from "../../../../../../components/common/FilterDropDown";
 import useDailyAttendanceFilterListForHeader from "../../../hooks/useDailyAttendanceFilterListForHeader";
 import UpdateMemberAttendanceStatusModal from "./UpdateMemberAttendanceStatusModal";
 import useModalScroll from "../../../../../../hooks/useModalScroll";
+import {alertError} from "../../../../../../utils/ErrorUtils";
 
 const DailyAttendanceManagement = () => {
     const location = useLocation();
@@ -72,7 +73,7 @@ const DailyAttendanceManagement = () => {
             setMemberAttendances(backupState.memberAttendances);
             setCurrentPage(backupState.currentPage);
             setTotalPages(backupState.totalPages);
-            alert(`에러 발생: ${error.message || error}`);
+            alertError(error);
         }
     };
 

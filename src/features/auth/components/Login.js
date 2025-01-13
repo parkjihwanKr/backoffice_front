@@ -14,7 +14,6 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await login(memberName, password);
-            console.log("login success.....");
             if (response) {
                 localStorage.setItem("isAuthenticated", JSON.stringify(true));
                 window.location.href = '/';

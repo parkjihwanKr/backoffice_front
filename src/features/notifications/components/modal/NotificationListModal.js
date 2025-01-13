@@ -1,23 +1,23 @@
 // src/components/notifications/NotificationListModal.js
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import './NotificationListModal.css';
 import {
-    updateIsReadStatus,
     deleteNotificationList,
-    getNotification
+    fetchMemberNotificationList,
+    getNotification,
+    updateIsReadStatus
 } from "../../services/NotificationService";
-import { useAuth } from "../../../auth/context/AuthContext";
+import {useAuth} from "../../../auth/context/AuthContext";
 import CloseImageButton from "../../../../components/ui/image/CloseImageButton";
-import { imagePrefix, NOTIFICATION_TYPE_LABELS } from "../../../../utils/Constant";
-import { addModalAlignmentListener, adjustModalAlignment } from "../../../../utils/ModalUtils";
+import {imagePrefix, NOTIFICATION_TYPE_LABELS} from "../../../../utils/Constant";
+import {addModalAlignmentListener, adjustModalAlignment} from "../../../../utils/ModalUtils";
 import NotificationPaginationFooter from './NotificationPaginationFooter';
 import NotificationDetailModal from './NotificationDetailModal';
 
 import useSelectionMode from "../../hooks/useSelectionMode";
 import useDropdownMenu from "../../hooks/useDropDownMenu";
 import useNotificationFilter from "../../hooks/useNotificationFilter";
-import { useNotification } from '../../context/NotificationContext';
-import { fetchMemberNotificationList } from "../../services/NotificationService";
+import {useNotification} from '../../context/NotificationContext';
 import useModalScroll from "../../../../hooks/useModalScroll";
 
 const NotificationListModal = ({ show, handleClose }) => {
@@ -66,7 +66,6 @@ const NotificationListModal = ({ show, handleClose }) => {
             setNotificationList(prev => prev.map(n => ({ ...n, isRead: true })));
             alert("모든 알림이 읽음 상태로 변경되었습니다.");
         } catch (error) {
-            console.error("모든 알림 읽음 상태 변경에 실패했습니다:", error);
             alert("모든 알림 읽음 상태 변경에 실패했습니다.");
         }
     };
@@ -77,7 +76,6 @@ const NotificationListModal = ({ show, handleClose }) => {
             await deleteNotificationList(id, allNotificationIds);
             setNotificationList([]);
             setIsSelectionMode(false);
-            console.log("전체 알림 삭제 완료");
         } catch (error) {
             console.error("전체 알림 삭제 실패:", error);
             alert("전체 알림 삭제에 실패했습니다.");
@@ -122,7 +120,6 @@ const NotificationListModal = ({ show, handleClose }) => {
         try {
             await deleteNotificationList(id, [notificationId]);
             setNotificationList(prev => prev.filter(n => n.notificationId !== notificationId));
-            console.log("알림 삭제 완료");
         } catch (error) {
             console.error("알림 삭제에 실패했습니다:", error);
             alert("알림 삭제에 실패했습니다.");
@@ -134,7 +131,6 @@ const NotificationListModal = ({ show, handleClose }) => {
             await deleteNotificationList(id, selectedNotifications);
             setNotificationList(prev => prev.filter(n => !selectedNotifications.includes(n.notificationId)));
             setIsSelectionMode(false);
-            console.log("선택된 알림 삭제 완료");
         } catch (error) {
             console.error("선택된 알림 삭제 실패:", error);
             alert("선택된 알림 삭제에 실패했습니다.");

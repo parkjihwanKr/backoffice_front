@@ -42,9 +42,9 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
         }
     };
 
-    const handleDeleteVacation = async () => {
+    const handleDeleteVacation = async (reason) => {
         try {
-            await onDeleteVacation(vacation.vacationId); // 부모 컴포넌트로 삭제 요청
+            await onDeleteVacation(vacation.vacationId, reason); // 부모 컴포넌트로 삭제 요청
             closeDeleteModal(); // 모달 닫기
             onClose(); // 모달을 닫으면서 새 데이터를 반영할 수 있도록 함
         } catch (error) {
@@ -127,7 +127,9 @@ const VacationDetailModal = ({ isOpen, vacation, onUpdateVacationIsAccepted, onD
             <DeleteVacationForAdminModal
                 isOpen={isDeleteModalOpen}
                 vacation={vacation}
-                onDelete={handleDeleteVacation}
+                onDelete={(reason) => {
+                    handleDeleteVacation(reason);
+                }}
                 onClose={closeDeleteModal}
             />
         </div>

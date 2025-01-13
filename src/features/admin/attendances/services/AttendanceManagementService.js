@@ -11,7 +11,6 @@ export const fetchMemberAttendanceList
             = await axiosInstance.get("/admin/attendances/monthly", {params,});
         return response.data;
     } catch (error) {
-        console.log(error);
         throw error;
     }
 };

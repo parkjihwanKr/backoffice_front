@@ -4,7 +4,6 @@ export const createBoardComment = async (boardId, commentContent) => {
     const response
         = await axiosInstance.post(`/boards/${boardId}/comments`,
         commentContent);
-    console.log(response.data);
     return response.data;
 }
 
@@ -43,7 +42,6 @@ export const updateReply = async (commentId, replyId, replyContent) => {
     const response
         = await axiosInstance.patch(
             `/comments/${commentId}/replies/${replyId}`, replyContent);
-    console.log(response.data);
     return response.data;
 }
 

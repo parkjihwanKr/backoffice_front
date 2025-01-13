@@ -13,7 +13,6 @@ const useNotificationFilter = (
     useEffect(() => {
         // initialNotifications가 변경될 때 originalNotifications 갱신
         setOriginalNotifications(initialNotifications);
-        console.log("Updated originalNotifications:", initialNotifications);
     }, [initialNotifications]);
 
     const filterNotifications = useCallback(

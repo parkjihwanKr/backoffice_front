@@ -17,7 +17,6 @@ const UpdateMemberDetails = () => {
     const errorJSX = useError(error);
 
     useEffect(() => {
-        console.log("변경 감지... : "+profileImageUrl);
     }, [profileImageUrl]);
 
     if (loadingJSX) return loadingJSX;

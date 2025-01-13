@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { updateCheckOutTime } from "../../../services/MembersService";
 import DateUtils from "../../../../../utils/DateUtils";
-import {alertError, successAlert} from "../../../../../utils/ErrorUtils";
+import {alertError, alertSuccess} from "../../../../../utils/ErrorUtils";
 
 const useUpdateCheckOutTimeModal = (attendanceId, updateAttendanceInState, onClose) => {
     const [description, setDescription] = useState(""); // 설명 입력값
@@ -16,7 +16,7 @@ const useUpdateCheckOutTimeModal = (attendanceId, updateAttendanceInState, onClo
                 updateAttendanceInState(response); // 상태 업데이트
             }
             // 드롭 다운이 아닌 멤버 근태 기록에서 변경하는 경우
-            successAlert("퇴근 시간이 업데이트 되었습니다.");
+            alertSuccess("퇴근 시간이 업데이트 되었습니다.");
             onClose();
         } catch (error) {
             alertError(error);

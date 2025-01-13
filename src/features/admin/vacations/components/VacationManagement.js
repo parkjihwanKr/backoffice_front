@@ -60,7 +60,9 @@ const VacationManagement = () => {
                 vacations={vacations}
                 loading={loading}
                 onUpdateVacationIsAccepted={handleUpdateVacationIsAccepted}
-                onDeleteVacation={handleDeleteVacation}
+                onDeleteVacation={(vacationId, reason) => {
+                    handleDeleteVacation(vacationId, reason); // 최종 처리
+                }}
             />
             <VacationManagementFooter
                 onPrevMonth={handlePrevMonth}

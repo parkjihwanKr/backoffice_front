@@ -4,15 +4,15 @@ import CloseImageButton from "../../../../../components/ui/image/CloseImageButto
 import ConfirmButton from "../../../../../components/ui/buttons/ConfirmButton";
 
 const DeleteVacationForAdminModal = ({ isOpen, vacation, onDelete, onClose }) => {
-    const [deleteReason, setDeleteReason] = useState(''); // 삭제 사유 상태
+    const [reason, setReason] = useState(''); // 삭제 사유 상태
 
     if (!isOpen || !vacation) return null;
 
     const handleDelete = () => {
-        if (deleteReason.trim()) {
-            onDelete(deleteReason); // 삭제 사유를 함께 전달
+        if (reason.trim()) {
+            onDelete(reason); // 삭제 사유를 부모 컴포넌트로 전달
         } else {
-            alert('삭제 사유를 입력해주세요.'); // 사유가 없을 경우 알림
+            alert('삭제 사유를 입력해주세요.');
         }
     };
 
@@ -34,8 +34,8 @@ const DeleteVacationForAdminModal = ({ isOpen, vacation, onDelete, onClose }) =>
                         </label>
                         <textarea
                             id="delete-reason"
-                            value={deleteReason}
-                            onChange={(e) => setDeleteReason(e.target.value)}
+                            value={reason}
+                            onChange={(e) => setReason(e.target.value)}
                             placeholder="삭제 사유를 입력해주세요."
                         />
                     </div>
