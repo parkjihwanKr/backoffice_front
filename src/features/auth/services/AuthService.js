@@ -1,23 +1,15 @@
 // services/authService.js
-import axiosInstance from "../../../utils/AxiosUtils";
-import axios from "axios";
-
-const axiosUnauthenticated = axios.create({
-    baseURL: '/api/v1',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+import {axiosInstance, axiosUnAuthenticated} from "../../../utils/AxiosUtils";
 
 export const signup = async (signupData) => {
     const response
-        = await axiosUnauthenticated.post('/signup', signupData);
+        = await axiosUnAuthenticated.post('/signup', signupData);
     return response.data;
 };
 
 export const login = async (memberName, password) => {
     const response
-        = await axiosUnauthenticated.post(`/login`, {
+        = await axiosUnAuthenticated.post(`/login`, {
             memberName : memberName,
             password : password});
 
@@ -31,7 +23,7 @@ export const checkAuth = async () => {
 
 export const checkUsernameAvailability = async (memberName) => {
     const response
-        = await axiosUnauthenticated.get(`/check-available-memberName`,{
+        = await axiosUnAuthenticated.get(`/check-available-memberName`,{
             params : {
                 memberName
             }

@@ -1,4 +1,4 @@
-import axiosInstance from "../../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../../utils/AxiosUtils";
 
 export const fetchFilteredVacations = async (year, month, isAccepted, urgent, department) => {
     const response = await axiosInstance.get(`/vacations/years/${year}/months/${month}/filtered`, {

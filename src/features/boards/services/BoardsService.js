@@ -1,5 +1,5 @@
 import { departmentMapping } from "../../../utils/Constant";
-import axiosInstance from "../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../utils/AxiosUtils";
 
 export const getMappedDepartment = (department) => {
     return departmentMapping[department] || null;

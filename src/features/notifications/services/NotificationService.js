@@ -1,4 +1,4 @@
-import axiosInstance from "../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../utils/AxiosUtils";
 
 export const fetchMemberNotificationList = async (memberId, currentPage, pageSize) => {
     const response = await axiosInstance.get(`/members/${memberId}/notifications`, {

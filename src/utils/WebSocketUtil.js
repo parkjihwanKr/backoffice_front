@@ -14,7 +14,7 @@ export const initializeWebSocket = (accessToken, onMessageReceived, onBroadcastR
     stompClient = new Client({
         webSocketFactory: () => socket,
         connectHeaders: { Authorization: `Bearer ${accessToken}` },
-        debug: (str) => console.log('STOMP: ' + str),
+        // debug: (str) => console.log('STOMP: ' + str),
         reconnectDelay: 5000
     });
 

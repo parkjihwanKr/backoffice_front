@@ -1,4 +1,4 @@
-import axiosInstance from "../../../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../../../utils/AxiosUtils";
 
 export const createBoardComment = async (boardId, commentContent) => {
     const response

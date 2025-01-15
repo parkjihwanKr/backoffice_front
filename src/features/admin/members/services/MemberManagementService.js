@@ -1,4 +1,4 @@
-import axiosInstance from "../../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../../utils/AxiosUtils";
 import CacheManager from "../../../../utils/CacheManager";
 
 export const fetchFilteredMembers = async (position, department, page, pageSize) => {
