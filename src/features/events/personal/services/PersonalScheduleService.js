@@ -1,4 +1,4 @@
-import axiosInstance from '../../../../utils/AxiosUtils';
+import {axiosInstance} from '../../../../utils/AxiosUtils';
 import {alertError} from "../../../../utils/ErrorUtils"; // axiosInstance 가져오기
 
 // 개인 일정 API 요청

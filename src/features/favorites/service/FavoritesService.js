@@ -1,4 +1,4 @@
-import axiosInstance from "../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../utils/AxiosUtils";
 
 export const fetchMemberFavoriteList = async () => {
     const response

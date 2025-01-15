@@ -1,4 +1,4 @@
-import axiosInstance from "../../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../../utils/AxiosUtils";
 import {alertError} from "../../../../utils/ErrorUtils";
 
 // 월별 근태 기록 조회 (필터링 가능)

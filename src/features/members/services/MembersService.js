@@ -1,4 +1,4 @@
-import axiosInstance from "../../../utils/AxiosUtils";
+import {axiosInstance} from "../../../utils/AxiosUtils";
 
 // 멤버 상세 보기 조회
 export const fetchMemberDetails = async (memberId) => {

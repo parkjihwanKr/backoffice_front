@@ -1,9 +1,5 @@
 // DepartmentScheduleService.js
-import axios from 'axios';
-import { getCookie } from "../../../../utils/CookieUtil";
-import axiosInstance from "../../../../utils/AxiosUtils";
-
-const accessToken = getCookie('accessToken');
+import {axiosInstance} from "../../../../utils/AxiosUtils";
 
 // 회사 일정 가져오기
 export const fetchSchedules = async (department, year, month) => {
