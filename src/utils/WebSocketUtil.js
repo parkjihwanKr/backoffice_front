@@ -3,6 +3,7 @@ import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 let stompClient = null;
+const websocketUrl = process.env.REACT_APP_WEBSOCKET_URL;
 
 export const initializeWebSocket = (accessToken, onMessageReceived, onBroadcastReceived) => {
     if (stompClient && stompClient.connected) {
@@ -10,7 +11,7 @@ export const initializeWebSocket = (accessToken, onMessageReceived, onBroadcastR
         return;
     }
 
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS(websocketUrl);
     stompClient = new Client({
         webSocketFactory: () => socket,
         connectHeaders: { Authorization: `Bearer ${accessToken}` },
