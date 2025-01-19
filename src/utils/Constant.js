@@ -160,6 +160,3 @@ export const getAttendanceStatus = (name) => {
 export const AUDIT_LOG_LABELS = Object.fromEntries(
     Object.entries(AUDIT_LOG_TYPES).map(([key, value]) => [key, value.label])
 );
-
-export const API_BASE_URL = 'http://localhost:8080/api/v1';
-export const WS_BASE_URL = 'http://localhost:8080/ws-endpoint';
