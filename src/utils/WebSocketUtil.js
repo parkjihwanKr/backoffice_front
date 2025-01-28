@@ -11,7 +11,6 @@ export const initializeWebSocket = (accessToken, onMessageReceived, onBroadcastR
         return;
     }
 
-    console.log("web socket url : "+websocketUrl);
     const socket = new SockJS(websocketUrl);
     stompClient = new Client({
         webSocketFactory: () => socket,
