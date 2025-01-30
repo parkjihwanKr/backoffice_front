@@ -32,3 +32,15 @@ axiosInstance.interceptors.request.use(config => {
 }, error => {
     return Promise.reject(error);
 });
+
+// 응답 인터셉터: 403 처리
+axiosInstance.interceptors.response.use(response => {
+    return response;
+}, error => {
+    if (error.response) {
+        if (error.response.status === 403) {
+            console.warn("403 Forbidden: 인증되지 않은 요청입니다.");
+        }
+    }
+    return Promise.reject(error);
+});
