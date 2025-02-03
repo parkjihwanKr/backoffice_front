@@ -11,7 +11,6 @@ export const initializeWebSocket = (accessToken, onMessageReceived, onBroadcastR
         return;
     }
 
-    // const socket = new SockJS("wss://api.baegobiseu.com/wss");
     const socket = new SockJS(websocketUrl);
     console.log("connected socket "+socket.url);
     console.log("websocketUrl : "+websocketUrl);
