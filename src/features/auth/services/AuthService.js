@@ -11,8 +11,10 @@ export const login = async (memberName, password) => {
     const response
         = await axiosUnAuthenticated.post(`/login`, {
             memberName : memberName,
-            password : password});
-
+            password : password}, {
+        withCredentials: true
+    });
+    console.log("login process response : "+response);
     return response.data;
 }
 
@@ -35,3 +37,8 @@ export const logout = async () => {
     const response = await axiosInstance.post(`/logout`);
     return response.data;
 };
+
+export const getAccessToken = async () => {
+    const response = await axiosInstance.get(`/access-token`);
+    return response.data.data;
+}

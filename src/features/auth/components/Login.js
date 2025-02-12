@@ -17,7 +17,7 @@ const Login = () => {
             if (response) {
                 localStorage.setItem("isAuthenticated", JSON.stringify(true));
                 console.log(response);
-                // window.location.href = '/';
+                window.location.href = '/';
             }
         } catch (error) {
             localStorage.setItem("isAuthenticated", JSON.stringify(false));
