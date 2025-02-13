@@ -5,6 +5,7 @@ import {fetchMainPage} from "../services/MainPageService";
 import FavoritesContainer from "../personal/favorites/FavoritesContainer";
 import AttendanceContainer from "../personal/attendances/AttendanceContainer";
 import {alertError} from "../../utils/ErrorUtils";
+import {getIsAuthenticated} from "../../utils/LocalStorageUtil";
 
 const MainPage = () => {
     const [personalFavorites, setPersonalFavorites] = useState(null);
@@ -13,6 +14,10 @@ const MainPage = () => {
     const [personalAttendances, setPersonalAttendance] = useState({});
 
     useEffect(() => {
+        if(getIsAuthenticated()){
+            // alertError("인증되지 않은 사용자입니다. 로그인 해주세요.");
+            // window.location.href = "/auth/login";
+        }
         const loadMainPageData = async () => {
             try {
                 const mainPageData = await fetchMainPage();

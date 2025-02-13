@@ -37,8 +37,15 @@ export const AuthProvider = ({ children }) => {
                 }
             } catch (error) {
                 console.error("인증 실패 : ", error);
-                setIsAuthenticated(false);
-                // localStorage.setItem('isAuthenticated', JSON.stringify(false));
+
+                if (error.response && error.response.status === 403) {
+                    const storedAuth = JSON.parse(localStorage.getItem('isAuthenticated'));
+                    if (storedAuth) {
+                        setIsAuthenticated(storedAuth);
+                    }
+                } else {
+                    setIsAuthenticated(false);
+                }
             } finally {
                 setLoading(false); // 로딩 완료
             }

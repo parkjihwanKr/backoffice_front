@@ -16,6 +16,7 @@ const Login = () => {
             const response = await login(memberName, password);
             if (response) {
                 localStorage.setItem("isAuthenticated", JSON.stringify(true));
+                console.log(response);
                 window.location.href = '/';
             }
         } catch (error) {

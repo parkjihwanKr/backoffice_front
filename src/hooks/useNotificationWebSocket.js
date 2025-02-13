@@ -1,16 +1,14 @@
 // src/hooks/useNotificationWebSocket.js
 import {useEffect, useRef} from 'react';
-import { initializeWebSocket, closeWebSocketConnection } from '../utils/WebSocketUtil';
-import { getCookie } from '../utils/CookieUtil';
+import {closeWebSocketConnection, initializeWebSocket} from '../utils/WebSocketUtil';
 
 const useNotificationWebSocket = (setIsNotified, handleNotificationReceived, handleBroadcastNotification) => {
-    const accessToken = getCookie('accessToken');
     const isMountedRef = useRef(true);
 
     useEffect(() => {
         initializeWebSocket(
-            accessToken,
             (notification) => {
+
                 setIsNotified(true);  // 알림 상태 업데이트
                 handleNotificationReceived(notification);  // 새 알림을 리스트에 추가
             },
@@ -25,7 +23,7 @@ const useNotificationWebSocket = (setIsNotified, handleNotificationReceived, han
                 isMountedRef.current = false;
             }
         };
-    }, [accessToken, setIsNotified, handleNotificationReceived, handleBroadcastNotification]);
+    }, [setIsNotified, handleNotificationReceived, handleBroadcastNotification]);
 };
 
 export default useNotificationWebSocket;

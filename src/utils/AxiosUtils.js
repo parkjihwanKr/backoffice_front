@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {getCookie} from "./CookieUtil";
 
 // 공통 baseURL 설정
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -8,7 +7,7 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 export const axiosUnAuthenticated = axios.create({
     baseURL: apiBaseUrl,
     headers : {
-        'Content-Type' : 'application/json,'
+        'Content-Type' : 'application/json',
     },
 })
 
@@ -23,12 +22,19 @@ export const axiosInstance = axios.create({
 
 // 요청 인터셉터: 각 요청마다 Authorization 헤더에 accessToken을 자동으로 추가
 axiosInstance.interceptors.request.use(config => {
-    const accessToken = getCookie('accessToken');
-    console.log("my server base url settings ... : "+apiBaseUrl);
-    if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-    }
     return config;
 }, error => {
+    return Promise.reject(error);
+});
+
+// 응답 인터셉터: 403 처리
+axiosInstance.interceptors.response.use(response => {
+    return response;
+}, error => {
+    if (error.response) {
+        if (error.response.status === 403) {
+            console.warn("403 Forbidden: 인증되지 않은 요청입니다.");
+        }
+    }
     return Promise.reject(error);
 });
