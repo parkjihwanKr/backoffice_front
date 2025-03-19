@@ -23,7 +23,7 @@ export const initializeWebSocket = async (onMessageReceived, onBroadcastReceived
 
         stompClient = new Client({
             webSocketFactory: () => socket,
-            reconnectDelay: 5000,
+            reconnectDelay: 20000,
             connectHeaders: {
                 Authorization: `Bearer ${accessToken}`
             }

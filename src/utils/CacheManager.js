@@ -5,7 +5,6 @@ class CacheManager {
         this.fetchFunction = fetchFunction; // 데이터 fetch 함수
     }
 
-    // SessionStorage 활용이 더 좋을듯?
     async getCache() {
         if (this.cache) return this.cache; // 캐시된 데이터 반환
         if (this.isFetching) {

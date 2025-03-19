@@ -33,7 +33,7 @@ const BoardDetailsFooter = ({ boardId, reactionList, likeCount, commentCount, vi
                     alt="views"
                     className="view-count"
                 />
-                : {viewCount}
+                : {viewCount >= 51 ? "50+" : viewCount}
             </span>
         </div>
     );

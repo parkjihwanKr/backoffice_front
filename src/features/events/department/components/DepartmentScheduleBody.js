@@ -12,6 +12,8 @@ const DepartmentScheduleBody = ({ currentYear, currentMonth, schedules, onUpdate
         closeModal,
     } = useDepartmentScheduleBody(schedules, currentYear, currentMonth);
 
+    console.log(schedules);
+
     const renderDayHeaders = () => {
         return [...Array(daysInMonth)].map((_, day) => {
             const currentDate = new Date(currentYear, currentMonth, day + 1);

@@ -51,7 +51,7 @@ const GeneralBoard = ({ boards = [] }) => {
                                 </span>
                                 <span className="general-board-metric">
                                     <img src={`${imagePrefix}/shared/viewCount.png`} alt="Views Icon"/>
-                                    : {board.viewCount}
+                                    : {board.viewCount >= 51 ? "50+" : board.viewCount}
                                 </span>
                             </div>
                         </div>
