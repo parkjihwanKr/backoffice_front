@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {deleteCookie} from "./CookieUtil";
+import {alertError} from "./ErrorUtils";
 
 // 공통 baseURL 설정
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -32,8 +34,18 @@ axiosInstance.interceptors.response.use(response => {
     return response;
 }, error => {
     if (error.response) {
+        if(error.response.status === 401){
+            deleteCookie("accessToken");
+            deleteCookie("refreshToken");
+        }
         if (error.response.status === 403) {
             console.warn("403 Forbidden: 인증되지 않은 요청입니다.");
+            if(error.response.data.errorCode === "JWT-008"){
+                alertError(error.response.data.message);
+                deleteCookie("accessToken");
+                deleteCookie("refreshToken");
+            }
+            console.log(error);
         }
     }
     return Promise.reject(error);

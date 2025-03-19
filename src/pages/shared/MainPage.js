@@ -24,7 +24,7 @@ const MainPage = () => {
                 setPersonalFavorites(mainPageData.personalFavoritesDtoList || []);
                 setGeneralData({
                     boards: mainPageData.generalBoardDtoList || [],
-                    events: mainPageData.comapnyEventDtoList || []
+                    events: mainPageData.companyEventDtoList || []
                 });
                 setPersonalData({
                     boards: mainPageData.departmentBoardDtoList || [],

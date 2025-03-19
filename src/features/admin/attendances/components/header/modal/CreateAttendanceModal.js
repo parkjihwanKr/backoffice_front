@@ -7,6 +7,8 @@ import useCreateAttendance from "../../../hooks/useCreateAttendance";
 const CreateAttendanceModal = ({ onClose, onSubmit }) => {
     const {
         memberList,
+        memberId,
+        setMemberId,
         memberName,
         setMemberName,
         attendanceStatus,
@@ -33,7 +35,11 @@ const CreateAttendanceModal = ({ onClose, onSubmit }) => {
                         <select
                             value={memberName}
                             className="custom-modal-body-select"
-                            onChange={(e) => setMemberName(e.target.value)}
+                            onChange={(e) => {
+                                const selectedMember = memberList.find(member => member.memberName === e.target.value);
+                                setMemberName(e.target.value);
+                                setMemberId(selectedMember ? selectedMember.memberId : ""); // 멤버 ID 설정
+                            }}
                         >
                             <option value="">멤버 선택</option>
                             {memberList.map((member) => (

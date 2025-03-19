@@ -7,6 +7,7 @@ import {alertError, alertSuccess} from "../../../../utils/ErrorUtils";
 
 const useCreateAttendance = (onSubmit, onClose) => {
     const [memberList, setMemberList] = useState([]);
+    const [memberId, setMemberId] = useState("");
     const [memberName, setMemberName] = useState("");
     const [attendanceStatus, setAttendanceStatus] = useState("");
     const [customStartDate, setCustomStartDate] = useState("");
@@ -38,6 +39,7 @@ const useCreateAttendance = (onSubmit, onClose) => {
         }
 
         const data = {
+            memberId,
             memberName,
             attendanceStatus,
             startDate: customStartDate,
@@ -57,6 +59,8 @@ const useCreateAttendance = (onSubmit, onClose) => {
 
     return {
         memberList,
+        memberId,
+        setMemberId,
         memberName,
         setMemberName,
         attendanceStatus,

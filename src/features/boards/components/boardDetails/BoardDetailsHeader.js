@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {imagePrefix} from "../../../../utils/Constant";
+import {AuthProvider} from "../../../auth/context/AuthContext";
 
 const BoardDetailsHeader =
     ({
@@ -14,6 +15,11 @@ const BoardDetailsHeader =
          toggleImportant,
          toggleLocked
      }) => {
+
+        useEffect(() => {
+            console.log("isOwner :"+ board.author === name);
+        }, []);
+
         return (
             <div className="board-details-card-header">
                 <div className="left-action-icons">
