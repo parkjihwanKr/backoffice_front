@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Link, Navigate, Route, Routes} from 'react-router-dom';
 import Signup from './features/auth/components/Signup';
 import Login from "./features/auth/components/Login";
@@ -34,6 +34,10 @@ import {FavoritesProvider} from "./features/favorites/context/FavoritesProvider"
 import MainFooter from "./pages/shared/MainFooter";
 
 function App() {
+
+    useEffect(() => {
+        document.title = "Baegobiseu";
+    }, []);
 
     return (
         <AuthProvider>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import '../AttendanceManagement.css';
 import DateUtils from "../../../../../utils/DateUtils";
-import { imagePrefix } from "../../../../../utils/Constant";
+import {imagePrefix} from "../../../../../utils/Constant";
 import FilterImageButton from "../../../../../components/ui/buttons/FilterImageButton";
 import FilterDropDown from "../../../../../components/common/FilterDropDown";
 import DeleteAttendanceModal from "./modal/DeleteAttendanceModal";

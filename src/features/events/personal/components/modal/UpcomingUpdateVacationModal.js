@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CloseImageButton from "../../../../../components/ui/image/CloseImageButton";
-import { getUpcomingUpdateVacationPeriod } from "../../services/PersonalScheduleService";
-import {alertError} from "../../../../../utils/ErrorUtils";
 import useUpcomingVacationModal from "../../hooks/useUpcomingUpdateVacationModal";
 
 const UpcomingUpdateVacationPeriodModal = ({ show, handleClose }) => {

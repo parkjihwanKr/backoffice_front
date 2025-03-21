@@ -95,7 +95,7 @@ const BoardList = ({ isDepartmentBoard }) => {
                                     </span>
                                     <span>
                                         <img src={`${imagePrefix}/shared/viewCount.png`} alt="views" />{" "}
-                                        {board.viewCount}
+                                        : {board.viewCount >= 51 ? "50+" : board.viewCount}
                                     </span>
                                     <span>
                                         <img src={`${imagePrefix}/shared/commentList.png`} alt="comments" />{" "}
